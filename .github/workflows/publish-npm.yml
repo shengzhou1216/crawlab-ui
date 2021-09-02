@@ -13,8 +13,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '12'
-      - name: Initial setup
-        run: rm .npmrc
       - name: Install dependencies
         run: yarn install
       - name: Lint
