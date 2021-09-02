@@ -5,10 +5,10 @@
   "scripts": {
     "serve": "vue-cli-service serve --port=8081",
     "serve:build:local": "vue-cli-service serve --port=8082 --model local",
-    "build": "vue-cli-service build",
+    "build": "yarn run build:lib",
     "build:docker": "vue-cli-service build --mode docker",
     "build:local": "vue-cli-service build --mode local",
-    "build:lib": "vue-cli-service build --target lib --inline-vue --mode production",
+    "build:lib": "yarn run gen:index && vue-cli-service build --target lib --inline-vue --mode production",
     "build:lib:local": "vue-cli-service build --target lib --inline-vue --mode local",
     "lint": "vue-cli-service lint",
     "gen:index": "node ./scripts/gen-index.js",

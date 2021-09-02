@@ -17,8 +17,8 @@ jobs:
         run: yarn bootstrap
       - name: Lint
         run: yarn lint
-      - name: Test
-        run: yarn test
+#      - name: Test
+#        run: yarn test
 
   publish:
     needs: test
@@ -32,7 +32,7 @@ jobs:
       - name: Get version
         run: echo "TAG_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
       - name: build
-        run: yarn fast-build
+        run: yarn run build
         env:
           TAG_VERSION: ${{env.TAG_VERSION}}
       - name: generate npm token
