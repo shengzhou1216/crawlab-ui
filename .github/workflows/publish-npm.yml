@@ -14,7 +14,7 @@ jobs:
         with:
           node-version: '12'
       - name: Install dependencies
-        run: yarn bootstrap
+        run: yarn install
       - name: Lint
         run: yarn lint
 #      - name: Test
@@ -38,7 +38,7 @@ jobs:
       - name: generate npm token
         run: echo "//registry.npmjs.com/:_authToken=${{ secrets.NPM_PUBLISH_TOKEN }}" > ./.npmrc
       - name: Publish npm
-        run: sh ./scripts/publish.sh
+        run: npm publish --registry ${REGISTRY}
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_PUBLISH_TOKEN}}
           TAG_VERSION: ${{env.TAG_VERSION}}
