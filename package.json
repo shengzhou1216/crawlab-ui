@@ -8,7 +8,7 @@
     "build": "yarn run build:lib",
     "build:docker": "vue-cli-service build --mode docker",
     "build:local": "vue-cli-service build --mode local",
-    "build:lib": "yarn run gen:index && vue-cli-service build --target lib --inline-vue --mode production",
+    "build:lib": "vue-cli-service build --target lib --inline-vue --mode production",
     "build:lib:local": "vue-cli-service build --target lib --inline-vue --mode local",
     "lint": "vue-cli-service lint",
     "gen:index": "node ./scripts/gen-index.js",
