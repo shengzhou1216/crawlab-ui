@@ -75,7 +75,7 @@ ${exportLines.map(l => '  ' + l).join('\n')}
 const genRootIndex = () => {
   const exportLines = EXPORT_MODULES.map(m => `export * from './${m}';`)
   const content = `${exportLines.join('\n')}
-export {default as App} from './App.vue';`
+export * from './package';`
   fs.writeFileSync('./src/index.ts', content)
 }
 
