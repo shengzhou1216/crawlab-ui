@@ -5,23 +5,7 @@ on:
     types: [created]
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Setup node
-        uses: actions/setup-node@v2
-        with:
-          node-version: '12'
-      - name: Install dependencies
-        run: yarn install
-      - name: Lint
-        run: yarn lint
-#      - name: Test
-#        run: yarn test
-
   publish:
-    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -31,7 +15,9 @@ jobs:
           registry-url: https://registry.npmjs.com/
       - name: Get version
         run: echo "TAG_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-      - name: build
+      - name: Install dependencies
+        run: yarn install
+      - name: Build
         run: yarn run build
         env:
           TAG_VERSION: ${{env.TAG_VERSION}}
