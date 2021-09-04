@@ -327,7 +327,7 @@ export default defineComponent({
       if (!mode || codeMirrorModeCache.has(mode)) return;
       // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
       // @ts-ignore
-      await import(`codemirror/mode/${mode}/${mode}.js`);
+      require(`codemirror/mode/${mode}/${mode}.js`);
       codeMirrorModeCache.add(mode);
     };
 

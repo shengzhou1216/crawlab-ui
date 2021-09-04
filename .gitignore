@@ -24,3 +24,9 @@ pnpm-debug.log*
 
 tmp/
 lib/
+**/.DS_Store
+**/.idea
+**/dist
+**/node_modules
+**/package-lock.json
+typings

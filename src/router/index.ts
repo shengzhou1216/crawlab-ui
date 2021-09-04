@@ -18,7 +18,7 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Root',
-    component: () => import('@/layouts/BasicLayout.vue'),
+    component: require('@/layouts/BasicLayout.vue'),
     children: [
       ...home,
       ...node,

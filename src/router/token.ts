@@ -6,6 +6,6 @@ export default [
   {
     name: 'TokenList',
     path: endpoint,
-    component: () => import('@/views/token/list/TokenList.vue'),
+    component: require('@/views/token/list/TokenList.vue'),
   },
 ] as Array<RouteRecordRaw>;

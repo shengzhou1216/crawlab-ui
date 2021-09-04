@@ -1,0 +1,20 @@
+{
+  "name": "import",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "crawlab-ui": "file:../..",
+    "element-plus": "1.0.2-beta.40"
+  },
+  "devDependencies": {
+    "@vue/cli-service": "^4.5.13",
+    "css-loader": "^6.2.0"
+  }
+}

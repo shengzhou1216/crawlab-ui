@@ -2,7 +2,7 @@ import * as vue from '@vue/runtime-dom';
 import {getRequestBaseUrl} from '@/utils/request';
 import useRequest from '@/services/request';
 
-const {loadModule: sfcLoadModule} = window['vue3-sfc-loader'];
+const sfcLoadModule = window['vue3-sfc-loader']?.loadModule;
 
 const {
   getRaw,
@@ -40,4 +40,4 @@ const getLoadModuleOptions = (): any => {
   };
 };
 
-export const loadModule = (path: string) => sfcLoadModule(`${getRequestBaseUrl()}${path}`, getLoadModuleOptions());
+export const loadModule = (path: string) => sfcLoadModule?.(`${getRequestBaseUrl()}${path}`, getLoadModuleOptions());

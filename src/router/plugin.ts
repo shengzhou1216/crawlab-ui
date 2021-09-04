@@ -7,7 +7,7 @@ export default [
   {
     name: 'PluginList',
     path: endpoint,
-    component: () => import('@/views/plugin/list/PluginList.vue'),
+    component: require('@/views/plugin/list/PluginList.vue'),
   },
   {
     name: 'PluginDetail',
@@ -15,11 +15,11 @@ export default [
     redirect: to => {
       return {path: to.path + '/' + TAB_NAME_OVERVIEW};
     },
-    component: () => import('@/views/plugin/detail/PluginDetail.vue'),
+    component: require('@/views/plugin/detail/PluginDetail.vue'),
     children: [
       {
         path: TAB_NAME_OVERVIEW,
-        component: () => import('@/views/plugin/detail/tabs/PluginDetailTabOverview.vue'),
+        component: require('@/views/plugin/detail/tabs/PluginDetailTabOverview.vue'),
       },
     ]
   },

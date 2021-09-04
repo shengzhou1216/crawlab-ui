@@ -5,7 +5,7 @@ export default [
   {
     name: 'UserList',
     path: 'users',
-    component: () => import('@/views/user/list/UserList.vue'),
+    component: require('@/views/user/list/UserList.vue'),
   },
   {
     name: 'UserDetail',
@@ -13,11 +13,11 @@ export default [
     redirect: to => {
       return {path: to.path + '/' + TAB_NAME_OVERVIEW};
     },
-    component: () => import('@/views/user/detail/UserDetail.vue'),
+    component: require('@/views/user/detail/UserDetail.vue'),
     children: [
       {
         path: TAB_NAME_OVERVIEW,
-        component: () => import('@/views/user/detail/tabs/UserDetailTabOverview.vue'),
+        component: require('@/views/user/detail/tabs/UserDetailTabOverview.vue'),
       },
     ]
   },

@@ -7,7 +7,7 @@ export default [
   {
     name: 'TagList',
     path: endpoint,
-    component: () => import('@/views/tag/list/TagList.vue'),
+    component: require('@/views/tag/list/TagList.vue'),
   },
   {
     name: 'TagDetail',
@@ -15,11 +15,11 @@ export default [
     redirect: to => {
       return {path: to.path + '/overview'};
     },
-    component: () => import('@/views/tag/detail/TagDetail.vue'),
+    component: require('@/views/tag/detail/TagDetail.vue'),
     children: [
       {
         path: TAB_NAME_OVERVIEW,
-        component: () => import('@/views/tag/detail/tabs/TagDetailTabOverview.vue'),
+        component: require('@/views/tag/detail/tabs/TagDetailTabOverview.vue'),
       },
     ]
   }

@@ -7,7 +7,7 @@ export default [
   {
     name: 'ProjectList',
     path: endpoint,
-    component: () => import('@/views/project/list/ProjectList.vue'),
+    component: require('@/views/project/list/ProjectList.vue'),
   },
   {
     name: 'ProjectDetail',
@@ -15,15 +15,15 @@ export default [
     redirect: to => {
       return {path: to.path + '/overview'};
     },
-    component: () => import('@/views/project/detail/ProjectDetail.vue'),
+    component: require('@/views/project/detail/ProjectDetail.vue'),
     children: [
       {
         path: TAB_NAME_OVERVIEW,
-        component: () => import('@/views/project/detail/tabs/ProjectDetailTabOverview.vue'),
+        component: require('@/views/project/detail/tabs/ProjectDetailTabOverview.vue'),
       },
       {
         path: TAB_NAME_SPIDERS,
-        component: () => import('@/views/project/detail/tabs/ProjectDetailTabSpiders.vue'),
+        component: require('@/views/project/detail/tabs/ProjectDetailTabSpiders.vue'),
       },
     ]
   },

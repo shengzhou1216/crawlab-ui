@@ -6,6 +6,6 @@ export default [
   {
     name: 'Home',
     path: endpoint,
-    component: () => import('@/views/home/Home.vue'),
+    component: require('@/views/home/Home.vue'),
   },
 ] as Array<RouteRecordRaw>;

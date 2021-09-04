@@ -83,7 +83,8 @@ export default defineComponent({
         data: getSeriesData(data || []),
         radius: ['40%', '70%'],
         alignTo: 'labelLine',
-      } as EChartSeries;
+        itemStyle: undefined as any,
+      };
 
       if (itemStyleColorFunc) {
         seriesItem.itemStyle = {color: itemStyleColorFunc};

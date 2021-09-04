@@ -24,6 +24,7 @@ declare global {
 
   interface FileEditorConfiguration extends EditorConfiguration {
     search?: FileEditorConfigurationSearch;
+    [key: string]: any;
   }
 
   type FileEditorOptionDefinitionType = 'select' | 'input-number' | 'switch';

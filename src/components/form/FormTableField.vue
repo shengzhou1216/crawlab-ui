@@ -94,7 +94,6 @@ import {
 } from '@/constants/form';
 import TagInput from '@/components/input/TagInput.vue';
 import {emptyArrayFunc, voidFunc} from '@/utils/func';
-import {ElForm, ElFormItem} from 'element-plus';
 import InputWithButton from '@/components/input/InputWithButton.vue';
 import Switch from '@/components/switch/Switch.vue';
 
@@ -149,10 +148,10 @@ export default defineComponent({
   },
   setup(props: FormTableFieldProps, {emit}: SetupContext) {
     // form ref
-    const formRef = ref<typeof ElForm>();
+    const formRef = ref();
 
     // form item ref
-    const formItemRef = ref<typeof ElFormItem>();
+    const formItemRef = ref();
 
     // internal value
     const internalValue = ref<any>();

@@ -2,16 +2,25 @@
   "name": "crawlab-ui",
   "version": "0.6.0-beta.202109021714",
   "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/crawlab-team/crawlab-ui"
+  },
   "scripts": {
     "serve": "vue-cli-service serve --port=8081",
     "serve:build:local": "vue-cli-service serve --port=8082 --model local",
-    "build": "yarn run build:lib",
+    "gen:index": "node ./scripts/gen-index.js",
+    "gen:dts": "node ./scripts/gen-dts.js",
+    "prebuild": "yarn run prebuild:gen",
+    "prebuild:gen": "yarn run gen:index",
+    "postbuild": "yarn run postbuild:gen",
+    "postbuild:gen": "yarn run gen:dts",
+    "build": "yarn run prebuild && yarn run build:lib && yarn run postbuild",
     "build:docker": "vue-cli-service build --mode docker",
     "build:local": "vue-cli-service build --mode local",
-    "build:lib": "vue-cli-service build --target lib --inline-vue --mode production",
-    "build:lib:local": "vue-cli-service build --target lib --inline-vue --mode local",
+    "build:lib": "vue-cli-service build --target lib --mode production src/index.ts",
+    "build:lib:local": "vue-cli-service build --target lib --mode local src/index.ts",
     "lint": "vue-cli-service lint",
-    "gen:index": "node ./scripts/gen-index.js",
     "test": "jest"
   },
   "dependencies": {
@@ -67,12 +76,19 @@
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.0",
     "@vue/eslint-config-typescript": "^5.0.2",
+    "chalk": "^4.1.2",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^7.0.0-0",
+    "esno": "^0.9.1",
+    "fast-glob": "^3.2.7",
+    "klaw-sync": "^6.0.0",
     "rd": "^2.0.1",
     "sass-loader": "^10.1.0",
     "scss-loader": "^0.0.1",
+    "ts-morph": "^12.0.0",
     "typescript": "~3.9.3"
   },
-  "main": "lib/crawlab-ui.umd.js"
+  "main": "dist/crawlab-ui.umd.js",
+  "files": ["dist/*"],
+  "typings": "typings/index.d.ts"
 }

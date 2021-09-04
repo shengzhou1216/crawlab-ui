@@ -7,7 +7,7 @@ export default [
   {
     name: 'NodeList',
     path: endpoint,
-    component: () => import('@/views/node/list/NodeList.vue'),
+    component: require('@/views/node/list/NodeList.vue'),
   },
   {
     name: 'NodeDetail',
@@ -15,15 +15,15 @@ export default [
     redirect: to => {
       return {path: to.path + '/' + TAB_NAME_OVERVIEW};
     },
-    component: () => import('@/views/node/detail/NodeDetail.vue'),
+    component: require('@/views/node/detail/NodeDetail.vue'),
     children: [
       {
         path: TAB_NAME_OVERVIEW,
-        component: () => import('@/views/node/detail/tabs/NodeDetailTabOverview.vue'),
+        component: require('@/views/node/detail/tabs/NodeDetailTabOverview.vue'),
       },
       {
         path: TAB_NAME_TASKS,
-        component: () => import('@/views/node/detail/tabs/NodeDetailTabTasks.vue'),
+        component: require('@/views/node/detail/tabs/NodeDetailTabTasks.vue'),
       }
     ]
   },

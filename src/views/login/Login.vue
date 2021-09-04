@@ -119,7 +119,7 @@ import {computed, defineComponent, onMounted, onUnmounted, ref} from 'vue';
 import {isValidUsername} from '@/utils/validate';
 import {useRoute, useRouter} from 'vue-router';
 import logo from '@/assets/logo.svg';
-import {ElForm, ElMessage} from 'element-plus';
+import {ElMessage} from 'element-plus';
 import useRequest from '@/services/request';
 
 const {
@@ -144,7 +144,7 @@ export default defineComponent({
       email: '',
     });
 
-    const loginFormRef = ref<typeof ElForm>();
+    const loginFormRef = ref();
 
     const validateUsername = (rule: any, value: any, callback: any) => {
       if (!isValidUsername(value)) {
@@ -217,7 +217,7 @@ export default defineComponent({
     onMounted(() => {
       if (window.innerWidth >= 1024) {
         if (!window.initCanvas) {
-          import('../../assets/js/loginCanvas.js');
+          require('../../assets/js/loginCanvas.js');
         } else {
           window.initCanvas();
         }
@@ -244,7 +244,7 @@ export default defineComponent({
       setLang,
       onLogin,
     };
-  }
+  },
 });
 </script>
 

@@ -15,17 +15,15 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, PropType, provide, reactive, ref} from 'vue';
-import {ElForm} from 'element-plus';
+import {computed, defineComponent, PropType, provide, reactive, ref, SetupContext} from 'vue';
+import {emptyObjectFunc} from '@/utils/func';
 
 export default defineComponent({
   name: 'Form',
   props: {
     model: {
       type: Object as PropType<FormModel>,
-      default: () => {
-        return {};
-      }
+      default: emptyObjectFunc,
     },
     inline: {
       type: Boolean,
@@ -50,7 +48,7 @@ export default defineComponent({
   emits: [
     'validate',
   ],
-  setup(props: FormProps, {emit}) {
+  setup(props: FormProps, {emit}: SetupContext) {
     const form = computed<FormContext>(() => {
       const {labelWidth, size, grid} = props;
       return {labelWidth, size, grid};
@@ -58,7 +56,7 @@ export default defineComponent({
 
     provide('form-context', reactive<FormContext>(form.value));
 
-    const formRef = ref<typeof ElForm>();
+    const formRef = ref();
 
     const validate = async () => {
       return await formRef.value?.validate();

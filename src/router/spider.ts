@@ -12,7 +12,7 @@ export default [
   {
     name: 'SpiderList',
     path: 'spiders',
-    component: () => import('@/views/spider/list/SpiderList.vue'),
+    component: require('@/views/spider/list/SpiderList.vue'),
   },
   {
     name: 'SpiderDetail',
@@ -20,31 +20,31 @@ export default [
     redirect: to => {
       return {path: to.path + '/' + TAB_NAME_OVERVIEW};
     },
-    component: () => import('@/views/spider/detail/SpiderDetail.vue'),
+    component: require('@/views/spider/detail/SpiderDetail.vue'),
     children: [
       {
         path: TAB_NAME_OVERVIEW,
-        component: () => import('@/views/spider/detail/tabs/SpiderDetailTabOverview.vue'),
+        component: require('@/views/spider/detail/tabs/SpiderDetailTabOverview.vue'),
       },
       {
         path: TAB_NAME_FILES,
-        component: () => import('@/views/spider/detail/tabs/SpiderDetailTabFiles.vue'),
+        component: require('@/views/spider/detail/tabs/SpiderDetailTabFiles.vue'),
       },
       {
         path: TAB_NAME_TASKS,
-        component: () => import('@/views/spider/detail/tabs/SpiderDetailTabTasks.vue'),
+        component: require('@/views/spider/detail/tabs/SpiderDetailTabTasks.vue'),
       },
       {
         path: TAB_NAME_SCHEDULES,
-        component: () => import('@/views/spider/detail/tabs/SpiderDetailTabSchedules.vue'),
+        component: require('@/views/spider/detail/tabs/SpiderDetailTabSchedules.vue'),
       },
       {
         path: TAB_NAME_DATA,
-        component: () => import('@/views/spider/detail/tabs/SpiderDetailTabData.vue'),
+        component: require('@/views/spider/detail/tabs/SpiderDetailTabData.vue'),
       },
       {
         path: TAB_NAME_SETTINGS,
-        component: () => import('@/views/spider/detail/tabs/SpiderDetailTabSettings.vue'),
+        component: require('@/views/spider/detail/tabs/SpiderDetailTabSettings.vue'),
       },
     ]
   },
