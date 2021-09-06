@@ -1,4 +1,5 @@
 import {RouteRecordRaw} from 'vue-router';
+import TokenList from '@/views/token/list/TokenList.vue';
 
 const endpoint = 'tokens';
 
@@ -6,6 +7,6 @@ export default [
   {
     name: 'TokenList',
     path: endpoint,
-    component: require('@/views/token/list/TokenList.vue'),
+    component: TokenList
   },
 ] as Array<RouteRecordRaw>;

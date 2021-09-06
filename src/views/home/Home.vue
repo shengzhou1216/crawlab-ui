@@ -220,7 +220,7 @@ export default defineComponent({
       // const {start, end} = dateRange.value;
       const res = await get(`/stats/overview`);
       metrics.value.forEach(m => {
-        m.value = res.data[m.key];
+        m.value = res?.data[m.key];
       });
     };
 
@@ -228,16 +228,16 @@ export default defineComponent({
       // TODO: filter by date range?
       const {start, end} = dateRange.value;
       const res = await get(`/stats/daily`);
-      dailyConfig.value.data = spanDateRange(start, end, res.data || [], 'date');
+      dailyConfig.value.data = spanDateRange(start, end, res?.data || [], 'date');
     };
 
     const getTasks = async () => {
       // TODO: filter by date range?
       const {start, end} = dateRange.value;
       const res = await get(`/stats/tasks`);
-      tasksByStatusConfig.value.data = res.data.by_status;
-      tasksByNodeConfig.value.data = res.data.by_node;
-      tasksBySpiderConfig.value.data = res.data.by_spider;
+      tasksByStatusConfig.value.data = res?.data.by_status;
+      tasksByNodeConfig.value.data = res?.data.by_node;
+      tasksBySpiderConfig.value.data = res?.data.by_spider;
     };
 
     const getData = async () => Promise.all([

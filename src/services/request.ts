@@ -1,7 +1,7 @@
 import axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
 import {ElMessageBox} from 'element-plus';
 import router from '@/router';
-import {getRequestBaseUrl} from '@/utils/request';
+import {getEmptyResponseWithListData, getRequestBaseUrl} from '@/utils/request';
 
 // TODO: request interception
 
@@ -38,7 +38,7 @@ const useRequest = () => {
     }
 
     return headers;
-  }
+  };
 
   const request = async <R = any>(opts: AxiosRequestConfig): Promise<R> => {
     // base url
@@ -55,7 +55,7 @@ const useRequest = () => {
     });
 
     // response data
-    return res.data;
+    return res?.data;
   };
 
   const get = async <T = any, R = ResponseWithData<T>, PM = any>(url: string, params?: PM, opts?: AxiosRequestConfig): Promise<R> => {
@@ -109,6 +109,11 @@ const useRequest = () => {
 
     // get request
     const res = await get<T, ResponseWithListData<T>, ListRequestParams>(url, params, opts);
+
+    // if no response, return empty
+    if (!res) {
+      return getEmptyResponseWithListData();
+    }
 
     // normalize array data
     if (!res.data) {

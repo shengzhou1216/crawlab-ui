@@ -1,4 +1,5 @@
 import {RouteRecordRaw} from 'vue-router';
+import Login from '@/views/login/Login.vue';
 
 const endpoint = '/login';
 
@@ -6,6 +7,6 @@ export default [
   {
     name: 'Login',
     path: endpoint,
-    component: require('@/views/login/Login.vue'),
+    component: Login,
   },
 ] as Array<RouteRecordRaw>;

@@ -12,13 +12,14 @@ import token from '@/router/token';
 import plugin from '@/router/plugin';
 import {initRouterAuth} from '@/router/hooks/auth';
 import {sendPv} from '@/utils/admin';
+import BasicLayout from '@/layouts/BasicLayout.vue';
 
 export const routes: Array<RouteRecordRaw> = [
   ...login,
   {
     path: '/',
     name: 'Root',
-    component: require('@/layouts/BasicLayout.vue'),
+    component: BasicLayout,
     children: [
       ...home,
       ...node,

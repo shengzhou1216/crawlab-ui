@@ -1,5 +1,8 @@
 import {RouteRecordRaw} from 'vue-router';
 import {TAB_NAME_OVERVIEW} from '@/constants/tab';
+import PluginList from '@/views/plugin/list/PluginList.vue';
+import PluginDetailTabOverview from '@/views/plugin/detail/tabs/PluginDetailTabOverview.vue';
+import PluginDetail from '@/views/plugin/detail/PluginDetail.vue';
 
 const endpoint = 'plugins';
 
@@ -7,7 +10,7 @@ export default [
   {
     name: 'PluginList',
     path: endpoint,
-    component: require('@/views/plugin/list/PluginList.vue'),
+    component: PluginList
   },
   {
     name: 'PluginDetail',
@@ -15,11 +18,11 @@ export default [
     redirect: to => {
       return {path: to.path + '/' + TAB_NAME_OVERVIEW};
     },
-    component: require('@/views/plugin/detail/PluginDetail.vue'),
+    component: PluginDetail,
     children: [
       {
         path: TAB_NAME_OVERVIEW,
-        component: require('@/views/plugin/detail/tabs/PluginDetailTabOverview.vue'),
+        component: PluginDetailTabOverview
       },
     ]
   },

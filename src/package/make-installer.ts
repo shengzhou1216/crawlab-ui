@@ -5,6 +5,7 @@ import {fab} from '@fortawesome/free-brands-svg-icons';
 import {far} from '@fortawesome/free-regular-svg-icons';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
+import {importStylesheets} from '@/package/utils';
 
 // fontawesome
 library.add(fab, far, fas);
@@ -15,10 +16,7 @@ const makeInstaller = (items: [string, ComponentOptionsMixin][] = []): Plugin =>
   // install function
   const install = (app: App) => {
     // import stylesheets
-    require('normalize.css/normalize.css');
-    require('font-awesome/css/font-awesome.min.css');
-    require('element-plus/lib/theme-chalk/index.css');
-    require('@/styles/index.scss');
+    importStylesheets();
 
     // skip if already exists in apps
     if (apps.includes(app)) return;

@@ -1,5 +1,10 @@
 import {RouteRecordRaw} from 'vue-router';
 import {TAB_NAME_DATA, TAB_NAME_LOGS, TAB_NAME_OVERVIEW} from '@/constants/tab';
+import TaskList from '@/views/task/list/TaskList.vue';
+import TaskDetail from '@/views/task/detail/TaskDetail.vue';
+import TaskDetailTabOverview from '@/views/task/detail/tabs/TaskDetailTabOverview.vue';
+import TaskDetailTabData from '@/views/task/detail/tabs/TaskDetailTabData.vue';
+import TaskDetailTabLogs from '@/views/task/detail/tabs/TaskDetailTabLogs.vue';
 
 const endpoint = 'tasks';
 
@@ -7,7 +12,7 @@ export default [
   {
     name: 'TaskList',
     path: endpoint,
-    component: require('@/views/task/list/TaskList.vue'),
+    component: TaskList
   },
   {
     name: 'TaskDetail',
@@ -15,19 +20,19 @@ export default [
     redirect: to => {
       return {path: to.path + '/overview'};
     },
-    component: require('@/views/task/detail/TaskDetail.vue'),
+    component: TaskDetail,
     children: [
       {
         path: TAB_NAME_OVERVIEW,
-        component: require('@/views/task/detail/tabs/TaskDetailTabOverview.vue'),
+        component: TaskDetailTabOverview
       },
       {
         path: TAB_NAME_LOGS,
-        component: require('@/views/task/detail/tabs/TaskDetailTabLogs.vue'),
+        component: TaskDetailTabLogs
       },
       {
         path: TAB_NAME_DATA,
-        component: require('@/views/task/detail/tabs/TaskDetailTabData.vue'),
+        component: TaskDetailTabData
       },
     ]
   },

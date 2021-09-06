@@ -12,12 +12,11 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, onMounted} from 'vue';
+import {computed, defineComponent} from 'vue';
 import Header from './components/Header.vue';
 import Sidebar from './components/Sidebar.vue';
 import {useStore} from 'vuex';
 import TabsView from '@/layouts/components/TabsView.vue';
-import {initPlugins} from '@/utils/plugin';
 
 export default defineComponent({
   name: 'BasicLayout',

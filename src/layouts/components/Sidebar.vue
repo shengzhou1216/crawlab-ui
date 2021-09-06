@@ -1,12 +1,12 @@
 <template>
   <span :class="sidebarCollapsed ? 'collapsed' : ''" class="sidebar-toggle" @click="toggleSidebar">
-    <font-awesome-icon v-if="!sidebarCollapsed" :icon="['fas', 'outdent']" />
-    <font-awesome-icon v-else :icon="['fas', 'indent']" />
+    <font-awesome-icon v-if="!sidebarCollapsed" :icon="['fas', 'outdent']"/>
+    <font-awesome-icon v-else :icon="['fas', 'indent']"/>
   </span>
   <el-aside :class="sidebarCollapsed ? 'collapsed' : ''" class="sidebar" width="inherit">
     <div class="logo-container">
       <div class="logo">
-        <img :src="logo" alt="logo" className="logo-img" />
+        <img class="logo-img" alt="logo-img" :src="logo"/>
         <span class="logo-title">Crawlab</span>
         <span class="logo-sub-title">
           <div class="logo-sub-title-block">
@@ -32,16 +32,16 @@
             :index="item.path"
             @click="onMenuItemClick(item)"
         >
-          <MenuItemIcon :item="item" size="normal" />
+          <MenuItemIcon :item="item" size="normal"/>
           <template #title>
             <span class="menu-item-title">{{ item.title }}</span>
           </template>
         </el-menu-item>
-        <div class="plugin-anchor" />
+        <div class="plugin-anchor"/>
       </el-menu>
     </div>
   </el-aside>
-  <div class="script-anchor" />
+  <div class="script-anchor"/>
 </template>
 
 <script lang="ts">
@@ -49,7 +49,7 @@ import {computed, defineComponent} from 'vue';
 import {useStore} from 'vuex';
 import {useRoute, useRouter} from 'vue-router';
 import variables from '@/styles/variables.scss';
-import logo from '@/assets/logo.svg';
+import logo from '@/assets/js/svg/logo.js';
 import MenuItemIcon from '@/components/icon/MenuItemIcon.vue';
 import {getPrimaryPath} from '@/utils/path';
 
@@ -59,6 +59,7 @@ export default defineComponent({
     MenuItemIcon,
   },
   setup() {
+    console.debug(logo);
     const router = useRouter();
     const route = useRoute();
     const store = useStore();
