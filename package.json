@@ -1,6 +1,6 @@
 {
   "name": "crawlab-ui",
-  "version": "0.6.0-beta.202109062027",
+  "version": "0.6.0-beta.202109062106",
   "private": false,
   "author": {
     "name": "Marvin Zhang",
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "https://github.com/crawlab-team/crawlab-ui"
   },
-  "license": "BSD-3",
+  "license": "BSD-3-Clause",
   "scripts": {
     "serve": "vue-cli-service serve --port=8081",
     "serve:local": "vue-cli-service serve --port=8081 --mode local",
@@ -97,7 +97,6 @@
     "typescript": "~3.9.3"
   },
   "main": "dist/crawlab-ui.umd.min.js",
-  "module": "dist/crawlab-ui.umd.min.js",
   "files": [
     "dist",
     "typings"
