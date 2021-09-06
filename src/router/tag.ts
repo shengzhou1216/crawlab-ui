@@ -10,7 +10,7 @@ export default [
   {
     name: 'TagList',
     path: endpoint,
-    component: TagList
+    component: () => TagList
   },
   {
     name: 'TagDetail',
@@ -18,11 +18,11 @@ export default [
     redirect: to => {
       return {path: to.path + '/overview'};
     },
-    component: TagDetail,
+    component: () => TagDetail,
     children: [
       {
         path: TAB_NAME_OVERVIEW,
-        component: TagDetailTabOverview
+        component: () => TagDetailTabOverview
       },
     ]
   }

@@ -11,7 +11,7 @@ export default [
   {
     name: 'NodeList',
     path: endpoint,
-    component: NodeList
+    component: () => NodeList
   },
   {
     name: 'NodeDetail',
@@ -19,15 +19,15 @@ export default [
     redirect: to => {
       return {path: to.path + '/' + TAB_NAME_OVERVIEW};
     },
-    component: NodeDetail,
+    component: () => NodeDetail,
     children: [
       {
         path: TAB_NAME_OVERVIEW,
-        component: NodeDetailTabOverview
+        component: () => NodeDetailTabOverview
       },
       {
         path: TAB_NAME_TASKS,
-        component: NodeDetailTabTasks
+        component: () => NodeDetailTabTasks
       }
     ]
   },

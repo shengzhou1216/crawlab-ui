@@ -8,7 +8,7 @@ export default [
   {
     name: 'UserList',
     path: 'users',
-    component: UserList
+    component: () => UserList
   },
   {
     name: 'UserDetail',
@@ -16,11 +16,11 @@ export default [
     redirect: to => {
       return {path: to.path + '/' + TAB_NAME_OVERVIEW};
     },
-    component: UserDetail,
+    component: () => UserDetail,
     children: [
       {
         path: TAB_NAME_OVERVIEW,
-        component: UserDetailTabOverview
+        component: () => UserDetailTabOverview
       },
     ]
   },

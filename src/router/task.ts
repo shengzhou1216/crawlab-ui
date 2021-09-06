@@ -12,7 +12,7 @@ export default [
   {
     name: 'TaskList',
     path: endpoint,
-    component: TaskList
+    component: () => TaskList
   },
   {
     name: 'TaskDetail',
@@ -20,19 +20,19 @@ export default [
     redirect: to => {
       return {path: to.path + '/overview'};
     },
-    component: TaskDetail,
+    component: () => TaskDetail,
     children: [
       {
         path: TAB_NAME_OVERVIEW,
-        component: TaskDetailTabOverview
+        component: () => TaskDetailTabOverview
       },
       {
         path: TAB_NAME_LOGS,
-        component: TaskDetailTabLogs
+        component: () => TaskDetailTabLogs
       },
       {
         path: TAB_NAME_DATA,
-        component: TaskDetailTabData
+        component: () => TaskDetailTabData
       },
     ]
   },

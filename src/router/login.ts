@@ -7,6 +7,6 @@ export default [
   {
     name: 'Login',
     path: endpoint,
-    component: Login,
+    component: () => Login,
   },
 ] as Array<RouteRecordRaw>;

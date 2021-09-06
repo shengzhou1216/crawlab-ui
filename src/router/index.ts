@@ -19,7 +19,7 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Root',
-    component: BasicLayout,
+    component: () => BasicLayout,
     children: [
       ...home,
       ...node,

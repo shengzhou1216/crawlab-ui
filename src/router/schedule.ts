@@ -9,7 +9,7 @@ export default [
   {
     name: 'ScheduleList',
     path: 'schedules',
-    component: ScheduleList
+    component: () => ScheduleList
   },
   {
     name: 'ScheduleDetail',
@@ -17,15 +17,15 @@ export default [
     redirect: to => {
       return {path: to.path + '/' + TAB_NAME_OVERVIEW};
     },
-    component: ScheduleDetail,
+    component: () => ScheduleDetail,
     children: [
       {
         path: TAB_NAME_OVERVIEW,
-        component: ScheduleDetailTabOverview
+        component: () => ScheduleDetailTabOverview
       },
       {
         path: TAB_NAME_TASKS,
-        component: ScheduleDetailTabTasks
+        component: () => ScheduleDetailTabTasks
       },
     ]
   },

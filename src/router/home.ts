@@ -7,6 +7,6 @@ export default [
   {
     name: 'Home',
     path: endpoint,
-    component: Home,
+    component: () => Home,
   },
 ] as Array<RouteRecordRaw>;
