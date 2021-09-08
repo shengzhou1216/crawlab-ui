@@ -2,7 +2,7 @@ import {Store} from 'vuex';
 import {cloneArray} from '@/utils/object';
 import {PLUGIN_UI_COMPONENT_TYPE_TAB, PLUGIN_UI_COMPONENT_TYPE_VIEW} from '@/constants/plugin';
 import {loadModule} from '@/utils/sfc';
-import {useRouter} from 'vue-router';
+import {Router, useRouter} from 'vue-router';
 
 type Plugin = CPlugin;
 
@@ -40,9 +40,7 @@ const initPluginSidebarMenuItems = (store: Store<RootStoreState>) => {
   store.commit(`layout/setMenuItems`, menuItems);
 };
 
-const addPluginRouteTab = (store: Store<RootStoreState>, p: Plugin, pc: PluginUIComponent) => {
-  const router = useRouter();
-
+const addPluginRouteTab = (router: Router, store: Store<RootStoreState>, p: Plugin, pc: PluginUIComponent) => {
   // current routes paths
   const routesPaths = router.getRoutes().map(r => r.path);
 
@@ -78,9 +76,7 @@ const addPluginRouteTab = (store: Store<RootStoreState>, p: Plugin, pc: PluginUI
   });
 };
 
-const addPluginRouteView = (p: Plugin, pc: PluginUIComponent) => {
-  const router = useRouter();
-
+const addPluginRouteView = (router: Router, p: Plugin, pc: PluginUIComponent) => {
   // current routes paths
   const routesPaths = router.getRoutes().map(r => r.path);
 
@@ -98,7 +94,7 @@ const addPluginRouteView = (p: Plugin, pc: PluginUIComponent) => {
   });
 };
 
-const initPluginRoutes = (store: Store<RootStoreState>) => {
+const initPluginRoutes = (router: Router, store: Store<RootStoreState>) => {
   // store
   const {
     plugin: state,
@@ -112,17 +108,17 @@ const initPluginRoutes = (store: Store<RootStoreState>) => {
 
       switch (pc.type) {
         case PLUGIN_UI_COMPONENT_TYPE_VIEW:
-          addPluginRouteView(p, pc);
+          addPluginRouteView(router, p, pc);
           break;
         case PLUGIN_UI_COMPONENT_TYPE_TAB:
-          addPluginRouteTab(store, p, pc);
+          addPluginRouteTab(router, store, p, pc);
           break;
       }
     });
   });
 };
 
-export const initPlugins = async (store: Store<RootStoreState>) => {
+export const initPlugins = async (router: Router, store: Store<RootStoreState>) => {
   // store
   const ns = 'plugin';
   const {
@@ -140,6 +136,6 @@ export const initPlugins = async (store: Store<RootStoreState>) => {
 
   initPluginSidebarMenuItems(store);
 
-  initPluginRoutes(store);
+  initPluginRoutes(router, store);
 };
 

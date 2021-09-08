@@ -55,6 +55,7 @@ export const getDefaultStoreGetters = <T = any>(opts?: GetDefaultStoreGettersOpt
     },
     tabName: () => {
       const router = useRouter();
+      if (!router) return '';
       const arr = router.currentRoute.value.path.split('/');
       if (arr.length < 3) return '';
       return arr[3];
