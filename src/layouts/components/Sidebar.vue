@@ -59,7 +59,6 @@ export default defineComponent({
     MenuItemIcon,
   },
   setup() {
-    console.debug(logo);
     const router = useRouter();
     const route = useRoute();
     const store = useStore();

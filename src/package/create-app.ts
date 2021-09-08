@@ -1,4 +1,4 @@
-import {createApp as createVueApp} from 'vue';
+import {createApp as createVueApp, App as VueApp} from 'vue';
 import ElementPlus from 'element-plus';
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
 import App from './App.vue';
@@ -18,10 +18,11 @@ export const getDefaultCreateAppOptions = (): CreateAppOptions => {
     loadElementPlus: true,
     loadI18n: true,
     loadFontAwesome: true,
+    mount: true,
   };
 };
 
-const createApp = (options?: CreateAppOptions) => {
+const createApp = (options?: CreateAppOptions): VueApp => {
   options = {
     ...getDefaultCreateAppOptions(),
     ...options,
@@ -46,7 +47,9 @@ const createApp = (options?: CreateAppOptions) => {
   if (options.loadElementPlus) app.use(ElementPlus);
   if (options.loadI18n) app.use(i18n);
   if (options.loadFontAwesome) app.component('font-awesome-icon', FontAwesomeIcon);
-  app.mount('#app');
+  if (options.mount) app.mount(typeof options.mount === 'string' ? options.mount : '#app');
+
+  return app;
 };
 
 export default createApp;

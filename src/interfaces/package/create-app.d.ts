@@ -13,5 +13,6 @@ declare global {
     loadFontAwesome?: boolean;
     store?: Store;
     routes?: Array<RouteRecordRaw>;
+    mount?: boolean | string;
   }
 }

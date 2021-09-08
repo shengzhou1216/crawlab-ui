@@ -1,6 +1,6 @@
-import * as vue from '@vue/runtime-dom';
 import {getRequestBaseUrl} from '@/utils/request';
 import useRequest from '@/services/request';
+import * as vue from 'vue';
 
 const sfcLoadModule = window['vue3-sfc-loader']?.loadModule;
 

@@ -2,7 +2,7 @@ import {Store} from 'vuex';
 import {cloneArray} from '@/utils/object';
 import {PLUGIN_UI_COMPONENT_TYPE_TAB, PLUGIN_UI_COMPONENT_TYPE_VIEW} from '@/constants/plugin';
 import {loadModule} from '@/utils/sfc';
-import {Router, useRouter} from 'vue-router';
+import {Router} from 'vue-router';
 
 type Plugin = CPlugin;
 

@@ -118,9 +118,11 @@
 import {computed, defineComponent, onMounted, onUnmounted, ref} from 'vue';
 import {isValidUsername} from '@/utils/validate';
 import {useRoute, useRouter} from 'vue-router';
-import logo from '@/assets/logo.svg';
+import logo from '@/assets/js/svg/logo.js';
 import {ElMessage} from 'element-plus';
 import useRequest from '@/services/request';
+import {initPlugins} from '@/utils/plugin';
+import {useStore} from 'vuex';
 
 const {
   post,
@@ -129,14 +131,22 @@ const {
 export default defineComponent({
   name: 'Login',
   setup() {
+    // store
+    const store = useStore();
+
+    // current route
     const route = useRoute();
 
+    // router
     const router = useRouter();
 
+    // loading
     const loading = ref<boolean>(false);
 
+    // is signup
     const isSignup = computed(() => route.path === '/signup');
 
+    // login form
     const loginForm = ref<LoginForm>({
       username: '',
       password: '',
@@ -144,6 +154,7 @@ export default defineComponent({
       email: '',
     });
 
+    // login form ref
     const loginFormRef = ref();
 
     const validateUsername = (rule: any, value: any, callback: any) => {
@@ -188,28 +199,54 @@ export default defineComponent({
     };
 
     const onLogin = async () => {
+      // skip if login form ref is empty
       if (!loginFormRef.value) return;
+
+      // validate login form
       await loginFormRef.value.validate();
+
+      // username and password
       const {username, password} = loginForm.value;
+
+      // set loading
       loading.value = true;
+
       try {
+        // perform login request
         const res = await post<LoginForm, ResponseWithData>('/login', {
           username,
           password,
         });
+
+        // validate data
         if (!res.data) {
+          // no data
           ElMessage.error('No token returned');
           return;
         }
+
+        // set token to local storage
         localStorage.setItem('token', res.data);
+
+        // initialize plugins
+        initPlugins(router, store)
+            .then(() => console.info('[Crawlab] plugins initialized'))
+            .catch(e => console.warn('[Crawlab] initializing plugins with error', e));
+
+        // redirect to home page
         await router.push('/');
+
       } catch (e) {
+        // error
         if (e.toString().includes('401')) {
+          // unauthorized
           ElMessage.error('Unauthorized. Please check username and password.');
         } else {
+          // other error
           ElMessage.error(e.toString());
         }
       } finally {
+        // unset loading
         loading.value = false;
       }
     };

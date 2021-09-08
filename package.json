@@ -25,6 +25,7 @@
     "build:docker": "vue-cli-service build --mode docker",
     "build:local": "vue-cli-service build --mode local",
     "build:lib": "vue-cli-service build --target lib --mode production src/index.ts",
+    "build:lib:watch": "vue-cli-service build --target lib --mode production --watch src/index.ts",
     "build:lib:local": "vue-cli-service build --target lib --mode local src/index.ts",
     "lint": "vue-cli-service lint",
     "test": "jest"
