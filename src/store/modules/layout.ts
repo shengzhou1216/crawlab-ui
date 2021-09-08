@@ -1,12 +1,12 @@
 import {plainClone} from '@/utils/object';
-import {menuItems} from '@/router';
+import {getDefaultMenuItems} from '@/router';
 
 export default {
   namespaced: true,
   state: {
     // sidebar
     sidebarCollapsed: false,
-    menuItems,
+    menuItems: getDefaultMenuItems(),
 
     // tabs view
     activeTabId: undefined,

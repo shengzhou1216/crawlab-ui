@@ -1,7 +1,7 @@
 import {getDefaultPagination} from '@/utils/pagination';
 import {useService} from '@/services';
-import router from '@/router';
 import {plainClone} from '@/utils/object';
+import {useRouter} from 'vue-router';
 
 export const getDefaultStoreState = <T = any>(ns: StoreNamespace): BaseStoreState<T> => {
   return {
@@ -54,6 +54,7 @@ export const getDefaultStoreGetters = <T = any>(opts?: GetDefaultStoreGettersOpt
       return dict;
     },
     tabName: () => {
+      const router = useRouter();
       const arr = router.currentRoute.value.path.split('/');
       if (arr.length < 3) return '';
       return arr[3];

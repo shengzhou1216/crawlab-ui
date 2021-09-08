@@ -10,7 +10,7 @@ export default [
   {
     name: 'PluginList',
     path: endpoint,
-    component: () => PluginList
+    component: PluginList
   },
   {
     name: 'PluginDetail',
@@ -18,11 +18,11 @@ export default [
     redirect: to => {
       return {path: to.path + '/' + TAB_NAME_OVERVIEW};
     },
-    component: () => PluginDetail,
+    component: PluginDetail,
     children: [
       {
         path: TAB_NAME_OVERVIEW,
-        component: () => PluginDetailTabOverview
+        component: PluginDetailTabOverview
       },
     ]
   },

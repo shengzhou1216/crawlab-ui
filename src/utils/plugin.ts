@@ -1,8 +1,8 @@
 import {Store} from 'vuex';
 import {cloneArray} from '@/utils/object';
-import router from '@/router';
 import {PLUGIN_UI_COMPONENT_TYPE_TAB, PLUGIN_UI_COMPONENT_TYPE_VIEW} from '@/constants/plugin';
 import {loadModule} from '@/utils/sfc';
+import {useRouter} from 'vue-router';
 
 type Plugin = CPlugin;
 
@@ -41,6 +41,8 @@ const initPluginSidebarMenuItems = (store: Store<RootStoreState>) => {
 };
 
 const addPluginRouteTab = (store: Store<RootStoreState>, p: Plugin, pc: PluginUIComponent) => {
+  const router = useRouter();
+
   // current routes paths
   const routesPaths = router.getRoutes().map(r => r.path);
 
@@ -77,6 +79,8 @@ const addPluginRouteTab = (store: Store<RootStoreState>, p: Plugin, pc: PluginUI
 };
 
 const addPluginRouteView = (p: Plugin, pc: PluginUIComponent) => {
+  const router = useRouter();
+
   // current routes paths
   const routesPaths = router.getRoutes().map(r => r.path);
 
@@ -116,7 +120,6 @@ const initPluginRoutes = (store: Store<RootStoreState>) => {
       }
     });
   });
-  console.debug(router.getRoutes());
 };
 
 export const initPlugins = async (store: Store<RootStoreState>) => {

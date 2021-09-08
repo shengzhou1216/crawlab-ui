@@ -1,7 +1,7 @@
 import axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
 import {ElMessageBox} from 'element-plus';
-import router from '@/router';
 import {getEmptyResponseWithListData, getRequestBaseUrl} from '@/utils/request';
+import {useRouter} from 'vue-router';
 
 // TODO: request interception
 
@@ -10,6 +10,7 @@ let msgBoxVisible = false;
 axios.interceptors.response.use(res => {
   return res;
 }, err => {
+  const router = useRouter();
   const status = err?.response?.status;
   if (status === 401) {
     if (msgBoxVisible) return;

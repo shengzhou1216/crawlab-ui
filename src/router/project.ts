@@ -11,7 +11,7 @@ export default [
   {
     name: 'ProjectList',
     path: endpoint,
-    component: () => ProjectList,
+    component: ProjectList,
   },
   {
     name: 'ProjectDetail',
@@ -19,15 +19,15 @@ export default [
     redirect: to => {
       return {path: to.path + '/overview'};
     },
-    component: () => ProjectDetail,
+    component: ProjectDetail,
     children: [
       {
         path: TAB_NAME_OVERVIEW,
-        component: () => ProjectDetailTabOverview
+        component: ProjectDetailTabOverview
       },
       {
         path: TAB_NAME_SPIDERS,
-        component: () => ProjectDetailTabSpiders
+        component: ProjectDetailTabSpiders
       },
     ]
   },

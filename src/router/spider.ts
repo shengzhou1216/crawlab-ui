@@ -20,7 +20,7 @@ export default [
   {
     name: 'SpiderList',
     path: 'spiders',
-    component: () => SpiderList
+    component: SpiderList
   },
   {
     name: 'SpiderDetail',
@@ -28,31 +28,31 @@ export default [
     redirect: to => {
       return {path: to.path + '/' + TAB_NAME_OVERVIEW};
     },
-    component: () => SpiderDetail,
+    component: SpiderDetail,
     children: [
       {
         path: TAB_NAME_OVERVIEW,
-        component: () => SpiderDetailTabOverview
+        component: SpiderDetailTabOverview
       },
       {
         path: TAB_NAME_FILES,
-        component: () => SpiderDetailTabFiles
+        component: SpiderDetailTabFiles
       },
       {
         path: TAB_NAME_TASKS,
-        component: () => SpiderDetailTabTasks
+        component: SpiderDetailTabTasks
       },
       {
         path: TAB_NAME_SCHEDULES,
-        component: () => SpiderDetailTabSchedules
+        component: SpiderDetailTabSchedules
       },
       {
         path: TAB_NAME_DATA,
-        component: () => SpiderDetailTabData
+        component: SpiderDetailTabData
       },
       {
         path: TAB_NAME_SETTINGS,
-        component: () => SpiderDetailTabSettings
+        component: SpiderDetailTabSettings
       },
     ]
   },

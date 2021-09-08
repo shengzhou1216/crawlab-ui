@@ -7,6 +7,6 @@ export default [
   {
     name: 'TokenList',
     path: endpoint,
-    component: () => TokenList
+    component: TokenList
   },
 ] as Array<RouteRecordRaw>;

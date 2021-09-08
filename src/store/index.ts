@@ -1,4 +1,4 @@
-import {createStore, Store} from 'vuex';
+import {createStore as createVuexStore, Store} from 'vuex';
 import login from '@/store/modules/login';
 import layout from '@/store/modules/layout';
 import node from '@/store/modules/node';
@@ -13,20 +13,22 @@ import user from '@/store/modules/user';
 import token from '@/store/modules/token';
 import plugin from '@/store/modules/plugin';
 
-export default createStore<RootStoreState>({
-  modules: {
-    login,
-    layout,
-    node,
-    project,
-    spider,
-    task,
-    file,
-    tag,
-    dataCollection,
-    schedule,
-    user,
-    token,
-    plugin,
-  },
-}) as Store<RootStoreState>;
+export const createStore = (): Store<RootStoreState> => {
+  return createVuexStore<RootStoreState>({
+    modules: {
+      login,
+      layout,
+      node,
+      project,
+      spider,
+      task,
+      file,
+      tag,
+      dataCollection,
+      schedule,
+      user,
+      token,
+      plugin,
+    },
+  });
+};

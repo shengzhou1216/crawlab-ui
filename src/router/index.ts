@@ -1,4 +1,4 @@
-import {createRouter, createWebHashHistory, RouteRecordRaw} from 'vue-router';
+import {createRouter as createVueRouter, createWebHashHistory, Router, RouteRecordRaw} from 'vue-router';
 import login from '@/router/login';
 import home from '@/router/home';
 import node from '@/router/node';
@@ -11,15 +11,15 @@ import tag from '@/router/tag';
 import token from '@/router/token';
 import plugin from '@/router/plugin';
 import {initRouterAuth} from '@/router/hooks/auth';
-import {sendPv} from '@/utils/admin';
+import {initRouterStats} from '@/router/hooks/stats';
 import BasicLayout from '@/layouts/BasicLayout.vue';
 
-export const routes: Array<RouteRecordRaw> = [
+export const getDefaultRoutes = (): Array<RouteRecordRaw> => [
   ...login,
   {
     path: '/',
     name: 'Root',
-    component: () => BasicLayout,
+    component: BasicLayout,
     children: [
       ...home,
       ...node,
@@ -35,7 +35,7 @@ export const routes: Array<RouteRecordRaw> = [
   },
 ];
 
-export const menuItems: MenuItem[] = [
+export const getDefaultMenuItems = (): MenuItem[] => [
   {path: '/', title: 'Home', icon: ['fa', 'home']},
   {path: '/nodes', title: 'Nodes', icon: ['fa', 'server']},
   {path: '/projects', title: 'Projects', icon: ['fa', 'project-diagram']},
@@ -48,17 +48,14 @@ export const menuItems: MenuItem[] = [
   {path: '/plugins', title: 'Plugins', icon: ['fa', 'plug']},
 ];
 
-const router = createRouter({
-  history: createWebHashHistory(process.env.BASE_URL),
-  routes,
-});
+export const createRouter = (routes?: Array<RouteRecordRaw>): Router => {
+  const router = createVueRouter({
+    history: createWebHashHistory(process.env.BASE_URL),
+    routes: routes || getDefaultRoutes(),
+  });
 
-router.afterEach(async (to, from, next) => {
-  if (to.path) {
-    sendPv(to.path);
-  }
-});
+  initRouterAuth(router);
+  initRouterStats(router);
 
-initRouterAuth(router);
-
-export default router;
+  return router;
+};
