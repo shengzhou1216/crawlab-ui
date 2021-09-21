@@ -76,7 +76,9 @@ const genRootIndex = () => {
   const exportLines = EXPORT_MODULES.map(m => `export * from './${m}';`)
   const content = `${exportLines.join('\n')}
 export * from './package';
-export {installer as default} from './package';`
+export {installer as default} from './package';
+export {default as useRequest} from './services/request';
+`
   fs.writeFileSync('./src/index.ts', content)
 }
 

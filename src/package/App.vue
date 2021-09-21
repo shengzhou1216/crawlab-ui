@@ -16,9 +16,6 @@ export default defineComponent({
 
       // store
       const store = useStore();
-
-      // initialize plugins
-      initPlugins(router, store);
     });
 
     return {};

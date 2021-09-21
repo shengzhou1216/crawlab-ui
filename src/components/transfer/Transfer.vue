@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, ref} from 'vue';
+import {computed, defineComponent, PropType, ref} from 'vue';
 import {DataItem, Key} from 'element-plus/lib/el-transfer/src/transfer';
 import TransferPanel from '@/components/transfer/TransferPanel.vue';
 import Button from '@/components/button/Button.vue';
@@ -44,35 +44,35 @@ export default defineComponent({
   components: {Button, TransferPanel},
   props: {
     value: {
-      type: Array,
+      type: Array as PropType<Key[]>,
       required: false,
       default: () => {
         return [];
       }
     },
     data: {
-      type: Array,
+      type: Array as PropType<DataItem[]>,
       required: false,
       default: () => {
         return [];
       }
     },
     titles: {
-      type: Array,
+      type: Array as PropType<string[]>,
       required: false,
       default: () => {
         return [];
       }
     },
     buttonTexts: {
-      type: Array,
+      type: Array as PropType<string[]>,
       required: false,
       default: () => {
         return [];
       }
     },
     buttonTooltips: {
-      type: Array,
+      type: Array as PropType<string[]>,
       required: false,
       default: () => {
         return [];
@@ -82,7 +82,7 @@ export default defineComponent({
   emits: [
     'change',
   ],
-  setup(props, {emit}) {
+  setup(props: TransferProps, {emit}) {
     const dataMap = computed<DataMap>(() => {
       const {data} = props as TransferProps;
       const map = {} as DataMap;
@@ -190,4 +190,7 @@ export default defineComponent({
 }
 </style>
 <style scoped>
+.transfer >>> .button-wrapper {
+  margin: 0 10px;
+}
 </style>

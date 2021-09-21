@@ -1,12 +1,14 @@
 import {createApp as createVueApp, App as VueApp} from 'vue';
 import ElementPlus from 'element-plus';
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
+import {installer as CrawlabUI} from '@/package/index';
 import App from './App.vue';
 import {createStore} from '@/store';
 import i18n from '@/i18n';
 import {initBaiduTonji} from '@/admin/baidu';
-import {importScripts, importStylesheets} from '@/package/utils';
+import {importScripts, importStylesheets, initWindowGlobals} from '@/package/utils';
 import {createRouter} from '@/router';
+import {initPlugins} from '@/utils/plugin';
 
 export const getDefaultCreateAppOptions = (): CreateAppOptions => {
   return {
@@ -16,13 +18,14 @@ export const getDefaultCreateAppOptions = (): CreateAppOptions => {
     loadStore: true,
     loadRouter: true,
     loadElementPlus: true,
+    loadCrawlabUI: true,
     loadI18n: true,
     loadFontAwesome: true,
     mount: true,
   };
 };
 
-const createApp = (options?: CreateAppOptions): VueApp => {
+const createApp = async (options?: CreateAppOptions): Promise<VueApp> => {
   options = {
     ...getDefaultCreateAppOptions(),
     ...options,
@@ -40,13 +43,34 @@ const createApp = (options?: CreateAppOptions): VueApp => {
   // remove loading placeholder
   document.querySelector('#loading-placeholder')?.remove();
 
+  // store
+  const store = options.store || createStore();
+
+  // router
+  const router = createRouter(options.routes);
+
+  // window globals
+  initWindowGlobals();
+
   // app
   const app = createVueApp(App);
-  if (options.loadStore) app.use(options.store || createStore());
-  if (options.loadRouter) app.use(createRouter(options.routes));
+
+  // initialize plugins
+  try {
+    await initPlugins(router, store);
+  } catch (e) {
+    console.warn(e);
+  }
+
+  // load modules
+  if (options.loadStore) app.use(store);
+  if (options.loadRouter) app.use(router);
   if (options.loadElementPlus) app.use(ElementPlus);
+  if (options.loadCrawlabUI) app.use(CrawlabUI);
   if (options.loadI18n) app.use(i18n);
   if (options.loadFontAwesome) app.component('font-awesome-icon', FontAwesomeIcon);
+
+  // mount
   if (options.mount) app.mount(typeof options.mount === 'string' ? options.mount : '#app');
 
   return app;

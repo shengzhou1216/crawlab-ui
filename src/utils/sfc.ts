@@ -1,6 +1,9 @@
 import {getRequestBaseUrl} from '@/utils/request';
 import useRequest from '@/services/request';
 import * as vue from 'vue';
+import * as VueRouter from 'vue-router';
+import * as ElementPlus from 'element-plus';
+import * as CrawlabUI from '@/index';
 
 const sfcLoadModule = window['vue3-sfc-loader']?.loadModule;
 
@@ -12,6 +15,9 @@ const getLoadModuleOptions = (): any => {
   return {
     moduleCache: {
       vue,
+      'vue-router': VueRouter,
+      'element-plus': ElementPlus,
+      'crawlab-ui': CrawlabUI,
     },
     pathResolve({refPath, relPath}: { refPath?: string; relPath?: string }) {
       // self

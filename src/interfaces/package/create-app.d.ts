@@ -9,6 +9,7 @@ declare global {
     loadStore?: boolean;
     loadRouter?: boolean;
     loadElementPlus?: boolean;
+    loadCrawlabUI?: boolean;
     loadI18n?: boolean;
     loadFontAwesome?: boolean;
     store?: Store;

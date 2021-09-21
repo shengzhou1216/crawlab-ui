@@ -4,11 +4,13 @@ import {
   getDefaultStoreMutations,
   getDefaultStoreState
 } from '@/utils/store';
+import {getNewPlugin} from '@/components/plugin/plugin';
 
 type Plugin = CPlugin;
 
 const state = {
   ...getDefaultStoreState<Plugin>('plugin'),
+  form: getNewPlugin(),
 } as PluginStoreState;
 
 const getters = {

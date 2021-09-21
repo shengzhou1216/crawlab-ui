@@ -3,12 +3,24 @@ import {useStore} from 'vuex';
 import {getDefaultUseListOptions, setupListComponent} from '@/utils/list';
 import {computed, h} from 'vue';
 import {TABLE_COLUMN_NAME_ACTIONS} from '@/constants/table';
-import {ElMessageBox} from 'element-plus';
+import {ElMessage, ElMessageBox} from 'element-plus';
 import usePluginService from '@/services/plugin/pluginService';
 import NavLink from '@/components/nav/NavLink.vue';
 import {useRouter} from 'vue-router';
+import useRequest from '@/services/request';
+import {
+  PLUGIN_STATUS_INSTALL_ERROR,
+  PLUGIN_STATUS_INSTALLING,
+  PLUGIN_STATUS_RUNNING,
+  PLUGIN_STATUS_STOPPED
+} from '@/constants/plugin';
+import PluginStatus from '@/components/plugin/PluginStatus.vue';
 
 type Plugin = CPlugin;
+
+const {
+  post,
+} = useRequest();
 
 const usePluginList = () => {
   // router
@@ -60,6 +72,21 @@ const usePluginList = () => {
       allowFilterSearch: true,
     },
     {
+      key: 'status',
+      label: 'Status',
+      icon: ['fa', 'check-square'],
+      width: '120',
+      value: (row: Plugin) => {
+        return h(PluginStatus, {status: row.status, error: row.error} as PluginStatusProps);
+      },
+    },
+    {
+      key: 'pid',
+      label: 'Process ID',
+      icon: ['fa', 'microchip'],
+      width: '120',
+    },
+    {
       key: 'description',
       label: 'Description',
       icon: ['fa', 'comment-alt'],
@@ -72,7 +99,51 @@ const usePluginList = () => {
       label: 'Actions',
       fixed: 'right',
       width: '200',
-      buttons: [
+      buttons: (row: Plugin) => [
+        ((): TableColumnButton => {
+          switch (row.status) {
+            case PLUGIN_STATUS_RUNNING:
+              return {
+                type: 'info',
+                size: 'mini',
+                icon: ['fa', 'stop'],
+                tooltip: 'Stop',
+                onClick: async (row) => {
+                  await ElMessageBox.confirm('Are you sure to stop?', 'Stop', {type: 'warning'});
+                  await ElMessage.info('Attempt to stop');
+                  await post(`/plugins/${row._id}/stop`);
+                  await store.dispatch(`${ns}/getList`);
+                },
+              };
+            case PLUGIN_STATUS_INSTALL_ERROR:
+              return {
+                type: 'primary',
+                size: 'mini',
+                icon: ['fa', 'play'],
+                tooltip: 'Install',
+                onClick: async (row) => {
+                  await ElMessageBox.confirm('Are you sure to install?', 'Install', {type: 'warning'});
+                  await post(`/plugins/${row._id}/install`);
+                  await ElMessage.success(' Installing plugin');
+                  await store.dispatch(`${ns}/getList`);
+                },
+              };
+            default:
+              return {
+                type: 'success',
+                size: 'mini',
+                icon: ['fa', 'play'],
+                tooltip: 'Run',
+                disabled: (row) => row.status === PLUGIN_STATUS_INSTALLING,
+                onClick: async (row) => {
+                  await ElMessageBox.confirm('Are you sure to run?', 'Run', {type: 'warning'});
+                  await post(`/plugins/${row._id}/run`);
+                  await ElMessage.success(' Started plugin successfully');
+                  await store.dispatch(`${ns}/getList`);
+                },
+              };
+          }
+        })(),
         {
           type: 'primary',
           icon: ['fa', 'search'],
@@ -81,15 +152,6 @@ const usePluginList = () => {
             router.push(`/plugins/${row._id}`);
           },
         },
-        // {
-        //   type: 'info',
-        //   size: 'mini',
-        //   icon: ['fa', 'clone'],
-        //   tooltip: 'Clone',
-        //   onClick: (row) => {
-        //     console.log('clone', row);
-        //   }
-        // },
         {
           type: 'danger',
           size: 'mini',

@@ -262,13 +262,13 @@ const useTaskList = () => {
           {
             type: 'info',
             size: 'mini',
-            icon: ['fa', 'pause'],
+            icon: ['fa', 'stop'],
             tooltip: 'Cancel',
             onClick: async (row: Task) => {
               await ElMessageBox.confirm('Are you sure to cancel?', 'Cancel', {type: 'warning'});
               await ElMessage.info('Attempt to cancel');
               await post(`/tasks/${row._id}/cancel`);
-              await store.dispatch(`task/getList`);
+              await store.dispatch(`${ns}/getList`);
             },
           }
           :

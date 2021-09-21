@@ -3,10 +3,15 @@ import {cloneArray} from '@/utils/object';
 import {PLUGIN_UI_COMPONENT_TYPE_TAB, PLUGIN_UI_COMPONENT_TYPE_VIEW} from '@/constants/plugin';
 import {loadModule} from '@/utils/sfc';
 import {Router} from 'vue-router';
+import useRequest from '@/services/request';
 
 type Plugin = CPlugin;
 
 const PLUGIN_PROXY_ENDPOINT = '/plugin-proxy';
+
+const {
+  getRaw,
+} = useRequest();
 
 const getStoreNamespaceFromRoutePath = (path: string): ListStoreNamespace => {
   const arr = path.split('/');
@@ -60,7 +65,7 @@ const addPluginRouteTab = (router: Router, store: Store<RootStoreState>, p: Plug
     router.addRoute(parentRoute.name?.toString() as string, {
       name: `${parentRoute.name?.toString()}-${pc.name}`,
       path: pc.path as string,
-      component: () => loadModule(`${PLUGIN_PROXY_ENDPOINT}/${p.name}/${pc.src}`)
+      component: () => loadModule(`${PLUGIN_PROXY_ENDPOINT}/${p.name}/_ui/${pc.src}`)
     });
 
     // add tab
@@ -90,7 +95,7 @@ const addPluginRouteView = (router: Router, p: Plugin, pc: PluginUIComponent) =>
   router.addRoute('Root', {
     name: pc.name,
     path: pc.path as string,
-    component: () => loadModule(`${PLUGIN_PROXY_ENDPOINT}/${p.name}/${pc.src}`)
+    component: () => loadModule(`${PLUGIN_PROXY_ENDPOINT}/${p.name}/_ui/${pc.src}`)
   });
 };
 
@@ -118,6 +123,30 @@ const initPluginRoutes = (router: Router, store: Store<RootStoreState>) => {
   });
 };
 
+const initPluginAssets = (store: Store<RootStoreState>) => {
+  const {
+    plugin: state,
+  } = store.state;
+
+  state.allList.forEach(async p => {
+    if (!p.ui_assets) return;
+    for (const asset of p.ui_assets) {
+      const url = `${PLUGIN_PROXY_ENDPOINT}/${p.name}/_ui/${asset.path}`;
+      const res = await getRaw(url);
+      const textContent = res.data;
+      if (asset.type === 'css') {
+        const el = Object.assign(document.createElement('style'), {textContent});
+        const ref = document.head.getElementsByTagName('style')[0] || null;
+        document.head.insertBefore(el, ref);
+      } else if (asset.type === 'js') {
+        const el = Object.assign(document.createElement('script'), {textContent});
+        const ref = document.head.getElementsByTagName('script')[0] || null;
+        document.head.insertBefore(el, ref);
+      }
+    }
+  });
+};
+
 export const initPlugins = async (router: Router, store: Store<RootStoreState>) => {
   // store
   const ns = 'plugin';
@@ -137,5 +166,7 @@ export const initPlugins = async (router: Router, store: Store<RootStoreState>) 
   initPluginSidebarMenuItems(store);
 
   initPluginRoutes(router, store);
+
+  initPluginAssets(store);
 };
 

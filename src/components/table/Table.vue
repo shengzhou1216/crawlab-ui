@@ -122,7 +122,7 @@ export default defineComponent({
     },
     selectedColumnKeys: {
       type: Array as PropType<string[]>,
-      required: true,
+      required: false,
       default: () => {
         return [];
       },

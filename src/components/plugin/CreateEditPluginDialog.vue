@@ -1,5 +1,6 @@
 <template>
   <CreateEditDialog
+      width="800px"
       :action-functions="actionFunctions"
       :confirm-disabled="confirmDisabled"
       :confirm-loading="confirmLoading"
