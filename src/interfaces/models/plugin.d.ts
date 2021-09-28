@@ -25,13 +25,11 @@ declare global {
     install_type?: PluginInstallType;
     install_url?: string;
     deploy_mode?: PluginDeployMode;
+    auto_start?: boolean;
     ui_components?: PluginUIComponent[];
     ui_sidebar_navs?: MenuItem[];
     ui_assets?: PluginUIAsset[];
-    status?: PluginStatus;
-    pid?: number;
-    error?: string;
-    restart?: boolean;
+    status?: PluginStatus[];
   }
 
   interface PluginUIComponent {
@@ -50,7 +48,14 @@ declare global {
 
   type PluginDeployMode = PLUGIN_DEPLOY_MODE_MASTER | PLUGIN_DEPLOY_MODE_ALL;
 
-  type PluginStatus = PLUGIN_STATUS_STOPPED | PLUGIN_STATUS_RUNNING | PLUGIN_STATUS_ERROR;
+  interface PluginStatus extends BaseModel {
+    plugin_id?: string;
+    node_id?: string;
+    node?: CNode;
+    status?: PLUGIN_STATUS_STOPPED | PLUGIN_STATUS_RUNNING | PLUGIN_STATUS_ERROR;
+    pid?: number;
+    error?: string;
+  }
 
   type PluginInstallType = PLUGIN_INSTALL_TYPE_NAME | PLUGIN_INSTALL_TYPE_GIT | PLUGIN_INSTALL_TYPE_LOCAL;
 }

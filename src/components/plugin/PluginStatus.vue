@@ -1,29 +1,32 @@
 <template>
-  <Tag
-      class="plugin-status"
-      :key="data"
-      :icon="data.icon"
-      :label="data.label"
-      :spinning="data.spinning"
-      :type="data.type"
-      :size="size"
-      @click="$emit('click')"
-  >
-    <template #tooltip>
-      <div v-html="data.tooltip"/>
-    </template>
-  </Tag>
+  <div class="plugin-status">
+    <Tag
+        :key="data"
+        :icon="data.icon"
+        :label="data.label"
+        :spinning="data.spinning"
+        :type="data.type"
+        :size="size"
+        @click="$emit('click')"
+    >
+      <template #tooltip>
+        <div v-html="data.tooltip"/>
+      </template>
+    </Tag>
+  </div>
 </template>
 
 <script lang="ts">
 import {computed, defineComponent, PropType} from 'vue';
 import {
+  PLUGIN_STATUS_INSTALLING,
   PLUGIN_STATUS_STOPPED,
   PLUGIN_STATUS_RUNNING,
-  PLUGIN_STATUS_ERROR, PLUGIN_STATUS_INSTALLING,
+  PLUGIN_STATUS_ERROR,
 } from '@/constants/plugin';
 import Tag from '@/components/tag/Tag.vue';
 import colors from '@/styles/color.scss';
+import {emptyArrayFunc} from '@/utils/func';
 
 export default defineComponent({
   name: 'PluginStatus',
@@ -32,8 +35,9 @@ export default defineComponent({
   },
   props: {
     status: {
-      type: String as PropType<PluginStatus>,
+      type: String as PropType<string>,
       required: false,
+      default: emptyArrayFunc,
     },
     size: {
       type: String as PropType<BasicSize>,
@@ -41,9 +45,9 @@ export default defineComponent({
       default: 'mini',
     },
     error: {
-      type: String,
+      type: String as PropType<string>,
       required: false,
-    }
+    },
   },
   emits: ['click'],
   setup(props: PluginStatusProps, {emit}) {

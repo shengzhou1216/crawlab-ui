@@ -7,13 +7,19 @@
   >
     <template v-if="isCreate">
       <!--Row-->
-      <FormItem :span="4" label="Type">
+      <FormItem :span="2" label="Type">
         <el-radio-group v-model="form.install_type" type="button" size="small" @change="onInstallTypeChange">
           <el-radio-button label="name">Name</el-radio-button>
           <el-radio-button label="git">Git</el-radio-button>
           <el-radio-button label="local">Local</el-radio-button>
         </el-radio-group>
       </FormItem>
+      <FormItem :span="2" label="Auto Start">
+        <cl-switch v-model="form.auto_start"/>
+      </FormItem>
+      <!--./Row-->
+
+      <!--Row-->
       <template v-if="form.install_type === PLUGIN_INSTALL_TYPE_NAME">
         <FormItem :span="4" label="Name" prop="name" required>
           <el-input v-model="form.name" placeholder="Name"/>

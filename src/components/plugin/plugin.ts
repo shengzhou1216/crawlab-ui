@@ -11,6 +11,7 @@ type Plugin = CPlugin;
 export const getNewPlugin = (): Plugin => {
   return {
     install_type: PLUGIN_INSTALL_TYPE_NAME,
+    auto_start: true,
   };
 };
 

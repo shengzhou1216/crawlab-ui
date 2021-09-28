@@ -1,5 +1,5 @@
 interface PluginStatusProps {
-  status?: PluginStatus;
+  status?: string;
   size?: BasicSize;
   error?: string;
 }
