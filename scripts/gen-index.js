@@ -3,16 +3,16 @@ const fs = require('fs')
 const rd = require('rd')
 
 const IGNORE_COMPONENTS_SUB_MODULES = [
-  'node',
-  'project',
-  'spider',
-  'task',
-  'tag',
-  'dataCollection',
-  'schedule',
-  'user',
-  'token',
-  'plugin',
+  // 'node',
+  // 'project',
+  // 'spider',
+  // 'task',
+  // 'tag',
+  // 'dataCollection',
+  // 'schedule',
+  // 'user',
+  // 'token',
+  // 'plugin',
 ]
 
 const EXPORT_MODULES = [

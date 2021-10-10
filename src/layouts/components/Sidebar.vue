@@ -23,20 +23,47 @@
           :collapse="sidebarCollapsed"
           :active-text-color="menuActiveText"
           :background-color="menuBg"
-          :default-active="activePath"
           :text-color="menuText"
+          :default-active="activePath"
+          :default-openeds="openedIndexes"
       >
-        <el-menu-item
-            v-for="(item, $index) in menuItems"
-            :key="$index"
-            :index="item.path"
-            @click="onMenuItemClick(item)"
-        >
-          <MenuItemIcon :item="item" size="normal"/>
-          <template #title>
-            <span class="menu-item-title">{{ item.title }}</span>
-          </template>
-        </el-menu-item>
+        <template v-for="(item, $index) in menuItems" :key="$index">
+          <!-- no sub menu items -->
+          <el-menu-item
+              v-if="!item.children"
+              :index="item.path"
+              @click="onMenuItemClick(item)"
+          >
+            <MenuItemIcon :item="item" size="normal"/>
+            <template #title>
+              <span class="menu-item-title">{{ item.title }}</span>
+            </template>
+          </el-menu-item>
+          <!-- ./no sub menu items -->
+
+          <!-- has sub menu items -->
+          <el-submenu
+              v-else
+              :index="item.path"
+          >
+            <template #title>
+              <MenuItemIcon :item="item" size="normal"/>
+              <span class="menu-item-title">{{ item.title }}</span>
+            </template>
+            <el-menu-item
+                v-for="(subItem, $index) in item.children"
+                :key="$index"
+                :index="subItem.path"
+                @click="onMenuItemClick(subItem)"
+            >
+              <MenuItemIcon :item="subItem" size="normal"/>
+              <template #title>
+                <span class="menu-item-title">{{ subItem.title }}</span>
+              </template>
+            </el-menu-item>
+          </el-submenu>
+          <!-- ./has sub menu items -->
+        </template>
         <div class="plugin-anchor"/>
       </el-menu>
     </div>
@@ -45,13 +72,14 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent} from 'vue';
+import {computed, defineComponent, onMounted} from 'vue';
 import {useStore} from 'vuex';
 import {useRoute, useRouter} from 'vue-router';
 import variables from '@/styles/variables.scss';
 import logo from '@/assets/js/svg/logo.js';
 import MenuItemIcon from '@/components/icon/MenuItemIcon.vue';
 import {getPrimaryPath} from '@/utils/path';
+import * as path from 'path';
 
 export default defineComponent({
   name: 'Sidebar',
@@ -65,13 +93,46 @@ export default defineComponent({
     const {layout} = store.state as RootStoreState;
     const storeNamespace = 'layout';
 
-    const activePath = computed<string>(() => {
-      return getPrimaryPath(route.path);
-    });
-
     const sidebarCollapsed = computed<boolean>(() => layout.sidebarCollapsed);
 
     const menuItems = computed<MenuItem[]>(() => layout.menuItems);
+
+    const getMenuItemPathMap = (rootPath: string, item: MenuItem): Map<string, string> => {
+      const paths = new Map<string, string>();
+      const itemPath = item.path.startsWith('/') ? item.path : path.join(rootPath, item.path);
+      paths.set(itemPath, rootPath);
+      if (item.children && item.children.length > 0) {
+        for (const subItem of item.children) {
+          getMenuItemPathMap(itemPath, subItem).forEach((parentPath, path) => {
+            paths.set(path, parentPath);
+          });
+        }
+      }
+      return paths;
+    };
+
+    const allMenuItemPathMap = computed<Map<string, string>>(() => {
+      const paths = new Map<string, string>();
+      for (const item of menuItems.value) {
+        getMenuItemPathMap('/', item).forEach((parentPath, path) => {
+          paths.set(path, parentPath);
+        });
+      }
+      return paths;
+    });
+
+    const activePath = computed<string>(() => {
+      if (allMenuItemPathMap.value.has(route.path)) {
+        return route.path;
+      }
+      return getPrimaryPath(route.path);
+    });
+
+    const openedIndexes = computed<string[]>(() => {
+      const parentPath = allMenuItemPathMap.value.get(activePath.value);
+      if (!parentPath) return [];
+      return [parentPath];
+    });
 
     const toggleIcon = computed<string[]>(() => {
       if (sidebarCollapsed.value) {
@@ -95,6 +156,7 @@ export default defineComponent({
       menuItems,
       logo,
       activePath,
+      openedIndexes,
       onMenuItemClick,
       toggleSidebar,
       ...variables,
@@ -177,7 +239,8 @@ export default defineComponent({
       height: calc(100vh - #{$headerHeight});
       transition: none !important;
 
-      .el-menu-item {
+      .el-menu-item,
+      .el-submenu {
         &.is-active {
           background-color: $menuHover !important;
         }

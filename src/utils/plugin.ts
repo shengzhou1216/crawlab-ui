@@ -81,7 +81,7 @@ const addPluginRouteTab = (router: Router, store: Store<RootStoreState>, p: Plug
   });
 };
 
-const addPluginRouteView = (router: Router, p: Plugin, pc: PluginUIComponent) => {
+const addPluginRouteView = (router: Router, p: Plugin, pc: PluginUIComponent, parentRouteName?: string) => {
   // current routes paths
   const routesPaths = router.getRoutes().map(r => r.path);
 
@@ -92,11 +92,16 @@ const addPluginRouteView = (router: Router, p: Plugin, pc: PluginUIComponent) =>
   if (routesPaths.includes(pluginPath as string)) return;
 
   // add route
-  router.addRoute('Root', {
+  router.addRoute(parentRouteName || 'Root', {
     name: pc.name,
     path: pc.path as string,
-    component: () => loadModule(`${PLUGIN_PROXY_ENDPOINT}/${p.name}/_ui/${pc.src}`)
+    component: () => loadModule(`${PLUGIN_PROXY_ENDPOINT}/${p.name}/_ui/${pc.src}`),
   });
+
+  // add children routes
+  if (pc.children?.length) {
+    pc.children.forEach(subPc => addPluginRouteView(router, p, subPc, pc.name));
+  }
 };
 
 const initPluginRoutes = (router: Router, store: Store<RootStoreState>) => {

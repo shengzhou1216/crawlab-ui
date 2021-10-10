@@ -23,6 +23,7 @@
             />
           </NavActionItem>
         </NavActionGroup>
+        <slot name="nav-actions-extra"></slot>
       </NavActions>
       <!-- ./Nav Actions -->
 
@@ -37,6 +38,9 @@
           :page-size="tablePagination.size"
           selectable
           :selectable-function="selectableFunction"
+          :visible-buttons="visibleButtons"
+          :pagination-layout="tablePaginationLayout"
+          :loading="tableLoading"
           @selection-change="onSelect"
           @delete="onDelete"
           @edit="onEdit"
@@ -153,6 +157,25 @@ export default defineComponent({
     selectableFunction: {
       type: Function as PropType<TableSelectableFunction>,
       default: () => true,
+    },
+    visibleButtons: {
+      type: Array as PropType<BuiltInTableActionButtonName[]>,
+      required: false,
+      default: () => {
+        return [];
+      }
+    },
+    tablePaginationLayout: {
+      type: String,
+      required: false,
+    },
+    tableLoading: {
+      type: Boolean,
+      required: false,
+    },
+    tablePaginationPosition: {
+      type: String as PropType<TablePaginationPosition>,
+      required: false,
     },
   },
   emits: [

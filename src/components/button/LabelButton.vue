@@ -8,6 +8,7 @@
       :tooltip="tooltip"
       :type="type"
       class="label-button"
+      :loading="loading"
       @click="() => $emit('click')"
   >
     <font-awesome-icon v-if="icon" :icon="icon" class="icon"/>

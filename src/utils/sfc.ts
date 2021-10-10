@@ -4,6 +4,7 @@ import * as vue from 'vue';
 import * as VueRouter from 'vue-router';
 import * as ElementPlus from 'element-plus';
 import * as CrawlabUI from '@/index';
+import * as Vuex from 'vuex';
 
 const sfcLoadModule = window['vue3-sfc-loader']?.loadModule;
 
@@ -15,6 +16,7 @@ const getLoadModuleOptions = (): any => {
   return {
     moduleCache: {
       vue,
+      'vuex': Vuex,
       'vue-router': VueRouter,
       'element-plus': ElementPlus,
       'crawlab-ui': CrawlabUI,

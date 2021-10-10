@@ -1,5 +1,20 @@
 <template>
-  <div ref="tableWrapperRef" class="table">
+  <div v-loading="loading" ref="tableWrapperRef" class="table">
+    <!-- Table Header -->
+    <div class="table-header">
+      <el-pagination
+          v-if="[TABLE_PAGINATION_POSITION_ALL, TABLE_PAGINATION_POSITION_TOP].includes(paginationPosition)"
+          :current-page="page"
+          :page-size="pageSize"
+          :total="total"
+          class="pagination"
+          :layout="paginationLayout"
+          @current-change="onCurrentChange"
+          @size-change="onSizeChange"
+      />
+    </div>
+    <!-- ./Table Header -->
+
     <!-- Table Body -->
     <el-table
         v-if="selectedColumns.length > 0"
@@ -48,6 +63,7 @@
     <div v-if="!hideFooter" class="table-footer">
       <TableActions
           :selection="internalSelection"
+          :visible-buttons="visibleButtons"
           @delete="onDelete"
           @edit="onEdit"
           @export="onExport"
@@ -61,11 +77,12 @@
         </template>
       </TableActions>
       <el-pagination
+          v-if="[TABLE_PAGINATION_POSITION_ALL, TABLE_PAGINATION_POSITION_BOTTOM].includes(paginationPosition)"
           :current-page="page"
           :page-size="pageSize"
           :total="total"
           class="pagination"
-          layout="total, sizes, prev, pager, next"
+          :layout="paginationLayout"
           @current-change="onCurrentChange"
           @size-change="onSizeChange"
       />
@@ -96,6 +113,11 @@ import useData from '@/components/table/data';
 import TableActions from '@/components/table/TableActions.vue';
 import useAction from '@/components/table/action';
 import usePagination from '@/components/table/pagination';
+import {
+  TABLE_PAGINATION_POSITION_ALL,
+  TABLE_PAGINATION_POSITION_BOTTOM,
+  TABLE_PAGINATION_POSITION_TOP
+} from '@/constants/table';
 
 export default defineComponent({
   name: 'Table',
@@ -161,7 +183,19 @@ export default defineComponent({
     selectableFunction: {
       type: Function as PropType<TableSelectableFunction>,
       default: () => true,
-    }
+    },
+    paginationLayout: {
+      type: String,
+      default: 'total, sizes, prev, pager, next',
+    },
+    loading: {
+      type: Boolean,
+      default: false,
+    },
+    paginationPosition: {
+      type: String as PropType<TablePaginationPosition>,
+      default: TABLE_PAGINATION_POSITION_BOTTOM,
+    },
   },
   emits: [
     'edit',
@@ -228,6 +262,9 @@ export default defineComponent({
       onDelete,
       onCurrentChange,
       onSizeChange,
+      TABLE_PAGINATION_POSITION_ALL,
+      TABLE_PAGINATION_POSITION_BOTTOM,
+      TABLE_PAGINATION_POSITION_TOP,
     };
   },
 });
@@ -241,6 +278,11 @@ export default defineComponent({
 
   .el-table {
     width: 100%;
+  }
+
+  .table-header {
+    width: 100%;
+    text-align: right;
   }
 
   .table-footer {

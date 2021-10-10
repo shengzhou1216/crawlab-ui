@@ -12,6 +12,10 @@ declare global {
     actionFunctions: ListLayoutActionFunctions;
     noActions: boolean;
     selectableFunction: TableSelectableFunction;
+    visibleButtons: BuiltInTableActionButtonName[];
+    tablePaginationLayout?: string;
+    tableLoading?: boolean;
+    tablePaginationPosition?: TablePaginationPosition;
   }
 
   interface ListLayoutComponentData<T = any> {

@@ -11,7 +11,7 @@
       class="fa-icon-button"
       @click="() => $emit('click')"
   >
-    <font-awesome-icon :icon="icon"/>
+    <font-awesome-icon :icon="icon" :spin="spin"/>
     <div v-if="badgeIcon" class="badge-icon">
       <font-awesome-icon :icon="badgeIcon"/>
     </div>
@@ -30,6 +30,10 @@ export const faIconButtonProps = {
   },
   badgeIcon: {
     type: [Array, String] as PropType<Icon>,
+    required: false,
+  },
+  spin: {
+    type: Boolean,
     required: false,
   },
   ...buttonProps,

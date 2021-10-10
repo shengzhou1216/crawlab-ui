@@ -1,29 +1,32 @@
 import axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
 import {ElMessageBox} from 'element-plus';
 import {getEmptyResponseWithListData, getRequestBaseUrl} from '@/utils/request';
-import {useRouter} from 'vue-router';
+import {Router} from 'vue-router';
 
-// TODO: request interception
 
-// response interception
-let msgBoxVisible = false;
-axios.interceptors.response.use(res => {
-  return res;
-}, err => {
-  const router = useRouter();
-  const status = err?.response?.status;
-  if (status === 401) {
-    if (msgBoxVisible) return;
-    msgBoxVisible = true;
-    ElMessageBox.confirm('You seem to have been logged-out, try to login again?', 'Unauthorized', {type: 'warning'})
-      .then(_ => router.push('/login'))
-      .finally(() => {
-        msgBoxVisible = false;
-      });
-  } else {
-    console.error(err);
-  }
-});
+// initialize request
+export const initRequest = (router?: Router) => {
+  // TODO: request interception
+
+  // response interception
+  let msgBoxVisible = false;
+  axios.interceptors.response.use(res => {
+    return res;
+  }, err => {
+    const status = err?.response?.status;
+    if (status === 401) {
+      if (msgBoxVisible) return;
+      msgBoxVisible = true;
+      ElMessageBox.confirm('You seem to have been logged-out, try to login again?', 'Unauthorized', {type: 'warning'})
+        .then(_ => router?.push('/login'))
+        .finally(() => {
+          msgBoxVisible = false;
+        });
+    } else {
+      console.error(err);
+    }
+  });
+}
 
 const useRequest = () => {
   const baseUrl = getRequestBaseUrl();

@@ -9,6 +9,7 @@ import {initBaiduTonji} from '@/admin/baidu';
 import {importScripts, importStylesheets, initWindowGlobals} from '@/package/utils';
 import {createRouter} from '@/router';
 import {initPlugins} from '@/utils/plugin';
+import {initRequest} from '@/services/request';
 
 export const getDefaultCreateAppOptions = (): CreateAppOptions => {
   return {
@@ -61,6 +62,9 @@ const createApp = async (options?: CreateAppOptions): Promise<VueApp> => {
   } catch (e) {
     console.warn(e);
   }
+
+  // initialize request
+  initRequest(router);
 
   // load modules
   if (options.loadStore) app.use(store);

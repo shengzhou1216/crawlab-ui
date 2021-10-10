@@ -1,6 +1,11 @@
 import {Ref, VNode} from 'vue';
 import {AnyObject, Store, StoreMutations, TableColumnCtx} from 'element-plus/lib/el-table/src/table.type';
-import {TABLE_ACTION_CUSTOMIZE_COLUMNS, TABLE_ACTION_EXPORT,} from '@/constants/table';
+import {
+  TABLE_ACTION_CUSTOMIZE_COLUMNS,
+  TABLE_ACTION_EXPORT, TABLE_PAGINATION_POSITION_ALL,
+  TABLE_PAGINATION_POSITION_BOTTOM,
+  TABLE_PAGINATION_POSITION_TOP,
+} from '@/constants/table';
 
 declare global {
   interface TableProps {
@@ -15,6 +20,9 @@ declare global {
     visibleButtons: BuiltInTableActionButtonName[];
     hideFooter: boolean;
     selectableFunction: TableSelectableFunction;
+    paginationLayout: string;
+    loading: boolean;
+    paginationPosition: TablePaginationPosition;
   }
 
   interface TableColumn<T = any> {
@@ -103,4 +111,9 @@ declare global {
     ActionName |
     TABLE_ACTION_EXPORT |
     TABLE_ACTION_CUSTOMIZE_COLUMNS;
+
+  type TablePaginationPosition =
+    TABLE_PAGINATION_POSITION_TOP |
+    TABLE_PAGINATION_POSITION_BOTTOM |
+    TABLE_PAGINATION_POSITION_ALL;
 }

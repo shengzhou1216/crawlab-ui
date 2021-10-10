@@ -39,6 +39,7 @@ declare global {
     type?: string;
     path?: string;
     parent_paths?: string[];
+    children?: PluginUIComponent[];
   }
 
   interface PluginUIAsset {

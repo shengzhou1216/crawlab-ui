@@ -112,10 +112,11 @@ export default defineComponent({
     };
 
     const cls = computed<string[]>(() => {
-      const {clickable, disabled} = props;
+      const {clickable, disabled, label, tag} = props;
       const cls = [] as string[];
       if (clickable) cls.push('clickable');
       if (disabled) cls.push('disabled');
+      if (!label && !tag?.name) cls.push('no-label');
       return cls;
     });
 
@@ -191,7 +192,7 @@ export default defineComponent({
   font-weight: bolder;
 }
 
-.tag >>> .icon {
+.tag:not(.no-label) >>> .icon {
   margin-right: 5px;
 }
 </style>

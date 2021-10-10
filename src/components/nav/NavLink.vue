@@ -26,6 +26,10 @@ export default defineComponent({
       type: [String, Array] as PropType<Icon>,
       default: '',
     },
+    external: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: [
     'click',
@@ -34,7 +38,11 @@ export default defineComponent({
     const router = useRouter();
 
     const onClick = () => {
-      const {path} = props;
+      const {path, external} = props;
+      if (external) {
+        window.open(path);
+        return;
+      }
       if (path) {
         router.push(path);
       }
