@@ -36,6 +36,7 @@ const state = {
   fileNavItems: [],
   activeNavItem: undefined,
   fileContent: '',
+  defaultFilePaths: [],
 } as SpiderStoreState;
 
 const getters = {
@@ -58,6 +59,12 @@ const mutations = {
   },
   resetFileContent: (state: SpiderStoreState) => {
     state.fileContent = '';
+  },
+  setDefaultFilePaths: (state: SpiderStoreState, paths: string[]) => {
+    state.defaultFilePaths = paths;
+  },
+  resetDefaultFilePaths: (state: SpiderStoreState) => {
+    state.defaultFilePaths = [];
   },
 } as SpiderStoreMutations;
 

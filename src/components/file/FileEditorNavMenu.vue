@@ -21,7 +21,7 @@
           color: style.color,
         }"
         node-key="path"
-        :default-expanded-keys="defaultExpandedKeys"
+        :default-expanded-keys="computedDefaultExpandedKeys"
         draggable
         @node-drag-enter="onNodeDragEnter"
         @node-drag-leave="onNodeDragLeave"
@@ -65,7 +65,7 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, onMounted, onUnmounted, reactive, ref} from 'vue';
+import {computed, defineComponent, onMounted, onUnmounted, PropType, reactive, ref, watch} from 'vue';
 import {ClickOutside} from 'element-plus/lib/directives';
 import Node from 'element-plus/lib/el-tree/src/model/node';
 import {DropType} from 'element-plus/lib/el-tree/src/tree.type';
@@ -74,6 +74,7 @@ import {KEY_CONTROL, KEY_META} from '@/constants/keyboard';
 import FileEditorNavMenuContextMenu from '@/components/file/FileEditorNavMenuContextMenu.vue';
 import {ElMessageBox, ElTree} from 'element-plus';
 import {useDropzone} from 'vue3-dropzone';
+import {emptyArrayFunc, emptyObjectFunc} from '@/utils/func';
 
 export default defineComponent({
   name: 'FileEditorNavMenu',
@@ -86,11 +87,11 @@ export default defineComponent({
   },
   props: {
     activeItem: {
-      type: Object,
+      type: Object as PropType<FileNavItem>,
       required: false,
     },
     items: {
-      type: Array,
+      type: Array as PropType<FileNavItem[]>,
       required: true,
       default: () => {
         return [];
@@ -101,12 +102,15 @@ export default defineComponent({
       required: true,
       default: false,
     },
-    style: {
-      type: Object,
+    defaultExpandedKeys: {
+      type: Array as PropType<string[]>,
       required: false,
-      default: () => {
-        return {};
-      },
+      default: emptyArrayFunc,
+    },
+    style: {
+      type: Object as PropType<Partial<CSSStyleDeclaration>>,
+      required: false,
+      default: emptyObjectFunc,
     },
   },
   emits: [
@@ -120,7 +124,7 @@ export default defineComponent({
     'ctx-menu-delete',
     'drop-files',
   ],
-  setup(props, ctx) {
+  setup(props: FileEditorNavMenuProps, ctx) {
     const {emit} = ctx;
 
     const tree = ref<typeof ElTree>();
@@ -144,7 +148,7 @@ export default defineComponent({
 
     const expandedKeys = ref<string[]>([]);
 
-    const defaultExpandedKeys = computed<string[]>(() => {
+    const computedDefaultExpandedKeys = computed<string[]>(() => {
       return ['~'].concat(expandedKeys.value);
     });
 
@@ -352,12 +356,22 @@ export default defineComponent({
       document.onkeyup = null;
     });
 
+    watch(() => props.defaultExpandedKeys, () => {
+      expandedKeys.value = props.defaultExpandedKeys;
+
+      expandedKeys.value.forEach(key => {
+        const n = tree.value?.getNode(key);
+        if (!n?.data) return;
+        emit('node-db-click', n.data);
+      });
+    });
+
     return {
       tree,
       activeContextMenuItem,
       fileEditorNavMenu,
       contextMenuClicking,
-      defaultExpandedKeys,
+      computedDefaultExpandedKeys,
       onNodeClick,
       onNodeContextMenuShow,
       onNodeContextMenuHide,

@@ -3,6 +3,7 @@
       ref="fileEditor"
       :nav-items="navItems"
       :active-nav-item="activeNavItem"
+      :default-expanded-keys="defaultExpandedKeys"
       :content="content"
       @content-change="onContentChange"
       @save-file="onSaveFile"
@@ -172,12 +173,19 @@ export default defineComponent({
       await getFile(id.value, tab.path as string);
     };
 
+    const defaultExpandedKeys = ref<string[]>([]);
+
     onBeforeMount(async () => {
       await listRootDir(id.value);
+
+      if (state.defaultFilePaths.length > 0) {
+        defaultExpandedKeys.value = state.defaultFilePaths as string[];
+      }
     });
 
     onBeforeUnmount(() => {
       store.commit(`${ns}/resetFileContent`);
+      store.commit(`${ns}/resetDefaultFilePaths`);
     });
 
     return {
@@ -197,6 +205,7 @@ export default defineComponent({
       onContentChange,
       onDropFiles,
       onTabClick,
+      defaultExpandedKeys,
     };
   },
 });

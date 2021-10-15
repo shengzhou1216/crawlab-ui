@@ -1,5 +1,6 @@
 interface FileEditorProps {
   content: string;
   navItems: FileNavItem[];
-  activeItem?: FileNavItem;
+  activeNavItem?: FileNavItem;
+  defaultExpandedKeys: string[];
 }

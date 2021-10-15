@@ -4,6 +4,7 @@ interface SpiderStoreState extends BaseStoreState<Spider> {
   fileNavItems: FileNavItem[];
   activeNavItem?: FileNavItem;
   fileContent: string;
+  defaultFilePaths: string[];
 }
 
 type SpiderStoreGetters = BaseStoreGetters<SpiderStoreState>;
@@ -14,6 +15,8 @@ interface SpiderStoreMutations extends BaseStoreMutations<Spider> {
   resetActiveFileNavItem: StoreMutation<BaseStoreState<Spider>>;
   setFileContent: StoreMutation<BaseStoreState<Spider>, string>;
   resetFileContent: StoreMutation<BaseStoreState<Spider>>;
+  setDefaultFilePaths: StoreMutation<BaseStoreState<Spider>, string[]>;
+  resetDefaultFilePaths: StoreMutation<BaseStoreState<Spider>>;
 }
 
 interface SpiderStoreActions extends BaseStoreActions<Spider> {

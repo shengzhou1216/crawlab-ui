@@ -39,6 +39,7 @@
       <FileEditorNavMenu
           :active-item="activeFileItem"
           :default-expand-all="!!fileSearchString"
+          :default-expanded-keys="defaultExpandedKeys"
           :items="files"
           :style="style"
           @node-click="onNavItemClick"
@@ -144,6 +145,7 @@ import FileEditorNavMenu from '@/components/file/FileEditorNavMenu.vue';
 import FileEditorNavTabs from '@/components/file/FileEditorNavTabs.vue';
 import FileEditorSettingsDialog from '@/components/file/FileEditorSettingsDialog.vue';
 import FileEditorNavTabsShowMoreContextMenu from '@/components/file/FileEditorNavTabsShowMoreContextMenu.vue';
+import {emptyArrayFunc} from '@/utils/func';
 
 // codemirror mode import cache
 const codeMirrorModeCache = new Set<string>();
@@ -170,11 +172,14 @@ export default defineComponent({
       required: false,
     },
     navItems: {
-      type: Array,
+      type: Array as PropType<FileNavItem[]>,
       required: true,
-      default: () => {
-        return [];
-      },
+      default: emptyArrayFunc,
+    },
+    defaultExpandedKeys: {
+      type: Array as PropType<string[]>,
+      required: false,
+      default: emptyArrayFunc,
     },
   },
   emits: [
@@ -191,7 +196,7 @@ export default defineComponent({
     'ctx-menu-delete',
     'drop-files',
   ],
-  setup(props, {emit}) {
+  setup(props: FileEditorProps, {emit}) {
     const ns = 'spider';
     const store = useStore();
     const {file} = store.state as RootStoreState;

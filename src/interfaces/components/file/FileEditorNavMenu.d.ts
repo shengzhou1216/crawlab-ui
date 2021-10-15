@@ -1,5 +1,9 @@
 interface FileEditorNavMenuProps {
+  activeItem?: FileNavItem;
   items: FileNavItem[];
+  defaultExpandAll: boolean;
+  defaultExpandedKeys: string[];
+  style?: Partial<CSSStyleDeclaration>;
 }
 
 interface FileEditorNavMenuClickStatus {
