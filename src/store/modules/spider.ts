@@ -7,7 +7,7 @@ import {
 import useRequest from '@/services/request';
 import {
   TAB_NAME_DATA,
-  TAB_NAME_FILES,
+  TAB_NAME_FILES, TAB_NAME_GIT,
   TAB_NAME_OVERVIEW,
   TAB_NAME_SCHEDULES,
   TAB_NAME_SETTINGS,
@@ -28,6 +28,7 @@ const state = {
   tabs: [
     {id: TAB_NAME_OVERVIEW, title: 'Overview'},
     {id: TAB_NAME_FILES, title: 'Files'},
+    {id: TAB_NAME_GIT, title: 'Git'},
     {id: TAB_NAME_TASKS, title: 'Tasks'},
     {id: TAB_NAME_SCHEDULES, title: 'Schedules'},
     {id: TAB_NAME_DATA, title: 'Data'},
@@ -37,6 +38,9 @@ const state = {
   activeNavItem: undefined,
   fileContent: '',
   defaultFilePaths: [],
+  currentGitBranch: '',
+  gitData: {},
+  gitChangeSelection: [],
 } as SpiderStoreState;
 
 const getters = {
@@ -65,6 +69,24 @@ const mutations = {
   },
   resetDefaultFilePaths: (state: SpiderStoreState) => {
     state.defaultFilePaths = [];
+  },
+  setCurrentGitBranch: (state: SpiderStoreState, branch: string) => {
+    state.currentGitBranch = branch;
+  },
+  resetCurrentGitBranch: (state: SpiderStoreState) => {
+    state.currentGitBranch = '';
+  },
+  setGitData: (state: SpiderStoreState, data: GitData) => {
+    state.gitData = data;
+  },
+  resetGitData: (state: SpiderStoreState) => {
+    state.gitData = {};
+  },
+  setGitChangeSelection: (state: SpiderStoreState, selection: GitChange[]) => {
+    state.gitChangeSelection = selection;
+  },
+  resetGitChangeSelection: (state: SpiderStoreState) => {
+    state.gitChangeSelection = [];
   },
 } as SpiderStoreMutations;
 
@@ -134,6 +156,17 @@ const actions = {
   },
   copyFile: async ({commit}: StoreActionContext<BaseStoreState<Spider>>, {id, path, new_path}: FileRequestPayload) => {
     return await post(`${endpoint}/${id}/files/copy`, {path, new_path});
+  },
+  getGit: async ({commit}: StoreActionContext<BaseStoreState<Spider>>, {id}: { id: string }) => {
+    const res = await get(`${endpoint}/${id}/git`);
+    commit('setCurrentGitBranch', res?.data?.current_branch || '');
+    commit('setGitData', res?.data || {});
+    return res;
+  },
+  gitCommit: async ({state}: StoreActionContext<SpiderStoreState>, {id}: { id: string }) => {
+    const paths = state.gitChangeSelection.map(d => d.path);
+    const res = await post(`${endpoint}/${id}/git/commit`, {paths});
+    return res;
   },
 } as SpiderStoreActions;
 

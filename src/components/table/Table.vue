@@ -22,6 +22,8 @@
         :data="tableData"
         :fit="false"
         :row-key="rowKey"
+        :height="height"
+        :max-height="maxHeight"
         border
         size="small"
         @selection-change="onSelectionChange"
@@ -196,6 +198,12 @@ export default defineComponent({
       type: String as PropType<TablePaginationPosition>,
       default: TABLE_PAGINATION_POSITION_BOTTOM,
     },
+    height: {
+      type: [String, Number],
+    },
+    maxHeight: {
+      type: [String, Number],
+    },
   },
   emits: [
     'edit',
@@ -236,6 +244,7 @@ export default defineComponent({
       onEdit,
       onDelete,
       onExport,
+      clearSelection,
     } = useAction(props, ctx, tableRef, actionFunctions as ListLayoutActionFunctions);
 
     const {
@@ -260,6 +269,7 @@ export default defineComponent({
       onAdd,
       onEdit,
       onDelete,
+      clearSelection,
       onCurrentChange,
       onSizeChange,
       TABLE_PAGINATION_POSITION_ALL,

@@ -39,7 +39,7 @@ const useDetail = <T = BaseModel>(ns: ListStoreNamespace) => {
     return id as string || form._id || '';
   });
 
-  const activeTabName = computed<SpiderTabName>(() => store.getters[`${ns}/tabName`]);
+  const activeTabName = computed<string>(() => store.getters[`${ns}/tabName`]);
 
   const sidebarCollapsed = computed<boolean>(() => state.sidebarCollapsed);
 
@@ -128,7 +128,7 @@ const useDetail = <T = BaseModel>(ns: ListStoreNamespace) => {
     ]);
 
     // after save
-    await afterSave.value.map(fn => fn());
+    afterSave.value.map(fn => fn());
   };
 
   onBeforeMount(getForm);

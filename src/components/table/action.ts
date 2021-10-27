@@ -53,6 +53,10 @@ const useAction = (props: TableProps, ctx: SetupContext, table: Ref<Table | unde
     emit('export');
   };
 
+  const clearSelection = () => {
+    table.value?.store?.clearSelection();
+  };
+
   return {
     // public variables and methods
     selection,
@@ -61,6 +65,7 @@ const useAction = (props: TableProps, ctx: SetupContext, table: Ref<Table | unde
     onEdit,
     onDelete,
     onExport,
+    clearSelection,
   };
 };
 

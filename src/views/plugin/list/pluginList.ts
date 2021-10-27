@@ -1,7 +1,7 @@
 import useList from '@/layouts/list';
 import {useStore} from 'vuex';
 import {getDefaultUseListOptions, setupListComponent} from '@/utils/list';
-import {computed, h} from 'vue';
+import {computed, h, onBeforeMount, ref} from 'vue';
 import {TABLE_COLUMN_NAME_ACTIONS} from '@/constants/table';
 import {ElMessage, ElMessageBox} from 'element-plus';
 import usePluginService from '@/services/plugin/pluginService';
@@ -19,6 +19,7 @@ import {
 import PluginStatus from '@/components/plugin/PluginStatus.vue';
 import PluginStatusMultiNode from '@/components/plugin/PluginStatusMultiNode.vue';
 import PluginPid from '@/components/plugin/PluginPid.vue';
+import {SETTING_PLUGIN_BASE_URL_GITEE, SETTING_PLUGIN_BASE_URL_GITHUB} from '@/constants/setting';
 
 type Plugin = CPlugin;
 
@@ -34,6 +35,9 @@ const usePluginList = () => {
   const ns = 'plugin';
   const store = useStore<RootStoreState>();
   const {commit} = store;
+  const {
+    plugin: state,
+  } = store.state;
 
   // services
   const {
@@ -218,8 +222,33 @@ const usePluginList = () => {
   // init
   setupListComponent(ns, store, []);
 
+  const baseUrl = ref<string>();
+
+  onBeforeMount(async () => {
+    // get base url
+    await store.dispatch(`${ns}/getBaseUrl`);
+    baseUrl.value = state.baseUrl;
+  });
+
+  const saveBaseUrl = async (value: string) => {
+    await store.dispatch(`${ns}/saveBaseUrl`, value);
+  };
+
+  const baseUrlOptions = [
+    {value: SETTING_PLUGIN_BASE_URL_GITHUB, label: 'Github'},
+    {value: SETTING_PLUGIN_BASE_URL_GITEE, label: 'Gitee'},
+  ];
+
+  const onBaseUrlChange = async (value: string) => {
+    await saveBaseUrl(value);
+  };
+
   return {
-    ...useList<Plugin>(ns, store, opts)
+    ...useList<Plugin>(ns, store, opts),
+    saveBaseUrl,
+    baseUrlOptions,
+    baseUrl,
+    onBaseUrlChange,
   };
 };
 

@@ -23,6 +23,8 @@ declare global {
     paginationLayout: string;
     loading: boolean;
     paginationPosition: TablePaginationPosition;
+    height?: string | number;
+    maxHeight?: string | number;
   }
 
   interface TableColumn<T = any> {

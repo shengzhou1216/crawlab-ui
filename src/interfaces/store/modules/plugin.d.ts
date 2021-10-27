@@ -1,9 +1,16 @@
 type PluginStoreModule = BaseModule<PluginStoreState, PluginStoreGetters, PluginStoreMutations, PluginStoreActions>;
 
-type PluginStoreState = BaseStoreState<CPlugin>;
+interface PluginStoreState extends BaseStoreState<CPlugin> {
+  baseUrl: string;
+}
 
 type PluginStoreGetters = BaseStoreGetters<CPlugin>;
 
-type PluginStoreMutations = BaseStoreMutations<CPlugin>;
+interface PluginStoreMutations extends BaseStoreMutations<CPlugin> {
+  setBaseUrl: StoreMutation<BaseStoreState<CPlugin>, string>;
+}
 
-type PluginStoreActions = BaseStoreActions<CPlugin>;
+interface PluginStoreActions extends BaseStoreActions<CPlugin> {
+  getBaseUrl: StoreAction<BaseStoreState>;
+  saveBaseUrl: StoreAction<BaseStoreState, string>;
+}

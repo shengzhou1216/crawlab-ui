@@ -5,6 +5,9 @@ interface SpiderStoreState extends BaseStoreState<Spider> {
   activeNavItem?: FileNavItem;
   fileContent: string;
   defaultFilePaths: string[];
+  currentGitBranch: string;
+  gitData: GitData;
+  gitChangeSelection: TableData<GitChange>;
 }
 
 type SpiderStoreGetters = BaseStoreGetters<SpiderStoreState>;
@@ -17,6 +20,12 @@ interface SpiderStoreMutations extends BaseStoreMutations<Spider> {
   resetFileContent: StoreMutation<BaseStoreState<Spider>>;
   setDefaultFilePaths: StoreMutation<BaseStoreState<Spider>, string[]>;
   resetDefaultFilePaths: StoreMutation<BaseStoreState<Spider>>;
+  setCurrentGitBranch: StoreMutation<BaseStoreState<Spider>, string>;
+  resetCurrentGitBranch: StoreMutation<BaseStoreState<Spider>>;
+  setGitData: StoreMutation<BaseStoreState<Spider>, GitData>;
+  resetGitData: StoreMutation<BaseStoreState<Spider>>;
+  setGitChangeSelection: StoreMutation<BaseStoreState<Spider>, GitChange[]>;
+  resetGitChangeSelection: StoreMutation<BaseStoreState<Spider>>;
 }
 
 interface SpiderStoreActions extends BaseStoreActions<Spider> {
@@ -30,4 +39,6 @@ interface SpiderStoreActions extends BaseStoreActions<Spider> {
   renameFile: StoreAction<BaseStoreState, FileRequestPayload>;
   deleteFile: StoreAction<BaseStoreState, FileRequestPayload>;
   copyFile: StoreAction<BaseStoreState, FileRequestPayload>;
+  getGit: StoreAction<BaseStoreState, { id: string }>;
+  gitCommit: StoreAction<BaseStoreState, { id: string }>;
 }
