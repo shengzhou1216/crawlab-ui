@@ -10,7 +10,9 @@ interface SpiderStoreState extends BaseStoreState<Spider> {
   gitChangeSelection: TableData<GitChange>;
 }
 
-type SpiderStoreGetters = BaseStoreGetters<SpiderStoreState>;
+interface SpiderStoreGetters extends BaseStoreGetters<SpiderStoreState> {
+  gitLogsMap: StoreGetter<SpiderStoreState, Map<string, GitLog>>;
+}
 
 interface SpiderStoreMutations extends BaseStoreMutations<Spider> {
   setFileNavItems: StoreMutation<BaseStoreState<Spider>, FileNavItem[]>;
@@ -40,5 +42,6 @@ interface SpiderStoreActions extends BaseStoreActions<Spider> {
   deleteFile: StoreAction<BaseStoreState, FileRequestPayload>;
   copyFile: StoreAction<BaseStoreState, FileRequestPayload>;
   getGit: StoreAction<BaseStoreState, { id: string }>;
+  gitPull: StoreAction<BaseStoreState, { id: string }>;
   gitCommit: StoreAction<BaseStoreState, { id: string }>;
 }

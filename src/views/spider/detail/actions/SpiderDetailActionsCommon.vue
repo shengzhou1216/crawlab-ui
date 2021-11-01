@@ -11,16 +11,6 @@
       <FaIconButton :icon="['far', 'star']" plain tooltip="Favorite" type="warning"/>
     </NavActionItem>
   </NavActionGroup>
-  <!--TODO: implement-->
-  <NavActionGroup v-if="false">
-    <NavActionFaIcon :icon="['fab', 'git-alt']"/>
-    <NavActionItem>
-      <FaIconButton :icon="['fa', 'upload']" tooltip="Upload File" type="primary"/>
-    </NavActionItem>
-    <NavActionItem>
-      <FaIconButton :icon="['fa', 'paper-plane']" tooltip="Commit" type="success"/>
-    </NavActionItem>
-  </NavActionGroup>
 
   <!-- Dialogs (handled by store) -->
   <RunSpiderDialog v-if="activeDialogKey === 'run'"/>

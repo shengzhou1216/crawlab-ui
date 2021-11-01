@@ -9,17 +9,33 @@ interface GitChange {
 }
 
 interface GitLog {
+  hash?: string;
   msg?: string;
   branch?: string;
   author_name?: string;
   author_email?: string;
   timestamp?: string;
+  refs?: GitRef[];
+}
+
+interface GitRef {
+  type?: string;
+  name?: string;
+  hash?: string;
 }
 
 interface GitData {
-  branches?: string[];
+  branches?: GitRef[];
   changes?: GitChange[];
   logs?: GitLog[];
-  tags?: string[];
+  tags?: GitRef[];
   ignore?: string[];
+  git?: Git;
+}
+
+interface Git extends BaseModel {
+  url?: string;
+  auth_type?: string;
+  username?: string;
+  password?: string;
 }

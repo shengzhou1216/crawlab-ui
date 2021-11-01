@@ -3,6 +3,8 @@
     <Table
         :columns="tableColumns"
         :data="tableData"
+        height="calc(100% - 1px)"
+        hide-footer
     />
   </div>
 </template>
@@ -26,7 +28,14 @@ export default defineComponent({
     } = store.state as RootStoreState;
 
     // table data
-    const tableData = computed<TableData<string>>(() => state.gitData.ignore || []);
+    const tableData = computed<TableData<{ name: string; index: number }>>(() => state.gitData.ignore
+        ?.filter(d => !!d.trim() && !d.trim().startsWith('#'))
+        ?.map((d, i) => {
+          return {
+            name: d,
+            index: i,
+          };
+        }) || []);
 
     // table columns
     const tableColumns = computed<TableColumns<string>>(() => {
@@ -35,9 +44,6 @@ export default defineComponent({
           key: 'name',
           label: 'File',
           width: '1100',
-          value: (row: string) => {
-            return row;
-          },
         },
       ] as TableColumns<string>;
     });

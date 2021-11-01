@@ -5,47 +5,11 @@
       <FaIconButton :icon="['fa', 'download']" tooltip="Pull" type="primary" @click="onClickPull"/>
       <FaIconButton :icon="['fa', 'upload']" tooltip="Commit and Push" type="success" @click="onClickCommit"/>
       <div class="branch">
-        <div v-if="isBranchClicked" class="branch-select">
-          <el-select
-              v-model="internalBranch"
-              size="mini"
-          >
-            <el-option
-                v-for="(op, $index) in branches"
-                :key="$index"
-                :label="op.label"
-                :value="op.value"
-            />
-          </el-select>
-          <FaIconButton
-              class="action"
-              type="success"
-              size="mini"
-              :icon="['fa', 'check']"
-              tooltip="Checkout"
-              plain
-              circle
-              :disabled="currentBranch === internalBranch"
-              @click="onBranchCheckout"
-          />
-          <FaIconButton
-              class="action"
-              type="info"
-              size="mini"
-              :icon="['fa', 'times']"
-              tooltip="Cancel"
-              plain
-              circle
-              @click="onBranchCancel"
-          />
-        </div>
         <Tag
-            v-else
             class="branch-label"
             :label="currentBranch"
             :icon="['fa','code-branch']"
             size="small"
-            clickable
             @click="onBranchClick"
         >
           <template #tooltip>
@@ -55,10 +19,6 @@
                 style="color: #409eff; margin-left: 5px; font-weight: bolder"
             >
               {{ currentBranch }}
-            </span>
-            <br>
-            <span style="color: #e6a23c">
-              Click to checkout to target branch
             </span>
           </template>
         </Tag>
@@ -102,8 +62,8 @@ export default defineComponent({
     const branches = computed<SelectOption[]>(() => {
       return state.gitData.branches?.map(branch => {
         return {
-          label: branch,
-          value: branch,
+          label: branch.name,
+          value: branch.name,
         };
       }) || [];
     });

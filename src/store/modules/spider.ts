@@ -45,6 +45,15 @@ const state = {
 
 const getters = {
   ...getDefaultStoreGetters<Spider>(),
+  gitLogsMap: (state: SpiderStoreState) => {
+    const m = new Map<string, GitLog>();
+    state.gitData.logs?.forEach(l => {
+      if (l.hash) {
+        m.set(l.hash, l);
+      }
+    });
+    return m;
+  },
 } as SpiderStoreGetters;
 
 const mutations = {
@@ -161,6 +170,10 @@ const actions = {
     const res = await get(`${endpoint}/${id}/git`);
     commit('setCurrentGitBranch', res?.data?.current_branch || '');
     commit('setGitData', res?.data || {});
+    return res;
+  },
+  gitPull: async ({state}: StoreActionContext<SpiderStoreState>, {id}: { id: string }) => {
+    const res = await post(`${endpoint}/${id}/git/pull`);
     return res;
   },
   gitCommit: async ({state}: StoreActionContext<SpiderStoreState>, {id}: { id: string }) => {

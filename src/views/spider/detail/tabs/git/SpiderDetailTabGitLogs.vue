@@ -1,10 +1,9 @@
 <template>
   <div class="git-logs">
     <Table
-        ref="tableRef"
         :data="tableData"
         :columns="tableColumns"
-        height="100%"
+        height="calc(100% - 1px)"
         hide-footer
     />
   </div>
@@ -15,6 +14,8 @@ import {computed, defineComponent, h} from 'vue';
 import {useStore} from 'vuex';
 import Table from '@/components/table/Table.vue';
 import Time from '@/components/time/Time.vue';
+import Tag from '@/components/tag/Tag.vue';
+import {GIT_REF_TYPE_BRANCH} from '@/constants/git';
 
 export default defineComponent({
   name: 'SpiderDetailTabGitLogs',
@@ -36,9 +37,23 @@ export default defineComponent({
     const tableColumns = computed<TableColumns<GitLog>>(() => {
       return [
         {
+          key: 'tag',
+          label: 'Tag',
+          width: '120',
+          value: (row: GitLog) => {
+            return row.refs?.map(r => h(Tag, {
+              label: r.name,
+              icon: r.type === GIT_REF_TYPE_BRANCH ? ['fa', 'code-branch'] : ['fa', 'tag'],
+              effect: r.type === GIT_REF_TYPE_BRANCH ? 'dark' : 'light',
+              type: r.type === GIT_REF_TYPE_BRANCH ? 'primary' : 'success',
+              tooltip: `${r.type}: ${r.name}`
+            } as TagProps))
+          },
+        },
+        {
           key: 'msg',
           label: 'Commit Message',
-          width: '800',
+          width: '680',
         },
         {
           key: 'author',

@@ -12,6 +12,7 @@ import schedule from '@/store/modules/schedule';
 import user from '@/store/modules/user';
 import token from '@/store/modules/token';
 import plugin from '@/store/modules/plugin';
+import git from '@/store/modules/git';
 
 export const createStore = (): Store<RootStoreState> => {
   return createVuexStore<RootStoreState>({
@@ -29,6 +30,7 @@ export const createStore = (): Store<RootStoreState> => {
       user,
       token,
       plugin,
+      git,
     },
   });
 };

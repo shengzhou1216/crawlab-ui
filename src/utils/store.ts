@@ -53,6 +53,9 @@ export const getDefaultStoreGetters = <T = any>(opts?: GetDefaultStoreGettersOpt
       state.allList.forEach(d => dict.set(d._id as string, d as any));
       return dict;
     },
+    /**
+     * @deprecated
+     */
     tabName: () => {
       const router = useRouter();
       if (!router) return '';

@@ -3,7 +3,7 @@ import {useStore} from 'vuex';
 import {computed, onBeforeMount, onMounted, provide, ref} from 'vue';
 import variables from '@/styles/variables.scss';
 import {plainClone} from '@/utils/object';
-import {getRoutePathByDepth} from '@/utils/route';
+import {getRoutePathByDepth, getTabName} from '@/utils/route';
 import {ElMessage} from 'element-plus';
 
 const IGNORE_GET_ALL_NS = [
@@ -39,7 +39,7 @@ const useDetail = <T = BaseModel>(ns: ListStoreNamespace) => {
     return id as string || form._id || '';
   });
 
-  const activeTabName = computed<string>(() => store.getters[`${ns}/tabName`]);
+  const activeTabName = computed<string>(() => getTabName(router));
 
   const sidebarCollapsed = computed<boolean>(() => state.sidebarCollapsed);
 

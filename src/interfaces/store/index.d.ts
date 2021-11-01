@@ -15,6 +15,7 @@ declare global {
     user: UserStoreState;
     token: TokenStoreState;
     plugin: PluginStoreState;
+    git: GitStoreState;
   }
 
   type StoreGetter<S, T> = (state: S, getters: StoreGetter<S, T>, rootState: RootStoreState, rootGetters: any) => T;
@@ -136,7 +137,8 @@ declare global {
     | 'dataCollection'
     | 'user'
     | 'token'
-    | 'plugin';
+    | 'plugin'
+    | 'git';
   type ListStoreNamespace =
     'node'
     | 'project'
@@ -147,7 +149,8 @@ declare global {
     | 'schedule'
     | 'user'
     | 'token'
-    | 'plugin';
+    | 'plugin'
+    | 'git';
 
   interface StoreContext<T> {
     namespace: StoreNamespace;

@@ -1,5 +1,5 @@
 <template>
-  <div class="git-tags">
+  <div class="git-branches">
     <Table
         :data="tableData"
         :columns="tableColumns"
@@ -16,7 +16,7 @@ import Time from '@/components/time/Time.vue';
 import Table from '@/components/table/Table.vue';
 
 export default defineComponent({
-  name: 'SpiderDetailTabGitTags',
+  name: 'SpiderDetailTabGitBranches',
   components: {
     Table,
   },
@@ -29,7 +29,7 @@ export default defineComponent({
     } = store.state as RootStoreState;
 
     // table data
-    const tableData = computed<TableData<GitRef>>(() => state.gitData.tags || []);
+    const tableData = computed<TableData<GitRef>>(() => state.gitData.branches || []);
 
     const gitLogsMap = computed<Map<string, GitLog>>(() => store.getters[`${ns}/gitLogsMap`] as Map<string, GitLog>);
 
@@ -65,7 +65,7 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.git-tags {
+.git-branches {
   height: 100%;
 
   .table {
@@ -75,7 +75,7 @@ export default defineComponent({
 </style>
 
 <style scoped>
-.git-tags >>> .el-table {
+.git-branches >>> .el-table {
   border-top: none;
   border-left: none;
   border-right: none;
