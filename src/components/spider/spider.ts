@@ -1,6 +1,5 @@
 import {useRoute} from 'vue-router';
 import {computed} from 'vue';
-import {TASK_MODE_RANDOM} from '@/constants/task';
 import {Store} from 'vuex';
 import useForm from '@/components/form/form';
 import useSpiderService from '@/services/spider/spiderService';
@@ -20,15 +19,8 @@ const {
   getList,
 } = useRequest();
 
-// get new spider
-export const getNewSpider = (): Spider => {
-  return {
-    mode: TASK_MODE_RANDOM,
-  };
-};
-
 // form component data
-const formComponentData = getDefaultFormComponentData<Spider>(getNewSpider);
+const formComponentData = getDefaultFormComponentData<Spider>();
 
 const useSpider = (store: Store<RootStoreState>) => {
   // options for default mode

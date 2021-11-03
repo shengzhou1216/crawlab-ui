@@ -9,16 +9,8 @@ import {FORM_FIELD_TYPE_INPUT_WITH_BUTTON, FORM_FIELD_TYPE_SELECT} from '@/const
 import useSpider from '@/components/spider/spider';
 import {getModeOptions, getModeOptionsDict, getPriorityLabel} from '@/utils/task';
 
-// get new task
-export const getNewTask = (): Task => {
-  return {
-    mode: TASK_MODE_RANDOM,
-    priority: 5,
-  };
-};
-
 // form component data
-const formComponentData = getDefaultFormComponentData<Task>(getNewTask);
+const formComponentData = getDefaultFormComponentData<Task>();
 
 const useTask = (store: Store<RootStoreState>) => {
   // store state

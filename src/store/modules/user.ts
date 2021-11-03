@@ -5,6 +5,7 @@ import {
   getDefaultStoreState
 } from '@/utils/store';
 import useRequest from '@/services/request';
+import {ROLE_NORMAL} from '@/constants/user';
 
 const {
   post,
@@ -12,6 +13,11 @@ const {
 
 const state = {
   ...getDefaultStoreState<User>('user'),
+  newFormFn: () => {
+    return {
+      role: ROLE_NORMAL,
+    };
+  },
 } as UserStoreState;
 
 const getters = {

@@ -4,9 +4,9 @@ import {
   getDefaultStoreMutations,
   getDefaultStoreState
 } from '@/utils/store';
-import {getNewPlugin} from '@/components/plugin/plugin';
 import useRequest from '@/services/request';
 import {SETTING_PLUGIN_BASE_URL} from '@/constants/setting';
+import {PLUGIN_INSTALL_TYPE_NAME} from '@/constants/plugin';
 
 type Plugin = CPlugin;
 
@@ -18,7 +18,12 @@ const {
 
 const state = {
   ...getDefaultStoreState<Plugin>('plugin'),
-  form: getNewPlugin(),
+  newFormFn: () => {
+    return {
+      install_type: PLUGIN_INSTALL_TYPE_NAME,
+      auto_start: true,
+    };
+  },
   baseUrl: '',
 } as PluginStoreState;
 

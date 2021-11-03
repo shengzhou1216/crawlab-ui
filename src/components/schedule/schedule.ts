@@ -12,18 +12,9 @@ import {
 import {parseExpression} from 'cron-parser';
 import {getModeOptions} from '@/utils/task';
 import useSpider from '@/components/spider/spider';
-import {TASK_MODE_RANDOM} from '@/constants/task';
-
-// get new schedule
-export const getNewSchedule = (): Schedule => {
-  return {
-    enabled: true,
-    mode: TASK_MODE_RANDOM,
-  };
-};
 
 // form component data
-const formComponentData = getDefaultFormComponentData<Schedule>(getNewSchedule);
+const formComponentData = getDefaultFormComponentData<Schedule>();
 
 const useSchedule = (store: Store<RootStoreState>) => {
   // store
@@ -34,6 +25,7 @@ const useSchedule = (store: Store<RootStoreState>) => {
     allListSelectOptions: allSpiderListSelectOptions,
     allDict: allSpiderDict,
   } = useSpider(store);
+
   // form
   const form = computed<Schedule>(() => state.form);
 

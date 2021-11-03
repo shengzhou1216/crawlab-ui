@@ -72,7 +72,6 @@ import {plainClone} from '@/utils/object';
 import useTagService from '@/services/tag/tagService';
 import {useStore} from 'vuex';
 import {FILTER_OP_CONTAINS, FILTER_OP_EQUAL} from '@/constants/filter';
-import {getNewTag} from '@/components/tag/tag';
 import {getPredefinedColors} from '@/utils/color';
 import ColorPicker from '@/components/color/ColorPicker.vue';
 
@@ -109,14 +108,26 @@ export default defineComponent({
     'delete',
   ],
   setup(props: TagInputItemProps, {emit}) {
-    const store = useStore();
+    // store
+    const ns = 'tag';
+    const store = useStore<RootStoreState>();
 
+    // state
+    const state = store.state[ns];
+
+    // get new tag
+    const getNewTag = state.newFormFn;
+
+    // internal value
     const internalValue = ref<Tag>(getNewTag());
 
+    // is focus
     const isFocus = ref<boolean>(false);
 
+    // input ref
     const inputRef = ref<typeof ElInput>();
 
+    // is new
     const isNew = computed<boolean>(() => !internalValue.value._id);
 
     // predefined colors

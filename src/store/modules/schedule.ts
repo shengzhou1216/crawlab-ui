@@ -6,6 +6,7 @@ import {
 } from '@/utils/store';
 import useRequest from '@/services/request';
 import {TAB_NAME_OVERVIEW, TAB_NAME_TASKS} from '@/constants/tab';
+import {TASK_MODE_RANDOM} from '@/constants/task';
 
 const {
   post,
@@ -13,6 +14,12 @@ const {
 
 const state = {
   ...getDefaultStoreState<Schedule>('schedule'),
+  newFormFn: () => {
+    return {
+      enabled: true,
+      mode: TASK_MODE_RANDOM,
+    };
+  },
   tabs: [
     {id: TAB_NAME_OVERVIEW, title: 'Overview'},
     {id: TAB_NAME_TASKS, title: 'Tasks'},

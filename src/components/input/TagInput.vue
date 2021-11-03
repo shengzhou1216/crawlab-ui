@@ -47,7 +47,7 @@ import TagComp from '@/components/tag/Tag.vue';
 import Tab from '@/components/tab/Tab.vue';
 import TagInputItem from '@/components/input/TagInputItem.vue';
 import {cloneArray} from '@/utils/object';
-import {getNewTag} from '@/components/tag/tag';
+import {useStore} from 'vuex';
 
 export default defineComponent({
   name: 'TagInput',
@@ -73,9 +73,23 @@ export default defineComponent({
     'update:model-value',
   ],
   setup(props: TagInputProps, {emit}) {
+    // store
+    const ns = 'tag';
+    const store = useStore<RootStoreState>();
+
+    // state
+    const state = store.state[ns];
+
+    // get new tag
+    const getNewTag = state.newFormFn;
+
+    // active index
     const activeIndex = ref<number>(-1);
+
+    // input item ref
     const inputItemRef = ref<typeof TagInputItem>();
 
+    // selected value
     const selectedValue = ref<TagInputOption[]>([]);
 
     const emitValue = () => {

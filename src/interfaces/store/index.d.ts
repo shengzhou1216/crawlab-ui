@@ -49,6 +49,7 @@ declare global {
     selectedFormFields: string[];
     readonlyFormFields: string[];
     formList: T[];
+    newFormFn: DefaultFormFunc<T | {}>;
     confirmLoading: boolean;
     tableData: TableData<T>;
     tableTotal: number;

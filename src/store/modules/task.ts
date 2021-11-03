@@ -9,6 +9,7 @@ import {TAB_NAME_DATA, TAB_NAME_LOGS, TAB_NAME_OVERVIEW} from '@/constants/tab';
 import {Editor} from 'codemirror';
 import {getFieldsFromData} from '@/utils/result';
 import {getDefaultPagination} from '@/utils/pagination';
+import {TASK_MODE_RANDOM} from '@/constants/task';
 
 const {
   put,
@@ -17,6 +18,12 @@ const {
 
 const state = {
   ...getDefaultStoreState<Task>('task'),
+  newFormFn: () => {
+    return {
+      mode: TASK_MODE_RANDOM,
+      priority: 5,
+    };
+  },
   tabs: [
     {id: TAB_NAME_OVERVIEW, title: 'Overview'},
     {id: TAB_NAME_LOGS, title: 'Logs'},

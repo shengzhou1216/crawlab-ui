@@ -9,7 +9,7 @@ export const getNewGit = (): Git => {
 };
 
 // form component data
-const formComponentData = getDefaultFormComponentData<Git>(getNewGit);
+const formComponentData = getDefaultFormComponentData<Git>();
 
 const useGit = (store: Store<RootStoreState>) => {
   return {

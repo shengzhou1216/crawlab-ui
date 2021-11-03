@@ -25,7 +25,7 @@ export const getNewTag = (): Tag => {
 };
 
 // form component data
-const formComponentData = getDefaultFormComponentData<Tag>(getNewTag);
+const formComponentData = getDefaultFormComponentData<Tag>();
 
 const useTag = (store: Store<RootStoreState>) => {
   // options for default mode

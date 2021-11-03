@@ -4,7 +4,6 @@ import {computed, Ref} from 'vue';
 
 const useFormTable = (ns: ListStoreNamespace, store: Store<RootStoreState>, services: Services<BaseModel>, data: FormComponentData<BaseModel>) => {
   const {
-    form,
     formTableFieldRefsMap,
   } = data;
 
@@ -14,9 +13,8 @@ const useFormTable = (ns: ListStoreNamespace, store: Store<RootStoreState>, serv
   // form list
   const formList = computed(() => state.formList);
 
-  const getNewForm = () => {
-    return {...form.value};
-  };
+  // get new form
+  const getNewForm = state.newFormFn;
 
   const onAdd = (index: number) => {
     formList.value.splice(index, 0, getNewForm());

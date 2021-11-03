@@ -7,15 +7,8 @@ import {FORM_FIELD_TYPE_INPUT, FORM_FIELD_TYPE_INPUT_PASSWORD, FORM_FIELD_TYPE_S
 import {getModeOptions} from '@/utils/task';
 import {ROLE_ADMIN, ROLE_NORMAL} from '@/constants/user';
 
-// get new user
-export const getNewUser = (): User => {
-  return {
-    role: ROLE_NORMAL,
-  };
-};
-
 // form component data
-const formComponentData = getDefaultFormComponentData<User>(getNewUser);
+const formComponentData = getDefaultFormComponentData<User>();
 
 const useUser = (store: Store<RootStoreState>) => {
   // store

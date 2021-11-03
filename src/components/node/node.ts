@@ -7,17 +7,8 @@ import {FORM_FIELD_TYPE_INPUT, FORM_FIELD_TYPE_INPUT_TEXTAREA, FORM_FIELD_TYPE_S
 
 type Node = CNode;
 
-// get new node
-export const getNewNode = (): Node => {
-  return {
-    tags: [],
-    max_runners: 8,
-    enabled: true,
-  };
-};
-
 // form component data
-const formComponentData = getDefaultFormComponentData<Node>(getNewNode);
+const formComponentData = getDefaultFormComponentData<Node>();
 
 const useNode = (store: Store<RootStoreState>) => {
   // store

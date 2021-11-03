@@ -2,6 +2,7 @@ import {computed, onBeforeUnmount, provide, readonly, watch} from 'vue';
 import {Store} from 'vuex';
 import {ElMessage, ElMessageBox} from 'element-plus';
 import {FILTER_OP_CONTAINS, FILTER_OP_IN, FILTER_OP_NOT_SET} from '@/constants/filter';
+import useForm from '@/components/form/form';
 
 const getFilterConditions = (column: TableColumn, filter: TableHeaderDialogFilterData) => {
   // allow filter search/items
@@ -97,9 +98,30 @@ const useList = <T = any>(ns: ListStoreNamespace, store: Store<RootStoreState>, 
   // get list when pagination changes
   watch(() => tablePagination.value, actionFunctions.getList);
 
+  // get new form
+  const getNewForm = state.newFormFn;
+
+  // get new form list
+  const getNewFormList = () => {
+    const list = [];
+    for (let i = 0; i < 5; i++) {
+      list.push(getNewForm());
+    }
+    return list;
+  };
+
   // reset form when active dialog key is changed
   watch(() => state.activeDialogKey, () => {
-    if (!state.activeDialogKey) {
+    if (state.activeDialogKey) {
+      // open dialog
+      switch (activeDialogKey.value) {
+        case 'create':
+          store.commit(`${ns}/setForm`, getNewForm());
+          store.commit(`${ns}/setFormList`, getNewFormList());
+          break;
+      }
+    } else {
+      // close dialog
       store.commit(`${ns}/resetForm`);
       store.commit(`${ns}/resetFormList`);
     }

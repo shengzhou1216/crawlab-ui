@@ -39,7 +39,6 @@ declare global {
   type FormValidateCallback = (valid: boolean) => void;
 
   interface FormComponentData<T> {
-    form: Ref<T>;
     formRef: Ref;
     formList: Ref<T[]>;
     formTableFieldRefsMap: Ref<FormTableFieldRefsMap>;

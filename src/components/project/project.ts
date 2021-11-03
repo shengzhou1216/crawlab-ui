@@ -6,15 +6,8 @@ import useProjectService from '@/services/project/projectService';
 import {getDefaultFormComponentData} from '@/utils/form';
 import {FORM_FIELD_TYPE_INPUT, FORM_FIELD_TYPE_INPUT_TEXTAREA, FORM_FIELD_TYPE_TAG_INPUT} from '@/constants/form';
 
-// get new project
-export const getNewProject = (): Project => {
-  return {
-    tags: [],
-  };
-};
-
 // form component data
-const formComponentData = getDefaultFormComponentData<Project>(getNewProject);
+const formComponentData = getDefaultFormComponentData<Project>();
 
 const useProject = (store: Store<RootStoreState>) => {
   // store

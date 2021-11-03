@@ -2,6 +2,7 @@ import {getDefaultPagination} from '@/utils/pagination';
 import {useService} from '@/services';
 import {plainClone} from '@/utils/object';
 import {useRouter} from 'vue-router';
+import {emptyObjectFunc} from '@/utils/func';
 
 export const getDefaultStoreState = <T = any>(ns: StoreNamespace): BaseStoreState<T> => {
   return {
@@ -16,6 +17,7 @@ export const getDefaultStoreState = <T = any>(ns: StoreNamespace): BaseStoreStat
     selectedFormFields: [],
     readonlyFormFields: [],
     formList: [],
+    newFormFn: emptyObjectFunc,
     confirmLoading: false,
     tableData: [],
     tableTotal: 0,
@@ -95,7 +97,7 @@ export const getDefaultStoreMutations = <T = any>(): BaseStoreMutations<T> => {
       state.form = value;
     },
     resetForm: (state: BaseStoreState<T>) => {
-      state.form = {} as T;
+      state.form = state.newFormFn() as T;
     },
     setIsSelectiveForm: (state: BaseStoreState<T>, value: boolean) => {
       state.isSelectiveForm = value;

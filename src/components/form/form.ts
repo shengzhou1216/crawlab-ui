@@ -5,15 +5,17 @@ import {EMPTY_OBJECT_ID} from '@/utils/mongo';
 
 const useForm = (ns: ListStoreNamespace, store: Store<RootStoreState>, services: Services<BaseModel>, data: FormComponentData<BaseModel>) => {
   const {
-    form: newForm,
     formRef,
     formTableFieldRefsMap,
   } = data;
 
-  const getNewForm = () => {
-    return {...newForm.value};
-  };
+  // state
+  const state = store.state[ns];
 
+  // get new form
+  const getNewForm = state.newFormFn;
+
+  // get new form list
   const getNewFormList = () => {
     const list = [];
     for (let i = 0; i < 5; i++) {
@@ -21,9 +23,6 @@ const useForm = (ns: ListStoreNamespace, store: Store<RootStoreState>, services:
     }
     return list;
   };
-
-  // store state
-  const state = store.state[ns];
 
   // form
   const form = computed<BaseModel>(() => state.form);
@@ -73,7 +72,6 @@ const useForm = (ns: ListStoreNamespace, store: Store<RootStoreState>, services:
           store.commit(`${ns}/setFormList`, getNewFormList());
           break;
         case 'edit':
-          // store.commit(`${ns}/setForm`, plainClone(state.form))
           formRef.value?.clearValidate();
           break;
       }
@@ -114,6 +112,7 @@ const useForm = (ns: ListStoreNamespace, store: Store<RootStoreState>, services:
   // all tags
   const allTags = computed<string[]>(() => store.getters[`${ns}/allTags`]);
 
+  // services
   const {
     getList,
     create,

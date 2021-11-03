@@ -14,6 +14,7 @@ import {
   TAB_NAME_TASKS
 } from '@/constants/tab';
 import {GIT_REF_TYPE_BRANCH} from '@/constants/git';
+import {TASK_MODE_RANDOM} from '@/constants/task';
 
 const endpoint = '/spiders';
 
@@ -26,6 +27,11 @@ const {
 
 const state = {
   ...getDefaultStoreState<Spider>('spider'),
+  newFormFn: () => {
+    return {
+      mode: TASK_MODE_RANDOM,
+    };
+  },
   tabs: [
     {id: TAB_NAME_OVERVIEW, title: 'Overview'},
     {id: TAB_NAME_FILES, title: 'Files'},
