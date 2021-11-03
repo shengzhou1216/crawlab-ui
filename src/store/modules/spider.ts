@@ -13,6 +13,7 @@ import {
   TAB_NAME_SETTINGS,
   TAB_NAME_TASKS
 } from '@/constants/tab';
+import {GIT_REF_TYPE_BRANCH} from '@/constants/git';
 
 const endpoint = '/spiders';
 
@@ -41,6 +42,8 @@ const state = {
   currentGitBranch: '',
   gitData: {},
   gitChangeSelection: [],
+  gitRemoteRefs: [],
+  gitRefType: GIT_REF_TYPE_BRANCH,
 } as SpiderStoreState;
 
 const getters = {
@@ -96,6 +99,18 @@ const mutations = {
   },
   resetGitChangeSelection: (state: SpiderStoreState) => {
     state.gitChangeSelection = [];
+  },
+  setGitRemoteRefs: (state: SpiderStoreState, refs: GitRef[]) => {
+    state.gitRemoteRefs = refs;
+  },
+  resetGitRemoteRefs: (state: SpiderStoreState) => {
+    state.gitRemoteRefs = [];
+  },
+  setGitRefType: (state: SpiderStoreState, refType: string) => {
+    state.gitRefType = refType;
+  },
+  resetGitRefType: (state: SpiderStoreState) => {
+    state.gitRefType = GIT_REF_TYPE_BRANCH;
   },
 } as SpiderStoreMutations;
 
@@ -172,8 +187,13 @@ const actions = {
     commit('setGitData', res?.data || {});
     return res;
   },
-  gitPull: async ({state}: StoreActionContext<SpiderStoreState>, {id}: { id: string }) => {
-    const res = await post(`${endpoint}/${id}/git/pull`);
+  getGitRemoteRefs: async ({commit}: StoreActionContext<BaseStoreState<Spider>>, {id}: { id: string }) => {
+    const res = await get(`${endpoint}/${id}/git/remote-refs`);
+    commit('setGitRemoteRefs', res?.data || []);
+    return res;
+  },
+  gitPull: async ({state}: StoreActionContext<SpiderStoreState>, {id, branch}: { id: string; branch: string }) => {
+    const res = await post(`${endpoint}/${id}/git/pull`, {branch});
     return res;
   },
   gitCommit: async ({state}: StoreActionContext<SpiderStoreState>, {id}: { id: string }) => {

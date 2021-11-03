@@ -67,6 +67,7 @@ export default defineComponent({
           key: 'changed_file',
           label: 'Changed File',
           width: '1000',
+          icon: ['far', 'file-code'],
           value: (row: GitChange) => {
             return h(GitFileStatus, {fileStatus: row});
           },
@@ -74,17 +75,13 @@ export default defineComponent({
         {
           key: 'status',
           label: 'Status',
-          width: '50',
+          width: '100',
+          icon: ['fa', 'edit'],
+          fixed: 'right',
           value: (row: GitChange) => {
             return h(Tag, getStatusTagProps(row.worktree));
           },
         },
-        {
-          key: '',
-          label: '',
-          fixed: 'right',
-          width: '100',
-        }
       ] as TableColumns<GitChange>;
     });
 

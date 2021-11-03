@@ -8,6 +8,8 @@ interface SpiderStoreState extends BaseStoreState<Spider> {
   currentGitBranch: string;
   gitData: GitData;
   gitChangeSelection: TableData<GitChange>;
+  gitRemoteRefs: GitRef[];
+  gitRefType: string;
 }
 
 interface SpiderStoreGetters extends BaseStoreGetters<SpiderStoreState> {
@@ -28,6 +30,10 @@ interface SpiderStoreMutations extends BaseStoreMutations<Spider> {
   resetGitData: StoreMutation<BaseStoreState<Spider>>;
   setGitChangeSelection: StoreMutation<BaseStoreState<Spider>, GitChange[]>;
   resetGitChangeSelection: StoreMutation<BaseStoreState<Spider>>;
+  setGitRemoteRefs: StoreMutation<BaseStoreState<Spider>, GitRef[]>;
+  resetGitRemoteRefs: StoreMutation<BaseStoreState<Spider>>;
+  setGitRefType: StoreMutation<BaseStoreState<Spider>, string>;
+  resetGitRefType: StoreMutation<BaseStoreState<Spider>>;
 }
 
 interface SpiderStoreActions extends BaseStoreActions<Spider> {
@@ -42,6 +48,7 @@ interface SpiderStoreActions extends BaseStoreActions<Spider> {
   deleteFile: StoreAction<BaseStoreState, FileRequestPayload>;
   copyFile: StoreAction<BaseStoreState, FileRequestPayload>;
   getGit: StoreAction<BaseStoreState, { id: string }>;
-  gitPull: StoreAction<BaseStoreState, { id: string }>;
+  getGitRemoteRefs: StoreAction<BaseStoreState, { id: string }>;
+  gitPull: StoreAction<BaseStoreState, { id: string, branch: string }>;
   gitCommit: StoreAction<BaseStoreState, { id: string }>;
 }

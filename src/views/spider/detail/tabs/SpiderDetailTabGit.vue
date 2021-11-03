@@ -8,8 +8,34 @@
       <div
           class="actions"
       >
+        <el-radio-group
+            v-if="activeTabKey === 'references'"
+            v-model="internalGitRefType"
+            size="mini"
+            class="ref-type-select"
+        >
+          <el-radio-button :label="GIT_REF_TYPE_BRANCH">
+            <el-tooltip content="Branch">
+              <font-awesome-icon :icon="['fa', 'code-branch']"/>
+            </el-tooltip>
+          </el-radio-button>
+          <el-radio-button :label="GIT_REF_TYPE_TAG">
+            <el-tooltip content="Tag">
+              <font-awesome-icon :icon="['fa', 'tag']"/>
+            </el-tooltip>
+          </el-radio-button>
+        </el-radio-group>
         <LabelButton
-            type="primary"
+            :type="!loading.checkout ? 'primary' : 'warning'"
+            :icon="!loading.checkout ? ['fa', 'code-branch'] : null"
+            label="Checkout"
+            tooltip="Checkout"
+            :disabled="!gitForm.url || !gitForm.auth_type"
+            :loading="loading.checkout"
+            @click="onClickCheckout"
+        />
+        <LabelButton
+            :type="!loading.pull ? 'primary' : 'warning'"
             :icon="!loading.pull ? ['fa', 'download'] : null"
             label="Pull"
             tooltip="Pull"
@@ -18,7 +44,7 @@
             @click="onClickPull"
         />
         <LabelButton
-            type="success"
+            :type="!loading.commit ? 'success' : 'warning'"
             :icon="!loading.commit ? ['fa', 'paper-plane'] : null"
             label="Commit"
             tooltip="Commit and Push"
@@ -30,16 +56,50 @@
   </NavTabs>
   <div class="tab-content">
     <SpiderDetailTabGitRemote v-if="activeTabKey === 'remote'"/>
-    <SpiderDetailTabGitTags v-else-if="activeTabKey === 'tags'"/>
-    <SpiderDetailTabGitBranches v-else-if="activeTabKey === 'branches'"/>
+    <SpiderDetailTabGitReferences v-else-if="activeTabKey === 'references'"/>
     <SpiderDetailTabGitLogs v-else-if="activeTabKey === 'logs'"/>
     <SpiderDetailTabGitChanges v-else-if="activeTabKey === 'changes'"/>
     <SpiderDetailTabGitIgnore v-else-if="activeTabKey === 'ignore'"/>
   </div>
+  <Dialog
+      :visible="dialogVisible.checkout"
+      title="Checkout"
+      @confirm="onDialogCheckoutConfirm"
+      @close="onDialogCheckoutClose"
+  >
+    <Form ref="checkoutFormRef" :model="checkoutForm">
+      <FormItem :span="4" label="Type" prop="type" required>
+        <el-radio-group
+            v-model="checkoutForm.type"
+            size="small"
+            class="ref-type-select"
+        >
+          <el-radio-button :label="GIT_REF_TYPE_BRANCH">
+            <font-awesome-icon :icon="['fa', 'code-branch']"/>
+            Branch
+          </el-radio-button>
+          <el-radio-button :label="GIT_REF_TYPE_TAG" disabled>
+            <font-awesome-icon :icon="['fa', 'tag']"/>
+            Tag
+          </el-radio-button>
+        </el-radio-group>
+      </FormItem>
+      <FormItem :span="4" label="Reference" prop="name" required>
+        <el-select size="small" v-model="checkoutForm.name">
+          <el-option
+              v-for="(op, $index) in gitRemoteRefs"
+              :key="$index"
+              :label="op.label"
+              :value="op.value"
+          />
+        </el-select>
+      </FormItem>
+    </Form>
+  </Dialog>
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, onBeforeMount, ref} from 'vue';
+import {computed, defineComponent, onBeforeMount, onBeforeUnmount, ref, watch} from 'vue';
 import {useStore} from 'vuex';
 import {useRoute} from 'vue-router';
 import {ElMessage, ElMessageBox} from 'element-plus';
@@ -48,21 +108,26 @@ import NavTabs from '@/components/nav/NavTabs.vue';
 import useSpiderDetail from '@/views/spider/detail/spiderDetail';
 import SpiderDetailTabGitChanges from '@/views/spider/detail/tabs/git/SpiderDetailTabGitChanges.vue';
 import SpiderDetailTabGitLogs from '@/views/spider/detail/tabs/git/SpiderDetailTabGitLogs.vue';
-import SpiderDetailTabGitTags from '@/views/spider/detail/tabs/git/SpiderDetailTabGitTags.vue';
 import SpiderDetailTabGitIgnore from '@/views/spider/detail/tabs/git/SpiderDetailTabGitIgnore.vue';
 import SpiderDetailTabGitRemote from '@/views/spider/detail/tabs/git/SpiderDetailTabGitRemote.vue';
-import SpiderDetailTabGitBranches from '@/views/spider/detail/tabs/git/SpiderDetailTabGitBranches.vue';
+import SpiderDetailTabGitReferences from '@/views/spider/detail/tabs/git/SpiderDetailTabGitReferences.vue';
+import Dialog from '@/components/dialog/Dialog.vue';
+import {GIT_REF_TYPE_BRANCH, GIT_REF_TYPE_TAG} from '@/constants/git';
+import Form from '@/components/form/Form.vue';
+import FormItem from '@/components/form/FormItem.vue';
 
 export default defineComponent({
   name: 'SpiderDetailTabGit',
   components: {
-    SpiderDetailTabGitRemote,
+    Dialog,
     LabelButton,
     NavTabs,
-    SpiderDetailTabGitChanges,
+    Form,
+    FormItem,
+    SpiderDetailTabGitRemote,
+    SpiderDetailTabGitReferences,
     SpiderDetailTabGitLogs,
-    SpiderDetailTabGitBranches,
-    SpiderDetailTabGitTags,
+    SpiderDetailTabGitChanges,
     SpiderDetailTabGitIgnore,
   },
   setup() {
@@ -90,8 +155,7 @@ export default defineComponent({
     // tab items
     const tabItems = ref<NavItem[]>([
       {id: 'remote', title: 'Remote'},
-      {id: 'branches', title: 'Branches'},
-      {id: 'tags', title: 'Tags'},
+      {id: 'references', title: 'References'},
       {id: 'logs', title: 'Logs'},
       {id: 'changes', title: 'Changes'},
       {id: 'ignore', title: 'Ignore'},
@@ -101,20 +165,28 @@ export default defineComponent({
       activeTabKey.value = key;
     };
 
-    onBeforeMount(async () => {
-      await Promise.all([
-        store.dispatch(`${ns}/getGit`, {id: id.value})
-      ]);
-
-      // set git form if git data exists
-      if (state.gitData?.git?._id) {
-        store.commit(`${gitNs}/setForm`, state.gitData?.git);
-      }
-    });
-
     const gitChangeSelection = computed<TableData<GitChange>>(() => state.gitChangeSelection);
 
+    const checkoutFormRef = ref<typeof Form>();
+
+    const checkoutForm = ref({
+      type: GIT_REF_TYPE_BRANCH,
+      name: '',
+    });
+
+    const dialogVisible = ref({
+      checkout: false,
+    });
+
+    watch(() => dialogVisible.value.checkout, async () => {
+      if (state.currentGitBranch) {
+        checkoutForm.value.name = state.currentGitBranch;
+      }
+      await store.dispatch(`${ns}/getGitRemoteRefs`, {id: id.value});
+    });
+
     const loading = ref({
+      checkout: false,
       pull: false,
       commit: false,
     });
@@ -122,6 +194,16 @@ export default defineComponent({
     const {
       saveGit,
     } = useSpiderDetail();
+
+    const internalGitRefType = ref<string>(GIT_REF_TYPE_BRANCH);
+
+    watch(() => internalGitRefType.value, () => {
+      store.commit(`${ns}/setGitRefType`, internalGitRefType.value);
+    });
+
+    const onClickCheckout = async () => {
+      dialogVisible.value.checkout = true;
+    };
 
     const onClickPull = async () => {
       await ElMessageBox.confirm('Are you sure to pull from remote?', 'Git Pull', {
@@ -158,15 +240,78 @@ export default defineComponent({
       }
     };
 
+    const gitRemoteRefs = computed<SelectOption[]>(() => state.gitRemoteRefs
+        .filter(d => d.type === checkoutForm.value.type)
+        .map(d => {
+          return {
+            label: d.name,
+            value: d.name,
+          };
+        }) as SelectOption[]);
+
+    const onDialogCheckoutConfirm = async () => {
+      await checkoutFormRef.value?.validate();
+      dialogVisible.value.checkout = false;
+      loading.value.checkout = true;
+      try {
+        await store.dispatch(`${ns}/gitPull`, {id: id.value, branch: checkoutForm.value.name});
+        await ElMessage.success('Checkout successfully');
+        await store.dispatch(`${ns}/getGit`, {id: id.value});
+      } finally {
+        loading.value.checkout = false;
+      }
+    };
+
+    const onDialogCheckoutClose = () => {
+      dialogVisible.value.checkout = false;
+      checkoutForm.value = {
+        type: GIT_REF_TYPE_BRANCH,
+        name: '',
+      };
+    };
+
+    onBeforeMount(async () => {
+      // get git
+      await Promise.all([
+        store.dispatch(`${ns}/getGit`, {id: id.value})
+      ]);
+
+      // git
+      const git = state.gitData?.git;
+      if (!git) return;
+
+      // set git form if git data exists
+      if (git?._id) {
+        store.commit(`${gitNs}/setForm`, git);
+      }
+
+      // request remote references if url and auth type are set
+      if (git?.url && git?.auth_type) {
+        await store.dispatch(`${ns}/getGitRemoteRefs`, {id: id.value});
+      }
+    });
+
+    onBeforeUnmount(() => store.commit(`${ns}/resetGitRefType`));
+
     return {
+      dialogVisible,
       loading,
       gitForm,
       activeTabKey,
       tabItems,
       onTabSelect,
       gitChangeSelection,
+      gitRemoteRefs,
+      internalGitRefType,
+      checkoutFormRef,
+      checkoutForm,
+      GIT_REF_TYPE_BRANCH,
+      GIT_REF_TYPE_TAG,
+      onClickCheckout,
       onClickPull,
       onClickCommit,
+      onDialogCheckoutConfirm,
+      onDialogCheckoutClose,
     };
   },
 });
@@ -174,5 +319,9 @@ export default defineComponent({
 <style scoped lang="scss">
 .tab-content {
   height: calc(100% - 41px);
+}
+
+.ref-type-select {
+  margin-right: 10px;
 }
 </style>

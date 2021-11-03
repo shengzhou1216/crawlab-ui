@@ -1,8 +1,9 @@
 <template>
-  <div class="git-logs">
+  <div class="git-references">
     <Table
-        :data="tableData"
+        :key="gitRefType"
         :columns="tableColumns"
+        :data="tableData"
         :page="tablePagination.page"
         :page-size="tablePagination.size"
         :total="allTableData.length"
@@ -13,16 +14,15 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, h, ref} from 'vue';
+import {computed, defineComponent, h, ref, watch} from 'vue';
 import {useStore} from 'vuex';
-import Table from '@/components/table/Table.vue';
 import Time from '@/components/time/Time.vue';
-import Tag from '@/components/tag/Tag.vue';
+import Table from '@/components/table/Table.vue';
 import {GIT_REF_TYPE_BRANCH} from '@/constants/git';
 import {TABLE_ACTION_CUSTOMIZE_COLUMNS} from '@/constants/table';
 
 export default defineComponent({
-  name: 'SpiderDetailTabGitLogs',
+  name: 'SpiderDetailTabGitReferences',
   components: {
     Table,
   },
@@ -33,6 +33,12 @@ export default defineComponent({
     const {
       spider: state,
     } = store.state as RootStoreState;
+
+    // git logs map
+    const gitLogsMap = computed<Map<string, GitLog>>(() => store.getters[`${ns}/gitLogsMap`] as Map<string, GitLog>);
+
+    // git ref type
+    const gitRefType = computed<string>(() => state.gitRefType);
 
     // table pagination
     const tablePagination = ref<TablePagination>({
@@ -45,10 +51,11 @@ export default defineComponent({
     };
 
     // all table data
-    const allTableData = computed<TableData<GitRef>>(() => state.gitData?.logs || []);
+    const allTableData = computed<TableData<GitRef>>(() => state.gitRemoteRefs
+        .filter(r => r.type === gitRefType.value));
 
     // table data
-    const tableData = computed<TableData<GitLog>>(() => {
+    const tableData = computed<TableData<GitRef>>(() => {
       const {page, size} = tablePagination.value;
       return allTableData.value.filter((_, i) => (i >= (page - 1) * size) && (i < page * size));
     });
@@ -57,34 +64,10 @@ export default defineComponent({
     const tableColumns = computed<TableColumns<GitLog>>(() => {
       return [
         {
-          key: 'ref',
-          label: 'Reference',
-          width: '120',
-          icon: ['fa', 'tags'],
-          value: (row: GitLog) => {
-            return row.refs?.map(r => h(Tag, {
-              label: r.name,
-              icon: r.type === GIT_REF_TYPE_BRANCH ? ['fa', 'code-branch'] : ['fa', 'tag'],
-              effect: r.type === GIT_REF_TYPE_BRANCH ? 'dark' : 'light',
-              type: r.type === GIT_REF_TYPE_BRANCH ? 'primary' : 'success',
-              tooltip: `${r.type}: ${r.name}`
-            } as TagProps));
-          },
-        },
-        {
-          key: 'msg',
-          label: 'Commit Message',
-          width: '680',
-          icon: ['fa', 'comment-alt'],
-        },
-        {
-          key: 'author',
-          label: 'Author',
-          width: '200',
-          icon: ['fa', 'user'],
-          value: (row: GitLog) => {
-            return `${row.author_name}${row.author_email ? (' (' + row.author_email + ')') : ''}`;
-          },
+          key: 'name',
+          label: gitRefType.value === GIT_REF_TYPE_BRANCH ? 'Branch' : 'Tag',
+          width: '1000',
+          icon: gitRefType.value === GIT_REF_TYPE_BRANCH ? ['fa', 'code-branch'] : ['fa', 'tag']
         },
         {
           key: 'timestamp',
@@ -93,18 +76,22 @@ export default defineComponent({
           icon: ['fa', 'clock'],
           fixed: 'right',
           value: (row: GitLog) => {
-            return h(Time, {time: row.timestamp, ago: false, format: 'YYYY-MM-DD hh:mm:ss A'});
+            if (!row.hash) return;
+            const l = gitLogsMap.value.get(row.hash);
+            if (!l?.timestamp) return;
+            return h(Time, {time: l.timestamp, ago: false, format: 'YYYY-MM-DD hh:mm:ss A'});
           }
         }
       ] as TableColumns<GitLog>;
     });
 
     return {
-      tablePagination,
-      onPaginationChange,
       allTableData,
       tableData,
       tableColumns,
+      tablePagination,
+      onPaginationChange,
+      gitRefType,
       TABLE_ACTION_CUSTOMIZE_COLUMNS,
     };
   },
@@ -112,17 +99,17 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.git-logs {
+.git-references {
   height: 100%;
 
   .table {
-    height: 100%;
+    //height: 100%;
   }
 }
 </style>
 
 <style scoped>
-.git-logs >>> .el-table {
+.git-references >>> .el-table {
   border-top: none;
   border-left: none;
   border-right: none;
