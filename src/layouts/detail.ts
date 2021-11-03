@@ -1,6 +1,6 @@
 import {useRoute, useRouter} from 'vue-router';
 import {useStore} from 'vuex';
-import {computed, onBeforeMount, onMounted, provide, ref} from 'vue';
+import {computed, onBeforeMount, onBeforeUnmount, onMounted, provide, ref} from 'vue';
 import variables from '@/styles/variables.scss';
 import {plainClone} from '@/utils/object';
 import {getRoutePathByDepth, getTabName} from '@/utils/route';
@@ -131,15 +131,24 @@ const useDetail = <T = BaseModel>(ns: ListStoreNamespace) => {
     afterSave.value.map(fn => fn());
   };
 
+  // get form before mount
   onBeforeMount(getForm);
+
+  // get all list before mount
   onBeforeMount(async () => {
     if (IGNORE_GET_ALL_NS.includes(ns)) return;
     await store.dispatch(`${ns}/getAllList`);
   });
 
+  // scroll nav sidebar after mounted
   onMounted(() => {
     if (!navSidebar.value) return;
     navSidebar.value.scroll(activeId.value);
+  });
+
+  // reset form before unmount
+  onBeforeUnmount(() => {
+    store.commit(`${ns}/resetForm`);
   });
 
   // store context
