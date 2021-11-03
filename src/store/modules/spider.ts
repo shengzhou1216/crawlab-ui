@@ -196,9 +196,12 @@ const actions = {
     const res = await post(`${endpoint}/${id}/git/pull`, {branch});
     return res;
   },
-  gitCommit: async ({state}: StoreActionContext<SpiderStoreState>, {id}: { id: string }) => {
+  gitCommit: async ({state}: StoreActionContext<SpiderStoreState>, {
+    id,
+    commit_message
+  }: { id: string; commit_message: string }) => {
     const paths = state.gitChangeSelection.map(d => d.path);
-    const res = await post(`${endpoint}/${id}/git/commit`, {paths});
+    const res = await post(`${endpoint}/${id}/git/commit`, {paths, commit_message});
     return res;
   },
 } as SpiderStoreActions;

@@ -49,6 +49,7 @@
             label="Commit"
             tooltip="Commit and Push"
             :disabled="!gitChangeSelection?.length"
+            :loading="loading.commit"
             @click="onClickCommit"
         />
       </div>
@@ -152,12 +153,15 @@ export default defineComponent({
     // active tab key
     const activeTabKey = ref<string>('remote');
 
+    // git changes
+    const gitChanges = computed<GitChange[]>(() => state.gitData?.changes || []);
+
     // tab items
-    const tabItems = ref<NavItem[]>([
+    const tabItems = computed<NavItem[]>(() => [
       {id: 'remote', title: 'Remote'},
       {id: 'references', title: 'References'},
       {id: 'logs', title: 'Logs'},
-      {id: 'changes', title: 'Changes'},
+      {id: 'changes', title: gitChanges.value?.length > 0 ? `Changes (${gitChanges.value.length})` : 'Changes'},
       {id: 'ignore', title: 'Ignore'},
     ]);
 
@@ -223,18 +227,20 @@ export default defineComponent({
     };
 
     const onClickCommit = async () => {
-      await ElMessageBox.confirm('Are you sure to commit?', 'Git Commit', {
+      const res = await ElMessageBox.prompt('Are you sure to commit?', 'Git Commit', {
         type: 'warning',
+        inputPlaceholder: 'Commit Message'
       });
+      const commitMessage = res.value;
       loading.value.commit = true;
       await saveGit();
       try {
-        const res = await store.dispatch(`${ns}/gitCommit`, {id: id.value});
+        const res = await store.dispatch(`${ns}/gitCommit`, {id: id.value, commit_message: commitMessage});
         store.commit(`${ns}/resetGitChangeSelection`);
         if (res) {
           await ElMessage.success('Committed successfully');
         }
-        await store.dispatch(`${ns}/gitCommit`, {id: id.value});
+        await store.dispatch(`${ns}/getGit`, {id: id.value});
       } finally {
         loading.value.commit = false;
       }

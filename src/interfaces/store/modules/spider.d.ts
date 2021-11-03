@@ -49,6 +49,6 @@ interface SpiderStoreActions extends BaseStoreActions<Spider> {
   copyFile: StoreAction<BaseStoreState, FileRequestPayload>;
   getGit: StoreAction<BaseStoreState, { id: string }>;
   getGitRemoteRefs: StoreAction<BaseStoreState, { id: string }>;
-  gitPull: StoreAction<BaseStoreState, { id: string, branch: string }>;
-  gitCommit: StoreAction<BaseStoreState, { id: string }>;
+  gitPull: StoreAction<BaseStoreState, { id: string; branch: string }>;
+  gitCommit: StoreAction<BaseStoreState, { id: string; commit_message: string }>;
 }
