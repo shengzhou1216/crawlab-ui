@@ -26,11 +26,9 @@ export const initRequest = (router?: Router) => {
       console.error(err);
     }
   });
-}
+};
 
 const useRequest = () => {
-  const baseUrl = getRequestBaseUrl();
-
   const getHeaders = (): any => {
     // headers
     const headers = {} as any;
@@ -46,7 +44,7 @@ const useRequest = () => {
 
   const request = async <R = any>(opts: AxiosRequestConfig): Promise<R> => {
     // base url
-    const baseURL = baseUrl;
+    const baseURL = getRequestBaseUrl();
 
     // headers
     const headers = getHeaders();
@@ -145,7 +143,7 @@ const useRequest = () => {
 
   const requestRaw = async <R = any>(opts: AxiosRequestConfig): Promise<AxiosResponse> => {
     // base url
-    const baseURL = baseUrl;
+    const baseURL = getRequestBaseUrl();
 
     // headers
     const headers = getHeaders();
@@ -170,7 +168,6 @@ const useRequest = () => {
 
   return {
     // public variables and methods
-    baseUrl,
     request,
     get,
     post,

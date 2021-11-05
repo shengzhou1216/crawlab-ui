@@ -33,6 +33,8 @@ import FormItem from './form/FormItem.vue';
 import FormReadonlyValue from './form/FormReadonlyValue.vue';
 import FormTable from './form/FormTable.vue';
 import FormTableField from './form/FormTableField.vue';
+import GitFileStatus from './git/GitFileStatus.vue';
+import GitForm from './git/GitForm.vue';
 import AtomMaterialIcon from './icon/AtomMaterialIcon.vue';
 import Icon from './icon/Icon.vue';
 import MenuItemIcon from './icon/MenuItemIcon.vue';
@@ -141,6 +143,8 @@ export {
   FormReadonlyValue as ClFormReadonlyValue,
   FormTable as ClFormTable,
   FormTableField as ClFormTableField,
+  GitFileStatus as ClGitFileStatus,
+  GitForm as ClGitForm,
   AtomMaterialIcon as ClAtomMaterialIcon,
   Icon as ClIcon,
   MenuItemIcon as ClMenuItemIcon,
