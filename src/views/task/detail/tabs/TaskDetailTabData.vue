@@ -55,6 +55,7 @@ export default defineComponent({
         return {
           key,
           label: key,
+          minWidth: '240',
         };
       }) as TableColumns<Result>;
     });
