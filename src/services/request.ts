@@ -15,13 +15,19 @@ export const initRequest = (router?: Router) => {
   }, err => {
     const status = err?.response?.status;
     if (status === 401) {
-      if (msgBoxVisible) return;
-      msgBoxVisible = true;
-      ElMessageBox.confirm('You seem to have been logged-out, try to login again?', 'Unauthorized', {type: 'warning'})
-        .then(_ => router?.push('/login'))
-        .finally(() => {
-          msgBoxVisible = false;
-        });
+      if (window.localStorage.getItem('token')) {
+        // token expired, popup logout warning
+        if (msgBoxVisible) return;
+        msgBoxVisible = true;
+        ElMessageBox.confirm('You seem to have been logged-out, try to login again?', 'Unauthorized', {type: 'warning'})
+          .then(_ => router?.push('/login'))
+          .finally(() => {
+            msgBoxVisible = false;
+          });
+      } else {
+        // token not exists, redirect to login page
+        router?.push('/login');
+      }
     } else {
       console.error(err);
     }
