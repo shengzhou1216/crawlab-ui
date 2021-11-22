@@ -20,6 +20,7 @@ import {
   NODE_STATUS_REGISTERED,
   NODE_STATUS_UNREGISTERED
 } from '@/constants/node';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'NodeStatus',
@@ -39,41 +40,43 @@ export default defineComponent({
   },
   emits: ['click'],
   setup(props: NodeStatusProps, {emit}) {
+    const {t} = useI18n();
+
     const data = computed<TagData>(() => {
       const {status} = props;
       switch (status) {
         case NODE_STATUS_UNREGISTERED:
           return {
-            label: 'Unregistered',
-            tooltip: 'Node is waiting to be registered',
+            label: t('components.node.nodeStatus.unregistered'),
+            tooltip: t('components.node.nodeStatusTooltip.unregistered'),
             type: 'danger',
             icon: ['fa', 'exclamation'],
           };
         case NODE_STATUS_REGISTERED:
           return {
-            label: 'Registered',
-            tooltip: 'Node is registered and wait to be online',
+            label: t('components.node.nodeStatus.registered'),
+            tooltip: t('components.node.nodeStatusTooltip.registered'),
             type: 'warning',
             icon: ['far', 'check-square'],
           };
         case NODE_STATUS_ONLINE:
           return {
-            label: 'Online',
-            tooltip: 'Node is currently online',
+            label: t('components.node.nodeStatus.online'),
+            tooltip: t('components.node.nodeStatusTooltip.online'),
             type: 'success',
             icon: ['fa', 'check'],
           };
         case NODE_STATUS_OFFLINE:
           return {
-            label: 'Offline',
-            tooltip: 'Node is currently offline',
+            label: t('components.node.nodeStatus.offline'),
+            tooltip: t('components.node.nodeStatusTooltip.offline'),
             type: 'info',
             icon: ['fa', 'times'],
           };
         default:
           return {
-            label: 'Unknown',
-            tooltip: 'Unknown node status',
+            label: t('components.node.nodeStatus.unknown'),
+            tooltip: t('components.node.nodeStatusTooltip.unknown'),
             type: 'info',
             icon: ['fa', 'question'],
           };

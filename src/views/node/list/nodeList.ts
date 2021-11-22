@@ -18,6 +18,7 @@ import {
   NODE_STATUS_REGISTERED,
   NODE_STATUS_UNREGISTERED
 } from '@/constants/node';
+import {translate} from '@/utils/i18n';
 
 type Node = CNode;
 
@@ -29,6 +30,9 @@ const useNodeList = () => {
   const ns = 'node';
   const store = useStore<RootStoreState>();
   const {commit} = store;
+
+  // i18n
+  const t = translate;
 
   // services
   const {
@@ -59,7 +63,7 @@ const useNodeList = () => {
   const tableColumns = computed<TableColumns<Node>>(() => [
     {
       key: 'n', // name
-      label: 'Name',
+      label: t('views.nodes.table.columns.name'),
       icon: ['fa', 'font'],
       width: '150',
       value: (row: Node) => h(NavLink, {
@@ -72,7 +76,7 @@ const useNodeList = () => {
     },
     {
       key: 'im', // is_master
-      label: 'Node Type',
+      label: t('views.nodes.table.columns.nodeType'),
       icon: ['fa', 'list'],
       width: '150',
       value: (row: Node) => {
@@ -81,13 +85,13 @@ const useNodeList = () => {
       hasFilter: true,
       allowFilterItems: true,
       filterItems: [
-        {label: 'Master', value: true},
-        {label: 'Worker', value: false},
+        {label: t('components.node.nodeType.master'), value: true},
+        {label: t('components.node.nodeType.worker'), value: false},
       ],
     },
     {
       key: 's', // status
-      label: 'Status',
+      label: t('views.nodes.table.columns.status'),
       icon: ['fa', 'heartbeat'],
       width: '150',
       value: (row: Node) => {
@@ -104,28 +108,28 @@ const useNodeList = () => {
     },
     {
       key: 'ip',
-      label: 'IP',
+      label: t('views.nodes.table.columns.ip'),
       icon: ['fa', 'map-marker-alt'],
       width: '150',
       defaultHidden: true,
     },
     {
       key: 'mac',
-      label: 'MAC Address',
+      label: t('views.nodes.table.columns.mac'),
       icon: ['fa', 'map-marker-alt'],
       width: '150',
       defaultHidden: true,
     },
     {
       key: 'hostname',
-      label: 'Hostname',
+      label: t('views.nodes.table.columns.hostname'),
       icon: ['fa', 'map-marker-alt'],
       width: '150',
       defaultHidden: true,
     },
     {
       key: 'runners',
-      label: 'Runners',
+      label: t('views.nodes.table.columns.runners'),
       icon: ['fa', 'play'],
       width: '160',
       value: (row: Node) => {
@@ -138,7 +142,7 @@ const useNodeList = () => {
     },
     {
       key: 'en', // enabled
-      label: 'Enabled',
+      label: t('views.nodes.table.columns.enabled'),
       icon: ['fa', 'toggle-on'],
       width: '120',
       value: (row: Node) => {
@@ -153,13 +157,13 @@ const useNodeList = () => {
       hasFilter: true,
       allowFilterItems: true,
       filterItems: [
-        {label: 'Enabled', value: true},
-        {label: 'Disabled', value: false},
+        {label: t('common.control.enabled'), value: true},
+        {label: t('common.control.disabled'), value: false},
       ]
     },
     {
       key: 'tags',
-      label: 'Tags',
+      label: t('views.nodes.table.columns.tags'),
       icon: ['fa', 'hashtag'],
       value: ({tags}: Node) => {
         return h(TagList, {tags});
@@ -168,7 +172,7 @@ const useNodeList = () => {
     },
     {
       key: 'description',
-      label: 'Description',
+      label: t('views.nodes.table.columns.description'),
       icon: ['fa', 'comment-alt'],
       width: 'auto',
       hasFilter: true,
@@ -176,7 +180,7 @@ const useNodeList = () => {
     },
     {
       key: TABLE_COLUMN_NAME_ACTIONS,
-      label: 'Actions',
+      label: t('components.table.columns.actions'),
       fixed: 'right',
       width: '200',
       buttons: [
@@ -201,10 +205,10 @@ const useNodeList = () => {
           type: 'danger',
           size: 'mini',
           icon: ['fa', 'trash-alt'],
-          tooltip: 'Delete',
+          tooltip: t('common.actions.delete'),
           disabled: (row: Node) => !!row.active,
           onClick: async (row: Node) => {
-            const res = await ElMessageBox.confirm('Are you sure to delete?', 'Delete');
+            const res = await ElMessageBox.confirm(t('common.messageBox.message'), t('common.actions.delete'));
             if (res) {
               await deleteById(row._id as string);
             }

@@ -1,4 +1,4 @@
-export default {
+const legacy = {
   // 菜单
   'Home': '主页',
   'Nodes': '节点',
@@ -747,3 +747,157 @@ export default {
   'Star crawlab-team/crawlab on GitHub': '在 GitHub 上为 Crawlab 加星吧',
   'How to buy': '如何购买'
 };
+
+const messages: Messages = {
+  global: {
+    lang: '中文',
+    community: '社区版',
+  },
+  common: {
+    control: {
+      enabled: '已启用',
+      disabled: '已禁用',
+    },
+    actions: {
+      delete: '删除',
+    },
+    messageBox: {
+      message: {
+        delete: '您是否确定删除?'
+      }
+    }
+  },
+  views: {
+    login: {
+      loginForm: {
+        username: '用户名',
+        password: '密码',
+        confirmPassword: '确认密码',
+        email: '邮箱',
+        signUp: '注册',
+        signIn: '登陆',
+      },
+      forgotPassword: {
+        label: '忘记密码',
+        content: '请参照文档中的重置密码章节'
+      },
+      initial: {
+        title: '初始用户名/密码',
+      },
+      documentation: '文档',
+      mobile: {
+        warning: '您在未优化过的移动端上运行，请使用台式机或笔记本'
+      },
+      errors: {
+        incorrectUsername: '请输入正确的用户名',
+        passwordLength: '密码长度不能低于 5',
+        passwordSame: '两次密码必须相同',
+        unauthorized: '验证失败，请检查用户名和密码',
+      }
+    },
+    home: {
+      metrics: {
+        nodes: '在线节点',
+        projects: '项目',
+        spiders: '爬虫',
+        schedules: '定时任务',
+        tasks: '任务总数',
+        error_tasks: '错误任务',
+        results: '结果总数',
+        users: '用户',
+      },
+      dailyConfig: {
+        title: '每日统计',
+      },
+      tasksByStatusConfig: {
+        title: '按状态任务统计',
+      },
+      tasksByNodeConfig: {
+        title: '按节点任务统计',
+      },
+      tasksBySpiderConfig: {
+        title: '按爬虫任务统计',
+      }
+    },
+    nodes: {
+      table: {
+        columns: {
+          name: '名称',
+          nodeType: '节点类别',
+          status: '状态',
+          ip: 'IP',
+          mac: 'MAC 地址',
+          hostname: '主机名',
+          runners: '执行器',
+          enabled: '是否启用',
+          tags: '标签',
+          description: '描述',
+        }
+      }
+    }
+  },
+  layouts: {
+    components: {
+      header: {
+        logout: '注销',
+      }
+    }
+  },
+  components: {
+    chart: {
+      pieChart: {
+        noDataAvailable: '暂无数据',
+      }
+    },
+    table: {
+      columns: {
+        actions: '操作',
+      }
+    },
+    node: {
+      nodeType: {
+        master: '主节点',
+        worker: '工作节点'
+      },
+      nodeStatus: {
+        label: {
+          unregistered: '未注册',
+          registered: '已注册',
+          online: '在线',
+          offline: '离线',
+          unknown: '未知',
+        },
+        tooltip: {
+          unregistered: '节点正在等待注册',
+          registered: '节点已注册，正在等待在线',
+          online: '节点处于在线状态',
+          offline: '节点处于离线状态',
+          unknown: '未知节点状态',
+        }
+      },
+      nodeRunners: {
+        tooltip: {
+          unavailable: '目前没有可用执行器',
+          running: '总共 {max} 个执行器中的 {running} 个正在运行',
+          available: '所有执行器均可用',
+        },
+      }
+    }
+  },
+  router: {
+    menuItems: {
+      home: '主页',
+      nodes: '节点',
+      projects: '项目',
+      spiders: '爬虫',
+      schedules: '定时任务',
+      tasks: '任务',
+      users: '用户',
+      tags: '标签',
+      tokens: '令牌',
+      plugins: '插件',
+    }
+  }
+};
+
+export default messages;

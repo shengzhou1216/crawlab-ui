@@ -6,7 +6,7 @@
     </div>
     <div class="info">
       <div class="title">
-        {{ title }}
+        {{ t(title) }}
       </div>
       <div class="value">
         {{ value }}
@@ -17,6 +17,7 @@
 
 <script lang="ts">
 import {computed, defineComponent, PropType} from 'vue';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'Metric',
@@ -41,6 +42,8 @@ export default defineComponent({
     'click',
   ],
   setup(props: MetricProps, {emit}) {
+    const {t} = useI18n();
+
     const style = computed<Partial<CSSStyleDeclaration>>(() => {
       const {color} = props;
       return {
@@ -57,6 +60,7 @@ export default defineComponent({
     return {
       style,
       onClick,
+      t,
     };
   },
 });

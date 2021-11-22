@@ -10,7 +10,7 @@
       <Icon v-else :icon="icon" size="10px"/>
     </span>
     <span v-if="showTitle" class="title">
-      {{ title }}
+      {{ t(title) }}
     </span>
     <span v-if="showClose" class="close-btn" @click.stop="onClose">
       <i class="el-icon-close"></i>
@@ -26,6 +26,7 @@ import {getPrimaryPath} from '@/utils/path';
 // import {useI18n} from 'vue-i18n';
 import {useRouter} from 'vue-router';
 import Icon from '@/components/icon/Icon.vue';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'Tab',
@@ -57,11 +58,12 @@ export default defineComponent({
     'click',
   ],
   setup(props: TabProps, {emit}) {
-    // const {tm} = useI18n();
     const router = useRouter();
     const storeNamespace = 'layout';
     const store = useStore();
     const {layout: state} = store.state as RootStoreState;
+
+    const {t} = useI18n();
 
     const item = computed(() => {
       const {tab} = props as TabProps;
@@ -150,6 +152,7 @@ export default defineComponent({
       classes,
       onClick,
       onClose,
+      t,
     };
   },
 });

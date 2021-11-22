@@ -7,6 +7,9 @@
 <script lang="ts">
 import {computed, defineComponent, onMounted, PropType, ref, watch} from 'vue';
 import {init} from 'echarts';
+import {useI18n} from 'vue-i18n';
+import {translate} from '@/utils/i18n';
+import {plainClone} from '@/utils/object';
 
 export default defineComponent({
   name: 'LineChart',
@@ -39,6 +42,9 @@ export default defineComponent({
     },
   },
   setup(props: LineChartProps, {emit}) {
+    const {locale} = useI18n();
+    const t = translate;
+
     const style = computed<Partial<CSSStyleDeclaration>>(() => {
       const {width, height} = props;
       return {
@@ -90,7 +96,7 @@ export default defineComponent({
         if (!dataMetas) return series;
         dataMetas.forEach(({key, name, yAxisIndex}) => {
           series.push({
-            name,
+            name: t(name),
             yAxisIndex,
             type: 'line',
             data: getSeriesData(data, key),
@@ -102,7 +108,7 @@ export default defineComponent({
 
     const render = () => {
       const {config, theme, isTimeSeries} = props;
-      const {option} = config;
+      const option = plainClone(config.option);
 
       // dom
       const el = elRef.value;
@@ -119,6 +125,17 @@ export default defineComponent({
       // yAxis
       if (!option.yAxis) {
         option.yAxis = {};
+      } else if (Array.isArray(option.yAxis)) {
+        option.yAxis = option.yAxis.map((d: any) => {
+          if (d.name) {
+            d.name = t(d.name);
+          }
+          return d;
+        });
+      } else {
+        if (option.yAxis.name) {
+          option.yAxis.name = t(option.yAxis.name);
+        }
       }
 
       // series
@@ -135,6 +152,11 @@ export default defineComponent({
         };
       }
 
+      // title
+      if (option?.title?.text) {
+        option.title.text = t(option.title.text);
+      }
+
       // legend
       option.legend = {};
 
@@ -148,6 +170,7 @@ export default defineComponent({
 
     watch(() => props.config.data, render);
     watch(() => props.theme, render);
+    watch(() => locale.value, render);
 
     onMounted(() => {
       render();

@@ -7,6 +7,7 @@
 
 <script lang="ts">
 import {computed, defineComponent} from 'vue';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'NodeType',
@@ -19,6 +20,8 @@ export default defineComponent({
     },
   },
   setup(props: NodeTypeProps, {emit}) {
+    const {t} = useI18n();
+
     const type = computed<string>(() => {
       const {isMaster} = props;
       return isMaster ? 'primary' : 'warning';
@@ -27,7 +30,9 @@ export default defineComponent({
     const computedLabel = computed<string>(() => {
       const {isMaster, label} = props;
       if (label) return label;
-      return isMaster ? 'Master' : 'Worker';
+      return isMaster ?
+          t('components.node.nodeType.master') :
+          t('components.node.nodeType.worker');
     });
 
     const icon = computed<string[]>(() => {

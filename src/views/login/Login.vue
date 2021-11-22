@@ -10,11 +10,11 @@
         label-position="left"
     >
       <h3 class="title">
-        <img :src="logo" alt="logo" className="logo-img"/>
+        <img :src="logo" alt="logo" class="logo-img"/>
         <span class="logo-title">Crawlab</span>
         <span class="logo-sub-title">
           <div class="logo-sub-title-block">
-            Community
+            {{ t('global.community') }}
           </div>
           <div class="logo-sub-title-block">
             v0.6.0
@@ -24,7 +24,7 @@
       <el-form-item prop="username" style="margin-bottom: 28px;">
         <el-input
             v-model="loginForm.username"
-            :placeholder="$t('Username')"
+            :placeholder="t('views.login.loginForm.username')"
             auto-complete="on"
             name="username"
             type="text"
@@ -34,7 +34,7 @@
       <el-form-item prop="password" style="margin-bottom: 28px;">
         <el-input
             v-model="loginForm.password"
-            :placeholder="$t('Password')"
+            :placeholder="t('views.login.loginForm.password')"
             auto-complete="on"
             name="password"
             type="password"
@@ -44,15 +44,15 @@
       <el-form-item v-if="isSignup" prop="confirmPassword" style="margin-bottom: 28px;">
         <el-input
             v-model="loginForm.confirmPassword"
-            :placeholder="$t('Confirm Password')"
+            :placeholder="t('views.login.loginForm.confirmPassword')"
             auto-complete="on"
-            name="password"
+            name="confirm-password"
         />
       </el-form-item>
       <el-form-item v-if="isSignup" prop="email" style="margin-bottom: 28px;">
         <el-input
             v-model="loginForm.email"
-            :placeholder="$t('Email')"
+            :placeholder="t('views.login.loginForm.email')"
             name="email"
         />
       </el-form-item>
@@ -63,7 +63,7 @@
             style="width:100%;"
             type="primary"
         >
-          {{ $t('Sign up') }}
+          {{ t('views.login.loginForm.signUp') }}
         </el-button>
         <el-button
             v-if="!isSignup"
@@ -72,41 +72,34 @@
             type="primary"
             @click="onLogin"
         >
-          {{ $t('Sign in') }}
+          {{ t('views.login.loginForm.signIn') }}
         </el-button>
       </el-form-item>
       <div class="alternatives">
         <div class="left">
-          <el-tooltip content="Please follow the Reset Password section in the documentation." trigger="click">
-            <span class="forgot-password">{{ $t('Forgot Password') }}</span>
+          <el-tooltip content="views.login.forgotPassword.content" trigger="click">
+            <span class="forgot-password">{{ t('views.login.forgotPassword.label') }}</span>
           </el-tooltip>
-        </div>
-        <div class="right" v-if="allowRegister">
-          <span v-if="isSignup">{{ $t('Has Account') }}, </span>
-          <span v-if="isSignup" class="sign-in" @click="$router.push('/login')">{{ $t('Sign-in') }} ></span>
-          <span v-if="!isSignup">{{ $t('New to Crawlab') }}, </span>
-          <span v-if="!isSignup" class="sign-up" @click="$router.push('/signup')">{{ $t('Sign-up') }} ></span>
         </div>
       </div>
       <div class="tips">
-        <span>{{ $t('Initial Username/Password') }}: admin/admin</span>
+        <span>{{ t('views.login.initial.title') }}: admin/admin</span>
         <a href="https://github.com/crawlab-team/crawlab" style="float:right" target="_blank">
           <img alt="github-stars" src="https://img.shields.io/github/stars/crawlab-team/crawlab?logo=github">
         </a>
       </div>
-      <!-- TODO: implement -->
-      <div v-if="false" class="lang">
+      <div class="lang">
         <span :class="lang==='zh'?'active':''" @click="setLang('zh')">中文</span>
         |
         <span :class="lang==='en'?'active':''" @click="setLang('en')">English</span>
       </div>
       <div v-if="false" class="documentation">
-        <a href="https://docs.crawlab.cn" target="_blank">{{ $t('Documentation') }}</a>
+        <a href="https://docs-next.crawlab.cn" target="_blank">{{ t('views.login.documentation') }}</a>
       </div>
       <div class="mobile-warning" v-if="isShowMobileWarning">
         <el-alert :closable="false" type="error">
           {{
-            $t('You are running on a mobile device, which is not optimized yet. Please try with a laptop or desktop.')
+            t('views.login.mobile.warning')
           }}
         </el-alert>
       </div>
@@ -123,6 +116,8 @@ import {ElMessage} from 'element-plus';
 import useRequest from '@/services/request';
 import {initPlugins} from '@/utils/plugin';
 import {useStore} from 'vuex';
+import {setGlobalLang} from '@/utils/i18n';
+import {useI18n} from 'vue-i18n';
 
 const {
   post,
@@ -139,6 +134,9 @@ export default defineComponent({
 
     // router
     const router = useRouter();
+
+    // i18n
+    const {t} = useI18n();
 
     // loading
     const loading = ref<boolean>(false);
@@ -159,7 +157,7 @@ export default defineComponent({
 
     const validateUsername = (rule: any, value: any, callback: any) => {
       if (!isValidUsername(value)) {
-        callback(new Error('Please enter the correct username'));
+        callback(new Error(t('views.login.errors.incorrectUsername')));
       } else {
         callback();
       }
@@ -167,7 +165,7 @@ export default defineComponent({
 
     const validatePass = (rule: any, value: any, callback: any) => {
       if (value.length < 5) {
-        callback(new Error('Password length should be no shorter than 5'));
+        callback(new Error(t('views.login.errors.passwordLength')));
       } else {
         callback();
       }
@@ -176,7 +174,7 @@ export default defineComponent({
     const validateConfirmPass = (rule: any, value: any, callback: any) => {
       if (!isSignup.value) return callback();
       if (value !== loginForm.value.password) {
-        callback(new Error('Two passwords must be the same'));
+        callback(new Error(t('views.login.errors.passwordSame')));
       } else {
         callback();
       }
@@ -192,10 +190,13 @@ export default defineComponent({
 
     const allowRegister = ref<boolean>(false);
 
-    const lang = computed<string | null>(() => localStorage.getItem('lang'));
+    const internalLang = ref<string>(localStorage.getItem('lang') || 'en');
 
-    const setLang = (lang: string) => {
-      localStorage.setItem('lang', lang);
+    const lang = computed<string | null>(() => internalLang.value || localStorage.getItem('lang'));
+
+    const setLang = (lang: Lang) => {
+      internalLang.value = lang;
+      setGlobalLang(lang);
     };
 
     const onLogin = async () => {
@@ -240,7 +241,7 @@ export default defineComponent({
         // error
         if (e.toString().includes('401')) {
           // unauthorized
-          ElMessage.error('Unauthorized. Please check username and password.');
+          ElMessage.error('views.login.errors.unauthorized');
         } else {
           // other error
           ElMessage.error(e.toString());
@@ -280,6 +281,7 @@ export default defineComponent({
       logo,
       setLang,
       onLogin,
+      t,
     };
   },
 });

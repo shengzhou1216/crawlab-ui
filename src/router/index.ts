@@ -13,6 +13,7 @@ import plugin from '@/router/plugin';
 import {initRouterAuth} from '@/router/hooks/auth';
 import {initRouterStats} from '@/router/hooks/stats';
 import BasicLayout from '@/layouts/BasicLayout.vue';
+import {translate} from '@/utils/i18n';
 
 export const getDefaultRoutes = (): Array<RouteRecordRaw> => [
   ...login,
@@ -35,18 +36,20 @@ export const getDefaultRoutes = (): Array<RouteRecordRaw> => [
   },
 ];
 
-export const getDefaultMenuItems = (): MenuItem[] => [
-  {path: '/', title: 'Home', icon: ['fa', 'home']},
-  {path: '/nodes', title: 'Nodes', icon: ['fa', 'server']},
-  {path: '/projects', title: 'Projects', icon: ['fa', 'project-diagram']},
-  {path: '/spiders', title: 'Spiders', icon: ['fa', 'spider']},
-  {path: '/schedules', title: 'Schedules', icon: ['fa', 'clock']},
-  {path: '/tasks', title: 'Tasks', icon: ['fa', 'tasks']},
-  {path: '/users', title: 'Users', icon: ['fa', 'users']},
-  {path: '/tags', title: 'Tags', icon: ['fa', 'tag']},
-  {path: '/tokens', title: 'Tokens', icon: ['fa', 'key']},
-  {path: '/plugins', title: 'Plugins', icon: ['fa', 'plug']},
-];
+export const getDefaultMenuItems = (): MenuItem[] => {
+  return [
+    {path: '/', title: 'router.menuItems.home', icon: ['fa', 'home']},
+    {path: '/nodes', title: 'router.menuItems.nodes', icon: ['fa', 'server']},
+    {path: '/projects', title: 'router.menuItems.projects', icon: ['fa', 'project-diagram']},
+    {path: '/spiders', title: 'router.menuItems.spiders', icon: ['fa', 'spider']},
+    {path: '/schedules', title: 'router.menuItems.schedules', icon: ['fa', 'clock']},
+    {path: '/tasks', title: 'router.menuItems.tasks', icon: ['fa', 'tasks']},
+    {path: '/users', title: 'router.menuItems.users', icon: ['fa', 'users']},
+    {path: '/tags', title: 'router.menuItems.tags', icon: ['fa', 'tag']},
+    {path: '/tokens', title: 'router.menuItems.tokens', icon: ['fa', 'key']},
+    {path: '/plugins', title: 'router.menuItems.plugins', icon: ['fa', 'plug']},
+  ];
+};
 
 export const createRouter = (routes?: Array<RouteRecordRaw>): Router => {
   const router = createVueRouter({

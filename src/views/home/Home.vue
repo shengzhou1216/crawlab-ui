@@ -84,42 +84,42 @@ export default defineComponent({
 
     const metrics = ref<MetricMeta[]>([
       {
-        name: 'Active Nodes',
+        name: 'views.home.metrics.nodes',
         icon: ['fa', 'server'],
         key: 'nodes',
         value: 0,
         path: '/nodes',
       },
       {
-        name: 'Projects',
+        name: 'views.home.metrics.projects',
         icon: ['fa', 'project-diagram'],
         key: 'projects',
         value: 0,
         path: '/projects'
       },
       {
-        name: 'Spiders',
+        name: 'views.home.metrics.spiders',
         icon: ['fa', 'spider'],
         key: 'spiders',
         value: 0,
         path: '/spiders',
       },
       {
-        name: 'Schedules',
+        name: 'views.home.metrics.schedules',
         icon: ['fa', 'clock'],
         key: 'schedules',
         value: 0,
         path: '/schedules',
       },
       {
-        name: 'Total Tasks',
+        name: 'views.home.metrics.tasks',
         icon: ['fa', 'tasks'],
         key: 'tasks',
         value: 0,
         path: '/tasks',
       },
       {
-        name: 'Error Tasks',
+        name: 'views.home.metrics.error_tasks',
         icon: ['fa', 'exclamation'],
         key: 'error_tasks',
         value: 0,
@@ -127,14 +127,14 @@ export default defineComponent({
         color: (m: MetricMeta) => m.value > 0 ? variables.dangerColor : variables.successColor,
       },
       {
-        name: 'Total Results',
+        name: 'views.home.metrics.results',
         icon: ['fa', 'table'],
         key: 'results',
         value: 0,
         color: (m: MetricMeta) => m.value > 0 ? variables.successColor : variables.infoMediumColor,
       },
       {
-        name: 'Users',
+        name: 'views.home.metrics.users',
         icon: ['fa', 'users'],
         key: 'users',
         value: 0,
@@ -146,36 +146,36 @@ export default defineComponent({
       dataMetas: [
         {
           key: 'tasks',
-          name: 'Tasks',
+          name: 'views.home.metrics.tasks',
           yAxisIndex: 0,
         },
         {
           key: 'results',
-          name: 'Results',
+          name: 'views.home.metrics.results',
           yAxisIndex: 1,
         },
       ],
       data: [],
       option: {
         title: {
-          text: 'Daily Stats',
+          text: 'views.home.dailyConfig.title',
         },
         yAxis: [
-          {name: 'Tasks', position: 'left'},
-          {name: 'Results', position: 'right'},
+          {name: 'views.home.metrics.tasks', position: 'left'},
+          {name: 'views.home.metrics.results', position: 'right'},
         ],
         color: [
           variables.primaryColor,
           variables.successColor,
         ],
-      },
+      }
     });
 
     const tasksByStatusConfig = ref<EChartsConfig>({
       data: [],
       option: {
         title: {
-          text: 'Tasks by Status',
+          text: 'views.home.tasksByStatusConfig.title',
         },
       },
       itemStyleColorFunc: ({data}: any) => {
@@ -194,25 +194,25 @@ export default defineComponent({
           default:
             return 'red';
         }
-      },
+      }
     });
 
     const tasksByNodeConfig = ref<EChartsConfig>({
       data: [],
       option: {
         title: {
-          text: 'Tasks by Node',
+          text: 'views.home.tasksByNodeConfig.title',
         },
-      },
+      }
     });
 
     const tasksBySpiderConfig = ref<EChartsConfig>({
       data: [],
       option: {
         title: {
-          text: 'Tasks by Spider',
+          text: 'views.home.tasksBySpiderConfig.title',
         },
-      },
+      }
     });
 
     const getOverview = async () => {

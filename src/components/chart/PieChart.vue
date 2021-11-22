@@ -1,7 +1,7 @@
 <template>
   <div :style="style" class="pie-chart">
     <div v-if="isEmpty" class="empty-placeholder">
-      No Data Available
+      {{ t('components.chart.pieChart.noDataAvailable') }}
     </div>
     <div ref="elRef" class="echarts-element"></div>
   </div>
@@ -10,6 +10,8 @@
 <script lang="ts">
 import {computed, defineComponent, onMounted, PropType, ref, watch} from 'vue';
 import {init} from 'echarts';
+import {useI18n} from 'vue-i18n';
+import {plainClone} from '@/utils/object';
 
 export default defineComponent({
   name: 'PieChart',
@@ -38,6 +40,8 @@ export default defineComponent({
     },
   },
   setup(props: PieChartProps, {emit}) {
+    const {t, locale} = useI18n();
+
     const style = computed<Partial<CSSStyleDeclaration>>(() => {
       const {width, height} = props;
       return {
@@ -95,7 +99,7 @@ export default defineComponent({
 
     const render = () => {
       const {config, theme} = props;
-      const {option} = config;
+      const option = plainClone(config.option);
 
       // dom
       const el = elRef.value;
@@ -115,6 +119,11 @@ export default defineComponent({
         };
       }
 
+      // title
+      if (option?.title?.text) {
+        option.title.text = t(option.title.text);
+      }
+
       // render
       if (!chart.value) {
         // init
@@ -125,6 +134,7 @@ export default defineComponent({
 
     watch(() => props.config.data, render);
     watch(() => props.theme, render);
+    watch(() => locale.value, render);
 
     onMounted(() => {
       render();
@@ -135,6 +145,7 @@ export default defineComponent({
       style,
       elRef,
       render,
+      t,
     };
   },
 });

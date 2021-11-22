@@ -10,7 +10,7 @@
         <span class="logo-title">Crawlab</span>
         <span class="logo-sub-title">
           <div class="logo-sub-title-block">
-            Community
+            {{ t('global.community') }}
           </div>
           <div class="logo-sub-title-block">
             v0.6.0
@@ -36,7 +36,7 @@
           >
             <MenuItemIcon :item="item" size="normal"/>
             <template #title>
-              <span class="menu-item-title">{{ item.title }}</span>
+              <span class="menu-item-title">{{ t(item.title) }}</span>
             </template>
           </el-menu-item>
           <!-- ./no sub menu items -->
@@ -80,6 +80,7 @@ import logo from '@/assets/js/svg/logo.js';
 import MenuItemIcon from '@/components/icon/MenuItemIcon.vue';
 import {getPrimaryPath} from '@/utils/path';
 import * as path from 'path';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'Sidebar',
@@ -88,9 +89,15 @@ export default defineComponent({
   },
   setup() {
     const router = useRouter();
+
     const route = useRoute();
+
+    const {t} = useI18n();
+
     const store = useStore();
+
     const {layout} = store.state as RootStoreState;
+
     const storeNamespace = 'layout';
 
     const sidebarCollapsed = computed<boolean>(() => layout.sidebarCollapsed);
@@ -160,6 +167,7 @@ export default defineComponent({
       onMenuItemClick,
       toggleSidebar,
       ...variables,
+      t,
     };
   },
 });

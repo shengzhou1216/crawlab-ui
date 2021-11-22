@@ -4,8 +4,31 @@
       <div class="left">
       </div>
       <div class="right">
-        <el-link :underline="false" href="javascript:;" @click="onLogout">
-          Logout
+        <el-dropdown class="lang">
+          <span class="el-dropdown-link item action ">
+            <font-awesome-icon class="icon" :icon="['fa', 'globe']"/>
+            {{ langName }}
+            <i class="el-icon--right el-icon-arrow-down"/>
+          </span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item
+                  :class="locale === 'en' ? 'active' : ''"
+                  @click="() => setLang('en')"
+              >
+                {{ t('global.lang', [], { locale: 'en' }) }}
+              </el-dropdown-item>
+              <el-dropdown-item
+                  :class="locale === 'zh' ? 'active' : ''"
+                  @click="() => setLang('zh')"
+              >
+                {{ t('global.lang', [], { locale: 'zh' }) }}
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+        <el-link class="item action" :underline="false" href="javascript:;" @click="onLogout">
+          {{ t('layouts.components.header.logout') }}
         </el-link>
       </div>
     </el-header>
@@ -17,15 +40,21 @@ import {computed, defineComponent} from 'vue';
 import {useStore} from 'vuex';
 import variables from '../../styles/variables.scss';
 import {useRouter} from 'vue-router';
+import {useI18n} from 'vue-i18n';
+import {setGlobalLang} from '@/utils/i18n';
 
 export default defineComponent({
   name: 'Header',
   setup() {
+    // i18n
+    const {t, locale} = useI18n();
+
     // router
     const router = useRouter();
 
     // store
     const store = useStore();
+
     const {layout} = store.state as RootStoreState;
 
     const sidebarCollapsed = computed(() => {
@@ -37,10 +66,22 @@ export default defineComponent({
       router.push('/login');
     };
 
+    const langName = computed<string>(() => {
+      return t('global.lang', [], {locale: locale.value});
+    });
+
+    const setLang = (lang: Lang) => {
+      setGlobalLang(lang);
+    };
+
     return {
       sidebarCollapsed,
       onLogout,
       ...variables,
+      langName,
+      setLang,
+      locale,
+      t,
     };
   },
 });
@@ -76,7 +117,26 @@ export default defineComponent({
     .right {
       display: flex;
       align-items: center;
+
+      .item {
+        margin-left: 20px;
+
+        &.action {
+          cursor: pointer;
+        }
+
+        .icon {
+          margin-right: 3px;
+        }
+      }
     }
   }
+}
+</style>
+
+<style scoped>
+.el-dropdown-menu__item.active {
+  background: #ecf5ff;
+  color: #409eff;
 }
 </style>

@@ -14,6 +14,7 @@
 <script lang="ts">
 import {computed, defineComponent, PropType} from 'vue';
 import Tag from '@/components/tag/Tag.vue';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'NodeRunners',
@@ -37,6 +38,8 @@ export default defineComponent({
   },
   emits: ['click'],
   setup(props: NodeRunnersProps, {emit}) {
+    const {t} = useI18n();
+
     const running = computed<number>(() => {
       const {available, max} = props;
       if (available === undefined ||
@@ -59,21 +62,24 @@ export default defineComponent({
       if (running.value === max) {
         return {
           label: label.value,
-          tooltip: 'No runners available at this moment',
+          tooltip: t('components.node.nodeRunners.tooltip.unavailable'),
           type: 'danger',
           icon: ['fa', 'ban'],
         };
       } else if (running.value > 0) {
         return {
           label: label.value,
-          tooltip: `${running.value} out of ${max} runners are running`,
+          tooltip: t('components.node.nodeRunners.tooltip.running', {
+            running: running.value,
+            max,
+          }),
           type: 'warning',
           icon: ['far', 'check-square'],
         };
       } else {
         return {
           label: label.value,
-          tooltip: `All runners available`,
+          tooltip: t('components.node.nodeRunners.tooltip.available'),
           type: 'success',
           icon: ['far', 'check-square'],
         };
