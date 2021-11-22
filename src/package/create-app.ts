@@ -10,12 +10,14 @@ import {importScripts, importStylesheets, initWindowGlobals} from '@/package/uti
 import {createRouter} from '@/router';
 import {initPlugins} from '@/utils/plugin';
 import {initRequest} from '@/services/request';
+import {initUmeng} from '@/admin/umeng';
 
 export const getDefaultCreateAppOptions = (): CreateAppOptions => {
   return {
     initStylesheet: true,
     initScripts: true,
     initBaiduTongji: true,
+    initUmeng: true,
     loadStore: true,
     loadRouter: true,
     loadElementPlus: true,
@@ -40,6 +42,9 @@ const createApp = async (options?: CreateAppOptions): Promise<VueApp> => {
 
   // baidu tongji
   if (options.initBaiduTongji) initBaiduTonji();
+
+  // umeng
+  if (options.initUmeng) initUmeng();
 
   // remove loading placeholder
   document.querySelector('#loading-placeholder')?.remove();

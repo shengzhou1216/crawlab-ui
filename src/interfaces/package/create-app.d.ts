@@ -6,6 +6,7 @@ declare global {
     initStylesheet?: boolean;
     initScripts?: boolean;
     initBaiduTongji?: boolean;
+    initUmeng?: boolean;
     loadStore?: boolean;
     loadRouter?: boolean;
     loadElementPlus?: boolean;

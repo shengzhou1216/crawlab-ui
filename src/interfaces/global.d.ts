@@ -4,4 +4,5 @@ interface Window {
   resetCanvas?: Function;
   _hmt?: Array;
   'vue3-sfc-loader'?: { loadModule };
+  aplus_queue: any;
 }
