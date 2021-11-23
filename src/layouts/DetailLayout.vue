@@ -16,7 +16,7 @@
         <template v-slot:extra>
           <el-tooltip
               v-model="showActionsToggleTooltip"
-              :content="actionsCollapsed ? 'Expand actions bar' : 'Collapse actions bar'"
+              :content="actionsCollapsed ? t('layouts.detailLayout.navTabs.toggle.tooltip.expand') : t('layouts.detailLayout.navTabs.toggle.tooltip.collapse')"
           >
             <div :class="actionsCollapsed ? 'collapsed' : ''" class="actions-toggle" @click="onActionsToggle">
               <font-awesome-icon :icon="['fa', 'angle-up']" class="icon"/>
@@ -46,6 +46,7 @@ import NavTabs from '@/components/nav/NavTabs.vue';
 import NavActions from '@/components/nav/NavActions.vue';
 import NavActionGroupDetailCommon from '@/components/nav/NavActionGroupDetailCommon.vue';
 import {useStore} from 'vuex';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'DetailLayout',
@@ -70,6 +71,7 @@ export default defineComponent({
     }
   },
   setup(props: DetailLayoutProps, {emit}) {
+    const {t} = useI18n();
     const ns = computed(() => props.storeNamespace);
     const store = useStore();
     const state = store.state[ns.value] as BaseStoreState;
@@ -85,6 +87,7 @@ export default defineComponent({
     return {
       ...useDetail(ns.value),
       computedNavItems,
+      t,
     };
   },
 });

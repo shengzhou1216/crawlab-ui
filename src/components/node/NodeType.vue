@@ -31,8 +31,8 @@ export default defineComponent({
       const {isMaster, label} = props;
       if (label) return label;
       return isMaster ?
-          t('components.node.nodeType.master') :
-          t('components.node.nodeType.worker');
+          t('components.node.nodeType.label.master') :
+          t('components.node.nodeType.label.worker');
     });
 
     const icon = computed<string[]>(() => {

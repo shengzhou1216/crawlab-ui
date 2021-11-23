@@ -100,10 +100,10 @@ const useNodeList = () => {
       hasFilter: true,
       allowFilterItems: true,
       filterItems: [
-        {label: 'Unregistered', value: NODE_STATUS_UNREGISTERED},
-        {label: 'Registered', value: NODE_STATUS_REGISTERED},
-        {label: 'Online', value: NODE_STATUS_ONLINE},
-        {label: 'Offline', value: NODE_STATUS_OFFLINE},
+        {label: t('views.nodes.nodeType.label.unregistered'), value: NODE_STATUS_UNREGISTERED},
+        {label: t('views.nodes.nodeType.label.registered'), value: NODE_STATUS_REGISTERED},
+        {label: t('views.nodes.nodeType.label.online'), value: NODE_STATUS_ONLINE},
+        {label: t('views.nodes.nodeType.label.offline'), value: NODE_STATUS_OFFLINE},
       ],
     },
     {
