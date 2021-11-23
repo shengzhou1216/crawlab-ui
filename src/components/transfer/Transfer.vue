@@ -9,13 +9,23 @@
         @drag="onLeftDrag"
     />
     <div class="actions">
-      <Button :disabled="leftDisabled" :tooltip="leftTooltip || 'Move to Left'" size="large" @click="onLeftMove">
+      <Button
+          :disabled="leftDisabled"
+          :tooltip="leftTooltip || t('components.transfer.moveToLeft')"
+          size="large"
+          @click="onLeftMove"
+      >
         <div class="btn-content">
           <font-awesome-icon :icon="['fa', 'angle-left']" style="margin-right: 5px"/>
           {{ buttonTexts[0] }}
         </div>
       </Button>
-      <Button :disabled="rightDisabled" :tooltip="rightTooltip || 'Move to Right'" size="large" @click="onRightMove">
+      <Button
+          :disabled="rightDisabled"
+          :tooltip="rightTooltip || t('components.transfer.moveToLeft')"
+          size="large"
+          @click="onRightMove"
+      >
         <div class="btn-content">
           {{ buttonTexts[1] }}
           <font-awesome-icon :icon="['fa', 'angle-right']" style="margin-left: 5px"/>
@@ -38,6 +48,7 @@ import {computed, defineComponent, PropType, ref} from 'vue';
 import {DataItem, Key} from 'element-plus/lib/el-transfer/src/transfer';
 import TransferPanel from '@/components/transfer/TransferPanel.vue';
 import Button from '@/components/button/Button.vue';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'Transfer',
@@ -83,6 +94,9 @@ export default defineComponent({
     'change',
   ],
   setup(props: TransferProps, {emit}) {
+    // i18n
+    const {t} = useI18n();
+
     const dataMap = computed<DataMap>(() => {
       const {data} = props as TransferProps;
       const map = {} as DataMap;
@@ -164,6 +178,7 @@ export default defineComponent({
       onRightCheck,
       onRightMove,
       onRightDrag,
+      t,
     };
   },
 });

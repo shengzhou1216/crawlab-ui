@@ -4,6 +4,7 @@ const common: LCommon = {
     disabled: '已禁用',
   },
   actions: {
+    view: '查看',
     delete: '删除',
   },
   messageBox: {

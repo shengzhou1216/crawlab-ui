@@ -14,10 +14,10 @@
         class="create-edit-dialog-tabs"
         @tab-click="onTabChange"
     >
-      <el-tab-pane label="Single" name="single">
+      <el-tab-pane :label="t('components.dialog.type.single')" name="single">
         <slot/>
       </el-tab-pane>
-      <el-tab-pane v-if="!noBatch" label="Batch" name="batch">
+      <el-tab-pane v-if="!noBatch" :label="t('components.dialog.type.batch')" name="batch">
         <CreateDialogContentBatch
             :data="batchFormData"
             :fields="batchFormFields"
@@ -33,6 +33,7 @@ import CreateDialogContentBatch from '@/components/dialog/CreateDialogContentBat
 import Dialog from '@/components/dialog/Dialog.vue';
 import {emptyArrayFunc, emptyObjectFunc} from '@/utils/func';
 import {Pane} from 'element-plus/lib/el-tabs/src/tabs.vue';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'CreateEditDialog',
@@ -91,17 +92,20 @@ export default defineComponent({
     },
   },
   setup(props: CreateEditDialogProps, ctx: SetupContext) {
+    // i18n
+    const {t} = useI18n();
+
     const computedTitle = computed<string>(() => {
       const {visible, type, title} = props;
       if (title) return title;
       if (!visible) return '';
       switch (type) {
         case 'create':
-          return 'Create';
+          return t('components.dialog.create');
         case 'edit':
-          return 'Edit';
+          return t('components.dialog.edit');
         default:
-          return 'Dialog';
+          return t('components.dialog.dialog');
       }
     });
 
@@ -134,6 +138,7 @@ export default defineComponent({
       onConfirm,
       internalTabName,
       onTabChange,
+      t,
     };
   },
 });

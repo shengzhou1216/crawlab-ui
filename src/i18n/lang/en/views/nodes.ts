@@ -12,7 +12,13 @@ const nodes: LViewsNodes = {
       tags: 'Tags',
       description: 'Description',
     }
-  }
+  },
+  navActions: {
+    newNode: {
+      label: 'New Node',
+      tooltip: 'Create a new node'
+    }
+  },
 };
 
 export default nodes;

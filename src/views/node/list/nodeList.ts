@@ -47,8 +47,8 @@ const useNodeList = () => {
       children: [
         {
           buttonType: 'label',
-          label: 'New Node',
-          tooltip: 'New Node',
+          label: t('views.nodes.navActions.newNode.label'),
+          tooltip: t('views.nodes.navActions.newNode.tooltip'),
           icon: ['fa', 'plus'],
           type: 'success',
           onClick: () => {
@@ -187,7 +187,7 @@ const useNodeList = () => {
         {
           type: 'primary',
           icon: ['fa', 'search'],
-          tooltip: 'View',
+          tooltip: t('common.actions.view'),
           onClick: (row) => {
             router.push(`/nodes/${row._id}`);
           },

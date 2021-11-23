@@ -12,7 +12,13 @@ const nodes: LViewsNodes = {
       tags: '标签',
       description: '描述',
     }
-  }
+  },
+  navActions: {
+    newNode: {
+      label: '新建节点',
+      tooltip: '添加一个新节点'
+    }
+  },
 };
 
 export default nodes;

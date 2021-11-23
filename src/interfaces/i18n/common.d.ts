@@ -4,6 +4,7 @@ interface LCommon {
     disabled: string;
   };
   actions: {
+    view: string;
     delete: string;
   };
   messageBox: {

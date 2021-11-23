@@ -2,11 +2,14 @@
   <el-dialog
       :before-close="onClose"
       :model-value="visible"
-      title="Table Columns Customization">
+      :title="t('components.table.columnsTransfer.title')">
     <div class="table-columns-transfer-content">
       <Transfer
           :data="computedData"
-          :titles="['Available', 'Selected']"
+          :titles="[
+              t('components.table.columnsTransfer.titles.left'),
+              t('components.table.columnsTransfer.titles.right')
+          ]"
           :value="internalSelectedColumnKeys"
           @change="onChange"
       />
@@ -23,6 +26,7 @@ import {computed, defineComponent, onBeforeMount, ref} from 'vue';
 import Transfer from '@/components/transfer/Transfer.vue';
 import Button from '@/components/button/Button.vue';
 import {DataItem} from 'element-plus/lib/el-transfer/src/transfer';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'TableColumnsTransfer',
@@ -52,6 +56,9 @@ export default defineComponent({
     'apply',
   ],
   setup(props, {emit}) {
+    // i18n
+    const {t} = useI18n();
+
     const internalSelectedColumnKeys = ref<string[]>([]);
 
     const computedData = computed<DataItem[]>(() => {
@@ -90,6 +97,7 @@ export default defineComponent({
       onClose,
       onChange,
       onApply,
+      t,
     };
   },
 });

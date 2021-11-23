@@ -4,6 +4,7 @@ const common: LCommon = {
     disabled: 'Disabled',
   },
   actions: {
+    view: 'View',
     delete: 'Delete',
   },
   messageBox: {

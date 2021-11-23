@@ -17,7 +17,7 @@
         :icon="['fa', 'edit']"
         class="action-btn"
         size="mini"
-        tooltip="Edit Selected"
+        :tooltip="t('components.table.actions.editSelected')"
         type="warning"
         @click="onEdit"
     />
@@ -27,7 +27,7 @@
         :icon="['fa', 'trash-alt']"
         class="action-btn"
         size="mini"
-        tooltip="Delete Selected"
+        :tooltip="t('components.table.actions.deleteSelected')"
         type="danger"
         @click="onDelete"
     />
@@ -36,7 +36,7 @@
         :icon="['fa', 'file-export']"
         class="action-btn"
         size="mini"
-        tooltip="Export"
+        :tooltip="t('components.table.actions.export')"
         type="primary"
         @click="onExport"
     />
@@ -45,7 +45,7 @@
         :icon="['fa', 'arrows-alt']"
         class="action-btn"
         size="mini"
-        tooltip="Customize Columns"
+        :tooltip="t('components.table.actions.customizeColumns')"
         type="primary"
         @click="onCustomizeColumns"
     />
@@ -58,6 +58,7 @@ import {defineComponent, PropType} from 'vue';
 import FaIconButton from '@/components/button/FaIconButton.vue';
 import {ACTION_ADD, ACTION_DELETE, ACTION_EDIT,} from '@/constants/action';
 import {TABLE_ACTION_CUSTOMIZE_COLUMNS, TABLE_ACTION_EXPORT,} from '@/constants/table';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'TableActions',
@@ -87,6 +88,9 @@ export default defineComponent({
     }
   },
   setup(props: TableActionsProps, {emit}) {
+    // i18n
+    const {t} = useI18n();
+
     // const onAdd = () => {
     //   emit('click-add');
     // };
@@ -125,6 +129,7 @@ export default defineComponent({
       onExport,
       onCustomizeColumns,
       showButton,
+      t,
     };
   },
 });
