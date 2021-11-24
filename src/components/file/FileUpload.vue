@@ -65,8 +65,7 @@
 <script lang="ts">
 import {defineComponent, onBeforeMount, ref, watch} from 'vue';
 import {FILE_UPLOAD_MODE_DIR, FILE_UPLOAD_MODE_FILES} from '@/constants/file';
-import {ElUpload} from 'element-plus/lib/el-upload/src/upload.type';
-import {UploadFile} from 'element-plus/packages/upload/src/upload.type';
+import {ElUpload, UploadFile} from 'element-plus/lib/components/upload/src/upload.type';
 import Button from '@/components/button/Button.vue';
 import Tag from '@/components/tag/Tag.vue';
 import {plainClone} from '@/utils/object';

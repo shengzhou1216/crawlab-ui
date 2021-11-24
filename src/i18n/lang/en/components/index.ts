@@ -3,6 +3,7 @@ import table from './table';
 import node from './node';
 import dialog from './dialog';
 import transfer from './transfer';
+import nav from './nav';
 
 const components: LComponents = {
   chart,
@@ -10,6 +11,7 @@ const components: LComponents = {
   node,
   dialog,
   transfer,
+  nav,
 }
 
 export default components;

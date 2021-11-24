@@ -1,11 +1,12 @@
 import {Ref, VNode} from 'vue';
-import {AnyObject, Store, StoreMutations, TableColumnCtx} from 'element-plus/lib/el-table/src/table.type';
+import {AnyObject, Store, StoreMutations, TableColumnCtx} from 'element-plus/lib/components/table/src/table/defaults';
 import {
   TABLE_ACTION_CUSTOMIZE_COLUMNS,
   TABLE_ACTION_EXPORT, TABLE_PAGINATION_POSITION_ALL,
   TABLE_PAGINATION_POSITION_BOTTOM,
   TABLE_PAGINATION_POSITION_TOP,
 } from '@/constants/table';
+import {FilterMethods, Filters} from 'element-plus/lib/components/table/src/table-column/defaults';
 
 declare global {
   interface TableProps {
@@ -68,6 +69,53 @@ declare global {
     [key: string]: TableColumn<T>;
   }
 
+  interface TableColumnCtx<T = any> {
+    id: string;
+    realWidth: number;
+    type: string;
+    label: string;
+    className: string;
+    labelClassName: string;
+    property: string;
+    prop: string;
+    width: string | number;
+    minWidth: string | number;
+    renderHeader: (data: CI<T>) => VNode;
+    sortable: boolean | string;
+    sortMethod: (a: T, b: T) => number;
+    sortBy: string | ((row: T, index: number) => string) | string[];
+    resizable: boolean;
+    columnKey: string;
+    rawColumnKey: string;
+    align: string;
+    headerAlign: string;
+    showTooltipWhenOverflow: boolean;
+    showOverflowTooltip: boolean;
+    fixed: boolean | string;
+    formatter: (row: T, column: TableColumnCtx<T>, cellValue: any, index: number) => VNode;
+    selectable: (row: T, index: number) => boolean;
+    reserveSelection: boolean;
+    filterMethod: FilterMethods<T>;
+    filteredValue: string[];
+    filters: Filters;
+    filterPlacement: string;
+    filterMultiple: boolean;
+    index: number | ((index: number) => number);
+    sortOrders: ('ascending' | 'descending' | null)[];
+    renderCell: (data: any) => void;
+    colSpan: number;
+    rowSpan: number;
+    children: TableColumnCtx<T>[];
+    level: number;
+    filterable: boolean | FilterMethods<T> | Filters;
+    order: string;
+    isColumnGroup: boolean;
+    columns: TableColumnCtx<T>[];
+    getColumnIndex: () => number;
+    no: number;
+    filterOpened?: boolean;
+  }
+
   interface TableColumnCtxMap {
     [key: string]: TableColumnCtx;
   }
@@ -93,6 +141,8 @@ declare global {
 
   interface TableStore extends Store {
     mutations: TableStoreMutations;
+    commit: Function;
+    updateColumns: Function;
   }
 
   interface TableStoreMutations extends StoreMutations {

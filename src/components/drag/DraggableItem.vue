@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent} from 'vue';
+import {computed, defineComponent, PropType} from 'vue';
 import DraggableItemContent from '@/components/drag/DraggableItemContent.vue';
 
 export default defineComponent({
@@ -21,7 +21,7 @@ export default defineComponent({
   components: {DraggableItemContent},
   props: {
     item: {
-      type: Object,
+      type: Object as PropType<DraggableItemData>,
       required: true,
     },
     dragging: {
@@ -35,9 +35,9 @@ export default defineComponent({
     'd-enter',
     'd-leave',
   ],
-  setup(props) {
+  setup(props: DraggableItemProps) {
     const dragging = computed(() => {
-      const {item} = props as DraggableItemProps;
+      const {item} = props;
       return item.dragging;
     });
 

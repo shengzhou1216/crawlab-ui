@@ -1,9 +1,8 @@
 import {inject, Ref, ref, SetupContext} from 'vue';
-import {Table} from 'element-plus/lib/el-table/src/table.type';
 import {ElMessageBox} from 'element-plus';
 import {voidAsyncFunc} from '@/utils/func';
 
-const useAction = (props: TableProps, ctx: SetupContext, table: Ref<Table | undefined>, actionFunctions?: ListLayoutActionFunctions) => {
+const useAction = (props: TableProps, ctx: SetupContext, table: Ref, actionFunctions?: ListLayoutActionFunctions) => {
   const {emit} = ctx;
 
   // store context

@@ -105,7 +105,7 @@ const useSchedule = (store: Store<RootStoreState>) => {
         try {
           parseExpression(value);
           callback();
-        } catch (e) {
+        } catch (e: any) {
           callback(e.message);
         }
       }),

@@ -12,4 +12,8 @@ interface LCommon {
       delete: string;
     };
   };
+  tabs: {
+    overview: string;
+    tasks: string;
+  };
 }

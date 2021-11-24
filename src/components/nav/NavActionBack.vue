@@ -4,7 +4,7 @@
         :button-type="buttonType"
         :disabled="disabled"
         :icon="icon"
-        :label="label"
+        :label="t(label)"
         :tooltip="tooltip"
         type="primary"
         @click="() => $emit('click')"
@@ -16,6 +16,7 @@
 import {defineComponent, PropType} from 'vue';
 import NavActionGroup from '@/components/nav/NavActionGroup.vue';
 import NavActionButton from '@/components/nav/NavActionButton.vue';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'NavActionBack',
@@ -27,7 +28,7 @@ export default defineComponent({
     },
     label: {
       type: String,
-      default: 'Back'
+      default: 'components.nav.actions.back'
     },
     tooltip: {
       type: String,
@@ -55,7 +56,11 @@ export default defineComponent({
     'click',
   ],
   setup() {
-    return {};
+    const {t} = useI18n();
+
+    return {
+      t,
+    };
   },
 });
 </script>

@@ -105,7 +105,6 @@
 
 <script lang="ts">
 import {defineComponent, inject, PropType, ref, SetupContext} from 'vue';
-import {Table} from 'element-plus/lib/el-table/src/table.type';
 import TableCell from '@/components/table/TableCell.vue';
 import TableHeader from '@/components/table/TableHeader.vue';
 import TableColumnsTransfer from '@/components/table/TableColumnsTransfer.vue';
@@ -215,7 +214,7 @@ export default defineComponent({
   ],
   setup(props: TableProps, ctx: SetupContext) {
     const tableWrapperRef = ref();
-    const tableRef = ref<Table>();
+    const tableRef = ref();
 
     const {
       tableData,

@@ -45,7 +45,7 @@
 
 <script lang="ts">
 import {computed, defineComponent, PropType, ref} from 'vue';
-import {DataItem, Key} from 'element-plus/lib/el-transfer/src/transfer';
+import {DataItem, Key} from 'element-plus/lib/components/transfer';
 import TransferPanel from '@/components/transfer/TransferPanel.vue';
 import Button from '@/components/button/Button.vue';
 import {useI18n} from 'vue-i18n';

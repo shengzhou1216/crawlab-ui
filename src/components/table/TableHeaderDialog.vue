@@ -82,7 +82,7 @@ export default defineComponent({
       required: true,
     },
     actionStatusMap: {
-      type: Object,
+      type: Object as PropType<TableHeaderActionStatusMap>,
       required: true,
     },
     sort: {
@@ -90,7 +90,7 @@ export default defineComponent({
       required: false,
     },
     filter: {
-      type: Object,
+      type: Object as PropType<TableHeaderDialogFilterData>,
       required: false,
     },
   },
@@ -100,7 +100,7 @@ export default defineComponent({
     'clear',
     'apply',
   ],
-  setup(props, {emit}) {
+  setup(props: TableHeaderDialogProps, {emit}) {
     const defaultInternalSort = {key: props.column.key} as SortData;
     const internalSort = ref<SortData>();
     const internalFilter = ref<TableHeaderDialogFilterData>();
@@ -183,10 +183,10 @@ export default defineComponent({
     };
 
     watch(() => {
-      const {visible} = props as TableHeaderDialogProps;
+      const {visible} = props;
       return visible;
     }, () => {
-      const {sort, filter, visible} = props as TableHeaderDialogProps;
+      const {sort, filter, visible} = props;
       if (visible) {
         internalSort.value = (sort ? plainClone(sort) : plainClone(defaultInternalSort)) as SortData;
         internalFilter.value = plainClone(filter) as TableHeaderDialogFilterData;

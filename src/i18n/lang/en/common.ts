@@ -11,6 +11,10 @@ const common: LCommon = {
     message: {
       delete: 'Are you sure to delete?'
     }
+  },
+  tabs: {
+    overview: 'Overview',
+    tasks: 'Tasks',
   }
 };
 

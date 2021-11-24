@@ -17,7 +17,7 @@
             <font-awesome-icon :icon="item.icon"/>
           </template>
           <template v-else>
-            {{ item.title }}
+            {{ t(item.title) }}
           </template>
         </el-tooltip>
       </el-menu-item>
@@ -30,6 +30,7 @@
 </template>
 <script lang="ts">
 import {defineComponent} from 'vue';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'NavTabs',
@@ -38,12 +39,15 @@ export default defineComponent({
     activeKey: String,
   },
   setup(props, {emit}) {
+    const {t} = useI18n();
+
     const onSelect = (index: string) => {
       emit('select', index);
     };
 
     return {
       onSelect,
+      t,
     };
   },
 });

@@ -4,7 +4,7 @@
         :disabled="disabled"
         :icon="['fa', 'undo']"
         button-type="label"
-        label="Back"
+        :label="t('components.nav.actions.back')"
         type="primary"
         @click="() => $emit('back')"
     />
@@ -12,7 +12,7 @@
         :disabled="disabled"
         :icon="['fa', 'save']"
         button-type="label"
-        label="Save"
+        :label="t('components.nav.actions.save')"
         type="success"
         @click="() => $emit('save')"
     />
@@ -23,6 +23,7 @@
 import {defineComponent} from 'vue';
 import NavActionGroup from '@/components/nav/NavActionGroup.vue';
 import NavActionButton from '@/components/nav/NavActionButton.vue';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'NavActionGroupDetailCommon',
@@ -37,7 +38,11 @@ export default defineComponent({
     'back',
   ],
   setup() {
-    return {};
+    const {t} = useI18n();
+
+    return {
+      t,
+    };
   },
 });
 </script>

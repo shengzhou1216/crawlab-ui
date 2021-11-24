@@ -4,4 +4,5 @@ interface LComponents {
   node: LComponentsNode;
   dialog: LComponentsDialog;
   transfer: LComponentsTransfer;
+  nav: LComponentsNav;
 }

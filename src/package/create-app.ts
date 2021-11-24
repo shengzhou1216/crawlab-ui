@@ -74,7 +74,7 @@ const createApp = async (options?: CreateAppOptions): Promise<VueApp> => {
   // load modules
   if (options.loadStore) app.use(store);
   if (options.loadRouter) app.use(router);
-  if (options.loadElementPlus) app.use(ElementPlus);
+  if (options.loadElementPlus) app.use(ElementPlus)
   if (options.loadCrawlabUI) app.use(CrawlabUI);
   if (options.loadI18n) app.use(i18n);
   if (options.loadFontAwesome) app.component('font-awesome-icon', FontAwesomeIcon);

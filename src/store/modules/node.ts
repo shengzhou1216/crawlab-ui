@@ -16,8 +16,8 @@ const state = {
     };
   },
   tabs: [
-    {id: TAB_NAME_OVERVIEW, title: 'Overview'},
-    {id: TAB_NAME_TASKS, title: 'Tasks'},
+    {id: TAB_NAME_OVERVIEW, title: 'common.tabs.overview'},
+    {id: TAB_NAME_TASKS, title: 'common.tabs.tasks'},
   ],
 } as NodeStoreState;
 

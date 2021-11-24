@@ -25,7 +25,7 @@
 import {computed, defineComponent, onBeforeMount, ref} from 'vue';
 import Transfer from '@/components/transfer/Transfer.vue';
 import Button from '@/components/button/Button.vue';
-import {DataItem} from 'element-plus/lib/el-transfer/src/transfer';
+import {DataItem} from 'element-plus/lib/components/transfer';
 import {useI18n} from 'vue-i18n';
 
 export default defineComponent({

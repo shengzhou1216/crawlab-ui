@@ -57,7 +57,7 @@
 
 <script lang="ts">
 import {computed, defineComponent, ref, watch} from 'vue';
-import {DataItem, Key} from 'element-plus/lib/el-transfer/src/transfer';
+import {DataItem, Key} from 'element-plus/lib/components/transfer';
 import Empty from '@/components/empty/Empty.vue';
 import DraggableList from '@/components/drag/DraggableList.vue';
 

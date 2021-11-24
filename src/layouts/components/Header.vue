@@ -8,7 +8,7 @@
           <span class="el-dropdown-link item action ">
             <font-awesome-icon class="icon" :icon="['fa', 'globe']"/>
             {{ langName }}
-            <i class="el-icon--right el-icon-arrow-down"/>
+            <el-icon><arrow-down/></el-icon>
           </span>
           <template #dropdown>
             <el-dropdown-menu>
@@ -42,9 +42,13 @@ import variables from '../../styles/variables.scss';
 import {useRouter} from 'vue-router';
 import {useI18n} from 'vue-i18n';
 import {setGlobalLang} from '@/utils/i18n';
+import {ArrowDown} from '@element-plus/icons';
 
 export default defineComponent({
   name: 'Header',
+  components: {
+    ArrowDown,
+  },
   setup() {
     // i18n
     const {t, locale} = useI18n();

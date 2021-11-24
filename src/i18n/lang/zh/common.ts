@@ -11,6 +11,10 @@ const common: LCommon = {
     message: {
       delete: '您是否确定删除?'
     }
+  },
+  tabs: {
+    overview: '概览',
+    tasks: '任务',
   }
 };
 

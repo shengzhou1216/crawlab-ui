@@ -32,7 +32,7 @@ import {computed, defineComponent, PropType, provide, ref, SetupContext, watch} 
 import CreateDialogContentBatch from '@/components/dialog/CreateDialogContentBatch.vue';
 import Dialog from '@/components/dialog/Dialog.vue';
 import {emptyArrayFunc, emptyObjectFunc} from '@/utils/func';
-import {Pane} from 'element-plus/lib/el-tabs/src/tabs.vue';
+import {Pane} from 'element-plus/lib/components/tabs/src/token.d';
 import {useI18n} from 'vue-i18n';
 
 export default defineComponent({

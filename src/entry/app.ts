@@ -1,3 +1,6 @@
 import {createApp} from '@/package';
 
-createApp();
+createApp()
+  .then(app => {
+    window._app = app;
+  });

@@ -67,8 +67,8 @@
 <script lang="ts">
 import {computed, defineComponent, onMounted, onUnmounted, PropType, reactive, ref, watch} from 'vue';
 import {ClickOutside} from 'element-plus/lib/directives';
-import Node from 'element-plus/lib/el-tree/src/model/node';
-import {DropType} from 'element-plus/lib/el-tree/src/tree.type';
+import Node from 'element-plus/lib/components/tree/src/model/node';
+import {DropType} from 'element-plus/lib/components/tree/src/tree.type';
 import AtomMaterialIcon from '@/components/icon/AtomMaterialIcon.vue';
 import {KEY_CONTROL, KEY_META} from '@/constants/keyboard';
 import FileEditorNavMenuContextMenu from '@/components/file/FileEditorNavMenuContextMenu.vue';

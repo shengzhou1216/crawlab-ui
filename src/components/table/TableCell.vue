@@ -1,12 +1,12 @@
 <script lang="ts">
-import {defineComponent, h} from 'vue';
+import {defineComponent, h, PropType} from 'vue';
 import FaIconButton from '@/components/button/FaIconButton.vue';
 
 export default defineComponent({
   name: 'TableCell',
   props: {
     column: {
-      type: Object,
+      type: Object as PropType<TableColumn>,
       required: true,
     },
     row: {
@@ -21,9 +21,9 @@ export default defineComponent({
   emits: [
     'click',
   ],
-  setup: function (props) {
+  setup: function (props: TableCellProps) {
     const getChildren = () => {
-      const {row, column, rowIndex} = props as TableCellProps;
+      const {row, column, rowIndex} = props;
       const {value, buttons} = column;
 
       // value

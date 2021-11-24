@@ -237,7 +237,7 @@ export default defineComponent({
         // redirect to home page
         await router.push('/');
 
-      } catch (e) {
+      } catch (e: any) {
         // error
         if (e.toString().includes('401')) {
           // unauthorized

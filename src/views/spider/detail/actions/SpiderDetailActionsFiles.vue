@@ -164,7 +164,7 @@ export default defineComponent({
       try {
         await uploadFiles();
         await ElMessage.success('Uploaded successfully');
-      } catch (e) {
+      } catch (e: any) {
         await ElMessage.error(e);
       } finally {
         confirmLoading.value = false;

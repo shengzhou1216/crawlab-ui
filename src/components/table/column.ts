@@ -1,10 +1,10 @@
 import {computed, onBeforeMount, onMounted, ref, Ref, SetupContext} from 'vue';
-import {Table, TableColumnCtx} from 'element-plus/lib/el-table/src/table.type';
+import {Table} from 'element-plus/lib/components/table/src/table/defaults';
 import {cloneArray, plainClone} from '@/utils/object';
 import useStore from '@/components/table/store';
 import {getColumnWidth, getTableWidth} from '@/utils/table';
 
-const useColumns = (props: TableProps, ctx: SetupContext, table: Ref<Table | undefined>, wrapper: Ref) => {
+const useColumns = (props: TableProps, ctx: SetupContext, table: Ref<Table<any> | undefined>, wrapper: Ref) => {
   const {columns} = props;
 
   const {store} = useStore(props, ctx, table);

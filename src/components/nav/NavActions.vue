@@ -34,6 +34,7 @@ export default defineComponent({
     const style = computed(() => {
       return {
         height: height.value,
+        minHeight: height.value,
       };
     });
 
