@@ -8,7 +8,9 @@
           <span class="el-dropdown-link item action ">
             <font-awesome-icon class="icon" :icon="['fa', 'globe']"/>
             {{ langName }}
-            <el-icon><arrow-down/></el-icon>
+            <el-icon class="el-icon--right">
+              <arrow-down />
+            </el-icon>
           </span>
           <template #dropdown>
             <el-dropdown-menu>
@@ -124,13 +126,15 @@ export default defineComponent({
 
       .item {
         margin-left: 20px;
+        display: flex;
+        align-items: center;
 
         &.action {
           cursor: pointer;
         }
 
         .icon {
-          margin-right: 3px;
+          margin-right: 6px;
         }
       }
     }
