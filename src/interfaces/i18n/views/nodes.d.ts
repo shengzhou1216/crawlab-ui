@@ -13,10 +13,5 @@ interface LViewsNodes {
       description: string;
     };
   };
-  navActions: {
-    newNode: {
-      label: string;
-      tooltip: string;
-    };
-  };
+  navActions: LNavActions;
 }

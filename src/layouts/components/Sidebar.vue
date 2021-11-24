@@ -247,6 +247,10 @@ export default defineComponent({
       height: calc(100vh - #{$headerHeight});
       transition: none !important;
 
+      .el-menu-item * {
+        vertical-align: middle;
+      }
+
       .el-menu-item,
       .el-submenu {
         &.is-active {

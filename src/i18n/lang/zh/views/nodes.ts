@@ -14,7 +14,7 @@ const nodes: LViewsNodes = {
     }
   },
   navActions: {
-    newNode: {
+    new: {
       label: '新建节点',
       tooltip: '添加一个新节点'
     }

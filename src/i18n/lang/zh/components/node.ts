@@ -1,4 +1,16 @@
 const node: LComponentsNode = {
+  form: {
+    key: '键',
+    name: '名称',
+    tags: '标签',
+    type: '类别',
+    ip: 'IP',
+    mac: 'MAC 地址',
+    hostname: '主机名',
+    enabled: '是否启用',
+    max_runners: '最大执行器数',
+    description: '描述'
+  },
   nodeType: {
     label: {
       master: '主节点',
@@ -28,18 +40,6 @@ const node: LComponentsNode = {
       available: '所有执行器均可用',
     },
   },
-  nodeForm: {
-    key: '键',
-    name: '名称',
-    tags: '标签',
-    type: '类别',
-    ip: 'IP',
-    mac: 'MAC 地址',
-    hostname: '主机名',
-    enabled: '是否启用',
-    max_runners: '最大执行器数',
-    description: '描述'
-  }
 };
 
 export default node;

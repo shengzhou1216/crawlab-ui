@@ -1,4 +1,16 @@
 interface LComponentsNode {
+  form: {
+    key: string;
+    name: string;
+    tags: string;
+    type: string;
+    ip: string;
+    mac: string;
+    hostname: string;
+    enabled: string;
+    max_runners: string;
+    description: string;
+  };
   nodeType: {
     label: {
       master: string;
@@ -27,17 +39,5 @@ interface LComponentsNode {
       running: string;
       available: string;
     };
-  };
-  nodeForm: {
-    key: string;
-    name: string;
-    tags: string;
-    type: string;
-    ip: string;
-    mac: string;
-    hostname: string;
-    enabled: string;
-    max_runners: string;
-    description: string;
   };
 }

@@ -49,6 +49,7 @@ export default defineComponent({
     top: {
       type: String,
       required: false,
+      default: '15vh'
     },
     width: {
       type: String,

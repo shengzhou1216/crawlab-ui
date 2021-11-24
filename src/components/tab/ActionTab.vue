@@ -1,5 +1,5 @@
 <template>
-  <el-tooltip content="New Tab">
+  <el-tooltip :content="t('components.tab.newTab')">
     <Tab
         :icon="icon"
         :show-close="false"
@@ -14,6 +14,7 @@
 import {defineComponent, PropType} from 'vue';
 import Icon from '@/components/icon/Icon.vue';
 import Tab from '@/components/tab/Tab.vue';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'ActionTab',
@@ -30,12 +31,15 @@ export default defineComponent({
     'click',
   ],
   setup(props: ActionTabProps, {emit}) {
+    const {t} = useI18n();
+
     const onClick = () => {
       emit('click');
     };
 
     return {
       onClick,
+      t,
     };
   },
 });

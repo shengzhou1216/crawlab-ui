@@ -47,8 +47,8 @@ const useNodeList = () => {
       children: [
         {
           buttonType: 'label',
-          label: t('views.nodes.navActions.newNode.label'),
-          tooltip: t('views.nodes.navActions.newNode.tooltip'),
+          label: t('views.nodes.navActions.new.label'),
+          tooltip: t('views.nodes.navActions.new.tooltip'),
           icon: ['fa', 'plus'],
           type: 'success',
           onClick: () => {

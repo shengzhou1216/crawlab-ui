@@ -9,8 +9,12 @@ import Time from '@/components/time/Time.vue';
 import SpiderStat from '@/components/spider/SpiderStat.vue';
 import {setupListComponent} from '@/utils/list';
 import useProject from '@/components/project/project';
+import {translate} from '@/utils/i18n';
 
 const useSpiderList = () => {
+  // i18n
+  const t = translate;
+
   // router
   const router = useRouter();
 
@@ -36,8 +40,8 @@ const useSpiderList = () => {
       children: [
         {
           buttonType: 'label',
-          label: 'New Spider',
-          tooltip: 'New Spider',
+          label: t('views.spiders.navActions.new.label'),
+          tooltip: t('views.spiders.navActions.new.tooltip'),
           icon: ['fa', 'plus'],
           type: 'success',
           onClick: () => {
@@ -60,7 +64,7 @@ const useSpiderList = () => {
   const tableColumns = computed<TableColumns<Spider>>(() => [
     {
       key: 'name',
-      label: 'Name',
+      label: t('views.spiders.table.columns.name'),
       icon: ['fa', 'font'],
       width: '160',
       align: 'left',
@@ -88,7 +92,7 @@ const useSpiderList = () => {
     // },
     {
       key: 'project_id',
-      label: 'Project',
+      label: t('views.spiders.table.columns.project'),
       icon: ['fa', 'project-diagram'],
       width: '120',
       value: (row: Spider) => {
@@ -118,7 +122,7 @@ const useSpiderList = () => {
     // },
     {
       key: 'last_status',
-      label: 'Last Status',
+      label: t('views.spiders.table.columns.lastStatus'),
       icon: ['fa', 'heartbeat'],
       width: '120',
       value: (row: Spider) => {
@@ -129,7 +133,7 @@ const useSpiderList = () => {
     },
     {
       key: 'last_run_ts',
-      label: 'Last Run At',
+      label: t('views.spiders.table.columns.lastRunAt'),
       icon: ['fa', 'clock'],
       width: '160',
       value: (row: Spider) => {
@@ -140,7 +144,7 @@ const useSpiderList = () => {
     },
     {
       key: 'stats',
-      label: 'Stats',
+      label: t('views.spiders.table.columns.stats'),
       icon: ['fa', 'chart-pie'],
       width: '240',
       hasFilter: true,
@@ -152,14 +156,14 @@ const useSpiderList = () => {
     },
     {
       key: 'create_ts',
-      label: 'Created At',
+      label: t('views.spiders.table.columns.createTs'),
       icon: ['far', 'calendar-plus'],
       width: '160',
       defaultHidden: true,
     },
     {
       key: 'update_ts',
-      label: 'Updated At',
+      label: t('views.spiders.table.columns.updateTs'),
       icon: ['far', 'calendar-check'],
       width: '160',
       defaultHidden: true,
@@ -174,13 +178,13 @@ const useSpiderList = () => {
     // },
     {
       key: 'description',
-      label: 'Description',
+      label: t('views.spiders.table.columns.description'),
       icon: ['fa', 'comment-alt'],
       width: 'auto',
     },
     {
       key: TABLE_COLUMN_NAME_ACTIONS,
-      label: 'Actions',
+      label: t('components.table.columns.actions'),
       icon: ['fa', 'tools'],
       width: '180',
       fixed: 'right',
@@ -189,7 +193,7 @@ const useSpiderList = () => {
           type: 'success',
           size: 'mini',
           icon: ['fa', 'play'],
-          tooltip: 'Run',
+          tooltip: t('common.actions.run'),
           onClick: (row) => {
             store.commit(`${ns}/setForm`, row);
             store.commit(`${ns}/showDialog`, 'run');
@@ -199,7 +203,7 @@ const useSpiderList = () => {
           type: 'primary',
           size: 'mini',
           icon: ['fa', 'search'],
-          tooltip: 'View',
+          tooltip: t('common.actions.view'),
           onClick: (row) => {
             router.push(`/spiders/${row._id}`);
           }
@@ -208,7 +212,7 @@ const useSpiderList = () => {
           type: 'info',
           size: 'mini',
           icon: ['fa', 'clone'],
-          tooltip: 'Clone',
+          tooltip: t('common.actions.clone'),
           onClick: (row) => {
             console.log('clone', row);
           }
@@ -217,7 +221,7 @@ const useSpiderList = () => {
           type: 'danger',
           size: 'mini',
           icon: ['fa', 'trash-alt'],
-          tooltip: 'Delete',
+          tooltip: t('common.actions.delete'),
           onClick: deleteByIdConfirm,
         },
       ],

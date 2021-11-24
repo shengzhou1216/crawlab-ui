@@ -14,7 +14,7 @@ const nodes: LViewsNodes = {
     }
   },
   navActions: {
-    newNode: {
+    new: {
       label: 'New Node',
       tooltip: 'Create a new node'
     }

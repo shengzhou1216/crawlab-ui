@@ -1,4 +1,16 @@
 const node: LComponentsNode = {
+  form: {
+    key: 'Key',
+    name: 'Name',
+    tags: 'Tags',
+    type: 'Type',
+    ip: 'IP',
+    mac: 'MAC Address',
+    hostname: 'Hostname',
+    enabled: 'Enabled',
+    max_runners: 'Max Runners',
+    description: 'Description'
+  },
   nodeType: {
     label: {
       master: 'Master',
@@ -28,18 +40,6 @@ const node: LComponentsNode = {
       available: 'All runners available',
     },
   },
-  nodeForm: {
-    key: 'Key',
-    name: 'Name',
-    tags: 'Tags',
-    type: 'Type',
-    ip: 'IP',
-    mac: 'MAC Address',
-    hostname: 'Hostname',
-    enabled: 'Enabled',
-    max_runners: 'Max Runners',
-    description: 'Description'
-  }
 };
 
 export default node;

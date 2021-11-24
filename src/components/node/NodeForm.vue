@@ -10,7 +10,7 @@
         v-if="readonly"
         :offset="2"
         :span="2"
-        :label="t('components.node.nodeForm.key')"
+        :label="t('components.node.form.key')"
         not-editable
         prop="key"
     >
@@ -21,7 +21,7 @@
     <!--Row-->
     <FormItem
         :span="2"
-        :label="t('components.node.nodeForm.name')"
+        :label="t('components.node.form.name')"
         not-editable
         prop="name"
         required
@@ -29,12 +29,12 @@
       <el-input
           v-model="form.name"
           :disabled="isFormItemDisabled('name')"
-          :placeholder="t('components.node.nodeForm.name')"
+          :placeholder="t('components.node.form.name')"
       />
     </FormItem>
     <FormItem
         :span="2"
-        :label="t('components.node.nodeForm.tags')"
+        :label="t('components.node.form.tags')"
         prop="tags"
     >
       <TagInput v-model="form.tags" :disabled="isFormItemDisabled('tags')"/>
@@ -44,7 +44,7 @@
     <!--Row-->
     <FormItem
         :span="2"
-        :label="t('components.node.nodeForm.type')"
+        :label="t('components.node.form.type')"
         not-editable
         prop="type"
     >
@@ -52,13 +52,13 @@
     </FormItem>
     <FormItem
         :span="2"
-        :label="t('components.node.nodeForm.ip')"
+        :label="t('components.node.form.ip')"
         prop="ip"
     >
       <el-input
           v-model="form.ip"
           :disabled="isFormItemDisabled('ip')"
-          :placeholder="t('components.node.nodeForm.ip')"
+          :placeholder="t('components.node.form.ip')"
       />
     </FormItem>
     <!--./Row-->
@@ -66,24 +66,24 @@
     <!--Row-->
     <FormItem
         :span="2"
-        :label="t('components.node.nodeForm.mac')"
+        :label="t('components.node.form.mac')"
         prop="mac"
     >
       <el-input
           v-model="form.mac"
           :disabled="isFormItemDisabled('mac')"
-          :placeholder="t('components.node.nodeForm.mac')"
+          :placeholder="t('components.node.form.mac')"
       />
     </FormItem>
     <FormItem
         :span="2"
-        :label="t('components.node.nodeForm.hostname')"
+        :label="t('components.node.form.hostname')"
         prop="hostname"
     >
       <el-input
           v-model="form.hostname"
           :disabled="isFormItemDisabled('hostname')"
-          :placeholder="t('components.node.nodeForm.hostname')"
+          :placeholder="t('components.node.form.hostname')"
       />
     </FormItem>
     <!--./Row-->
@@ -91,21 +91,21 @@
     <!--Row-->
     <FormItem
         :span="2"
-        :label="t('components.node.nodeForm.enabled')"
+        :label="t('components.node.form.enabled')"
         prop="enabled"
     >
       <Switch v-model="form.enabled" :disabled="isFormItemDisabled('enabled')"/>
     </FormItem>
     <FormItem
         :span="2"
-        :label="t('components.node.nodeForm.max_runners')"
+        :label="t('components.node.form.max_runners')"
         prop="max_runners"
     >
       <el-input-number
           v-model="form.max_runners"
           :disabled="isFormItemDisabled('max_runners')"
           :min="0"
-          :placeholder="t('components.node.nodeForm.max_runners')"
+          :placeholder="t('components.node.form.max_runners')"
       />
     </FormItem>
     <!--./Row-->
@@ -113,13 +113,13 @@
     <!--Row-->
     <FormItem
         :span="4"
-        :label="t('components.node.nodeForm.description')"
+        :label="t('components.node.form.description')"
         prop="description"
     >
       <el-input
           v-model="form.description"
           :disabled="isFormItemDisabled('description')"
-          :placeholder="t('components.node.nodeForm.description')"
+          :placeholder="t('components.node.form.description')"
           type="textarea"
       />
     </FormItem>

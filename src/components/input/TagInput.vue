@@ -6,7 +6,7 @@
           ref="inputItemRef"
           v-model="selectedValue[$index]"
           :disabled="disabled"
-          placeholder="Tag Name"
+          :placeholder="t('components.input.tagInput.tagName')"
           size="mini"
           @blur="onBlur($index, $event)"
           @check="onCheck($index, $event)"
@@ -48,6 +48,7 @@ import Tab from '@/components/tab/Tab.vue';
 import TagInputItem from '@/components/input/TagInputItem.vue';
 import {cloneArray} from '@/utils/object';
 import {useStore} from 'vuex';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'TagInput',
@@ -73,6 +74,9 @@ export default defineComponent({
     'update:model-value',
   ],
   setup(props: TagInputProps, {emit}) {
+    // i18n
+    const {t} = useI18n();
+
     // store
     const ns = 'tag';
     const store = useStore<RootStoreState>();
@@ -105,7 +109,7 @@ export default defineComponent({
 
     const disabled = computed<boolean>(() => props.disabled);
 
-    const addButtonTooltip = computed<string>(() => disabled.value ? '' : 'Add Tag');
+    const addButtonTooltip = computed<string>(() => disabled.value ? '' : t('components.input.tagInput.addTag'));
 
     const onEdit = (index: number, ev?: Event) => {
       // check disabled
@@ -194,6 +198,7 @@ export default defineComponent({
       onDelete,
       onCheck,
       onClose,
+      t,
     };
   },
 });

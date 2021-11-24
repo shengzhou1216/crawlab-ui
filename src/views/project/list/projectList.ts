@@ -8,6 +8,7 @@ import NavLink from '@/components/nav/NavLink.vue';
 import {useRouter} from 'vue-router';
 import TagList from '@/components/tag/TagList.vue';
 import {TAB_NAME_SPIDERS} from '@/constants/tab';
+import {translate} from '@/utils/i18n';
 
 const useProjectList = () => {
   // router
@@ -17,6 +18,9 @@ const useProjectList = () => {
   const ns = 'project';
   const store = useStore<RootStoreState>();
   const {commit} = store;
+
+  // i18n
+  const t = translate;
 
   // services
   const {
@@ -31,8 +35,8 @@ const useProjectList = () => {
       children: [
         {
           buttonType: 'label',
-          label: 'New Project',
-          tooltip: 'New Project',
+          label: t('views.projects.navActions.new.label'),
+          tooltip: t('views.projects.navActions.new.tooltip'),
           icon: ['fa', 'plus'],
           type: 'success',
           onClick: () => {
@@ -47,7 +51,7 @@ const useProjectList = () => {
   const tableColumns = computed<TableColumns<Project>>(() => [
     {
       key: 'name',
-      label: 'Name',
+      label: t('views.projects.table.columns.name'),
       icon: ['fa', 'font'],
       width: '150',
       value: (row: Project) => h(NavLink, {
@@ -60,7 +64,7 @@ const useProjectList = () => {
     },
     {
       key: 'spiders',
-      label: 'Spiders',
+      label: t('views.projects.table.columns.spiders'),
       icon: ['fa', 'spider'],
       value: (row: Project) => h(NavLink, {
         path: `/projects/${row._id}/${TAB_NAME_SPIDERS}`,
@@ -70,7 +74,7 @@ const useProjectList = () => {
     },
     {
       key: 'tags',
-      label: 'Tags',
+      label: t('views.projects.table.columns.tags'),
       icon: ['fa', 'hashtag'],
       value: ({tags}: Project) => {
         return h(TagList, {tags});
@@ -79,7 +83,7 @@ const useProjectList = () => {
     },
     {
       key: 'description',
-      label: 'Description',
+      label: t('views.projects.table.columns.description'),
       icon: ['fa', 'comment-alt'],
       width: 'auto',
       hasFilter: true,
@@ -87,14 +91,14 @@ const useProjectList = () => {
     },
     {
       key: TABLE_COLUMN_NAME_ACTIONS,
-      label: 'Actions',
+      label: t('components.table.columns.actions'),
       fixed: 'right',
       width: '200',
       buttons: [
         {
           type: 'primary',
           icon: ['fa', 'search'],
-          tooltip: 'View',
+          tooltip: t('common.actions.view'),
           onClick: (row) => {
             router.push(`/projects/${row._id}`);
           },
@@ -102,7 +106,7 @@ const useProjectList = () => {
         {
           type: 'warning',
           icon: ['fa', 'edit'],
-          tooltip: 'Edit',
+          tooltip: t('common.actions.edit'),
           onClick: (row) => {
             store.commit(`${ns}/setForm`, row);
             store.commit(`${ns}/showDialog`, 'edit');
@@ -112,7 +116,7 @@ const useProjectList = () => {
           type: 'info',
           size: 'mini',
           icon: ['fa', 'clone'],
-          tooltip: 'Clone',
+          tooltip: t('common.actions.clone'),
           onClick: (row) => {
             console.log('clone', row);
           }
@@ -121,9 +125,9 @@ const useProjectList = () => {
           type: 'danger',
           size: 'mini',
           icon: ['fa', 'trash-alt'],
-          tooltip: 'Delete',
+          tooltip: t('common.actions.delete'),
           onClick: async (row: Project) => {
-            const res = await ElMessageBox.confirm('Are you sure to delete?', 'Delete');
+            const res = await ElMessageBox.confirm(t('common.messageBox.message'), t('common.actions.delete'));
             if (res) {
               await deleteById(row._id as string);
             }

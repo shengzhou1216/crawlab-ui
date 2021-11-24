@@ -1,3 +1,10 @@
+interface LNavActions {
+  new: {
+    label: string;
+    tooltip: string;
+  };
+}
+
 interface LCommon {
   control: {
     enabled: string;
@@ -5,7 +12,10 @@ interface LCommon {
   };
   actions: {
     view: string;
+    edit: string;
+    clone: string;
     delete: string;
+    run: string;
   };
   messageBox: {
     message: {

@@ -5,7 +5,10 @@ const common: LCommon = {
   },
   actions: {
     view: '查看',
+    edit: '编辑',
+    clone: '复制',
     delete: '删除',
+    run: '运行',
   },
   messageBox: {
     message: {
