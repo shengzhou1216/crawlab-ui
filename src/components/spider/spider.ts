@@ -14,6 +14,7 @@ import useProject from '@/components/project/project';
 import useRequest from '@/services/request';
 import {FILTER_OP_CONTAINS} from '@/constants/filter';
 import {getModeOptions} from '@/utils/task';
+import {translate} from '@/utils/i18n';
 
 const {
   getList,
@@ -23,6 +24,9 @@ const {
 const formComponentData = getDefaultFormComponentData<Spider>();
 
 const useSpider = (store: Store<RootStoreState>) => {
+  // i18n
+  const t = translate;
+
   // options for default mode
   const modeOptions = getModeOptions();
 
@@ -35,30 +39,30 @@ const useSpider = (store: Store<RootStoreState>) => {
   const batchFormFields = computed<FormTableField[]>(() => [
     {
       prop: 'name',
-      label: 'Name',
+      label: t('components.spider.form.name'),
       width: '150',
-      placeholder: 'Spider Name',
+      placeholder: t('components.spider.form.name'),
       fieldType: FORM_FIELD_TYPE_INPUT,
       required: true,
     },
     {
       prop: 'cmd',
-      label: 'Execute Command',
+      label: t('components.spider.form.command'),
       width: '200',
-      placeholder: 'Execute Command',
+      placeholder: t('components.spider.form.command'),
       fieldType: FORM_FIELD_TYPE_INPUT_WITH_BUTTON,
       required: true,
     },
     {
       prop: 'param',
-      label: 'Param',
+      label: t('components.spider.form.param'),
       width: '200',
-      placeholder: 'Param',
+      placeholder: t('components.spider.form.param'),
       fieldType: FORM_FIELD_TYPE_INPUT_WITH_BUTTON,
     },
     {
       prop: 'mode',
-      label: 'Default Run Mode',
+      label: t('components.spider.form.defaultMode'),
       width: '200',
       fieldType: FORM_FIELD_TYPE_SELECT,
       options: modeOptions,
@@ -66,14 +70,14 @@ const useSpider = (store: Store<RootStoreState>) => {
     },
     {
       prop: 'project_id',
-      label: 'Project',
+      label: t('components.spider.form.project'),
       width: '200',
       fieldType: FORM_FIELD_TYPE_SELECT,
       options: allProjectSelectOptions.value,
     },
     {
       prop: 'description',
-      label: 'Description',
+      label: t('components.spider.form.description'),
       width: '200',
       fieldType: FORM_FIELD_TYPE_INPUT_TEXTAREA,
     },

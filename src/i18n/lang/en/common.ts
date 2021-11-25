@@ -9,6 +9,7 @@ const common: LCommon = {
     clone: 'Clone',
     delete: 'Delete',
     run: 'Run',
+    add: 'Add',
   },
   messageBox: {
     message: {

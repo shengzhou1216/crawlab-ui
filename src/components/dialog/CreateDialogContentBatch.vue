@@ -4,10 +4,10 @@
       <el-form-item>
         <Button type="primary" @click="onAdd">
           <font-awesome-icon :icon="['fa', 'plus']"/>
-          Add
+          {{ t('components.dialog.batch.add') }}
         </Button>
       </el-form-item>
-      <el-form-item label="Edit All">
+      <el-form-item :label="t('components.dialog.batch.editAll')">
         <Switch v-model="editAll"/>
       </el-form-item>
     </el-form>
@@ -29,6 +29,7 @@ import FormTable from '@/components/form/FormTable.vue';
 import {emptyArrayFunc} from '@/utils/func';
 import Switch from '@/components/switch/Switch.vue';
 import Button from '@/components/button/Button.vue';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'CreateDialogContentBatch',
@@ -50,6 +51,9 @@ export default defineComponent({
     }
   },
   setup(props: CreateDialogContentBatchProps) {
+    // i18n
+    const {t} = useI18n();
+
     const editAll = ref<boolean>(false);
 
     const actionFunctions = inject('action-functions') as CreateEditDialogActionFunctions;
@@ -86,6 +90,7 @@ export default defineComponent({
       onDelete,
       onFieldChange,
       onFieldRegister,
+      t,
     };
   },
 });

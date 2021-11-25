@@ -14,6 +14,7 @@ import {emptyArrayFunc} from '@/utils/func';
 import Table from '@/components/table/Table.vue';
 import FormTableField from '@/components/form/FormTableField.vue';
 import {TABLE_COLUMN_NAME_ACTIONS} from '@/constants/table';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'FormTable',
@@ -40,6 +41,9 @@ export default defineComponent({
     'field-register',
   ],
   setup(props: FormTableProps, {emit}) {
+    // i18n
+    const {t} = useI18n();
+
     const columns = computed<TableColumns>(() => {
       const {fields} = props;
       const formRules = inject<FormRuleItem[]>('form-rules');
@@ -80,14 +84,14 @@ export default defineComponent({
       }) as TableColumns;
       columns.push({
         key: TABLE_COLUMN_NAME_ACTIONS,
-        label: 'Actions',
+        label: t('components.table.columns.actions'),
         width: '150',
         // fixed: 'right',
         buttons: [
           {
             type: 'primary',
             icon: ['fa', 'plus'],
-            tooltip: 'Add',
+            tooltip: t('common.actions.add'),
             onClick: (_, rowIndex) => {
               emit('add', rowIndex);
             },
@@ -95,7 +99,7 @@ export default defineComponent({
           {
             type: 'info',
             icon: ['fa', 'clone'],
-            tooltip: 'Clone',
+            tooltip: t('common.actions.clone'),
             onClick: (_, rowIndex) => {
               emit('clone', rowIndex);
             },
@@ -103,7 +107,7 @@ export default defineComponent({
           {
             type: 'danger',
             icon: ['fa', 'trash-alt'],
-            tooltip: 'Delete',
+            tooltip: t('common.actions.delete'),
             onClick: (_, rowIndex) => {
               emit('delete', rowIndex);
             },

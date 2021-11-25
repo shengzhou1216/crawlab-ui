@@ -6,4 +6,8 @@ interface LComponentsDialog {
     single: string;
     batch: string;
   };
+  batch: {
+    add: string;
+    editAll: string;
+  };
 }

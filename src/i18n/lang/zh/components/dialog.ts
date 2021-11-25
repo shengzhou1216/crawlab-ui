@@ -5,7 +5,11 @@ const dialog: LComponentsDialog = {
   type: {
     single: '单个',
     batch: '批量'
-  }
+  },
+  batch: {
+    add: '添加',
+    editAll: '编辑全部',
+  },
 };
 
 export default dialog;

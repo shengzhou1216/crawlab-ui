@@ -1,10 +1,23 @@
 <template>
   <Form v-if="form" ref="formRef" :model="form">
     <!-- Row -->
-    <FormItem :span="2" label="Name" prop="name" required>
-      <el-input v-model="form.name" :disabled="isFormItemDisabled('name')" placeholder="Name"/>
+    <FormItem
+        :span="2"
+        :label="t('components.spider.form.name')"
+        prop="name"
+        required
+    >
+      <el-input
+          v-model="form.name"
+          :disabled="isFormItemDisabled('name')"
+          :placeholder="t('components.spider.form.name')"
+      />
     </FormItem>
-    <FormItem :span="2" label="Project" prop="project_id">
+    <FormItem
+        :span="2"
+        :label="t('components.spider.form.project')"
+        prop="project_id"
+    >
       <el-select
           v-model="form.project_id"
           :disabled="isFormItemDisabled('project_id')"
@@ -21,28 +34,42 @@
     <!-- ./Row -->
 
     <!-- Row -->
-    <FormItem :span="2" label="Command" prop="cmd" required>
+    <FormItem
+        :span="2"
+        :label="t('components.spider.form.command')"
+        prop="cmd"
+        required
+    >
       <InputWithButton
           v-model="form.cmd"
           :button-icon="['fa', 'edit']"
           button-label="Edit"
-          placeholder="Command"
+          :placeholder="t('components.spider.form.command')"
           :disabled="isFormItemDisabled('cmd')"
       />
     </FormItem>
-    <FormItem :span="2" label="Param" prop="param">
+    <FormItem
+        :span="2"
+        :label="t('components.spider.form.param')"
+        prop="param"
+    >
       <InputWithButton
           v-model="form.param"
           :button-icon="['fa', 'edit']"
           button-label="Edit"
-          placeholder="Params"
+          :placeholder="t('components.spider.form.param')"
           :disabled="isFormItemDisabled('param')"
       />
     </FormItem>
     <!-- ./Row -->
 
     <!-- Row -->
-    <FormItem :span="2" label="Default Mode" prop="mode" required>
+    <FormItem
+        :span="2"
+        :label="t('components.spider.form.defaultMode')"
+        prop="mode"
+        required
+    >
       <el-select
           v-model="form.mode"
           :disabled="isFormItemDisabled('mode')"
@@ -55,11 +82,16 @@
         />
       </el-select>
     </FormItem>
-    <FormItem :span="2" label="Results Collection" prop="col_name" required>
+    <FormItem
+        :span="2"
+        :label="t('components.spider.form.resultsCollection')"
+        prop="col_name"
+        required
+    >
       <el-autocomplete
           v-model="form.col_name"
           :disabled="isFormItemDisabled('col_name')"
-          placeholder="Results Collection"
+          :placeholder="t('components.spider.form.resultsCollection')"
           :fetch-suggestions="fetchDataCollectionSuggestions"
           @input="onDataCollectionInput"
           @select="onDataCollectionSuggestionSelect"
@@ -70,7 +102,7 @@
     <FormItem
         v-if="form.mode === TASK_MODE_SELECTED_NODE_TAGS"
         :span="4"
-        label="Selected Tags"
+        :label="t('components.spider.form.selectedTags')"
         prop="node_tags"
         required
     >
@@ -84,7 +116,7 @@
     <FormItem
         v-if="[TASK_MODE_SELECTED_NODES, TASK_MODE_SELECTED_NODE_TAGS].includes(form.mode)"
         :span="4"
-        label="Selected Nodes"
+        :label="t('components.spider.form.selectedNodes')"
         required
     >
       <CheckTagGroup
@@ -94,11 +126,15 @@
       />
     </FormItem>
 
-    <FormItem :span="4" label="Description" prop="description">
+    <FormItem
+        :span="4"
+        :label="t('components.spider.form.description')"
+        prop="description"
+    >
       <el-input
           v-model="form.description"
           :disabled="isFormItemDisabled('description')"
-          placeholder="Description"
+          :placeholder="t('components.spider.form.description')"
           type="textarea"
       />
     </FormItem>
@@ -118,6 +154,7 @@ import CheckTagGroup from '@/components/tag/CheckTagGroup.vue';
 import {TASK_MODE_SELECTED_NODE_TAGS, TASK_MODE_SELECTED_NODES} from '@/constants/task';
 import pinyin, {STYLE_NORMAL} from 'pinyin';
 import {isZeroObjectId} from '@/utils/mongo';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'SpiderForm',
@@ -128,6 +165,9 @@ export default defineComponent({
     CheckTagGroup,
   },
   setup() {
+    // i18n
+    const {t} = useI18n();
+
     // store
     const store = useStore();
 
@@ -188,6 +228,7 @@ export default defineComponent({
       onColInput,
       onDataCollectionSuggestionSelect,
       onDataCollectionInput,
+      t,
     };
   },
 });

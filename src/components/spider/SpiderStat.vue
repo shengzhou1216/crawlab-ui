@@ -29,6 +29,8 @@ import {computed, defineComponent, PropType} from 'vue';
 import Tag from '@/components/tag/Tag.vue';
 import colors from '@/styles/color.scss';
 import humanizeDuration from 'humanize-duration';
+import {useI18n} from 'vue-i18n';
+import i18n from '@/i18n';
 
 export default defineComponent({
   name: 'SpiderStats',
@@ -42,6 +44,9 @@ export default defineComponent({
     },
   },
   setup(props: SpiderStatProps, {emit}) {
+    // i18n
+    const {t} = useI18n();
+
     const labels = computed<SpiderStatLabels>(() => {
       const {stat} = props;
       const {
@@ -69,16 +74,18 @@ export default defineComponent({
         average_total_duration,
       } = stat as SpiderStat;
 
+      const language = i18n.global.locale.value === 'zh' ? 'zh_CN' : 'en';
+
       return {
-        tasks: `Total Tasks: ${tasks}`,
-        results: `Total Results: ${results}`,
+        tasks: `${t('components.spider.stat.totalTasks')}: ${tasks}`,
+        results: `${t('components.spider.stat.totalResults')}: ${results}`,
         duration: `
-<span class="label">Average Wait Duration:</span>
-<span class="value" style="color: ${colors.blue}">${humanizeDuration(average_wait_duration * 1000, {spacer: ' '})}</span><br>
-<span class="label">Average Runtime Duration:</span>
-<span class="value" style="color: ${colors.orange}">${humanizeDuration(average_runtime_duration * 1000, {spacer: ' '})}</span><br>
-<span class="label">Average Total Duration:</span>
-<span class="value" style="color: ${colors.white}">${humanizeDuration(average_total_duration * 1000, {spacer: ' '})}</span><br>
+<span class="label">${t('components.spider.stat.averageWaitDuration')}:</span>
+<span class="value" style="color: ${colors.blue}">${humanizeDuration(average_wait_duration * 1000, {spacer: ' ', language})}</span><br>
+<span class="label">${t('components.spider.stat.averageRuntimeDuration')}:</span>
+<span class="value" style="color: ${colors.orange}">${humanizeDuration(average_runtime_duration * 1000, {spacer: ' ', language})}</span><br>
+<span class="label">${t('components.spider.stat.averageRuntimeDuration')}:</span>
+<span class="value" style="color: ${colors.white}">${humanizeDuration(average_total_duration * 1000, {spacer: ' ', language})}</span><br>
 `,
       };
     });

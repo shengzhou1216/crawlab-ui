@@ -27,6 +27,7 @@ import {
 } from '@/constants/task';
 import Tag from '@/components/tag/Tag.vue';
 import colors from '@/styles/color.scss';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'TaskStatus',
@@ -50,57 +51,60 @@ export default defineComponent({
   },
   emits: ['click'],
   setup(props: TaskStatusProps, {emit}) {
+    // i18n
+    const {t} = useI18n();
+
     const data = computed<TagData>(() => {
       const {status, error} = props;
       switch (status) {
         case TASK_STATUS_PENDING:
           return {
-            label: 'Pending',
-            tooltip: 'Task is pending in the queue',
+            label: t('components.task.status.label.pending'),
+            tooltip: t('components.task.status.tooltip.pending'),
             type: 'primary',
             icon: ['fa', 'hourglass-start'],
             spinning: true,
           };
         case TASK_STATUS_RUNNING:
           return {
-            label: 'Running',
-            tooltip: 'Task is currently running',
+            label: t('components.task.status.label.running'),
+            tooltip: t('components.task.status.tooltip.running'),
             type: 'warning',
             icon: ['fa', 'spinner'],
             spinning: true,
           };
         case TASK_STATUS_FINISHED:
           return {
-            label: 'Finished',
-            tooltip: 'Task finished successfully',
+            label: t('components.task.status.label.finished'),
+            tooltip: t('components.task.status.tooltip.finished'),
             type: 'success',
             icon: ['fa', 'check'],
           };
         case TASK_STATUS_ERROR:
           return {
-            label: 'Error',
-            tooltip: `Task ended with an error:<br><span style="color: ${colors.red}">${error}</span>`,
+            label: t('components.task.status.label.error'),
+            tooltip: `${t('components.task.status.tooltip.error')}<br><span style="color: ${colors.red}">${error}</span>`,
             type: 'danger',
             icon: ['fa', 'times'],
           };
         case TASK_STATUS_CANCELLED:
           return {
-            label: 'Cancelled',
-            tooltip: 'Task has been cancelled',
+            label: t('components.task.status.label.cancelled'),
+            tooltip: t('components.task.status.tooltip.cancelled'),
             type: 'info',
             icon: ['fa', 'ban'],
           };
         case TASK_STATUS_ABNORMAL:
           return {
-            label: 'Cancelled',
-            tooltip: 'Task ended abnormally',
+            label: t('components.task.status.label.abnormal'),
+            tooltip: t('components.task.status.tooltip.abnormal'),
             type: 'info',
             icon: ['fa', 'exclamation'],
           };
         default:
           return {
-            label: 'Unknown',
-            tooltip: 'Unknown task status',
+            label: t('components.task.status.label.unknown'),
+            tooltip: t('components.task.status.tooltip.unknown'),
             type: 'info',
             icon: ['fa', 'question'],
           };

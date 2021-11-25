@@ -8,4 +8,6 @@ interface LComponents {
   input: LComponentsInput;
   node: LComponentsNode;
   project: LComponentsProject;
+  spider: LComponentsSpider;
+  task: LComponentsTask;
 }

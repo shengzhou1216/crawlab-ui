@@ -7,6 +7,8 @@ import tab from './tab';
 import input from './input';
 import node from './node';
 import project from './project';
+import spider from './spider';
+import task from './task';
 
 const components: LComponents = {
   chart,
@@ -18,6 +20,8 @@ const components: LComponents = {
   input,
   node,
   project,
+  spider,
+  task,
 }
 
 export default components;

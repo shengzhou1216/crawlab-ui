@@ -57,6 +57,7 @@ export default defineComponent({
 
 .nav-tabs {
   .el-menu {
+    display: flex;
     height: calc(#{$navTabsHeight} + 1px);
 
     .el-menu-item {
@@ -70,7 +71,8 @@ export default defineComponent({
     }
 
     .extra {
-      float: right;
+      position: absolute;
+      right: 0;
       height: $navTabsHeight;
       line-height: $navTabsHeight;
     }

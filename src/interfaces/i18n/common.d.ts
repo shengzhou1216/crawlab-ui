@@ -16,6 +16,7 @@ interface LCommon {
     clone: string;
     delete: string;
     run: string;
+    add: string;
   };
   messageBox: {
     message: {

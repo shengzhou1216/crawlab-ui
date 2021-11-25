@@ -5,7 +5,11 @@ const dialog: LComponentsDialog = {
   type: {
     single: 'Single',
     batch: 'Batch'
-  }
+  },
+  batch: {
+    add: 'Add',
+    editAll: 'Edit All',
+  },
 };
 
 export default dialog;

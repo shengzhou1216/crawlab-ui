@@ -8,11 +8,12 @@
 import {computed, defineComponent, PropType} from 'vue';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
+import zh from 'javascript-time-ago/locale/zh';
 import dayjs from 'dayjs';
-// import zh from 'javascript-time-ago/locale/zh';
+import i18n from '@/i18n';
 
-TimeAgo.addDefaultLocale(en);
-// TimeAgo.addDefaultLocale(zh);
+TimeAgo.addLocale(en);
+TimeAgo.addLocale(zh);
 
 export default defineComponent({
   name: 'Time',
@@ -34,13 +35,12 @@ export default defineComponent({
     }
   },
   setup(props: TimeProps, {emit}) {
-    const timeAgo = new TimeAgo();
-
     const label = computed<string | undefined>(() => {
       const {time, ago, format} = props;
       if (!time) return;
 
       if (ago) {
+        const timeAgo = new TimeAgo(i18n.global.locale.value === 'zh' ? 'zh' : 'en');
         return timeAgo.format(new Date(time));
       } else {
         return dayjs(time).format(format);

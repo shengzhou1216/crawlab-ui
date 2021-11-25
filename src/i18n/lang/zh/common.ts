@@ -9,6 +9,7 @@ const common: LCommon = {
     clone: '复制',
     delete: '删除',
     run: '运行',
+    add: '添加',
   },
   messageBox: {
     message: {

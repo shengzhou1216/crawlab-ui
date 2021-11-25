@@ -5,11 +5,15 @@ import useForm from '@/components/form/form';
 import useProjectService from '@/services/project/projectService';
 import {getDefaultFormComponentData} from '@/utils/form';
 import {FORM_FIELD_TYPE_INPUT, FORM_FIELD_TYPE_INPUT_TEXTAREA, FORM_FIELD_TYPE_TAG_INPUT} from '@/constants/form';
+import {translate} from '@/utils/i18n';
 
 // form component data
 const formComponentData = getDefaultFormComponentData<Project>();
 
 const useProject = (store: Store<RootStoreState>) => {
+  // i18n
+  const t = translate;
+
   // store
   const ns = 'project';
   const state = store.state[ns];
@@ -18,24 +22,24 @@ const useProject = (store: Store<RootStoreState>) => {
   const batchFormFields = computed<FormTableField[]>(() => [
     {
       prop: 'name',
-      label: 'Name',
+      label: t('components.project.form.name'),
       width: '150',
       fieldType: FORM_FIELD_TYPE_INPUT,
-      placeholder: 'Name',
+      placeholder: t('components.project.form.name'),
       required: true,
     },
     {
       prop: 'tags',
-      label: 'Tags',
+      label: t('components.project.form.tags'),
       width: '200',
-      placeholder: 'Tags',
+      placeholder: t('components.project.form.tags'),
       fieldType: FORM_FIELD_TYPE_TAG_INPUT,
     },
     {
       prop: 'description',
-      label: 'Description',
+      label: t('components.project.form.description'),
       width: '800',
-      placeholder: 'Description',
+      placeholder: t('components.project.form.description'),
       fieldType: FORM_FIELD_TYPE_INPUT_TEXTAREA,
     },
   ]);
