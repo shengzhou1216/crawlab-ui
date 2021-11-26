@@ -18,10 +18,22 @@ interface LCommon {
     run: string;
     add: string;
     bookmark: string;
+    restart: string;
+    cancel: string;
   };
   messageBox: {
-    message: {
+    confirm: {
       delete: string;
+      restart: string;
+      cancel: string;
+    };
+  };
+  message: {
+    success: {
+      restart: string;
+    };
+    info: {
+      cancel: string;
     };
   };
   tabs: {

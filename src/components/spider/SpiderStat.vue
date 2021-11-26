@@ -31,6 +31,7 @@ import colors from '@/styles/color.scss';
 import humanizeDuration from 'humanize-duration';
 import {useI18n} from 'vue-i18n';
 import i18n from '@/i18n';
+import {getLanguage} from '@/utils/i18n';
 
 export default defineComponent({
   name: 'SpiderStats',
@@ -74,7 +75,7 @@ export default defineComponent({
         average_total_duration,
       } = stat as SpiderStat;
 
-      const language = i18n.global.locale.value === 'zh' ? 'zh_CN' : 'en';
+      const language = getLanguage();
 
       return {
         tasks: `${t('components.spider.stat.totalTasks')}: ${tasks}`,

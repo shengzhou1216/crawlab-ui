@@ -3,6 +3,7 @@ import home from './home';
 import nodes from './nodes';
 import projects from './projects';
 import spiders from './spiders';
+import tasks from './tasks';
 
 const views: LViews = {
   login,
@@ -10,5 +11,6 @@ const views: LViews = {
   nodes,
   projects,
   spiders,
+  tasks,
 };
 export default views;

@@ -11,10 +11,22 @@ const common: LCommon = {
     run: '运行',
     add: '添加',
     bookmark: '添加书签',
+    restart: '重新运行',
+    cancel: '取消',
   },
   messageBox: {
-    message: {
-      delete: '您是否确定删除?'
+    confirm: {
+      delete: '您是否确定删除?',
+      restart: '您是否确定重新运行?',
+      cancel: '您是否确定取消?',
+    }
+  },
+  message: {
+    success: {
+      restart: '重新运行成功',
+    },
+    info: {
+      cancel: '尝试取消',
     }
   },
   tabs: {

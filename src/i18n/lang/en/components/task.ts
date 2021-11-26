@@ -19,6 +19,19 @@ const task: LComponentsTask = {
       unknown: 'Unknown task status',
     },
   },
+  priority: {
+    high: 'High',
+    higher: 'Higher',
+    medium: 'Medium',
+    lower: 'Lower',
+    low: 'Low',
+  },
+  mode: {
+    randomNode: 'Random Node',
+    allNodes: 'All Nodes',
+    selectedNodes: 'Selected Nodes',
+    selectedTags: 'Selected Tags',
+  }
 };
 
 export default task;

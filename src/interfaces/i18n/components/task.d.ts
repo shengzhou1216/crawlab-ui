@@ -19,4 +19,17 @@ interface LComponentsTask {
       unknown: string;
     };
   };
+  priority: {
+    high: string;
+    higher: string;
+    medium: string;
+    lower: string;
+    low: string;
+  };
+  mode: {
+    randomNode: string;
+    allNodes: string;
+    selectedNodes: string;
+    selectedTags: string;
+  };
 }

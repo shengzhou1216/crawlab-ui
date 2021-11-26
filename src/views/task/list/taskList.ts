@@ -24,12 +24,17 @@ import {
   TASK_STATUS_RUNNING
 } from '@/constants/task';
 import useTask from '@/components/task/task';
+import {translate} from '@/utils/i18n';
 
 const {
   post,
 } = useRequest();
 
 const useTaskList = () => {
+  // i18n
+  const t = translate;
+
+  // store
   const ns = 'task';
   const store = useStore<RootStoreState>();
   const {commit} = store;
@@ -60,8 +65,8 @@ const useTaskList = () => {
       children: [
         {
           buttonType: 'label',
-          label: 'New Task',
-          tooltip: 'New Task',
+          label: t('views.tasks.navActions.new.label'),
+          tooltip: t('views.tasks.navActions.new.tooltip'),
           icon: ['fa', 'plus'],
           type: 'success',
           onClick: () => {
@@ -88,7 +93,7 @@ const useTaskList = () => {
   const tableColumns = computed<TableColumns<Task>>(() => [
     {
       key: 'node_id',
-      label: 'Node',
+      label: t('views.tasks.table.columns.node'),
       icon: ['fa', 'server'],
       width: '160',
       value: (row: Task) => {
@@ -110,7 +115,7 @@ const useTaskList = () => {
     },
     {
       key: 'spider_id',
-      label: 'Spider',
+      label: t('views.tasks.table.columns.spider'),
       icon: ['fa', 'spider'],
       width: '160',
       value: (row: Task) => {
@@ -128,7 +133,7 @@ const useTaskList = () => {
     },
     {
       key: 'priority',
-      label: 'Priority',
+      label: t('views.tasks.table.columns.priority'),
       icon: ['fa', 'sort-numeric-down'],
       width: '120',
       value: (row: Task) => {
@@ -141,7 +146,7 @@ const useTaskList = () => {
     },
     {
       key: 'status',
-      label: 'Status',
+      label: t('views.tasks.table.columns.status'),
       icon: ['fa', 'check-square'],
       width: '120',
       value: (row: Task) => {
@@ -150,16 +155,16 @@ const useTaskList = () => {
       hasFilter: true,
       allowFilterItems: true,
       filterItems: [
-        {label: 'Pending', value: TASK_STATUS_PENDING},
-        {label: 'Running', value: TASK_STATUS_RUNNING},
-        {label: 'Finished', value: TASK_STATUS_FINISHED},
-        {label: 'Error', value: TASK_STATUS_ERROR},
-        {label: 'Cancelled', value: TASK_STATUS_CANCELLED},
+        {label: t('components.task.status.label.pending'), value: TASK_STATUS_PENDING},
+        {label: t('components.task.status.label.running'), value: TASK_STATUS_RUNNING},
+        {label: t('components.task.status.label.finished'), value: TASK_STATUS_FINISHED},
+        {label: t('components.task.status.label.error'), value: TASK_STATUS_ERROR},
+        {label: t('components.task.status.label.cancelled'), value: TASK_STATUS_CANCELLED},
       ],
     },
     {
       key: 'stat.create_ts',
-      label: 'Created At',
+      label: t('views.tasks.table.columns.stat.create_ts'),
       icon: ['fa', 'clock'],
       width: '120',
       value: (row: Task) => {
@@ -170,7 +175,7 @@ const useTaskList = () => {
     },
     {
       key: 'stat.start_ts',
-      label: 'Started At',
+      label: t('views.tasks.table.columns.stat.start_ts'),
       icon: ['fa', 'clock'],
       width: '120',
       value: (row: Task) => {
@@ -180,7 +185,7 @@ const useTaskList = () => {
     },
     {
       key: 'stat.end_ts',
-      label: 'Finished At',
+      label: t('views.tasks.table.columns.stat.end_ts'),
       icon: ['fa', 'clock'],
       width: '120',
       value: (row: Task) => {
@@ -190,7 +195,7 @@ const useTaskList = () => {
     },
     {
       key: 'stat.wait_duration',
-      label: 'Wait Duration',
+      label: t('views.tasks.table.columns.stat.wait_duration'),
       icon: ['fa', 'stopwatch'],
       width: '160',
       value: (row: Task) => {
@@ -201,7 +206,7 @@ const useTaskList = () => {
     },
     {
       key: 'stat.runtime_duration',
-      label: 'Runtime Duration',
+      label: t('views.tasks.table.columns.stat.runtime_duration'),
       icon: ['fa', 'stopwatch'],
       width: '160',
       value: (row: Task) => {
@@ -212,7 +217,7 @@ const useTaskList = () => {
     },
     {
       key: 'stat.total_duration',
-      label: 'Total Duration',
+      label: t('views.tasks.table.columns.stat.total_duration'),
       icon: ['fa', 'stopwatch'],
       width: '160',
       value: (row: Task) => {
@@ -222,7 +227,7 @@ const useTaskList = () => {
     },
     {
       key: 'stat.result_count',
-      label: 'Results',
+      label: t('views.tasks.table.columns.stat.results'),
       icon: ['fa', 'table'],
       width: '150',
       value: (row: Task) => {
@@ -232,7 +237,7 @@ const useTaskList = () => {
     },
     {
       key: TABLE_COLUMN_NAME_ACTIONS,
-      label: 'Actions',
+      label: t('components.table.columns.actions'),
       icon: ['fa', 'tools'],
       width: '180',
       fixed: 'right',
@@ -241,7 +246,7 @@ const useTaskList = () => {
           type: 'primary',
           size: 'mini',
           icon: ['fa', 'search'],
-          tooltip: 'View',
+          tooltip: t('common.actions.view'),
           onClick: (row) => {
             router.push(`/tasks/${row._id}`);
           }
@@ -250,11 +255,15 @@ const useTaskList = () => {
           type: 'warning',
           size: 'mini',
           icon: ['fa', 'redo'],
-          tooltip: 'Restart',
+          tooltip: t('common.actions.restart'),
           onClick: async (row) => {
-            await ElMessageBox.confirm('Are you sure to restart?', 'Restart', {type: 'warning'});
+            await ElMessageBox.confirm(
+              t('common.messageBox.confirm.restart'),
+              t('common.actions.restart'),
+              {type: 'warning'},
+            );
             await post(`/tasks/${row._id}/restart`);
-            await ElMessage.success('Restarted successfully');
+            await ElMessage.success(t('common.message.success.restart'));
             await store.dispatch(`task/getList`);
           }
         },
@@ -265,8 +274,12 @@ const useTaskList = () => {
             icon: ['fa', 'stop'],
             tooltip: 'Cancel',
             onClick: async (row: Task) => {
-              await ElMessageBox.confirm('Are you sure to cancel?', 'Cancel', {type: 'warning'});
-              await ElMessage.info('Attempt to cancel');
+              await ElMessageBox.confirm(
+                t('common.messageBox.confirm.cancel'),
+                t('common.actions.cancel'),
+                {type: 'warning'},
+              );
+              await ElMessage.info(t('common.message.info.cancel'));
               await post(`/tasks/${row._id}/cancel`);
               await store.dispatch(`${ns}/getList`);
             },
@@ -276,7 +289,7 @@ const useTaskList = () => {
             type: 'danger',
             size: 'mini',
             icon: ['fa', 'trash-alt'],
-            tooltip: 'Delete',
+            tooltip: t('common.actions.delete'),
             onClick: deleteByIdConfirm,
           },
       ],

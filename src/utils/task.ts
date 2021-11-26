@@ -6,18 +6,21 @@ import {
   TASK_STATUS_PENDING,
   TASK_STATUS_RUNNING
 } from '@/constants/task';
+import {translate} from '@/utils/i18n';
+
+const t = translate;
 
 export const getPriorityLabel = (priority: number): string => {
   if (priority <= 2) {
-    return `High - ${priority}`;
+    return `${t('components.task.priority.high')} - ${priority}`;
   } else if (priority <= 4) {
-    return `Higher - ${priority}`;
+    return `${t('components.task.priority.higher')} - ${priority}`;
   } else if (priority <= 6) {
-    return `Medium - ${priority}`;
+    return `${t('components.task.priority.medium')} - ${priority}`;
   } else if (priority <= 8) {
-    return `Lower - ${priority}`;
+    return `${t('components.task.priority.lower')} - ${priority}`;
   } else {
-    return `Low - ${priority}`;
+    return `${t('components.task.priority.low')} - ${priority}`;
   }
 };
 
@@ -33,10 +36,10 @@ export const isCancellable = (status: TaskStatus): boolean => {
 
 export const getModeOptions = (): SelectOption[] => {
   return [
-    {value: TASK_MODE_RANDOM, label: 'Random Node'},
-    {value: TASK_MODE_ALL_NODES, label: 'All Nodes'},
-    {value: TASK_MODE_SELECTED_NODES, label: 'Selected Nodes'},
-    {value: TASK_MODE_SELECTED_NODE_TAGS, label: 'Selected Tags'},
+    {value: TASK_MODE_RANDOM, label: t('components.task.mode.randomNode')},
+    {value: TASK_MODE_ALL_NODES, label: t('components.task.mode.randomNodes')},
+    {value: TASK_MODE_SELECTED_NODES, label: t('components.task.mode.selectedNodes')},
+    {value: TASK_MODE_SELECTED_NODE_TAGS, label: t('components.task.mode.selectedTags')},
   ];
 };
 

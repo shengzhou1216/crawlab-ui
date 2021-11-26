@@ -13,3 +13,7 @@ export const translate = (path: string): string => {
   const {tm} = i18n.global;
   return tm(path) as string;
 };
+
+export const getLanguage = (): string => {
+  return i18n.global.locale.value === 'zh' ? 'zh_CN' : 'en';
+};

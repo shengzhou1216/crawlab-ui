@@ -127,7 +127,7 @@ const useProjectList = () => {
           icon: ['fa', 'trash-alt'],
           tooltip: t('common.actions.delete'),
           onClick: async (row: Project) => {
-            const res = await ElMessageBox.confirm(t('common.messageBox.message'), t('common.actions.delete'));
+            const res = await ElMessageBox.confirm(t('common.messageBox.confirm.delete'), t('common.actions.delete'));
             if (res) {
               await deleteById(row._id as string);
             }

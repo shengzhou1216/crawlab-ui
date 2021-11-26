@@ -19,6 +19,19 @@ const task: LComponentsTask = {
       unknown: '未知任务状态',
     },
   },
+  priority: {
+    high: '高',
+    higher: '较高',
+    medium: '中',
+    lower: '较低',
+    low: '低',
+  },
+  mode: {
+    randomNode: '随机节点',
+    allNodes: '所有节点',
+    selectedNodes: '指定节点',
+    selectedTags: '指定标签',
+  }
 };
 
 export default task;

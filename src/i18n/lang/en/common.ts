@@ -11,10 +11,22 @@ const common: LCommon = {
     run: 'Run',
     add: 'Add',
     bookmark: 'Bookmark',
+    restart: 'Restart',
+    cancel: 'Cancel',
   },
   messageBox: {
-    message: {
-      delete: 'Are you sure to delete?'
+    confirm: {
+      delete: 'Are you sure to delete?',
+      restart: 'Are you sure to restart?',
+      cancel: 'Are you sure to cancel?',
+    }
+  },
+  message: {
+    success: {
+      restart: 'Restarted successfully',
+    },
+    info: {
+      cancel: 'Attempt to cancel'
     }
   },
   tabs: {
