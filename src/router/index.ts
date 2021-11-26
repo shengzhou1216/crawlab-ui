@@ -13,7 +13,6 @@ import plugin from '@/router/plugin';
 import {initRouterAuth} from '@/router/hooks/auth';
 import {initRouterStats} from '@/router/hooks/stats';
 import BasicLayout from '@/layouts/BasicLayout.vue';
-import {translate} from '@/utils/i18n';
 
 export const getDefaultRoutes = (): Array<RouteRecordRaw> => [
   ...login,

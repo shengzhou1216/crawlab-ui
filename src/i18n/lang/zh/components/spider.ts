@@ -8,7 +8,16 @@ const spider: LComponentsSpider = {
     resultsCollection: '结果集',
     selectedTags: '指定标签',
     selectedNodes: '指定节点',
-    description:  '描述',
+    description: '描述',
+  },
+  actions: {
+    files: {
+      tooltip: {
+        fileEditorActions: '文件编辑器操作',
+        uploadFiles: '上传文件',
+        fileEditorSettings: '文件编辑器设置',
+      },
+    },
   },
   stat: {
     totalTasks: '总任务数',

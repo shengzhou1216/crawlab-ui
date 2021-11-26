@@ -20,6 +20,7 @@ import Time from '@/components/time/Time.vue';
 import Tag from '@/components/tag/Tag.vue';
 import {GIT_REF_TYPE_BRANCH} from '@/constants/git';
 import {TABLE_ACTION_CUSTOMIZE_COLUMNS} from '@/constants/table';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'SpiderDetailTabGitLogs',
@@ -27,6 +28,9 @@ export default defineComponent({
     Table,
   },
   setup() {
+    // i18n
+    const {t} = useI18n();
+
     // store
     const ns = 'spider';
     const store = useStore();
@@ -58,7 +62,7 @@ export default defineComponent({
       return [
         {
           key: 'ref',
-          label: 'Reference',
+          label: t('components.git.logs.table.columns.reference'),
           width: '120',
           icon: ['fa', 'tags'],
           value: (row: GitLog) => {
@@ -73,13 +77,13 @@ export default defineComponent({
         },
         {
           key: 'msg',
-          label: 'Commit Message',
+          label: t('components.git.logs.table.columns.commitMessage'),
           width: '680',
           icon: ['fa', 'comment-alt'],
         },
         {
           key: 'author',
-          label: 'Author',
+          label: t('components.git.logs.table.columns.author'),
           width: '200',
           icon: ['fa', 'user'],
           value: (row: GitLog) => {
@@ -88,7 +92,7 @@ export default defineComponent({
         },
         {
           key: 'timestamp',
-          label: 'Timestamp',
+          label: t('components.git.logs.table.columns.timestamp'),
           width: '180',
           icon: ['fa', 'clock'],
           fixed: 'right',

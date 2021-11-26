@@ -4,18 +4,15 @@
       <el-input
           v-model="searchString"
           class="search-input"
-          :prefix-icon="collapsed ? '' : 'fa fa-search'"
-          placeholder="Search..."
+          :placeholder="t('components.nav.sidebar.search')"
           :clearable="true"
-      />
-      <div v-if="!collapsed" class="search-suffix" @click.stop="onToggle">
-        <el-tooltip
-            v-model="toggleTooltipValue"
-            content="Collapse sidebar"
-        >
-          <font-awesome-icon :icon="['fa', 'outdent']" class="icon"/>
-        </el-tooltip>
-      </div>
+      >
+        <template #prefix>
+          <el-icon v-if="!collapsed" class="el-input__icon">
+            <font-awesome-icon :icon="['fa', 'search']"/>
+          </el-icon>
+        </template>
+      </el-input>
     </div>
     <el-menu
         ref="navMenu"
@@ -45,10 +42,13 @@ import {computed, defineComponent, ref} from 'vue';
 import {ElMenu} from 'element-plus';
 import variables from '@/styles/variables.scss';
 import Empty from '@/components/empty/Empty.vue';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'NavSidebar',
-  components: {Empty},
+  components: {
+    Empty,
+  },
   props: {
     items: Array,
     activeKey: String,
@@ -56,6 +56,9 @@ export default defineComponent({
     showActions: Boolean,
   },
   setup(props, {emit}) {
+    // i18n
+    const {t} = useI18n();
+
     const toggling = ref(false);
     const searchString = ref('');
     const navMenu = ref<typeof ElMenu | null>(null);
@@ -71,7 +74,6 @@ export default defineComponent({
       const {collapsed} = props as NavSidebarProps;
       const cls = [];
       if (collapsed) cls.push('collapsed');
-      // if (toggling.value) cls.push('toggling');
       return cls;
     });
 
@@ -89,12 +91,6 @@ export default defineComponent({
 
     const onRemove = (index: string) => {
       emit('remove', index);
-    };
-
-    const onToggle = () => {
-      const {collapsed} = props as NavSidebarProps;
-      emit('toggle', !collapsed);
-      toggleTooltipValue.value = false;
     };
 
     const scroll = (id: string) => {
@@ -120,8 +116,8 @@ export default defineComponent({
       onStar,
       onDuplicate,
       onRemove,
-      onToggle,
       scroll,
+      t,
     };
   },
 });
@@ -131,12 +127,10 @@ export default defineComponent({
 
 .nav-sidebar {
   position: relative;
-  //margin: 10px;
   width: $navSidebarWidth;
   border-right: 1px solid $navSidebarBorderColor;
   background-color: $navSidebarBg;
   height: calc(100vh - #{$headerHeight} - #{$tabsViewHeight} - 1px);
-  transition: width $navSidebarCollapseTransitionDuration;
 
   &.collapsed {
     margin: 10px 0;
@@ -171,7 +165,6 @@ export default defineComponent({
       width: 25px;
       color: $navSidebarItemActionColor;
       cursor: pointer;
-      //transition: right $navSidebarCollapseTransitionDuration;
     }
   }
 

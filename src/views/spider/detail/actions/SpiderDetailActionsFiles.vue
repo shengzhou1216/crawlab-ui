@@ -1,9 +1,22 @@
 <template>
   <NavActionGroup>
-    <NavActionFaIcon :icon="['fa', 'laptop-code']" tooltip="File Editor Actions" />
+    <NavActionFaIcon
+        :icon="['fa', 'laptop-code']"
+        :tooltip="t('components.spider.actions.files.tooltip.fileEditorActions')"
+    />
     <NavActionItem>
-      <FaIconButton :icon="['fa', 'upload']" tooltip="Upload Files" type="primary" @click="onClickUpload" />
-      <FaIconButton :icon="['fa', 'cog']" tooltip="File Editor Settings" type="info" @click="onOpenFilesSettings" />
+      <FaIconButton
+          :icon="['fa', 'upload']"
+          :tooltip="t('components.spider.actions.files.tooltip.uploadFiles')"
+          type="primary"
+          @click="onClickUpload"
+      />
+      <FaIconButton
+          :icon="['fa', 'cog']"
+          :tooltip="t('components.spider.actions.files.tooltip.fileEditorSettings')"
+          type="info"
+          @click="onOpenFilesSettings"
+      />
     </NavActionItem>
   </NavActionGroup>
 
@@ -39,9 +52,10 @@ import {useRoute} from 'vue-router';
 import FileUpload from '@/components/file/FileUpload.vue';
 import Dialog from '@/components/dialog/Dialog.vue';
 import {ElMessage} from 'element-plus';
-import {FILE_UPLOAD_MODE_DIR, FILE_UPLOAD_MODE_FILES} from '@/constants/file';
+import {FILE_UPLOAD_MODE_DIR} from '@/constants/file';
 import {FileWithPath} from 'file-selector';
 import {getOSPathSeparator} from '@/utils/os';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'SpiderDetailActionsFiles',
@@ -54,6 +68,9 @@ export default defineComponent({
     NavActionItem,
   },
   setup() {
+    // i18n
+    const {t} = useI18n();
+
     // route
     const route = useRoute();
 
@@ -192,6 +209,7 @@ export default defineComponent({
       files,
       onModeChange,
       onFilesChange,
+      t,
     };
   },
 });

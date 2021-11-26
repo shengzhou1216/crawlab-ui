@@ -5,6 +5,7 @@ import transfer from './transfer';
 import nav from './nav';
 import tab from './tab';
 import input from './input';
+import git from './git';
 import node from './node';
 import project from './project';
 import spider from './spider';
@@ -18,6 +19,7 @@ const components: LComponents = {
   nav,
   tab,
   input,
+  git,
   node,
   project,
   spider,

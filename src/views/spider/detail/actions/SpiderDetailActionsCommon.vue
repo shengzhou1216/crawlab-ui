@@ -2,13 +2,14 @@
   <NavActionGroup>
     <NavActionFaIcon :icon="['fa', 'tools']"/>
     <NavActionItem>
-      <FaIconButton :icon="['fa', 'play']" tooltip="Run" type="success" @click="onRun"/>
+      <FaIconButton :icon="['fa', 'play']" :tooltip="t('common.actions.run')" type="success" @click="onRun"/>
     </NavActionItem>
     <NavActionItem>
-      <FaIconButton :icon="['fa', 'clone']" tooltip="Clone" type="info"/>
+      <FaIconButton :icon="['fa', 'clone']" :tooltip="t('common.actions.clone')" type="info"/>
     </NavActionItem>
-    <NavActionItem>
-      <FaIconButton :icon="['far', 'star']" plain tooltip="Favorite" type="warning"/>
+    <!--TODO: implement-->
+    <NavActionItem v-if="false">
+      <FaIconButton :icon="['far', 'star']" plain :tooltip="t('common.actions.bookmark')" type="warning"/>
     </NavActionItem>
   </NavActionGroup>
 
@@ -26,6 +27,7 @@ import NavActionFaIcon from '@/components/nav/NavActionFaIcon.vue';
 import {useStore} from 'vuex';
 import useSpider from '@/components/spider/spider';
 import RunSpiderDialog from '@/components/spider/RunSpiderDialog.vue';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'SpiderDetailActionsCommon',
@@ -37,6 +39,9 @@ export default defineComponent({
     RunSpiderDialog,
   },
   setup() {
+    // i18n
+    const {t} = useI18n();
+
     // store
     const ns = 'spider';
     const store = useStore();
@@ -48,6 +53,7 @@ export default defineComponent({
     return {
       ...useSpider(store),
       onRun,
+      t,
     };
   },
 });

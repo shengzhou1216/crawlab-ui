@@ -17,9 +17,14 @@
               class="search"
               clearable
               placeholder="Search files..."
-              prefix-icon="fa fa-search"
               size="mini"
-          />
+          >
+            <template #prefix>
+              <el-icon class="el-input__icon">
+                <font-awesome-icon :icon="['fa', 'search']"/>
+              </el-icon>
+            </template>
+          </el-input>
         </div>
         <div class="right">
           <el-tooltip content="Settings">

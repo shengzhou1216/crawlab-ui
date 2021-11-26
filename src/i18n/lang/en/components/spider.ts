@@ -8,7 +8,16 @@ const spider: LComponentsSpider = {
     resultsCollection: 'Results Collection',
     selectedTags: 'Selected Tags',
     selectedNodes: 'Selected Nodes',
-    description:  'Description',
+    description: 'Description',
+  },
+  actions: {
+    files: {
+      tooltip: {
+        fileEditorActions: 'File Editor Actions',
+        uploadFiles: 'Upload Files',
+        fileEditorSettings: 'File Editor Settings',
+      }
+    },
   },
   stat: {
     totalTasks: 'Total Tasks',

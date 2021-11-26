@@ -1,9 +1,22 @@
 <template>
   <NavActionGroup>
-    <NavActionFaIcon :icon="['fa', 'code-branch']" tooltip="Git Actions"/>
+    <NavActionFaIcon
+        :icon="['fa', 'code-branch']"
+        :tooltip="t('components.git.actions.title')"
+    />
     <NavActionItem>
-      <FaIconButton :icon="['fa', 'download']" tooltip="Pull" type="primary" @click="onClickPull"/>
-      <FaIconButton :icon="['fa', 'upload']" tooltip="Commit and Push" type="success" @click="onClickCommit"/>
+      <FaIconButton
+          :icon="['fa', 'download']"
+          :tooltip="t('components.git.actions.tooltip.pull')"
+          type="primary"
+          @click="onClickPull"
+      />
+      <FaIconButton
+          :icon="['fa', 'upload']"
+          :tooltip="t('components.git.actions.tooltip.commit')"
+          type="success"
+          @click="onClickCommit"
+      />
       <div class="branch">
         <Tag
             class="branch-label"
@@ -13,7 +26,7 @@
             @click="onBranchClick"
         >
           <template #tooltip>
-            <span>Current Branch:</span>
+            <span>{{ t('components.git.common.currentBranch') }}:</span>
             <span
                 class="current-branch"
                 style="color: #409eff; margin-left: 5px; font-weight: bolder"
@@ -35,6 +48,7 @@ import FaIconButton from '@/components/button/FaIconButton.vue';
 import NavActionFaIcon from '@/components/nav/NavActionFaIcon.vue';
 import Tag from '@/components/tag/Tag.vue';
 import {useStore} from 'vuex';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'SpiderDetailActionsGit',
@@ -46,6 +60,9 @@ export default defineComponent({
     Tag,
   },
   setup() {
+    // i18n
+    const {t} = useI18n();
+
     // store
     const ns = 'spider';
     const store = useStore();
@@ -90,6 +107,7 @@ export default defineComponent({
       onBranchClick,
       onBranchCancel,
       onBranchCheckout,
+      t,
     };
   },
 });

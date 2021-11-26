@@ -5,6 +5,10 @@ import {
   getDefaultStoreState
 } from '@/utils/store';
 import {TAB_NAME_OVERVIEW, TAB_NAME_SPIDERS} from '@/constants/tab';
+import {translate} from '@/utils/i18n';
+
+// i18n
+const t = translate;
 
 const state = {
   ...getDefaultStoreState<Project>('project'),
@@ -14,8 +18,8 @@ const state = {
     } as Project;
   },
   tabs: [
-    {id: TAB_NAME_OVERVIEW, title: 'Overview'},
-    {id: TAB_NAME_SPIDERS, title: 'Spiders'},
+    {id: TAB_NAME_OVERVIEW, title: t('common.tabs.overview')},
+    {id: TAB_NAME_SPIDERS, title: t('common.tabs.spiders')},
   ],
 } as ProjectStoreState;
 

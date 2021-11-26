@@ -6,6 +6,7 @@ interface LComponents {
   nav: LComponentsNav;
   tab: LComponentsTab;
   input: LComponentsInput;
+  git: LComponentsGit;
   node: LComponentsNode;
   project: LComponentsProject;
   spider: LComponentsSpider;

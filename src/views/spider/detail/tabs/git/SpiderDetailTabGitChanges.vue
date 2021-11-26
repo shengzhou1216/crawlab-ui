@@ -18,6 +18,7 @@ import {useStore} from 'vuex';
 import Table from '@/components/table/Table.vue';
 import GitFileStatus from '@/components/git/GitFileStatus.vue';
 import Tag from '@/components/tag/Tag.vue';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'SpiderDetailTabGitChanges',
@@ -25,6 +26,9 @@ export default defineComponent({
     Table,
   },
   setup() {
+    // i18n
+    const {t} = useI18n();
+
     // store
     const ns = 'spider';
     const store = useStore();
@@ -36,19 +40,19 @@ export default defineComponent({
       const label = status;
       switch (status) {
         case '?':
-          return {type: 'danger', tooltip: 'Untracked', label};
+          return {type: 'danger', tooltip: t('components.git.changes.status.untracked'), label};
         case 'M':
-          return {type: 'primary', tooltip: 'Modified', label};
+          return {type: 'primary', tooltip: t('components.git.changes.status.modified'), label};
         case 'A':
-          return {type: 'success', tooltip: 'Added', label};
+          return {type: 'success', tooltip: t('components.git.changes.status.added'), label};
         case 'D':
-          return {type: 'info', tooltip: 'Deleted', label};
+          return {type: 'info', tooltip: t('components.git.changes.status.deleted'), label};
         case 'R':
-          return {type: 'primary', tooltip: 'Renamed', label};
+          return {type: 'primary', tooltip: t('components.git.changes.status.renamed'), label};
         case 'C':
-          return {type: 'primary', tooltip: 'Copied', label};
+          return {type: 'primary', tooltip: t('components.git.changes.status.copied'), label};
         case 'U':
-          return {type: 'danger', tooltip: 'Updated but unmerged', label};
+          return {type: 'danger', tooltip: t('components.git.changes.status.updatedButUnmerged'), label};
         default:
           return {label};
       }
@@ -65,7 +69,7 @@ export default defineComponent({
       return [
         {
           key: 'changed_file',
-          label: 'Changed File',
+          label: t('components.git.changes.table.columns.changedFile'),
           width: '1000',
           icon: ['far', 'file-code'],
           value: (row: GitChange) => {
@@ -74,7 +78,7 @@ export default defineComponent({
         },
         {
           key: 'status',
-          label: 'Status',
+          label: t('components.git.changes.table.columns.status'),
           width: '100',
           icon: ['fa', 'edit'],
           fixed: 'right',

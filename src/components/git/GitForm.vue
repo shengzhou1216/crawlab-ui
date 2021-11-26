@@ -6,13 +6,26 @@
       :selective="isSelectiveForm"
   >
     <!--Row-->
-    <FormItem :span="4" label="Remote URL" prop="url">
-      <el-input v-model="form.url" placeholder="Remote URL" @change="onUrlChange"/>
+    <FormItem
+        :span="4"
+        :label="t('components.git.form.remoteUrl')"
+        prop="url"
+    >
+      <el-input
+          v-model="form.url"
+          :placeholder="t('components.git.form.remoteUrl')"
+          @change="onUrlChange"
+      />
     </FormItem>
     <!--./Row-->
 
     <!--Row-->
-    <FormItem :span="1" :offset="3" label="Auth Type" prop="auth_type">
+    <FormItem
+        :span="1"
+        :offset="3"
+        :label="t('components.git.form.authType')"
+        prop="auth_type"
+    >
       <el-radio-group v-model="form.auth_type">
         <el-radio-button label="http">HTTP</el-radio-button>
         <el-radio-button label="ssh">SSH</el-radio-button>
@@ -22,27 +35,61 @@
 
     <template v-if="form.auth_type === 'http'">
       <!--Row-->
-      <FormItem :span="2" :offset="2" label="Username" prop="username">
-        <el-input v-model="form.username" placeholder="Username"/>
+      <FormItem
+          :span="2"
+          :offset="2"
+          :label="t('components.git.form.username')"
+          prop="username"
+      >
+        <el-input
+            v-model="form.username"
+            :placeholder="t('components.git.form.username')"
+        />
       </FormItem>
       <!--./Row-->
 
       <!--Row-->
-      <FormItem :span="2" :offset="2" label="Password" prop="password">
-        <el-input v-model="form.password" placeholder="Password" type="password"/>
+      <FormItem
+          :span="2"
+          :offset="2"
+          :label="t('components.git.form.password')"
+          prop="password"
+      >
+        <el-input
+            v-model="form.password"
+            :placeholder="t('components.git.form.password')"
+            type="password"
+        />
       </FormItem>
       <!--./Row-->
     </template>
     <template v-else-if="form.auth_type === 'ssh'">
       <!--Row-->
-      <FormItem :span="2" :offset="2" label="Username" prop="username">
-        <el-input v-model="form.username" placeholder="Username"/>
+      <FormItem
+          :span="2"
+          :offset="2"
+          :label="t('components.git.form.username')"
+          prop="username"
+      >
+        <el-input
+            v-model="form.username"
+            :placeholder="t('components.git.form.username')"
+        />
       </FormItem>
       <!--./Row-->
 
       <!--Row-->
-      <FormItem :span="4" label="Private Key" prop="password">
-        <el-input v-model="form.password" placeholder="Private Key" type="textarea" rows="20"/>
+      <FormItem
+          :span="4"
+          :label="t('components.git.form.privateKey')"
+          prop="password"
+      >
+        <el-input
+            v-model="form.password"
+            :placeholder="t('components.git.form.privateKey')"
+            type="textarea"
+            rows="20"
+        />
       </FormItem>
       <!--./Row-->
     </template>
@@ -55,11 +102,15 @@ import {useStore} from 'vuex';
 import useGit from '@/components/git/git';
 import Form from '@/components/form/Form.vue';
 import FormItem from '@/components/form/FormItem.vue';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'GitForm',
   components: {FormItem, Form},
   setup() {
+    // i18n
+    const {t} = useI18n();
+
     // store
     const ns = 'git';
     const store = useStore();
@@ -89,6 +140,7 @@ export default defineComponent({
     return {
       ...useGit(store),
       onUrlChange,
+      t,
     };
   },
 });

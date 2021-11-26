@@ -13,6 +13,7 @@
 import {computed, defineComponent} from 'vue';
 import {useStore} from 'vuex';
 import Table from '@/components/table/Table.vue';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'SpiderDetailTabGitIgnore',
@@ -20,6 +21,9 @@ export default defineComponent({
     Table,
   },
   setup() {
+    // i18n
+    const {t} = useI18n();
+
     // store
     const ns = 'spider';
     const store = useStore();
@@ -42,7 +46,7 @@ export default defineComponent({
       return [
         {
           key: 'name',
-          label: 'File',
+          label: t('components.git.ignore.table.columns.file'),
           width: '1100',
         },
       ] as TableColumns<string>;

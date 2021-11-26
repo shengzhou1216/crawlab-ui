@@ -15,6 +15,10 @@ import {
 } from '@/constants/tab';
 import {GIT_REF_TYPE_BRANCH} from '@/constants/git';
 import {TASK_MODE_RANDOM} from '@/constants/task';
+import {translate} from '@/utils/i18n';
+
+// i18n
+const t = translate;
 
 const endpoint = '/spiders';
 
@@ -33,13 +37,13 @@ const state = {
     };
   },
   tabs: [
-    {id: TAB_NAME_OVERVIEW, title: 'Overview'},
-    {id: TAB_NAME_FILES, title: 'Files'},
-    {id: TAB_NAME_GIT, title: 'Git'},
-    {id: TAB_NAME_TASKS, title: 'Tasks'},
-    {id: TAB_NAME_SCHEDULES, title: 'Schedules'},
-    {id: TAB_NAME_DATA, title: 'Data'},
-    {id: TAB_NAME_SETTINGS, title: 'Settings'},
+    {id: TAB_NAME_OVERVIEW, title: t('common.tabs.overview')},
+    {id: TAB_NAME_FILES, title: t('common.tabs.files')},
+    {id: TAB_NAME_GIT, title: t('common.tabs.git')},
+    {id: TAB_NAME_TASKS, title: t('common.tabs.tasks')},
+    {id: TAB_NAME_SCHEDULES, title: t('common.tabs.schedules')},
+    {id: TAB_NAME_DATA, title: t('common.tabs.data')},
+    {id: TAB_NAME_SETTINGS, title: t('common.tabs.settings')},
   ],
   fileNavItems: [],
   activeNavItem: undefined,

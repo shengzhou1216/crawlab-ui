@@ -46,20 +46,7 @@ const useDetail = <T = BaseModel>(ns: ListStoreNamespace) => {
   const actionsCollapsed = computed<boolean>(() => state.actionsCollapsed);
 
   const tabs = computed(() => {
-    const {infoBorderColor} = variables;
-    const tabs = plainClone(state.tabs) as NavItem[];
-    if (sidebarCollapsed.value) {
-      tabs.splice(0, 0, {
-        id: 'toggle',
-        icon: ['fa', 'indent'],
-        tooltip: 'Expand sidebar',
-        emphasis: true,
-        style: {
-          'border-right': `1px solid ${infoBorderColor}`,
-        }
-      });
-    }
-    return tabs;
+    return plainClone(state.tabs) as NavItem[];
   });
 
   const contentContainerStyle = computed(() => {
@@ -104,11 +91,15 @@ const useDetail = <T = BaseModel>(ns: ListStoreNamespace) => {
   };
 
   const onNavTabsSelect = (tabName: string) => {
-    if (tabName === 'toggle') {
-      store.commit(`${ns}/expandSidebar`);
-      return;
-    }
     router.push(`${primaryRoutePath.value}/${activeId.value}/${tabName}`);
+  };
+
+  const onNavTabsToggle = () => {
+    if (!sidebarCollapsed.value) {
+      store.commit(`${ns}/collapseSidebar`);
+    } else {
+      store.commit(`${ns}/expandSidebar`);
+    }
   };
 
   const onBack = () => {
@@ -173,6 +164,7 @@ const useDetail = <T = BaseModel>(ns: ListStoreNamespace) => {
     onNavSidebarToggle,
     onActionsToggle,
     onNavTabsSelect,
+    onNavTabsToggle,
     onBack,
     onSave,
   };

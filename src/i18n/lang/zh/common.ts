@@ -10,6 +10,7 @@ const common: LCommon = {
     delete: '删除',
     run: '运行',
     add: '添加',
+    bookmark: '添加书签',
   },
   messageBox: {
     message: {
@@ -18,7 +19,13 @@ const common: LCommon = {
   },
   tabs: {
     overview: '概览',
+    spiders: '爬虫',
+    schedules: '定时任务',
     tasks: '任务',
+    files: '文件',
+    git: 'Git',
+    data: '数据',
+    settings: '设置',
   }
 };
 

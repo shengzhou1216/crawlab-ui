@@ -14,12 +14,13 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, h, ref, watch} from 'vue';
+import {computed, defineComponent, h, ref} from 'vue';
 import {useStore} from 'vuex';
 import Time from '@/components/time/Time.vue';
 import Table from '@/components/table/Table.vue';
 import {GIT_REF_TYPE_BRANCH} from '@/constants/git';
 import {TABLE_ACTION_CUSTOMIZE_COLUMNS} from '@/constants/table';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'SpiderDetailTabGitReferences',
@@ -27,6 +28,9 @@ export default defineComponent({
     Table,
   },
   setup() {
+    // i18n
+    const {t} = useI18n();
+
     // store
     const ns = 'spider';
     const store = useStore();
@@ -65,13 +69,15 @@ export default defineComponent({
       return [
         {
           key: 'name',
-          label: gitRefType.value === GIT_REF_TYPE_BRANCH ? 'Branch' : 'Tag',
+          label: gitRefType.value === GIT_REF_TYPE_BRANCH ?
+              t('components.git.references.type.branch') :
+              t('components.git.references.type.tag'),
           width: '1000',
           icon: gitRefType.value === GIT_REF_TYPE_BRANCH ? ['fa', 'code-branch'] : ['fa', 'tag']
         },
         {
           key: 'timestamp',
-          label: 'Timestamp',
+          label: t('components.git.references.table.columns.timestamp'),
           width: '180',
           icon: ['fa', 'clock'],
           fixed: 'right',

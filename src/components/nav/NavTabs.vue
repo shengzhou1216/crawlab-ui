@@ -1,5 +1,13 @@
 <template>
   <div class="nav-tabs">
+    <el-tooltip
+        v-if="toggle"
+        :content="collapsed ? t('components.nav.tabs.toggle.expand') : t('components.nav.tabs.toggle.collapse')"
+    >
+      <div class="toggle" @click="onToggle">
+        <font-awesome-icon :icon="collapsed ? ['fa', 'indent'] : ['fa', 'outdent']"/>
+      </div>
+    </el-tooltip>
     <el-menu
         :default-active="activeKey"
         mode="horizontal"
@@ -21,32 +29,56 @@
           </template>
         </el-tooltip>
       </el-menu-item>
-      <div class="extra">
-        <slot name="extra">
-        </slot>
-      </div>
     </el-menu>
+    <div class="extra">
+      <slot name="extra">
+      </slot>
+    </div>
   </div>
 </template>
 <script lang="ts">
-import {defineComponent} from 'vue';
+import {defineComponent, PropType} from 'vue';
 import {useI18n} from 'vue-i18n';
+import {emptyArrayFunc} from '@/utils/func';
 
 export default defineComponent({
   name: 'NavTabs',
   props: {
-    items: Array,
-    activeKey: String,
+    items: {
+      type: Array as PropType<NavItem[]>,
+      default: emptyArrayFunc,
+    },
+    activeKey: {
+      type: String,
+      default: '',
+    },
+    collapsed: {
+      type: Boolean,
+      default: false,
+    },
+    toggle: {
+      type: Boolean,
+      default: false,
+    }
   },
-  setup(props, {emit}) {
+  emits: [
+    'select',
+    'toggle',
+  ],
+  setup(props: NavTabsProps, {emit}) {
     const {t} = useI18n();
 
     const onSelect = (index: string) => {
       emit('select', index);
     };
 
+    const onToggle = () => {
+      emit('toggle');
+    };
+
     return {
       onSelect,
+      onToggle,
       t,
     };
   },
@@ -56,9 +88,24 @@ export default defineComponent({
 @import "../../styles/variables.scss";
 
 .nav-tabs {
-  .el-menu {
+  display: flex;
+  border-bottom: 1px solid #e6e6e6;
+
+  .toggle {
+    flex: 0 0 40px;
+    height: 100%;
     display: flex;
-    height: calc(#{$navTabsHeight} + 1px);
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-right: 1px solid #e6e6e6;
+  }
+
+  .el-menu {
+    flex: 1 0 auto;
+    display: flex;
+    height: $navTabsHeight;
+    border-bottom: none;
 
     .el-menu-item {
       height: $navTabsHeight;
@@ -69,13 +116,19 @@ export default defineComponent({
         border-bottom: none;
       }
     }
-
-    .extra {
-      position: absolute;
-      right: 0;
-      height: $navTabsHeight;
-      line-height: $navTabsHeight;
-    }
   }
+
+  .extra {
+    background: transparent;
+    display: flex;
+    align-items: center;
+    height: #{$navTabsHeight};
+  }
+}
+</style>
+
+<style scoped>
+.nav-tabs >>> .el-menu--horizontal {
+  /*border-bottom: none;*/
 }
 </style>

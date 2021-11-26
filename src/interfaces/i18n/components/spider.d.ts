@@ -10,6 +10,15 @@ interface LComponentsSpider {
     selectedNodes: string;
     description: string;
   };
+  actions: {
+    files: {
+      tooltip: {
+        fileEditorActions: string;
+        uploadFiles: string;
+        fileEditorSettings: string;
+      };
+    };
+  };
   stat: {
     totalTasks: string;
     totalResults: string;

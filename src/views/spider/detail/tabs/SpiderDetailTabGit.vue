@@ -15,12 +15,12 @@
             class="ref-type-select"
         >
           <el-radio-button :label="GIT_REF_TYPE_BRANCH">
-            <el-tooltip content="Branch">
+            <el-tooltip :content="t('components.git.references.type.branch')">
               <font-awesome-icon :icon="['fa', 'code-branch']"/>
             </el-tooltip>
           </el-radio-button>
           <el-radio-button :label="GIT_REF_TYPE_TAG">
-            <el-tooltip content="Tag">
+            <el-tooltip :content="t('components.git.references.type.tag')">
               <font-awesome-icon :icon="['fa', 'tag']"/>
             </el-tooltip>
           </el-radio-button>
@@ -28,8 +28,8 @@
         <LabelButton
             :type="!loading.checkout ? 'primary' : 'warning'"
             :icon="!loading.checkout ? ['fa', 'code-branch'] : null"
-            label="Checkout"
-            tooltip="Checkout"
+            :label="t('components.git.actions.label.checkout')"
+            :tooltip="t('components.git.actions.tooltip.checkout')"
             :disabled="!gitForm.url || !gitForm.auth_type"
             :loading="loading.checkout"
             @click="onClickCheckout"
@@ -37,8 +37,8 @@
         <LabelButton
             :type="!loading.pull ? 'primary' : 'warning'"
             :icon="!loading.pull ? ['fa', 'download'] : null"
-            label="Pull"
-            tooltip="Pull"
+            :label="t('components.git.actions.label.pull')"
+            :tooltip="t('components.git.actions.tooltip.pull')"
             :disabled="!gitForm.url || !gitForm.auth_type"
             :loading="loading.pull"
             @click="onClickPull"
@@ -46,8 +46,8 @@
         <LabelButton
             :type="!loading.commit ? 'success' : 'warning'"
             :icon="!loading.commit ? ['fa', 'paper-plane'] : null"
-            label="Commit"
-            tooltip="Commit and Push"
+            :label="t('components.git.actions.label.commit')"
+            :tooltip="t('components.git.actions.tooltip.commit')"
             :disabled="!gitChangeSelection?.length"
             :loading="loading.commit"
             @click="onClickCommit"
@@ -69,7 +69,7 @@
       @close="onDialogCheckoutClose"
   >
     <Form ref="checkoutFormRef" :model="checkoutForm">
-      <FormItem :span="4" label="Type" prop="type" required>
+      <FormItem :span="4" :label="t('components.git.checkout.type')" prop="type" required>
         <el-radio-group
             v-model="checkoutForm.type"
             size="small"
@@ -77,15 +77,15 @@
         >
           <el-radio-button :label="GIT_REF_TYPE_BRANCH">
             <font-awesome-icon :icon="['fa', 'code-branch']"/>
-            Branch
+            {{ t('components.git.references.type.branch') }}
           </el-radio-button>
           <el-radio-button :label="GIT_REF_TYPE_TAG" disabled>
             <font-awesome-icon :icon="['fa', 'tag']"/>
-            Tag
+            {{ t('components.git.references.type.tag') }}
           </el-radio-button>
         </el-radio-group>
       </FormItem>
-      <FormItem :span="4" label="Reference" prop="name" required>
+      <FormItem :span="4" :label="t('components.git.checkout.reference')" prop="name" required>
         <el-select size="small" v-model="checkoutForm.name">
           <el-option
               v-for="(op, $index) in gitRemoteRefs"
@@ -116,6 +116,7 @@ import Dialog from '@/components/dialog/Dialog.vue';
 import {GIT_REF_TYPE_BRANCH, GIT_REF_TYPE_TAG} from '@/constants/git';
 import Form from '@/components/form/Form.vue';
 import FormItem from '@/components/form/FormItem.vue';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'SpiderDetailTabGit',
@@ -132,6 +133,9 @@ export default defineComponent({
     SpiderDetailTabGitIgnore,
   },
   setup() {
+    // i18n
+    const {t} = useI18n();
+
     // store
     const ns = 'spider';
     const gitNs = 'git';
@@ -158,11 +162,11 @@ export default defineComponent({
 
     // tab items
     const tabItems = computed<NavItem[]>(() => [
-      {id: 'remote', title: 'Remote'},
-      {id: 'references', title: 'References'},
-      {id: 'logs', title: 'Logs'},
-      {id: 'changes', title: gitChanges.value?.length > 0 ? `Changes (${gitChanges.value.length})` : 'Changes'},
-      {id: 'ignore', title: 'Ignore'},
+      {id: 'remote', title: t('components.git.tabs.remote')},
+      {id: 'references', title: t('components.git.tabs.references')},
+      {id: 'logs', title: t('components.git.tabs.logs')},
+      {id: 'changes', title: gitChanges.value?.length > 0 ? `${t('components.git.tabs.changes')} (${gitChanges.value.length})` : t('components.git.tabs.changes')},
+      {id: 'ignore', title: t('components.git.tabs.ignore')},
     ]);
 
     const onTabSelect = (key: string) => {
@@ -318,11 +322,17 @@ export default defineComponent({
       onClickCommit,
       onDialogCheckoutConfirm,
       onDialogCheckoutClose,
+      t,
     };
   },
 });
 </script>
 <style scoped lang="scss">
+.actions {
+  display: flex;
+  align-items: center;
+}
+
 .tab-content {
   height: calc(100% - 41px);
 }

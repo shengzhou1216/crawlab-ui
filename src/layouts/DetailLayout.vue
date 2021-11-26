@@ -12,8 +12,16 @@
       />
     </div>
     <div class="content">
-      <NavTabs :active-key="activeTabName" :items="tabs" class="nav-tabs" @select="onNavTabsSelect">
-        <template v-slot:extra>
+      <NavTabs
+          :active-key="activeTabName"
+          :items="tabs"
+          :collapsed="sidebarCollapsed"
+          toggle
+          class="nav-tabs"
+          @select="onNavTabsSelect"
+          @toggle="onNavTabsToggle"
+      >
+        <template #extra>
           <el-tooltip
               v-model="showActionsToggleTooltip"
               :content="actionsCollapsed ? t('layouts.detailLayout.navTabs.toggle.tooltip.expand') : t('layouts.detailLayout.navTabs.toggle.tooltip.collapse')"
@@ -103,32 +111,28 @@ export default defineComponent({
 
   &.collapsed {
     .sidebar {
-      flex-basis: 0;
-      width: 0;
+      flex: 0 0 0;
     }
 
     .content {
-      flex: 1;
+      flex: 1 0 100%;
       max-width: 100%;
     }
   }
 
   .sidebar {
-    flex-basis: $navSidebarWidth;
-    transition: all $navSidebarCollapseTransitionDuration;
+    flex: 0 0 $navSidebarWidth;
+    width: 0;
+    transition: flex $navSidebarCollapseTransitionDuration;
   }
 
   .content {
-    //margin: 10px;
-    flex: 1;
+    flex: 1 0 calc(100% - #{$navSidebarWidth});
+    width: $navSidebarWidth;
+    max-width: calc(100% - #{$navSidebarWidth});
     background-color: $containerWhiteBg;
     display: flex;
     flex-direction: column;
-    max-width: calc(100% - #{$navSidebarWidth});
-
-    .nav-tabs {
-      height: calc(#{$navTabsHeight} + 1px);
-    }
 
     .nav-actions {
       height: fit-content;
@@ -140,6 +144,8 @@ export default defineComponent({
   }
 
   .actions-toggle {
+    display: flex;
+    align-items: center;
     height: $navTabsHeight;
     color: $infoColor;
     cursor: pointer;

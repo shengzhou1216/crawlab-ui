@@ -10,6 +10,7 @@ const common: LCommon = {
     delete: 'Delete',
     run: 'Run',
     add: 'Add',
+    bookmark: 'Bookmark',
   },
   messageBox: {
     message: {
@@ -18,7 +19,13 @@ const common: LCommon = {
   },
   tabs: {
     overview: 'Overview',
+    spiders: 'Spiders',
+    schedules: 'Schedules',
     tasks: 'Tasks',
+    files: 'Files',
+    git: 'Git',
+    data: 'Data',
+    settings: 'Settings',
   }
 };
 
