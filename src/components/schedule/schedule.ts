@@ -12,6 +12,10 @@ import {
 import {parseExpression} from 'cron-parser';
 import {getModeOptions} from '@/utils/task';
 import useSpider from '@/components/spider/spider';
+import {translate} from '@/utils/i18n';
+
+// i18n
+const t = translate;
 
 // form component data
 const formComponentData = getDefaultFormComponentData<Schedule>();
@@ -39,17 +43,17 @@ const useSchedule = (store: Store<RootStoreState>) => {
   const batchFormFields = computed<FormTableField[]>(() => [
     {
       prop: 'name',
-      label: 'Name',
+      label: t('components.schedule.form.name'),
       width: '150',
       fieldType: FORM_FIELD_TYPE_INPUT,
-      placeholder: 'Name',
+      placeholder: t('components.schedule.form.name'),
       required: true,
     },
     {
       prop: 'spider_id',
-      label: 'Spider',
+      label: t('components.schedule.form.spider'),
       width: '150',
-      placeholder: 'Spider',
+      placeholder: t('components.schedule.form.spider'),
       fieldType: FORM_FIELD_TYPE_SELECT,
       options: allSpiderListSelectOptions.value,
       disabled: () => readonlyFormFields.value.includes('spider_id'),
@@ -57,29 +61,29 @@ const useSchedule = (store: Store<RootStoreState>) => {
     },
     {
       prop: 'cron',
-      label: 'Cron Expression',
+      label: t('components.schedule.form.cron'),
       width: '150',
       fieldType: FORM_FIELD_TYPE_INPUT,
-      placeholder: 'Name',
+      placeholder: t('components.schedule.form.cron'),
       required: true,
     },
     {
       prop: 'cmd',
-      label: 'Execute Command',
+      label: t('components.schedule.form.command'),
       width: '200',
-      placeholder: 'Execute Command',
+      placeholder: t('components.schedule.form.command'),
       fieldType: FORM_FIELD_TYPE_INPUT_WITH_BUTTON,
     },
     {
       prop: 'param',
-      label: 'Param',
+      label: t('components.schedule.form.param'),
       width: '200',
-      placeholder: 'Param',
+      placeholder: t('components.schedule.form.param'),
       fieldType: FORM_FIELD_TYPE_INPUT_WITH_BUTTON,
     },
     {
       prop: 'mode',
-      label: 'Default Run Mode',
+      label: t('components.schedule.form.defaultMode'),
       width: '200',
       fieldType: FORM_FIELD_TYPE_SELECT,
       options: modeOptions,
@@ -87,7 +91,7 @@ const useSchedule = (store: Store<RootStoreState>) => {
     },
     {
       prop: 'enabled',
-      label: 'Enabled',
+      label: t('components.schedule.form.enabled'),
       width: '80',
       fieldType: FORM_FIELD_TYPE_SWITCH,
       required: true,
@@ -99,7 +103,7 @@ const useSchedule = (store: Store<RootStoreState>) => {
     cron: {
       trigger: 'blur',
       validator: ((_, value: string, callback) => {
-        const invalidMessage = 'Invalid cron expression. [min] [hour] [day of month] [month] [day of week]';
+        const invalidMessage = t('components.schedule.rules.message.invalidCronExpression');
         if (!value) return callback(invalidMessage);
         if (value.trim().split(' ').length != 5) return callback(invalidMessage);
         try {

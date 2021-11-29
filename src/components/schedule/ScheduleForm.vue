@@ -8,10 +8,24 @@
       class="schedule-form"
   >
     <!-- Row -->
-    <FormItem :span="2" label="Name" prop="name" required>
-      <el-input v-model="form.name" :disabled="isFormItemDisabled('name')" placeholder="Name"/>
+    <FormItem
+        :span="2"
+        :label="t('components.schedule.form.name')"
+        prop="name"
+        required
+    >
+      <el-input
+          v-model="form.name"
+          :disabled="isFormItemDisabled('name')"
+          :placeholder="t('components.schedule.form.name')"
+      />
     </FormItem>
-    <FormItem :span="2" label="Spider" prop="spider_id" required>
+    <FormItem
+        :span="2"
+        :label="t('components.schedule.form.spider')"
+        prop="spider_id"
+        required
+    >
       <el-select
           v-model="form.spider_id"
           :disabled="isFormItemDisabled('spider_id')"
@@ -27,10 +41,23 @@
     <!-- ./Row -->
 
     <!-- Row -->
-    <FormItem :span="2" label="Cron Expression" prop="cron" required>
-      <el-input v-model="form.cron" :disabled="isFormItemDisabled('cron')" placeholder="Cron Expression"/>
+    <FormItem
+        :span="2"
+        :label="t('components.schedule.form.cron')"
+        prop="cron"
+        required
+    >
+      <el-input
+          v-model="form.cron"
+          :disabled="isFormItemDisabled('cron')"
+          :placeholder="t('components.schedule.form.cron')"
+      />
     </FormItem>
-    <FormItem :not-editable="isSelectiveForm" :span="2" label="Cron Info">
+    <FormItem
+        :not-editable="isSelectiveForm"
+        :span="2"
+        :label="t('components.schedule.form.cronInfo')"
+    >
       <div class="nav-btn">
         <ScheduleCron :cron="form.cron" icon-only size="small"/>
       </div>
@@ -38,28 +65,40 @@
     <!-- ./Row -->
 
     <!-- Row -->
-    <FormItem :span="2" label="Command" prop="cmd">
+    <FormItem
+        :span="2"
+        :label="t('components.schedule.form.command')"
+        prop="cmd"
+    >
       <InputWithButton
           v-model="form.cmd"
           :button-icon="['fa', 'edit']"
           :disabled="isFormItemDisabled('cmd')"
-          button-label="Edit"
-          placeholder="Command"
+          :button-label="t('common.actions.edit')"
+          :placeholder="t('components.schedule.form.command')"
       />
     </FormItem>
-    <FormItem :span="2" label="Param" prop="param">
+    <FormItem
+        :span="2"
+        :label="t('components.schedule.form.param')"
+        prop="param"
+    >
       <InputWithButton
           v-model="form.param"
           :button-icon="['fa', 'edit']"
           :disabled="isFormItemDisabled('param')"
-          button-label="Edit"
-          placeholder="Params"
+          :button-label="t('common.actions.edit')"
+          :placeholder="t('components.schedule.form.param')"
       />
     </FormItem>
     <!-- ./Row -->
 
     <!-- Row -->
-    <FormItem :span="2" label="Default Mode" prop="mode">
+    <FormItem
+        :span="2"
+        :label="t('components.schedule.form.defaultMode')"
+        prop="mode"
+    >
       <el-select
           v-model="form.mode"
           :disabled="isFormItemDisabled('mode')"
@@ -72,7 +111,12 @@
         />
       </el-select>
     </FormItem>
-    <FormItem :span="2" label="Enabled" prop="enabled" required>
+    <FormItem
+        :span="2"
+        :label="t('components.schedule.form.enabled')"
+        prop="enabled"
+        required
+    >
       <Switch v-model="form.enabled" @change="onEnabledChange"/>
     </FormItem>
     <!-- ./Row -->
@@ -80,7 +124,7 @@
     <FormItem
         v-if="form.mode === TASK_MODE_SELECTED_NODE_TAGS"
         :span="4"
-        label="Selected Tags"
+        :label="t('components.schedule.form.selectedTags')"
         prop="node_tags"
         required
     >
@@ -94,7 +138,7 @@
     <FormItem
         v-if="[TASK_MODE_SELECTED_NODES, TASK_MODE_SELECTED_NODE_TAGS].includes(form.mode)"
         :span="4"
-        label="Selected Nodes"
+        :label="t('components.schedule.form.selectedNodes')"
         required
     >
       <CheckTagGroup
@@ -105,11 +149,15 @@
     </FormItem>
 
     <!-- Row -->
-    <FormItem :span="4" label="Description" prop="description">
+    <FormItem
+        :span="4"
+        :label="t('components.schedule.form.description')"
+        prop="description"
+    >
       <el-input
           v-model="form.description"
           :disabled="isFormItemDisabled('description')"
-          placeholder="Description"
+          :placeholder="t('components.schedule.form.description')"
           type="textarea"
       />
     </FormItem>
@@ -131,6 +179,7 @@ import InputWithButton from '@/components/input/InputWithButton.vue';
 import Switch from '@/components/switch/Switch.vue';
 import {ElMessage} from 'element-plus';
 import ScheduleCron from '@/components/schedule/ScheduleCron.vue';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'ScheduleForm',
@@ -143,6 +192,9 @@ export default defineComponent({
     InputWithButton,
   },
   setup() {
+    // i18n
+    const {t} = useI18n();
+
     // store
     const ns = 'schedule';
     const store = useStore();
@@ -167,10 +219,10 @@ export default defineComponent({
     const onEnabledChange = async (value: boolean) => {
       if (value) {
         await store.dispatch(`${ns}/enable`, form.value._id);
-        ElMessage.success('Enabled successfully');
+        ElMessage.success(t('components.schedule.message.success.enable'));
       } else {
         await store.dispatch(`${ns}/disable`, form.value._id);
-        ElMessage.success('Disabled successfully');
+        ElMessage.success(t('components.schedule.message.success.disable'));
       }
       await store.dispatch(`${ns}/getList`);
     };
@@ -184,6 +236,7 @@ export default defineComponent({
       TASK_MODE_SELECTED_NODES,
       TASK_MODE_SELECTED_NODE_TAGS,
       onEnabledChange,
+      t,
     };
   },
 });

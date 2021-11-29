@@ -1,18 +1,20 @@
 <template>
-  <CheckTag
-      v-for="op in options"
-      :key="{v: op.value, c:checkedMap[op.value]}"
-      v-model="checkedMap[op.value]"
-      :disabled="disabled"
-      :label="op.label"
-      clickable
-      style="margin-right: 10px"
-      @change="onChange"
-  />
+  <div class="check-tag-group">
+    <CheckTag
+        v-for="op in options"
+        :key="{v: op.value, c: checkedMap[op.value]}"
+        v-model="checkedMap[op.value]"
+        :disabled="disabled"
+        :label="op.label"
+        clickable
+        style="margin-right: 10px"
+        @change="onChange"
+    />
+  </div>
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, PropType, reactive} from 'vue';
+import {computed, defineComponent, PropType, reactive, watch} from 'vue';
 import CheckTag from '@/components/tag/CheckTag.vue';
 
 export default defineComponent({
@@ -54,6 +56,14 @@ export default defineComponent({
       emit('change', checkedKeys.value);
     };
 
+    watch(() => props.modelValue, () => {
+      if (props.modelValue) {
+        props.modelValue.forEach(key => {
+          checkedMap[key] = true;
+        });
+      }
+    });
+
     return {
       checkedMap,
       onChange,
@@ -62,6 +72,8 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
-
+<style scoped>
+.check-tag-group >>> .check-tag:not(:last-child) {
+  margin-right: 10px;
+}
 </style>

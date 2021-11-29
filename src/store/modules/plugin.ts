@@ -5,8 +5,9 @@ import {
   getDefaultStoreState
 } from '@/utils/store';
 import useRequest from '@/services/request';
-import {SETTING_PLUGIN_BASE_URL} from '@/constants/setting';
+import {SETTING_PLUGIN} from '@/constants/setting';
 import {PLUGIN_INSTALL_TYPE_NAME} from '@/constants/plugin';
+import {plainClone} from '@/utils/object';
 
 type Plugin = CPlugin;
 
@@ -24,7 +25,12 @@ const state = {
       auto_start: true,
     };
   },
-  baseUrl: '',
+  settings: {
+    key: 'plugin',
+    value: {
+      baseUrl: '',
+    },
+  },
 } as PluginStoreState;
 
 const getters = {
@@ -33,8 +39,11 @@ const getters = {
 
 const mutations = {
   ...getDefaultStoreMutations<Plugin>(),
-  setBaseUrl: (state: PluginStoreState, baseUrl: string) => {
-    state.baseUrl = baseUrl;
+  setSettings: (state: PluginStoreState, settings: Setting) => {
+    state.settings = plainClone(settings);
+  },
+  setSettingsByKey: (state: PluginStoreState, key: string, value: string) => {
+    state.settings.value[key] = value;
   },
 } as PluginStoreMutations;
 
@@ -51,13 +60,13 @@ const actions = {
     commit('setTableData', {data: res.data || [], total: res.total});
     return res;
   },
-  getBaseUrl: async ({commit}: StoreActionContext<PluginStoreState>) => {
-    const res = await get(`/settings/${SETTING_PLUGIN_BASE_URL}`);
+  getSettings: async ({commit}: StoreActionContext<PluginStoreState>) => {
+    const res = await get(`/settings/${SETTING_PLUGIN}`);
     if (!res?.data) return;
-    commit('setBaseUrl', res.data.value);
+    commit('setSettings', res.data);
   },
-  saveBaseUrl: async ({state}: StoreActionContext<PluginStoreState>, value: string) => {
-    await post(`/settings/${SETTING_PLUGIN_BASE_URL}`, JSON.stringify(value));
+  saveSettings: async ({state}: StoreActionContext<PluginStoreState>) => {
+    await post(`/settings/${SETTING_PLUGIN}`, state.settings);
   },
 } as PluginStoreActions;
 

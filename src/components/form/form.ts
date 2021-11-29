@@ -2,6 +2,10 @@ import {computed, provide} from 'vue';
 import {Store} from 'vuex';
 import useFormTable from '@/components/form/formTable';
 import {EMPTY_OBJECT_ID} from '@/utils/mongo';
+import {translate} from '@/utils/i18n';
+
+// i18n
+const t = translate;
 
 const useForm = (ns: ListStoreNamespace, store: Store<RootStoreState>, services: Services<BaseModel>, data: FormComponentData<BaseModel>) => {
   const {
@@ -102,7 +106,7 @@ const useForm = (ns: ListStoreNamespace, store: Store<RootStoreState>, services:
 
   // all list select options with empty
   const allListSelectOptionsWithEmpty = computed<SelectOption[]>(() => allListSelectOptions.value.concat({
-    label: 'Unassigned',
+    label: t('common.status.unassigned'),
     value: EMPTY_OBJECT_ID,
   }));
 

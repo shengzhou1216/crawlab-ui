@@ -6,6 +6,10 @@ import ColorPicker from '@/components/color/ColorPicker.vue';
 import {getActionColumn} from '@/utils/table';
 import {ACTION_DELETE, ACTION_VIEW} from '@/constants/action';
 import Tag from '@/components/tag/Tag.vue';
+import {translate} from '@/utils/i18n';
+
+// i18n
+const t = translate;
 
 const useTagList = () => {
   // store
@@ -20,8 +24,8 @@ const useTagList = () => {
       children: [
         {
           buttonType: 'label',
-          label: 'New Tag',
-          tooltip: 'New Tag',
+          label: t('views.tags.navActions.new.label'),
+          tooltip: t('views.tags.navActions.new.tooltip'),
           icon: ['fa', 'plus'],
           type: 'success',
           onClick: () => {
@@ -36,7 +40,7 @@ const useTagList = () => {
   const tableColumns = computed<TableColumns<Tag>>(() => [
     {
       key: 'name',
-      label: 'Name',
+      label: t('views.tags.table.columns.name'),
       icon: ['fa', 'font'],
       width: '160',
       align: 'left',
@@ -47,7 +51,7 @@ const useTagList = () => {
     },
     {
       key: 'color',
-      label: 'Color',
+      label: t('views.tags.table.columns.color'),
       icon: ['fa', 'palette'],
       width: '120',
       value: ({color}: Tag) => {
@@ -59,7 +63,7 @@ const useTagList = () => {
     },
     {
       key: 'col',
-      label: 'Model',
+      label: t('views.tags.table.columns.model'),
       icon: ['fa', 'table'],
       width: '120',
       // value: ({color}: Tag) => {
@@ -71,7 +75,7 @@ const useTagList = () => {
     },
     {
       key: 'description',
-      label: 'Description',
+      label: t('views.tags.table.columns.description'),
       icon: ['fa', 'comment-alt'],
       width: 'auto',
     },

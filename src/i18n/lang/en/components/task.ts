@@ -1,4 +1,21 @@
 const task: LComponentsTask = {
+  form: {
+    spider: 'Spider',
+    node: 'Node',
+    status: 'Status',
+    command: 'Command',
+    param: 'Param',
+    mode: 'Mode',
+    priority: 'Priority',
+    selectedTags: 'Selected Tags',
+    selectedNodes: 'Selected Nodes',
+    tooltip: {
+      goToSpider: 'Go to Spider',
+      goToNode: 'Go to Node',
+      taskErrorMessage: 'Task error message',
+      cancelTask: 'Cancel task',
+    },
+  },
   status: {
     label: {
       pending: 'Pending',
@@ -31,7 +48,16 @@ const task: LComponentsTask = {
     allNodes: 'All Nodes',
     selectedNodes: 'Selected Nodes',
     selectedTags: 'Selected Tags',
-  }
+  },
+  results: {
+    results: 'Results',
+    noResults: 'No Results',
+  },
+  logs: {
+    actions: {
+      autoUpdateLogs: 'Auto update logs',
+    },
+  },
 };
 
 export default task;

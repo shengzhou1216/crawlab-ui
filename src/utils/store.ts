@@ -3,6 +3,10 @@ import {useService} from '@/services';
 import {plainClone} from '@/utils/object';
 import {useRouter} from 'vue-router';
 import {emptyObjectFunc} from '@/utils/func';
+import {translate} from '@/utils/i18n';
+
+// i18n
+const t = translate;
 
 export const getDefaultStoreState = <T = any>(ns: StoreNamespace): BaseStoreState<T> => {
   return {
@@ -27,7 +31,7 @@ export const getDefaultStoreState = <T = any>(ns: StoreNamespace): BaseStoreStat
     allList: [],
     sidebarCollapsed: false,
     actionsCollapsed: false,
-    tabs: [{id: 'overview', title: 'Overview'}],
+    tabs: [{id: 'overview', title: t('common.tabs.overview')}],
     afterSave: [],
   };
 };

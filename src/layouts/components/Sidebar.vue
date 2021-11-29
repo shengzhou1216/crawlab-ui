@@ -212,7 +212,7 @@ export default defineComponent({
         font-size: 28px;
         font-weight: 600;
         margin-left: 12px;
-        color: #409eff;
+        color: #ffffff;
       }
 
       .logo-sub-title {

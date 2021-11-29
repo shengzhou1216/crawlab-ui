@@ -20,20 +20,31 @@ interface LCommon {
     bookmark: string;
     restart: string;
     cancel: string;
+    confirm: string;
+    copy: string;
+    create: string;
+    hide: string;
+    start: string;
+    stop: string;
   };
   messageBox: {
     confirm: {
       delete: string;
       restart: string;
       cancel: string;
+      stop: string;
     };
   };
   message: {
     success: {
+      delete: string;
       restart: string;
+      copy: string;
+      start: string;
     };
     info: {
       cancel: string;
+      stop: string;
     };
   };
   tabs: {
@@ -45,5 +56,11 @@ interface LCommon {
     git: string;
     data: string;
     settings: string;
+    logs: string;
+  };
+  status: {
+    unassigned: string;
+    unknown: string;
+    invalid: string;
   };
 }

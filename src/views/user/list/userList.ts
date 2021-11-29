@@ -8,6 +8,10 @@ import NavLink from '@/components/nav/NavLink.vue';
 import {useRouter} from 'vue-router';
 import UserRole from '@/components/user/UserRole.vue';
 import {ROLE_ADMIN, ROLE_NORMAL, USERNAME_ADMIN} from '@/constants/user';
+import {translate} from '@/utils/i18n';
+
+// i18n
+const t = translate;
 
 const useUserList = () => {
   // router
@@ -31,8 +35,8 @@ const useUserList = () => {
       children: [
         {
           buttonType: 'label',
-          label: 'New User',
-          tooltip: 'New User',
+          label: t('views.users.navActions.new.label'),
+          tooltip: t('views.users.navActions.new.tooltip'),
           icon: ['fa', 'plus'],
           type: 'success',
           onClick: () => {
@@ -47,7 +51,7 @@ const useUserList = () => {
   const tableColumns = computed<TableColumns<User>>(() => [
     {
       key: 'username',
-      label: 'Username',
+      label: t('views.users.table.columns.username'),
       icon: ['fa', 'font'],
       width: '180',
       value: (row: User) => h(NavLink, {
@@ -60,7 +64,7 @@ const useUserList = () => {
     },
     {
       key: 'email',
-      label: 'Email',
+      label: t('views.users.table.columns.email'),
       icon: ['fa', 'at'],
       width: '180',
       hasSort: true,
@@ -69,27 +73,27 @@ const useUserList = () => {
     },
     {
       key: 'role',
-      label: 'Role',
+      label: t('views.users.table.columns.role'),
       icon: ['fa', 'font'],
       width: '150',
       value: (row: User) => h(UserRole, {role: row.role} as UserRoleProps),
       hasFilter: true,
       allowFilterItems: true,
       filterItems: [
-        {label: 'Admin', value: ROLE_ADMIN},
-        {label: 'Normal', value: ROLE_NORMAL},
+        {label: t('components.user.role.admin'), value: ROLE_ADMIN},
+        {label: t('components.user.role.normal'), value: ROLE_NORMAL},
       ],
     },
     {
       key: TABLE_COLUMN_NAME_ACTIONS,
-      label: 'Actions',
+      label: t('components.table.columns.actions'),
       fixed: 'right',
       width: '200',
       buttons: [
         {
           type: 'primary',
           icon: ['fa', 'search'],
-          tooltip: 'View',
+          tooltip: t('common.actions.view'),
           onClick: (row) => {
             router.push(`/users/${row._id}`);
           },
@@ -98,10 +102,13 @@ const useUserList = () => {
           type: 'danger',
           size: 'mini',
           icon: ['fa', 'trash-alt'],
-          tooltip: (row: User) => row.username === USERNAME_ADMIN ? 'Admin user is non-deletable' : 'Delete',
+          tooltip: (row: User) => row.username === USERNAME_ADMIN ? t('components.user.delete.tooltip.adminUserNonDeletable') : t('common.actions.delete'),
           disabled: (row: User) => row.username === USERNAME_ADMIN,
           onClick: async (row: User) => {
-            const res = await ElMessageBox.confirm('Are you sure to delete?', 'Delete');
+            const res = await ElMessageBox.confirm(
+              t('common.messageBox.confirm.delete'),
+              t('common.actions.delete'),
+            );
             if (res) {
               await deleteById(row._id as string);
             }

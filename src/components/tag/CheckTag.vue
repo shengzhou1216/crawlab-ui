@@ -8,7 +8,7 @@
       :icon="computedIcon"
       :spinning="spinning"
       :width="width"
-      class="checked-tag"
+      class="check-tag"
       @click="onClick"
       @mouseenter="onMouseEnter"
       @mouseleave="onMouseLeave"

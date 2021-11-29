@@ -5,11 +5,28 @@
       <TaskStatus :status="form.status" size="normal"/>
     </NavActionItem>
     <NavActionItem>
-      <FaIconButton :icon="['fa', 'redo']" tooltip="Restart" type="warning" @click="onRestart"/>
+      <FaIconButton
+          :icon="['fa', 'redo']"
+          :tooltip="t('common.actions.restart')"
+          type="warning"
+          @click="onRestart"
+      />
     </NavActionItem>
     <NavActionItem>
-      <FaIconButton v-if="cancellable" :icon="['fa', 'pause']" tooltip="Cancel" type="info" @click="onCancel"/>
-      <FaIconButton v-else :icon="['fa', 'trash-alt']" tooltip="Delete" type="danger" @click="onDelete"/>
+      <FaIconButton
+          v-if="cancellable"
+          :icon="['fa', 'pause']"
+          :tooltip="t('common.actions.cancel')"
+          type="info"
+          @click="onCancel"
+      />
+      <FaIconButton
+          v-else
+          :icon="['fa', 'trash-alt']"
+          :tooltip="t('common.actions.delete')"
+          type="danger"
+          @click="onDelete"
+      />
     </NavActionItem>
   </NavActionGroup>
 </template>
@@ -28,6 +45,7 @@ import useRequest from '@/services/request';
 import useTaskDetail from '@/views/task/detail/taskDetail';
 import {useRouter} from 'vue-router';
 import TaskStatus from '@/components/task/TaskStatus.vue';
+import {useI18n} from 'vue-i18n';
 
 const {
   post,
@@ -43,6 +61,9 @@ export default defineComponent({
     NavActionItem,
   },
   setup() {
+    // i18n
+    const {t} = useI18n();
+
     // router
     const router = useRouter();
 
@@ -95,6 +116,7 @@ export default defineComponent({
       onCancel,
       onDelete,
       cancellable,
+      t,
     };
   },
 });

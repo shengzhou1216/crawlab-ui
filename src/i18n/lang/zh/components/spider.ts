@@ -25,6 +25,16 @@ const spider: LComponentsSpider = {
     averageWaitDuration: '平均等待时间',
     averageRuntimeDuration: '平均运行时间',
     averageTotalDuration: '平均总时间',
+  },
+  dialog: {
+    run: {
+      title: '运行爬虫',
+    }
+  },
+  message: {
+    success: {
+      scheduleTask: '派发任务成功',
+    }
   }
 };
 

@@ -10,6 +10,10 @@ import {Editor} from 'codemirror';
 import {getFieldsFromData} from '@/utils/result';
 import {getDefaultPagination} from '@/utils/pagination';
 import {TASK_MODE_RANDOM} from '@/constants/task';
+import {translate} from '@/utils/i18n';
+
+// i18n
+const t = translate;
 
 const {
   put,
@@ -25,9 +29,9 @@ const state = {
     };
   },
   tabs: [
-    {id: TAB_NAME_OVERVIEW, title: 'Overview'},
-    {id: TAB_NAME_LOGS, title: 'Logs'},
-    {id: TAB_NAME_DATA, title: 'Data'},
+    {id: TAB_NAME_OVERVIEW, title: t('common.tabs.overview')},
+    {id: TAB_NAME_LOGS, title: t('common.tabs.logs')},
+    {id: TAB_NAME_DATA, title: t('common.tabs.data')},
   ],
   logContent: '',
   logPagination: {

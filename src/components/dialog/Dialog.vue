@@ -11,7 +11,14 @@
     <slot/>
     <template #footer>
       <slot name="prefix"/>
-      <Button plain size="mini" type="info" @click="onClose">Cancel</Button>
+      <Button
+          plain
+          size="mini"
+          type="info"
+          @click="onClose"
+      >
+        {{ t('common.actions.cancel') }}
+      </Button>
       <Button
           :disabled="confirmDisabled"
           :loading="confirmLoading"
@@ -19,7 +26,7 @@
           type="primary"
           @click="onConfirm"
       >
-        Confirm
+        {{ t('common.actions.confirm') }}
       </Button>
       <slot name="suffix"/>
     </template>
@@ -29,6 +36,7 @@
 <script lang="ts">
 import {defineComponent} from 'vue';
 import Button from '@/components/button/Button.vue';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'Dialog',
@@ -73,6 +81,9 @@ export default defineComponent({
     'confirm',
   ],
   setup(props: DialogProps, {emit}) {
+    // i18n
+    const {t} = useI18n();
+
     const onClose = () => {
       emit('close');
     };
@@ -84,6 +95,7 @@ export default defineComponent({
     return {
       onClose,
       onConfirm,
+      t,
     };
   },
 });

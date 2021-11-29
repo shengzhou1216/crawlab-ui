@@ -4,6 +4,10 @@ import {computed} from 'vue';
 import {TABLE_COLUMN_NAME_ACTIONS} from '@/constants/table';
 import {ElMessage, ElMessageBox} from 'element-plus';
 import useClipboard from 'vue-clipboard3';
+import {translate} from '@/utils/i18n';
+
+// i18n
+const t = translate;
 
 const useTokenList = () => {
   const ns = 'token';
@@ -29,17 +33,21 @@ const useTokenList = () => {
       children: [
         {
           buttonType: 'label',
-          label: 'New Token',
-          tooltip: 'New Token',
+          label: t('views.tokens.navActions.new.label'),
+          tooltip: t('views.tokens.navActions.new.tooltip'),
           icon: ['fa', 'plus'],
           type: 'success',
           onClick: async () => {
-            const res = await ElMessageBox.prompt('Please enter the name of token', 'Create');
+            const res = await ElMessageBox.prompt(
+              t('views.tokens.messageBox.prompt.create'),
+              t('common.actions.create'),
+            );
             const name = res.value;
             const token = {
               name,
             } as Token;
             await store.dispatch(`${ns}/create`, token);
+            await store.dispatch(`${ns}/getList`);
           },
         }
       ]
@@ -50,7 +58,7 @@ const useTokenList = () => {
   const tableColumns = computed<TableColumns<Token>>(() => [
     {
       key: 'name',
-      label: 'Name',
+      label: t('views.tokens.table.columns.name'),
       icon: ['fa', 'font'],
       width: '160',
       hasFilter: true,
@@ -58,7 +66,7 @@ const useTokenList = () => {
     },
     {
       key: 'token',
-      label: 'Token',
+      label: t('views.tokens.table.columns.token'),
       icon: ['fa', 'key'],
       width: 'auto',
       value: (row: Token) => {
@@ -77,7 +85,7 @@ const useTokenList = () => {
     },
     {
       key: TABLE_COLUMN_NAME_ACTIONS,
-      label: 'Actions',
+      label: t('components.table.columns.actions'),
       icon: ['fa', 'tools'],
       width: '180',
       fixed: 'right',
@@ -86,7 +94,7 @@ const useTokenList = () => {
           type: 'primary',
           size: 'mini',
           icon: !row._visible ? ['fa', 'eye'] : ['fa', 'eye-slash'],
-          tooltip: 'View',
+          tooltip: !row._visible ? t('common.actions.view') : t('common.actions.hide'),
           onClick: async (row: Token) => {
             row._visible = !row._visible;
           },
@@ -95,18 +103,18 @@ const useTokenList = () => {
           type: 'info',
           size: 'mini',
           icon: ['far', 'clipboard'],
-          tooltip: 'Copy',
+          tooltip: t('common.actions.copy'),
           onClick: async (row: Token) => {
             if (!row.token) return;
             await toClipboard(row.token);
-            await ElMessage.success('Copied token to clipboard');
+            await ElMessage.success(t('common.message.success.copy'));
           },
         },
         {
           type: 'danger',
           size: 'mini',
           icon: ['fa', 'trash-alt'],
-          tooltip: 'Edit',
+          tooltip: t('common.actions.edit'),
           onClick: deleteByIdConfirm,
         },
       ],

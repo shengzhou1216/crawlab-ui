@@ -25,6 +25,16 @@ const spider: LComponentsSpider = {
     averageWaitDuration: 'Average Wait Duration',
     averageRuntimeDuration: 'Average Runtime Duration',
     averageTotalDuration: 'Average Total Duration',
+  },
+  dialog: {
+    run: {
+      title: 'Run Spider',
+    }
+  },
+  message: {
+    success: {
+      scheduleTask: 'Scheduled task successfully',
+    }
   }
 };
 

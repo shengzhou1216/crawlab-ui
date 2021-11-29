@@ -1,7 +1,12 @@
 <template>
   <Form v-if="form" ref="formRef" :model="form" class="task-form">
     <!-- Row -->
-    <FormItem :offset="2" :span="2" label="Spider" prop="spider_id">
+    <FormItem
+        :offset="2"
+        :span="2"
+        :label="t('components.task.form.spider')"
+        prop="spider_id"
+    >
       <el-select
           v-model="form.spider_id"
           :disabled="isFormItemDisabled('spider_id') || readonly"
@@ -17,15 +22,25 @@
           v-if="readonly"
           :icon="['fa', 'external-link-alt']"
           class="nav-btn"
-          tooltip="Go to Spider"
+          :tooltip="t('components.task.form.tooltip.goToSpider')"
           @click="onGoToSpider"
       />
     </FormItem>
     <!-- ./Row -->
 
     <!-- Row -->
-    <FormItem v-if="readonly" :offset="2" :span="2" label="Node" prop="node_id">
-      <el-input v-if="noNodeId" disabled placeholder="Unassigned"/>
+    <FormItem
+        v-if="readonly"
+        :offset="2"
+        :span="2"
+        :label="t('components.task.form.node')"
+        prop="node_id"
+    >
+      <el-input
+          v-if="noNodeId"
+          disabled
+          :placeholder="t('common.status.unassigned')"
+      />
       <el-select
           v-else
           v-model="form.node_id"
@@ -42,7 +57,7 @@
           v-if="readonly"
           :icon="['fa', 'external-link-alt']"
           class="nav-btn"
-          tooltip="Go to Spider"
+          :tooltip="t('components.task.form.tooltip.goToNode')"
           :disabled="noNodeId"
           @click="onGoToNode"
       />
@@ -50,7 +65,12 @@
     <!-- ./Row -->
 
     <!-- Row -->
-    <FormItem v-if="readonly" :span="4" label="Status" prop="status">
+    <FormItem
+        v-if="readonly"
+        :span="4"
+        :label="t('components.task.form.status')"
+        prop="status"
+    >
       <TaskStatus :status="form.status" size="small"/>
       <Tag
           v-if="form.status === 'error'"
@@ -58,7 +78,7 @@
           :label="form.error"
           class="error-message"
           size="small"
-          tooltip="Task error message"
+          :tooltip="t('components.task.form.tooltip.taskErrorMessage')"
           type="danger"
       />
       <Tag
@@ -66,9 +86,9 @@
           :icon="['fa', 'pause']"
           class="cancel-btn"
           clickable
-          label="Cancel"
+          :label="t('common.actions.cancel')"
           size="small"
-          tooltip="Cancel task"
+          :tooltip="t('components.task.form.tooltip.cancelTask')"
           type="info"
           @click="onCancel"
       />
@@ -76,28 +96,42 @@
     <!-- ./Row -->
 
     <!-- Row -->
-    <FormItem :span="2" label="Command" prop="cmd" required>
+    <FormItem
+        :span="2"
+        :label="t('components.task.form.command')"
+        prop="cmd"
+        required
+    >
       <InputWithButton
           v-model="form.cmd"
           :button-icon="['fa', 'edit']"
           :disabled="isFormItemDisabled('cmd') || readonly"
-          button-label="Edit"
-          placeholder="Command"
+          :button-label="t('common.actions.edit')"
+          :placeholder="t('components.task.form.command')"
       />
     </FormItem>
-    <FormItem :span="2" label="Param" prop="param">
+    <FormItem
+        :span="2"
+        :label="t('components.task.form.param')"
+        prop="param"
+    >
       <InputWithButton
           v-model="form.param"
           :button-icon="['fa', 'edit']"
           :disabled="isFormItemDisabled('param') || readonly"
-          button-label="Edit"
-          placeholder="Params"
+          :button-label="t('common.actions.edit')"
+          :placeholder="t('components.task.form.param')"
       />
     </FormItem>
     <!-- ./Row -->
 
     <!-- Row -->
-    <FormItem :span="2" label="Mode" prop="mode" required>
+    <FormItem
+        :span="2"
+        :label="t('components.task.form.mode')"
+        prop="mode"
+        required
+    >
       <el-select
           v-model="form.mode"
           :disabled="isFormItemDisabled('mode') || readonly"
@@ -110,7 +144,12 @@
         />
       </el-select>
     </FormItem>
-    <FormItem :span="2" label="Priority" prop="priority" required>
+    <FormItem
+        :span="2"
+        :label="t('components.task.form.priority')"
+        prop="priority"
+        required
+    >
       <el-select
           v-model="form.priority"
           :disabled="isFormItemDisabled('priority') || readonly"
@@ -128,7 +167,7 @@
     <FormItem
         v-if="form.mode === TASK_MODE_SELECTED_NODE_TAGS"
         :span="4"
-        label="Selected Tags"
+        :label="t('components.task.form.selectedTags')"
         prop="node_tags"
         required
     >
@@ -142,7 +181,7 @@
     <FormItem
         v-if="[TASK_MODE_SELECTED_NODES, TASK_MODE_SELECTED_NODE_TAGS].includes(form.mode)"
         :span="4"
-        label="Selected Nodes"
+        :label="t('components.task.form.selectedNodes')"
         required
     >
       <CheckTagGroup
@@ -174,6 +213,7 @@ import {isCancellable} from '@/utils/task';
 import {ElMessage, ElMessageBox} from 'element-plus';
 import {isZeroObjectId} from '@/utils/mongo';
 import useTaskDetail from '@/views/task/detail/taskDetail';
+import {useI18n} from 'vue-i18n';
 
 const {
   post,
@@ -197,6 +237,9 @@ export default defineComponent({
     },
   },
   setup() {
+    // i18n
+    const {t} = useI18n();
+
     // router
     const router = useRouter();
 
@@ -206,8 +249,9 @@ export default defineComponent({
 
     // use node
     const {
-      allListSelectOptionsWithEmpty: allNodeSelectOptions,
+      allListSelectOptions: allNodeSelectOptions,
       allTags: allNodeTags,
+      allDict: allNodeDict,
     } = useNode(store);
 
     // use spider
@@ -284,6 +328,7 @@ export default defineComponent({
       TASK_MODE_SELECTED_NODE_TAGS,
       allNodeSelectOptions,
       allNodeTags,
+      allNodeDict,
       allSpiderSelectOptions,
       getSpiderName,
       getModeName,
@@ -292,6 +337,7 @@ export default defineComponent({
       cancellable,
       onCancel,
       noNodeId,
+      t,
     };
   },
 });

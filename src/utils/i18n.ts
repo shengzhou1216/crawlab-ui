@@ -11,7 +11,9 @@ export const setGlobalLang = (lang: Lang) => {
 
 export const translate = (path: string): string => {
   const {tm} = i18n.global;
-  return tm(path) as string;
+  const res = tm(path);
+  if (typeof res === 'string') return res;
+  return path;
 };
 
 export const getLanguage = (): string => {

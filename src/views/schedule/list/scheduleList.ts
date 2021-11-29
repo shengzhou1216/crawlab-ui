@@ -12,6 +12,10 @@ import ScheduleCron from '@/components/schedule/ScheduleCron.vue';
 import Switch from '@/components/switch/Switch.vue';
 import useSpider from '@/components/spider/spider';
 import useTask from '@/components/task/task';
+import {translate} from '@/utils/i18n';
+
+// i18n
+const t = translate;
 
 const useScheduleList = () => {
   // router
@@ -27,9 +31,6 @@ const useScheduleList = () => {
     deleteById,
     getList,
   } = useScheduleService(store);
-
-  // all node dict
-  const allNodeDict = computed<Map<string, CNode>>(() => store.getters['node/allDict']);
 
   // all spider dict
   const allSpiderDict = computed<Map<string, Spider>>(() => store.getters['spider/allDict']);
@@ -49,8 +50,8 @@ const useScheduleList = () => {
       children: [
         {
           buttonType: 'label',
-          label: 'New Schedule',
-          tooltip: 'New Schedule',
+          label: t('views.schedules.navActions.new.label'),
+          tooltip: t('views.schedules.navActions.new.tooltip'),
           icon: ['fa', 'plus'],
           type: 'success',
           onClick: () => {
@@ -65,7 +66,7 @@ const useScheduleList = () => {
   const tableColumns = computed<TableColumns<Schedule>>(() => [
     {
       key: 'name',
-      label: 'Name',
+      label: t('views.schedules.table.columns.name'),
       icon: ['fa', 'font'],
       width: '150',
       value: (row: Schedule) => h(NavLink, {
@@ -78,7 +79,7 @@ const useScheduleList = () => {
     },
     {
       key: 'spider_id',
-      label: 'Spider',
+      label: t('views.schedules.table.columns.spider'),
       icon: ['fa', 'spider'],
       width: '160',
       value: (row: Schedule) => {
@@ -96,7 +97,7 @@ const useScheduleList = () => {
     },
     {
       key: 'mode',
-      label: 'Mode',
+      label: t('views.schedules.table.columns.mode'),
       icon: ['fa', 'cog'],
       width: '160',
       value: (row: Schedule) => {
@@ -108,7 +109,7 @@ const useScheduleList = () => {
     },
     {
       key: 'cron',
-      label: 'Cron Expression',
+      label: t('views.schedules.table.columns.cron'),
       icon: ['fa', 'clock'],
       width: '160',
       value: (row: Schedule) => {
@@ -119,7 +120,7 @@ const useScheduleList = () => {
     },
     {
       key: 'enabled',
-      label: 'Enabled',
+      label: t('views.schedules.table.columns.enabled'),
       icon: ['fa', 'toggle-on'],
       width: '120',
       value: (row: Schedule) => {
@@ -128,10 +129,10 @@ const useScheduleList = () => {
           'onUpdate:modelValue': async (value: boolean) => {
             if (value) {
               await store.dispatch(`${ns}/enable`, row._id);
-              ElMessage.success('Enabled successfully');
+              ElMessage.success(t('components.schedule.message.success.enable'));
             } else {
               await store.dispatch(`${ns}/disable`, row._id);
-              ElMessage.success('Disabled successfully');
+              ElMessage.success(t('components.schedule.message.success.disable'));
             }
             await store.dispatch(`${ns}/getList`);
           },
@@ -140,20 +141,20 @@ const useScheduleList = () => {
       hasFilter: true,
       allowFilterItems: true,
       filterItems: [
-        {label: 'Enabled', value: true},
-        {label: 'Disabled', value: false},
+        {label: t('common.control.enabled'), value: true},
+        {label: t('common.control.disabled'), value: false},
       ],
     },
     {
       key: 'entry_id',
-      label: 'Entry ID',
+      label: t('views.schedules.table.columns.entryId'),
       icon: ['fa', 'hash'],
       width: '120',
       defaultHidden: true,
     },
     {
       key: 'description',
-      label: 'Description',
+      label: t('views.schedules.table.columns.description'),
       icon: ['fa', 'comment-alt'],
       width: 'auto',
       hasFilter: true,
@@ -161,14 +162,14 @@ const useScheduleList = () => {
     },
     {
       key: TABLE_COLUMN_NAME_ACTIONS,
-      label: 'Actions',
+      label: t('components.table.columns.actions'),
       fixed: 'right',
       width: '200',
       buttons: [
         {
           type: 'primary',
           icon: ['fa', 'search'],
-          tooltip: 'View',
+          tooltip: t('common.actions.view'),
           onClick: (row) => {
             router.push(`/schedules/${row._id}`);
           },
@@ -177,8 +178,9 @@ const useScheduleList = () => {
           type: 'info',
           size: 'mini',
           icon: ['fa', 'clone'],
-          tooltip: 'Clone',
+          tooltip: t('common.actions.clone'),
           onClick: (row) => {
+            // TODO: implement
             console.log('clone', row);
           }
         },
@@ -186,9 +188,12 @@ const useScheduleList = () => {
           type: 'danger',
           size: 'mini',
           icon: ['fa', 'trash-alt'],
-          tooltip: 'Delete',
+          tooltip: t('common.actions.delete'),
           onClick: async (row: Schedule) => {
-            const res = await ElMessageBox.confirm('Are you sure to delete?', 'Delete');
+            const res = await ElMessageBox.confirm(
+              t('common.messageBox.confirm.delete'),
+              t('common.actions.delete'),
+            );
             if (res) {
               await deleteById(row._id as string);
             }

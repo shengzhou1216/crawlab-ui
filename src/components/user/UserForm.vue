@@ -8,21 +8,35 @@
       class="user-form"
   >
     <!-- Row -->
-    <FormItem :span="2" label="Username" prop="username" required>
-      <el-input v-model="form.username" :disabled="isFormItemDisabled('username')" placeholder="Username"/>
+    <FormItem
+        :span="2"
+        :label="t('components.user.form.username')"
+        prop="username"
+        required
+    >
+      <el-input
+          v-model="form.username"
+          :disabled="isFormItemDisabled('username')"
+          :placeholder="t('components.user.form.username')"
+      />
     </FormItem>
-    <FormItem :span="2" label="Password" prop="password" required>
+    <FormItem
+        :span="2"
+        :label="t('components.user.form.password')"
+        prop="password"
+        required
+    >
       <el-input
           v-if="isSelectiveForm || !isDetail"
           v-model="form.password"
           :disabled="isFormItemDisabled('password')"
-          placeholder="Password"
+          :placeholder="t('components.user.form.password')"
           type="password"
       />
       <LabelButton
           v-else
           :icon="['fa','lock']"
-          label="Change Password"
+          :label="t('components.user.form.changePassword')"
           type="danger"
           @click="onChangePassword"
       />
@@ -30,13 +44,27 @@
     <!-- ./Row -->
 
     <!-- Row -->
-    <FormItem :span="2" label="Email" prop="email">
-      <el-input v-model="form.email" :disabled="isFormItemDisabled('email')" placeholder="Email" type="email"/>
+    <FormItem
+        :span="2"
+        :label="t('components.user.form.email')"
+        prop="email"
+    >
+      <el-input
+          v-model="form.email"
+          :disabled="isFormItemDisabled('email')"
+          :placeholder="t('components.user.form.email')"
+          type="email"
+      />
     </FormItem>
-    <FormItem :span="2" label="Role" prop="role" required>
+    <FormItem
+        :span="2"
+        :label="t('components.user.form.role')"
+        prop="role"
+        required
+    >
       <el-select v-model="form.role" :disabled="isFormItemDisabled('role')">
-        <el-option :value="ROLE_ADMIN" label="Admin"/>
-        <el-option :value="ROLE_NORMAL" label="Normal"/>
+        <el-option :value="ROLE_ADMIN" :label="t('components.user.role.admin')"/>
+        <el-option :value="ROLE_NORMAL" :label="t('components.user.role.normal')"/>
       </el-select>
     </FormItem>
     <!-- ./Row -->
@@ -53,6 +81,7 @@ import {ROLE_ADMIN, ROLE_NORMAL} from '@/constants/user';
 import LabelButton from '@/components/button/LabelButton.vue';
 import {ElMessageBox} from 'element-plus';
 import useUserDetail from '@/views/user/detail/userDetail';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'UserForm',
@@ -62,6 +91,9 @@ export default defineComponent({
     Form,
   },
   setup() {
+    // i18n
+    const {t} = useI18n();
+
     // store
     const ns = 'user';
     const store = useStore();
@@ -71,13 +103,16 @@ export default defineComponent({
     } = useUserDetail();
 
     const onChangePassword = async () => {
-      const {value} = await ElMessageBox.prompt('Please enter the new password', 'Change Password', {
-        inputType: 'password',
-        inputPlaceholder: 'New password',
-        inputValidator: (value: string) => {
-          return value?.length < 5 ? 'Invalid password. Length must be no less than 5.' : true;
-        }
-      });
+      const {value} = await ElMessageBox.prompt(
+          t('components.user.messageBox.prompt.changePassword'),
+          t('components.user.form.changePassword'),
+          {
+            inputType: 'password',
+            inputPlaceholder: t('components.user.form.newPassword'),
+            inputValidator: (value: string) => {
+              return value?.length < 5 ? t('components.user.rules.invalidPassword') : true;
+            }
+          });
       return await store.dispatch(`${ns}/changePassword`, {id: activeId.value, password: value});
     };
 
@@ -89,6 +124,7 @@ export default defineComponent({
       ROLE_NORMAL,
       onChangePassword,
       isDetail,
+      t,
     };
   },
 });

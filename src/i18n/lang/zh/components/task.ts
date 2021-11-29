@@ -1,4 +1,21 @@
 const task: LComponentsTask = {
+  form: {
+    spider: '爬虫',
+    node: '节点',
+    status: '状态',
+    command: '命令',
+    param: '参数',
+    mode: '模式',
+    priority: '优先级',
+    selectedTags: '指定标签',
+    selectedNodes: '指定节点',
+    tooltip: {
+      goToSpider: '导航至爬虫',
+      goToNode: '导航至节点',
+      taskErrorMessage: '任务错误信息',
+      cancelTask: '取消任务',
+    },
+  },
   status: {
     label: {
       pending: '待定',
@@ -31,7 +48,16 @@ const task: LComponentsTask = {
     allNodes: '所有节点',
     selectedNodes: '指定节点',
     selectedTags: '指定标签',
-  }
+  },
+  results: {
+    results: '结果数',
+    noResults: '无结果',
+  },
+  logs: {
+    actions: {
+      autoUpdateLogs: '自动更新日志',
+    },
+  },
 };
 
 export default task;

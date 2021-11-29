@@ -26,4 +26,14 @@ interface LComponentsSpider {
     averageRuntimeDuration: string;
     averageTotalDuration: string;
   };
+  dialog: {
+    run: {
+      title: string;
+    };
+  };
+  message: {
+    success: {
+      scheduleTask: string;
+    };
+  };
 }

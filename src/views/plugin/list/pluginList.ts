@@ -1,7 +1,7 @@
 import useList from '@/layouts/list';
 import {useStore} from 'vuex';
 import {getDefaultUseListOptions, setupListComponent} from '@/utils/list';
-import {computed, h, onBeforeMount, ref} from 'vue';
+import {computed, h, onBeforeMount} from 'vue';
 import {TABLE_COLUMN_NAME_ACTIONS} from '@/constants/table';
 import {ElMessage, ElMessageBox} from 'element-plus';
 import usePluginService from '@/services/plugin/pluginService';
@@ -19,9 +19,12 @@ import {
 import PluginStatus from '@/components/plugin/PluginStatus.vue';
 import PluginStatusMultiNode from '@/components/plugin/PluginStatusMultiNode.vue';
 import PluginPid from '@/components/plugin/PluginPid.vue';
-import {SETTING_PLUGIN_BASE_URL_GITEE, SETTING_PLUGIN_BASE_URL_GITHUB} from '@/constants/setting';
+import {translate} from '@/utils/i18n';
 
 type Plugin = CPlugin;
+
+// i18n
+const t = translate;
 
 const {
   post,
@@ -52,12 +55,27 @@ const usePluginList = () => {
       children: [
         {
           buttonType: 'label',
-          label: 'New Plugin',
-          tooltip: 'New Plugin',
+          label: t('views.plugins.navActions.new.label'),
+          tooltip: t('views.plugins.navActions.new.tooltip'),
           icon: ['fa', 'plus'],
           type: 'success',
           onClick: () => {
             commit(`${ns}/showDialog`, 'create');
+          }
+        }
+      ]
+    },
+    {
+      name: 'settings',
+      children: [
+        {
+          buttonType: 'label',
+          label: t('views.plugins.navActions.settings.label'),
+          tooltip: t('views.plugins.navActions.settings.tooltip'),
+          icon: ['fa', 'cog'],
+          type: 'primary',
+          onClick: () => {
+            commit(`${ns}/showDialog`, 'settings');
           }
         }
       ]
@@ -68,7 +86,7 @@ const usePluginList = () => {
   const tableColumns = computed<TableColumns<Plugin>>(() => [
     {
       key: 'name', // name
-      label: 'Name',
+      label: t('views.plugins.table.columns.name'),
       icon: ['fa', 'font'],
       width: '150',
       value: (row: Plugin) => h(NavLink, {
@@ -81,7 +99,7 @@ const usePluginList = () => {
     },
     {
       key: 'status',
-      label: 'Status',
+      label: t('views.plugins.table.columns.status'),
       icon: ['fa', 'check-square'],
       width: '120',
       value: (row: Plugin) => {
@@ -95,7 +113,7 @@ const usePluginList = () => {
     },
     {
       key: 'pid',
-      label: 'Process ID',
+      label: t('views.plugins.table.columns.processId'),
       icon: ['fa', 'microchip'],
       width: '120',
       value: (row: Plugin) => {
@@ -104,7 +122,7 @@ const usePluginList = () => {
     },
     {
       key: 'description',
-      label: 'Description',
+      label: t('views.plugins.table.columns.description'),
       icon: ['fa', 'comment-alt'],
       width: 'auto',
       hasFilter: true,
@@ -112,7 +130,7 @@ const usePluginList = () => {
     },
     {
       key: TABLE_COLUMN_NAME_ACTIONS,
-      label: 'Actions',
+      label: t('components.table.columns.actions'),
       fixed: 'right',
       width: '200',
       buttons: (row: Plugin) => {
@@ -122,11 +140,15 @@ const usePluginList = () => {
           {
             type: 'success',
             icon: ['fa', 'play'],
-            tooltip: 'Start',
+            tooltip: t('common.actions.start'),
             onClick: async (row) => {
-              await ElMessageBox.confirm('Are you sure to start?', 'Start', {type: 'warning'});
+              await ElMessageBox.confirm(
+                t('common.messageBox.confirm.start'),
+                t('common.actions.start'),
+                {type: 'warning'},
+              );
               await post(`/plugins/${row._id}/start`);
-              await ElMessage.success(' Started plugin successfully');
+              await ElMessage.success(t('common.message.success.start'));
               await store.dispatch(`${ns}/getList`);
             },
             disabled: (row: Plugin) => {
@@ -155,10 +177,14 @@ const usePluginList = () => {
             type: 'info',
             size: 'mini',
             icon: ['fa', 'stop'],
-            tooltip: 'Stop',
+            tooltip: t('common.actions.stop'),
             onClick: async (row) => {
-              await ElMessageBox.confirm('Are you sure to stop?', 'Stop', {type: 'warning'});
-              await ElMessage.info('Attempt to stop');
+              await ElMessageBox.confirm(
+                t('common.messageBox.confirm.stop'),
+                t('common.actions.stop'),
+                {type: 'warning'},
+              );
+              await ElMessage.info(t('common.message.info.stop'));
               await post(`/plugins/${row._id}/stop`);
               await store.dispatch(`${ns}/getList`);
             }, disabled: (row: Plugin) => {
@@ -190,7 +216,7 @@ const usePluginList = () => {
           {
             type: 'primary',
             icon: ['fa', 'search'],
-            tooltip: 'View',
+            tooltip: t('common.actions.view'),
             onClick: (row) => {
               router.push(`/plugins/${row._id}`);
             },
@@ -199,10 +225,13 @@ const usePluginList = () => {
             type: 'danger',
             size: 'mini',
             icon: ['fa', 'trash-alt'],
-            tooltip: 'Delete',
+            tooltip: t('common.actions.delete'),
             disabled: (row: Plugin) => !!row.active,
             onClick: async (row: Plugin) => {
-              const res = await ElMessageBox.confirm('Are you sure to delete?', 'Delete');
+              const res = await ElMessageBox.confirm(
+                t('common.messageBox.confirm.delete'),
+                t('common.actions.delete'),
+              );
               if (res) {
                 await deleteById(row._id as string);
               }
@@ -222,22 +251,14 @@ const usePluginList = () => {
   // init
   setupListComponent(ns, store, []);
 
-  const baseUrl = ref<string>();
-
   onBeforeMount(async () => {
     // get base url
-    await store.dispatch(`${ns}/getBaseUrl`);
-    baseUrl.value = state.baseUrl;
+    await store.dispatch(`${ns}/getSettings`);
   });
 
   const saveBaseUrl = async (value: string) => {
     await store.dispatch(`${ns}/saveBaseUrl`, value);
   };
-
-  const baseUrlOptions = [
-    {value: SETTING_PLUGIN_BASE_URL_GITHUB, label: 'Github'},
-    {value: SETTING_PLUGIN_BASE_URL_GITEE, label: 'Gitee'},
-  ];
 
   const onBaseUrlChange = async (value: string) => {
     await saveBaseUrl(value);
@@ -246,8 +267,6 @@ const usePluginList = () => {
   return {
     ...useList<Plugin>(ns, store, opts),
     saveBaseUrl,
-    baseUrlOptions,
-    baseUrl,
     onBaseUrlChange,
   };
 };

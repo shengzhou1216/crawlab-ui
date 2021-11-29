@@ -4,6 +4,7 @@ import {PLUGIN_UI_COMPONENT_TYPE_TAB, PLUGIN_UI_COMPONENT_TYPE_VIEW} from '@/con
 import {loadModule} from '@/utils/sfc';
 import {Router} from 'vue-router';
 import useRequest from '@/services/request';
+import {SETTING_PLUGIN_BASE_URL_GITEE, SETTING_PLUGIN_BASE_URL_GITHUB} from '@/constants/setting';
 
 type Plugin = CPlugin;
 
@@ -175,3 +176,9 @@ export const initPlugins = async (router: Router, store: Store<RootStoreState>) 
   initPluginAssets(store);
 };
 
+export const getPluginBaseUrlOptions = (): SelectOption[] => {
+  return [
+    {value: SETTING_PLUGIN_BASE_URL_GITHUB, label: 'Github'},
+    {value: SETTING_PLUGIN_BASE_URL_GITEE, label: 'Gitee'},
+  ];
+};

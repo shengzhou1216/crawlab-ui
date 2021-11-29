@@ -2,7 +2,9 @@
   <NavActionGroup class="task-detail-actions-logs">
     <NavActionFaIcon :icon="['fa', 'file-alt']"/>
     <NavActionItem>
-      <el-tooltip content="Auto Update Logs">
+      <el-tooltip
+          :content="t('components.task.logs.actions.autoUpdateLogs')"
+      >
         <Switch
             v-model="internalAutoUpdate"
             @change="onAutoUpdateChange"
@@ -20,6 +22,7 @@ import NavActionFaIcon from '@/components/nav/NavActionFaIcon.vue';
 import {useStore} from 'vuex';
 import useTask from '@/components/task/task';
 import Switch from '@/components/switch/Switch.vue';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'TaskDetailActionsLogs',
@@ -30,6 +33,9 @@ export default defineComponent({
     NavActionItem,
   },
   setup() {
+    // i18n
+    const {t} = useI18n();
+
     // store
     const ns = 'task';
     const store = useStore();
@@ -60,6 +66,7 @@ export default defineComponent({
       ...useTask(store),
       internalAutoUpdate,
       onAutoUpdateChange,
+      t,
     };
   },
 });

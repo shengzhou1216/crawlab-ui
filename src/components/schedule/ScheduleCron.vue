@@ -17,22 +17,22 @@
   <div v-else :class="[isValid ? 'valid' : 'invalid']" class="schedule-cron">
     <div class="row">
       <span class="title">
-        <el-tooltip content="Cron Description">
+        <el-tooltip :content="t('components.schedule.cron.title.cronDescription')">
           <font-awesome-icon :icon="['fa', 'info-circle']" class="description"/>
         </el-tooltip>
       </span>
       <span class="value description">
-        {{ isValid ? description : 'Invalid' }}
+        {{ isValid ? description : t('common.status.invalid') }}
       </span>
     </div>
     <div class="row">
       <span class="title">
-        <el-tooltip content="Next Run">
+        <el-tooltip :content="t('components.schedule.cron.title.nextRun')">
           <font-awesome-icon :icon="['fa', 'arrow-right']" class="next"/>
         </el-tooltip>
       </span>
       <span class="value next">
-        {{ isValid ? next : 'Invalid' }}
+        {{ isValid ? next : t('common.status.invalid') }}
       </span>
     </div>
   </div>
@@ -42,16 +42,16 @@
 import {computed, defineComponent, PropType} from 'vue';
 import Tag from '@/components/tag/Tag.vue';
 import {CronExpression, parseExpression} from 'cron-parser';
-// import cronstrue from 'cronstrue/i18n';
-import cronstrue from 'cronstrue';
+import cronstrue from 'cronstrue/i18n';
 import dayjs from 'dayjs';
+import en from 'dayjs/locale/en';
+import zh from 'dayjs/locale/zh';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
-// import 'dayjs/locale/zh-cn';
 import colors from '@/styles/color.scss';
+import {useI18n} from 'vue-i18n';
+import i18n from '@/i18n';
 
-// TODO: internalization
 dayjs.extend(localizedFormat);
-// dayjs.locale('zh-cn');
 
 export default defineComponent({
   name: 'ScheduleCron',
@@ -75,6 +75,9 @@ export default defineComponent({
     },
   },
   setup(props: ScheduleCronProps, {emit}) {
+    // i18n
+    const {t} = useI18n();
+
     const interval = computed<CronExpression | undefined>(() => {
       const {cron} = props;
       if (!cron) return;
@@ -87,19 +90,22 @@ export default defineComponent({
 
     const next = computed<string | undefined>(() => {
       if (!interval.value) return;
-      return dayjs(interval.value.next().toDate()).format('llll');
+      return dayjs(interval.value.next().toDate())
+          .locale(i18n.global.locale.value === 'zh' ? zh : en)
+          .format('llll');
     });
 
     const description = computed<string | undefined>(() => {
       const {cron} = props;
       if (!cron) return;
-      // TODO: internalization
-      return cronstrue.toString(cron);
+      return cronstrue.toString(cron, {
+        locale: i18n.global.locale.value === 'zh' ? 'zh_CN' : 'en',
+      });
     });
 
-    const tooltip = computed<string>(() => `<span class="title">Cron Expression: </span><span style="color: ${colors.blue}">${props.cron}</span><br>
-<span class="title">Description: </span><span style="color: ${colors.orange}">${description.value}</span><br>
-<span class="title">Next: </span><span style="color: ${colors.green}">${next.value}</span>`);
+    const tooltip = computed<string>(() => `<span class="title">${t('components.schedule.cron.title.cron')}: </span><span style="color: ${colors.blue}">${props.cron}</span><br>
+<span class="title">${t('components.schedule.cron.title.description')}: </span><span style="color: ${colors.orange}">${description.value}</span><br>
+<span class="title">${t('components.schedule.cron.title.next')}: </span><span style="color: ${colors.green}">${next.value}</span>`);
 
     const isValid = computed<boolean>(() => !!interval.value);
 
@@ -107,8 +113,8 @@ export default defineComponent({
       const {cron} = props;
       if (!cron) {
         return {
-          label: 'Unknown',
-          tooltip: 'Unknown',
+          label: t('common.status.unknown'),
+          tooltip: t('common.status.unknown'),
           type: 'info',
         };
       }
@@ -125,6 +131,7 @@ export default defineComponent({
       next,
       description,
       isValid,
+      t,
     };
   },
 });

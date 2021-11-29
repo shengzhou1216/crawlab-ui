@@ -2,7 +2,7 @@
   <div class="empty">
     <ImgEmpty/>
     <div class="description">
-      {{ description }}
+      {{ t(description) }}
     </div>
   </div>
 </template>
@@ -10,6 +10,7 @@
 <script lang="ts">
 import {defineComponent} from 'vue';
 import ImgEmpty from '@/components/empty/ImgEmpty.vue';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'Empty',
@@ -18,11 +19,15 @@ export default defineComponent({
     description: {
       type: String,
       required: false,
-      default: 'No Data Available'
+      default: 'components.empty.noDataAvailable'
     }
   },
   setup() {
-    return {};
+    const {t} = useI18n();
+
+    return {
+      t,
+    };
   },
 });
 </script>

@@ -1,4 +1,21 @@
 interface LComponentsTask {
+  form: {
+    spider: string;
+    node: string;
+    status: string;
+    command: string;
+    param: string;
+    mode: string;
+    priority: string;
+    selectedTags: string;
+    selectedNodes: string;
+    tooltip: {
+      goToSpider: string;
+      goToNode: string;
+      taskErrorMessage: string;
+      cancelTask: string;
+    };
+  };
   status: {
     label: {
       pending: string;
@@ -31,5 +48,14 @@ interface LComponentsTask {
     allNodes: string;
     selectedNodes: string;
     selectedTags: string;
+  };
+  results: {
+    results: string;
+    noResults: string;
+  };
+  logs: {
+    actions: {
+      autoUpdateLogs: string;
+    };
   };
 }

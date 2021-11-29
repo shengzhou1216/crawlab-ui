@@ -2,7 +2,10 @@ import {computed, onBeforeUnmount, provide, readonly, watch} from 'vue';
 import {Store} from 'vuex';
 import {ElMessage, ElMessageBox} from 'element-plus';
 import {FILTER_OP_CONTAINS, FILTER_OP_IN, FILTER_OP_NOT_SET} from '@/constants/filter';
-import useForm from '@/components/form/form';
+import {translate} from '@/utils/i18n';
+
+// i18n
+const t = translate;
 
 const getFilterConditions = (column: TableColumn, filter: TableHeaderDialogFilterData) => {
   // allow filter search/items
@@ -57,12 +60,12 @@ const useList = <T = any>(ns: ListStoreNamespace, store: Store<RootStoreState>, 
     getAll: () => store.dispatch(`${ns}/getAllList`),
     deleteList: (ids: string[]) => store.dispatch(`${ns}/deleteList`, ids),
     deleteByIdConfirm: async (row: BaseModel) => {
-      await ElMessageBox.confirm('Are you sure to delete?', 'Delete', {
+      await ElMessageBox.confirm(t('common.messageBox.confirm.delete'), t('common.actions.delete'), {
         type: 'warning',
         confirmButtonClass: 'el-button--danger'
       });
       await store.dispatch(`${ns}/deleteById`, row._id);
-      await ElMessage.success('Deleted successfully');
+      await ElMessage.success(t('common.message.success.delete'));
       await store.dispatch(`${ns}/getList`);
     },
     onHeaderChange: async (column, sort, filter) => {

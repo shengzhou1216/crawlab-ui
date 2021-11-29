@@ -3,6 +3,10 @@ import {useStore} from 'vuex';
 import {useRouter} from 'vue-router';
 import {ACTION_CANCEL, ACTION_CLONE, ACTION_DELETE, ACTION_EDIT, ACTION_RUN, ACTION_VIEW,} from '@/constants/action';
 import {TABLE_COLUMN_NAME_ACTIONS} from '@/constants/table';
+import {translate} from '@/utils/i18n';
+
+// i18n
+const t = translate;
 
 export const getDefaultTableDataWithTotal = (): TableDataWithTotal => {
   return {
@@ -39,7 +43,7 @@ export const getActionColumn = (endpoint: string, ns: ListStoreNamespace, action
 
   const column = {
     key: TABLE_COLUMN_NAME_ACTIONS,
-    label: 'Actions',
+    label: t('components.table.columns.actions'),
     fixed: 'right',
     width: '200',
     buttons: [],
@@ -54,7 +58,7 @@ export const getActionColumn = (endpoint: string, ns: ListStoreNamespace, action
         buttons.push({
           type: 'primary',
           icon: ['fa', 'search'],
-          tooltip: 'View',
+          tooltip: t('common.actions.view'),
           onClick: (row: BaseModel) => {
             router.push(`${endpoint}/${row._id}`);
           },
@@ -64,7 +68,7 @@ export const getActionColumn = (endpoint: string, ns: ListStoreNamespace, action
         buttons.push({
           type: 'warning',
           icon: ['fa', 'edit'],
-          tooltip: 'Edit',
+          tooltip: t('common.actions.edit'),
           onClick: (row: BaseModel) => {
             store.commit(`${ns}/setForm`, row);
             store.commit(`${ns}/showDialog`, 'edit');
@@ -76,7 +80,7 @@ export const getActionColumn = (endpoint: string, ns: ListStoreNamespace, action
           type: 'info',
           size: 'mini',
           icon: ['fa', 'clone'],
-          tooltip: 'Clone',
+          tooltip: t('common.actions.clone'),
           onClick: (row: BaseModel) => {
             // TODO: implement
             console.log('clone', row);
@@ -88,9 +92,12 @@ export const getActionColumn = (endpoint: string, ns: ListStoreNamespace, action
           type: 'danger',
           size: 'mini',
           icon: ['fa', 'trash-alt'],
-          tooltip: 'Delete',
+          tooltip: t('common.actions.delete'),
           onClick: async (row: BaseModel) => {
-            const res = await ElMessageBox.confirm('Are you sure to delete?', 'Delete');
+            const res = await ElMessageBox.confirm(
+              t('common.messageBox.confirm.delete'),
+              t('common.actions.delete'),
+            );
             if (res) {
               await store.dispatch(`${ns}/deleteById`, row._id as string);
             }

@@ -10,26 +10,40 @@
         :model="options"
     >
       <!-- Row -->
-      <FormItem :span="2" label="Command" prop="cmd" required>
+      <FormItem
+          :span="2"
+          :label="t('components.task.form.command')"
+          prop="cmd"
+          required
+      >
         <InputWithButton
             v-model="options.cmd"
             :button-icon="['fa', 'edit']"
-            button-label="Edit"
-            placeholder="Command"
+            :button-label="t('common.actions.edit')"
+            :placeholder="t('components.task.form.command')"
         />
       </FormItem>
-      <FormItem :span="2" label="Param" prop="param">
+      <FormItem
+          :span="2"
+          :label="t('components.task.form.param')"
+          prop="param"
+      >
         <InputWithButton
             v-model="options.param"
             :button-icon="['fa', 'edit']"
-            button-label="Edit"
-            placeholder="Params"
+            :button-label="t('common.actions.edit')"
+            :placeholder="t('components.task.form.param')"
         />
       </FormItem>
       <!-- ./Row -->
 
       <!-- Row -->
-      <FormItem :span="2" label="Mode" prop="mode" required>
+      <FormItem
+          :span="2"
+          :label="t('components.task.form.mode')"
+          prop="mode"
+          required
+      >
         <el-select
             v-model="options.mode"
         >
@@ -41,7 +55,12 @@
           />
         </el-select>
       </FormItem>
-      <FormItem :span="2" label="Priority" prop="priority" required>
+      <FormItem
+          :span="2"
+          :label="t('components.task.form.priority')"
+          prop="priority"
+          required
+      >
         <el-select
             v-model="options.priority"
         >
@@ -58,7 +77,7 @@
       <FormItem
           v-if="options.mode === TASK_MODE_SELECTED_NODE_TAGS"
           :span="4"
-          label="Selected Tags"
+          :label="t('components.task.form.selectedTags')"
           prop="node_tags"
           required
       >
@@ -71,7 +90,7 @@
       <FormItem
           v-if="[TASK_MODE_SELECTED_NODES, TASK_MODE_SELECTED_NODE_TAGS].includes(options.mode)"
           :span="4"
-          label="Selected Nodes"
+          :label="t('components.task.form.selectedNodes')"
           required
       >
         <CheckTagGroup
@@ -96,6 +115,7 @@ import FormItem from '@/components/form/FormItem.vue';
 import InputWithButton from '@/components/input/InputWithButton.vue';
 import CheckTagGroup from '@/components/tag/CheckTagGroup.vue';
 import {ElMessage} from 'element-plus';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'RunSpiderDialog',
@@ -107,6 +127,9 @@ export default defineComponent({
     CheckTagGroup,
   },
   setup() {
+    // i18n
+    const {t} = useI18n();
+
     // store
     const ns = 'spider';
     const store = useStore();
@@ -147,8 +170,8 @@ export default defineComponent({
 
     // title
     const title = computed<string>(() => {
-      if (!spider.value) return 'Run Spider';
-      return `Run Spider - ${spider.value.name}`;
+      if (!spider.value) return t('components.spider.dialog.run.title');
+      return `${t('components.spider.dialog.run.title')} - ${spider.value.name}`;
     });
 
     const onClose = () => {
@@ -159,7 +182,7 @@ export default defineComponent({
       await formRef.value?.validate();
       await store.dispatch(`${ns}/runById`, {id: spider.value?._id, options: options.value});
       store.commit(`${ns}/hideDialog`);
-      await ElMessage.success('Scheduled task successfully');
+      await ElMessage.success(t('components.spider.message.success.scheduleTask'));
       await store.dispatch(`${ns}/getList`);
     };
 
@@ -176,6 +199,7 @@ export default defineComponent({
       priorityOptions,
       onClose,
       onConfirm,
+      t,
     };
   },
 });

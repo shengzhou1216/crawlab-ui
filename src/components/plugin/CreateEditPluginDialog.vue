@@ -24,7 +24,7 @@ import PluginForm from '@/components/plugin/PluginForm.vue';
 import usePlugin from '@/components/plugin/plugin';
 
 export default defineComponent({
-  name: 'CreateEditProjectDialog',
+  name: 'CreateEditPluginDialog',
   components: {
     CreateEditDialog,
     PluginForm,

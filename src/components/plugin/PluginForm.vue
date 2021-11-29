@@ -7,32 +7,62 @@
   >
     <template v-if="isCreate">
       <!--Row-->
-      <FormItem :span="2" label="Type">
+      <FormItem
+          :span="2"
+          :label="t('components.plugin.form.installType')"
+      >
         <el-radio-group v-model="form.install_type" type="button" size="small" @change="onInstallTypeChange">
-          <el-radio-button label="name">Name</el-radio-button>
-          <el-radio-button label="git">Git</el-radio-button>
-          <el-radio-button label="local">Local</el-radio-button>
+          <el-radio-button label="name">{{ t('components.plugin.installType.name') }}</el-radio-button>
+          <el-radio-button label="git">{{ t('components.plugin.installType.git') }}</el-radio-button>
+          <el-radio-button label="local">{{ t('components.plugin.installType.local') }}</el-radio-button>
         </el-radio-group>
       </FormItem>
-      <FormItem :span="2" label="Auto Start">
+      <FormItem
+          :span="2"
+          :label="t('components.plugin.form.autoStart')"
+      >
         <cl-switch v-model="form.auto_start"/>
       </FormItem>
       <!--./Row-->
 
       <!--Row-->
       <template v-if="form.install_type === PLUGIN_INSTALL_TYPE_NAME">
-        <FormItem :span="4" label="Name" prop="name" required>
-          <el-input v-model="form.name" placeholder="Name"/>
+        <FormItem
+            :span="4"
+            :label="t('components.plugin.form.name')"
+            prop="name"
+            required
+        >
+          <el-input
+              v-model="form.name"
+              :placeholder="t('components.plugin.form.name')"
+          />
         </FormItem>
       </template>
       <template v-else-if="form.install_type === PLUGIN_INSTALL_TYPE_GIT">
-        <FormItem :span="4" label="Install URL" prop="install_url" required>
-          <el-input v-model="form.install_url" placeholder="Install URL"/>
+        <FormItem
+            :span="4"
+            :label="t('components.plugin.form.installUrl')"
+            prop="install_url"
+            required
+        >
+          <el-input
+              v-model="form.install_url"
+              :placeholder="t('components.plugin.form.installUrl')"
+          />
         </FormItem>
       </template>
       <template v-else-if="form.install_type === PLUGIN_INSTALL_TYPE_LOCAL">
-        <FormItem :span="4" label="Install Path" prop="install_url" required>
-          <el-input v-model="form.install_url" placeholder="Install Path"/>
+        <FormItem
+            :span="4"
+            :label="t('components.plugin.form.installPath')"
+            prop="install_url"
+            required
+        >
+          <el-input
+              v-model="form.install_url"
+              :placeholder="t('components.plugin.form.installPath')"
+          />
         </FormItem>
       </template>
       <!--./Row-->
@@ -40,27 +70,46 @@
 
     <template v-else>
       <!--Row-->
-      <FormItem :span="2" :offset="2" label="Name" not-editable prop="name" required>
-        <el-input v-model="form.name" disabled placeholder="Name"/>
-      </FormItem>
-      <!--./Row-->
-
-      <!--Row-->
-      <FormItem :span="2" label="Execute Command" prop="cmd">
+      <FormItem
+          :span="2"
+          :offset="2"
+          :label="t('components.plugin.form.name')"
+          not-editable
+          prop="name"
+          required
+      >
         <el-input
-            v-model="form.cmd"
+            v-model="form.name"
             disabled
-            placeholder="cmd"
+            :placeholder="t('components.plugin.form.name')"
         />
       </FormItem>
       <!--./Row-->
 
       <!--Row-->
-      <FormItem :span="4" label="Description" prop="description">
+      <FormItem
+          :span="2"
+          :label="t('components.plugin.form.command')"
+          prop="cmd"
+      >
+        <el-input
+            v-model="form.cmd"
+            disabled
+            :placeholder="t('components.plugin.form.command')"
+        />
+      </FormItem>
+      <!--./Row-->
+
+      <!--Row-->
+      <FormItem
+          :span="4"
+          :label="t('components.plugin.form.description')"
+          prop="description"
+      >
         <el-input
             v-model="form.description"
             disabled
-            placeholder="Description"
+            :placeholder="t('components.plugin.form.description')"
             type="textarea"
         />
       </FormItem>
@@ -71,12 +120,13 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, onBeforeUnmount, ref} from 'vue';
+import {computed, defineComponent, ref} from 'vue';
 import {useStore} from 'vuex';
 import usePlugin from '@/components/plugin/plugin';
 import Form from '@/components/form/Form.vue';
 import FormItem from '@/components/form/FormItem.vue';
 import {PLUGIN_INSTALL_TYPE_GIT, PLUGIN_INSTALL_TYPE_LOCAL, PLUGIN_INSTALL_TYPE_NAME} from '@/constants/plugin';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'PluginForm',
@@ -90,6 +140,9 @@ export default defineComponent({
     FormItem,
   },
   setup(props, {emit}) {
+    // i18n
+    const {t} = useI18n();
+
     // store
     const ns = 'plugin';
     const store = useStore();
@@ -111,6 +164,7 @@ export default defineComponent({
       PLUGIN_INSTALL_TYPE_NAME,
       PLUGIN_INSTALL_TYPE_GIT,
       PLUGIN_INSTALL_TYPE_LOCAL,
+      t,
     };
   },
 });

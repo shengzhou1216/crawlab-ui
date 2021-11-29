@@ -13,20 +13,31 @@ const common: LCommon = {
     bookmark: 'Bookmark',
     restart: 'Restart',
     cancel: 'Cancel',
+    confirm: 'Confirm',
+    copy: 'Copy',
+    create: 'Create',
+    hide: 'Hide',
+    start: 'Start',
+    stop: 'Stop',
   },
   messageBox: {
     confirm: {
       delete: 'Are you sure to delete?',
       restart: 'Are you sure to restart?',
       cancel: 'Are you sure to cancel?',
+      stop: 'Are you sure to stop?',
     }
   },
   message: {
     success: {
+      delete: 'Deleted successfully',
       restart: 'Restarted successfully',
+      copy: 'Copied successfully',
+      start: 'Started successfully',
     },
     info: {
-      cancel: 'Attempt to cancel'
+      cancel: 'Attempt to cancel',
+      stop: 'Attempt to stop',
     }
   },
   tabs: {
@@ -38,7 +49,13 @@ const common: LCommon = {
     git: 'Git',
     data: 'Data',
     settings: 'Settings',
-  }
+    logs: 'Logs',
+  },
+  status: {
+    unassigned: 'Unassigned',
+    unknown: 'Unknown',
+    invalid: 'Invalid',
+  },
 };
 
 export default common;

@@ -7,8 +7,13 @@ interface LComponents {
   tab: LComponentsTab;
   input: LComponentsInput;
   git: LComponentsGit;
+  empty: LComponentsEmpty;
   node: LComponentsNode;
   project: LComponentsProject;
   spider: LComponentsSpider;
+  schedule: LComponentsSchedule;
   task: LComponentsTask;
+  user: LComponentsUser;
+  tag: LComponentsTag;
+  plugin: LComponentsPlugin;
 }
