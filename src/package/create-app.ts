@@ -11,6 +11,7 @@ import {createRouter} from '@/router';
 import {initPlugins} from '@/utils/plugin';
 import {initRequest} from '@/services/request';
 import {initUmeng} from '@/admin/umeng';
+import {setGlobalLang} from '@/utils/i18n';
 
 export const getDefaultCreateAppOptions = (): CreateAppOptions => {
   return {
@@ -74,9 +75,12 @@ const createApp = async (options?: CreateAppOptions): Promise<VueApp> => {
   // load modules
   if (options.loadStore) app.use(store);
   if (options.loadRouter) app.use(router);
-  if (options.loadElementPlus) app.use(ElementPlus)
+  if (options.loadElementPlus) app.use(ElementPlus);
   if (options.loadCrawlabUI) app.use(CrawlabUI);
-  if (options.loadI18n) app.use(i18n);
+  if (options.loadI18n) {
+    app.use(i18n);
+    setGlobalLang(window.localStorage.getItem('lang') as Lang || 'en');
+  }
   if (options.loadFontAwesome) app.component('font-awesome-icon', FontAwesomeIcon);
 
   // mount
