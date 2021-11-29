@@ -14,7 +14,35 @@ const table: LComponentsTable = {
       left: 'Available',
       right: 'Selected'
     }
-  }
+  },
+  header: {
+    sort: {
+      tooltip: {
+        sort: 'Sort',
+        sortAscending: 'Sort Ascending',
+        sortDescending: 'Sort Descending',
+      },
+    },
+    filter: {
+      tooltip: {
+        filter: 'Filter',
+        search: 'Search',
+        include: 'Include',
+      },
+    },
+    dialog: {
+      sort: {
+        title: 'Sort',
+        clearSort: 'Clear sort',
+        ascending: 'Ascending',
+        descending: 'Descending',
+      },
+      filter: {
+        title: 'Filter',
+        search: 'Search',
+      },
+    },
+  },
 };
 
 export default table;

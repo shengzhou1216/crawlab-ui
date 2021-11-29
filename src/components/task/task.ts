@@ -1,6 +1,5 @@
 import {useRoute} from 'vue-router';
 import {computed} from 'vue';
-import {TASK_MODE_RANDOM} from '@/constants/task';
 import {Store} from 'vuex';
 import useForm from '@/components/form/form';
 import useTaskService from '@/services/task/taskService';
@@ -8,6 +7,10 @@ import {getDefaultFormComponentData} from '@/utils/form';
 import {FORM_FIELD_TYPE_INPUT_WITH_BUTTON, FORM_FIELD_TYPE_SELECT} from '@/constants/form';
 import useSpider from '@/components/spider/spider';
 import {getModeOptions, getModeOptionsDict, getPriorityLabel} from '@/utils/task';
+import {translate} from '@/utils/i18n';
+
+// i18n
+const t = translate;
 
 // form component data
 const formComponentData = getDefaultFormComponentData<Task>();
@@ -46,9 +49,9 @@ const useTask = (store: Store<RootStoreState>) => {
   const batchFormFields = computed<FormTableField[]>(() => [
     {
       prop: 'spider_id',
-      label: 'Spider',
+      label: t('components.task.form.spider'),
       width: '150',
-      placeholder: 'Spider',
+      placeholder: t('components.task.form.spider'),
       fieldType: FORM_FIELD_TYPE_SELECT,
       options: allSpiderListSelectOptions.value,
       disabled: () => readonlyFormFields.value.includes('spider_id'),
@@ -56,22 +59,22 @@ const useTask = (store: Store<RootStoreState>) => {
     },
     {
       prop: 'cmd',
-      label: 'Execute Command',
+      label: t('components.task.form.command'),
       width: '200',
-      placeholder: 'Execute Command',
+      placeholder: t('components.task.form.command'),
       fieldType: FORM_FIELD_TYPE_INPUT_WITH_BUTTON,
       required: true,
     },
     {
       prop: 'param',
-      label: 'Param',
+      label: t('components.task.form.param'),
       width: '200',
-      placeholder: 'Param',
+      placeholder: t('components.task.form.param'),
       fieldType: FORM_FIELD_TYPE_INPUT_WITH_BUTTON,
     },
     {
       prop: 'mode',
-      label: 'Default Run Mode',
+      label: t('components.task.form.mode'),
       width: '200',
       fieldType: FORM_FIELD_TYPE_SELECT,
       options: modeOptions,

@@ -35,16 +35,32 @@
         </div>
       </div>
       <div class="footer">
-        <Button plain size="mini" tooltip="Cancel" type="info" @click="onCancel">Cancel</Button>
-        <Button plain size="mini" tooltip="Clear" type="warning" @click="onClear">Clear</Button>
+        <Button
+            plain
+            size="mini"
+            :tooltip="t('common.actions.cancel')"
+            type="info"
+            @click="onCancel"
+        >
+          {{ t('common.actions.cancel') }}
+        </Button>
+        <Button
+            plain
+            size="mini"
+            :tooltip="t('common.actions.clear')"
+            type="warning"
+            @click="onClear"
+        >
+          {{ t('common.actions.clear') }}
+        </Button>
         <Button
             :disabled="isApplyDisabled"
             size="mini"
-            tooltip="Apply"
+            :tooltip="t('common.actions.apply')"
             type="primary"
             @click="onApply"
         >
-          Apply
+          {{ t('common.actions.apply') }}
         </Button>
       </div>
     </div>
@@ -60,6 +76,7 @@ import variables from '@/styles/variables.scss';
 import {plainClone} from '@/utils/object';
 import {FILTER_OP_NOT_SET} from '@/constants/filter';
 import {ClickOutside} from 'element-plus/lib/directives';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'TableHeaderFilter',
@@ -101,6 +118,9 @@ export default defineComponent({
     'apply',
   ],
   setup(props: TableHeaderDialogProps, {emit}) {
+    // i18n
+    const {t} = useI18n();
+
     const defaultInternalSort = {key: props.column.key} as SortData;
     const internalSort = ref<SortData>();
     const internalFilter = ref<TableHeaderDialogFilterData>();
@@ -206,6 +226,7 @@ export default defineComponent({
       onSortChange,
       onFilterChange,
       onFilterEnter,
+      t,
     };
   },
 });

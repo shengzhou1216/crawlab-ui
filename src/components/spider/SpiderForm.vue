@@ -43,7 +43,7 @@
       <InputWithButton
           v-model="form.cmd"
           :button-icon="['fa', 'edit']"
-          button-label="Edit"
+          :button-label="t('common.actions.edit')"
           :placeholder="t('components.spider.form.command')"
           :disabled="isFormItemDisabled('cmd')"
       />
@@ -56,7 +56,7 @@
       <InputWithButton
           v-model="form.param"
           :button-icon="['fa', 'edit']"
-          button-label="Edit"
+          :button-label="t('common.actions.edit')"
           :placeholder="t('components.spider.form.param')"
           :disabled="isFormItemDisabled('param')"
       />

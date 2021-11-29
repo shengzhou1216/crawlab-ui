@@ -8,6 +8,8 @@ interface LComponents {
   input: LComponentsInput;
   git: LComponentsGit;
   empty: LComponentsEmpty;
+  form: LComponentsForm;
+
   node: LComponentsNode;
   project: LComponentsProject;
   spider: LComponentsSpider;

@@ -4,7 +4,7 @@
       <el-input
           v-if="fieldType === FORM_FIELD_TYPE_INPUT"
           v-model="internalValue"
-          :placeholder="placeholder"
+          :placeholder="t(placeholder)"
           size="mini"
           :disabled="disabled"
           @input="onInputChange"
@@ -13,7 +13,7 @@
           v-else-if="fieldType === FORM_FIELD_TYPE_INPUT_PASSWORD"
           v-model="internalValue"
           :disabled="disabled"
-          :placeholder="placeholder"
+          :placeholder="t(placeholder)"
           size="mini"
           type="password"
           @input="onInputChange"
@@ -21,7 +21,7 @@
       <el-input
           v-else-if="fieldType === FORM_FIELD_TYPE_INPUT_TEXTAREA"
           v-model="internalValue"
-          :placeholder="placeholder"
+          :placeholder="t(placeholder)"
           size="mini"
           type="textarea"
           :disabled="disabled"
@@ -30,7 +30,7 @@
       <el-select
           v-else-if="fieldType === FORM_FIELD_TYPE_SELECT"
           v-model="internalValue"
-          :placeholder="placeholder"
+          :placeholder="t(placeholder)"
           size="mini"
           :disabled="disabled"
           @change="onInputChange"
@@ -45,8 +45,8 @@
       <InputWithButton
           v-else-if="fieldType === FORM_FIELD_TYPE_INPUT_WITH_BUTTON"
           v-model="internalValue"
-          :placeholder="placeholder"
-          button-label="Edit"
+          :placeholder="t(placeholder)"
+          :button-label="t('common.actions.edit')"
           size="mini"
           :disabled="disabled"
           @input="onInputChange"
@@ -96,6 +96,7 @@ import TagInput from '@/components/input/TagInput.vue';
 import {emptyArrayFunc, voidFunc} from '@/utils/func';
 import InputWithButton from '@/components/input/InputWithButton.vue';
 import Switch from '@/components/switch/Switch.vue';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'FormTableField',
@@ -131,7 +132,7 @@ export default defineComponent({
     },
     placeholder: {
       type: String,
-      default: 'Please enter value',
+      default: 'components.form.table.field.defaultPlaceholder',
     },
     disabled: {
       type: Boolean,
@@ -147,6 +148,9 @@ export default defineComponent({
     }
   },
   setup(props: FormTableFieldProps, {emit}: SetupContext) {
+    // i18n
+    const {t} = useI18n();
+
     // form ref
     const formRef = ref();
 
@@ -222,6 +226,7 @@ export default defineComponent({
       isRequired,
       isErrorMessageVisible,
       computedFormRules,
+      t,
     };
   },
 });

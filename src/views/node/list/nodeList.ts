@@ -85,8 +85,8 @@ const useNodeList = () => {
       hasFilter: true,
       allowFilterItems: true,
       filterItems: [
-        {label: t('components.node.nodeType.master'), value: true},
-        {label: t('components.node.nodeType.worker'), value: false},
+        {label: t('components.node.nodeType.label.master'), value: true},
+        {label: t('components.node.nodeType.label.worker'), value: false},
       ],
     },
     {
@@ -100,10 +100,10 @@ const useNodeList = () => {
       hasFilter: true,
       allowFilterItems: true,
       filterItems: [
-        {label: t('views.nodes.nodeType.label.unregistered'), value: NODE_STATUS_UNREGISTERED},
-        {label: t('views.nodes.nodeType.label.registered'), value: NODE_STATUS_REGISTERED},
-        {label: t('views.nodes.nodeType.label.online'), value: NODE_STATUS_ONLINE},
-        {label: t('views.nodes.nodeType.label.offline'), value: NODE_STATUS_OFFLINE},
+        {label: t('components.node.nodeStatus.label.unregistered'), value: NODE_STATUS_UNREGISTERED},
+        {label: t('components.node.nodeStatus.label.registered'), value: NODE_STATUS_REGISTERED},
+        {label: t('components.node.nodeStatus.label.online'), value: NODE_STATUS_ONLINE},
+        {label: t('components.node.nodeStatus.label.offline'), value: NODE_STATUS_OFFLINE},
       ],
     },
     {

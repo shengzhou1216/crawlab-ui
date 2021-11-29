@@ -147,7 +147,6 @@ const useSpiderList = () => {
       label: t('views.spiders.table.columns.stats'),
       icon: ['fa', 'chart-pie'],
       width: '240',
-      hasFilter: true,
       value: (row: Spider) => {
         const stat = row.stat;
         if (!stat || !stat.tasks) return;

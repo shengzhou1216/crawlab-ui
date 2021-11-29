@@ -44,6 +44,7 @@ import {ASCENDING, DESCENDING} from '@/constants/sort';
 import variables from '@/styles/variables.scss';
 import {FILTER_OP_NOT_SET} from '@/constants/filter';
 import Icon from '@/components/icon/Icon.vue';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'TableHeader',
@@ -66,6 +67,9 @@ export default defineComponent({
     'change',
   ],
   setup(props, {emit}) {
+    // i18n
+    const {t} = useI18n();
+
     const dialogVisible = ref<boolean>(false);
 
     const actionStatusMap = reactive<TableHeaderActionStatusMap>({
@@ -93,24 +97,24 @@ export default defineComponent({
 
       // sort icon and tooltip
       let sortIcon = ['fa', 'sort-amount-down-alt'];
-      let sortTooltip = 'Sort';
+      let sortTooltip = t('components.table.header.sort.tooltip.sort');
       if (sortData.value?.d === ASCENDING) {
         sortIcon = ['fa', 'sort-amount-up'];
-        sortTooltip = 'Sorted Ascending';
+        sortTooltip = t('components.table.header.sort.tooltip.sortAscending');
       } else if (sortData.value?.d === DESCENDING) {
         sortIcon = ['fa', 'sort-amount-down-alt'];
-        sortTooltip = 'Sorted Descending';
+        sortTooltip = t('components.table.header.sort.tooltip.sortDescending');
       }
 
       // filter tooltip
-      let filterTooltip = 'Filter';
+      let filterTooltip = t('components.table.header.filter.tooltip.filter');
       let filterIsHtml = false;
       if (filterData.value) {
         const {searchString, conditions, items} = filterData.value;
 
         // search string
         if (searchString) {
-          filterTooltip += `<br><span style="color: ${variables.primaryColor}">Search:</span> <span style="color: ${variables.warningColor};">"${searchString}"</span>`;
+          filterTooltip += `<br><span style="color: ${variables.primaryColor}">${t('components.table.header.filter.tooltip.search')}:</span> <span style="color: ${variables.warningColor};">"${searchString}"</span>`;
           filterIsHtml = true;
         }
 
@@ -125,7 +129,7 @@ export default defineComponent({
         // filter items
         if (items && items.length > 0) {
           const itemsStr = items.map(value => filterItemsMap.value.get(value)).join(', ');
-          filterTooltip += `<br><span style="color: ${variables.primaryColor};margin-right: 5px">Include:</span><span style="color: ${variables.warningColor}">` + itemsStr + '</span>';
+          filterTooltip += `<br><span style="color: ${variables.primaryColor};margin-right: 5px">${t('components.table.header.filter.tooltip.include')}:</span><span style="color: ${variables.warningColor}">` + itemsStr + '</span>';
           filterIsHtml = true;
         }
       }

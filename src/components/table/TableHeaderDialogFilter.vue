@@ -1,12 +1,12 @@
 <template>
   <div class="table-header-dialog-filter">
     <div class="title">
-      <span>Filter</span>
+      <span>{{ t('components.table.header.dialog.filter.title') }}</span>
       <el-input
           v-if="column.allowFilterSearch"
           :model-value="internalSearchString"
           class="search"
-          placeholder="Search"
+          :placeholder="t('components.table.header.dialog.filter.search')"
           prefix-icon="el-icon-search"
           size="mini"
           @input="onSearch"
@@ -31,12 +31,12 @@
               :label="item.value"
               class="item"
           >
-            {{ item.label }}
+            {{ t(item.label) }}
           </el-checkbox>
         </el-checkbox-group>
       </template>
       <template v-else>
-        <Empty description="No data available"></Empty>
+        <Empty/>
       </template>
     </div>
   </div>
@@ -48,6 +48,7 @@ import Empty from '@/components/empty/Empty.vue';
 import {getDefaultFilterCondition} from '@/components/filter/FilterCondition.vue';
 // import FilterConditionList from '@/components/filter/FilterConditionList.vue';
 import {debounce} from '@/utils/debounce';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'TableHeaderDialogFilter',
@@ -74,9 +75,13 @@ export default defineComponent({
   },
   emits: [
     'change',
+    'clear',
     'enter',
   ],
   setup(props, {emit}) {
+    // i18n
+    const {t} = useI18n();
+
     const internalConditions = ref<FilterConditionData[]>([getDefaultFilterCondition()]);
     const internalSearchString = ref<string>();
     const internalItems = ref<string[]>([]);
@@ -139,6 +144,10 @@ export default defineComponent({
       search();
     };
 
+    const onClear = () => {
+      emit('clear');
+    };
+
     const onEnter = () => {
       emit('enter');
     };
@@ -171,7 +180,9 @@ export default defineComponent({
       onConditionsChange,
       onItemsChange,
       onSearch,
+      onClear,
       onEnter,
+      t,
     };
   },
 });

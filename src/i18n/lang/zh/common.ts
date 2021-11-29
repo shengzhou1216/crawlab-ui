@@ -19,6 +19,8 @@ const common: LCommon = {
     hide: '隐藏',
     start: '启动',
     stop: '停止',
+    clear: '清除',
+    apply: '应用',
   },
   messageBox: {
     confirm: {

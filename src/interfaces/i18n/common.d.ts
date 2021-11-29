@@ -26,6 +26,8 @@ interface LCommon {
     hide: string;
     start: string;
     stop: string;
+    clear: string;
+    apply: string;
   };
   messageBox: {
     confirm: {

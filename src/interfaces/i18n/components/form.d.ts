@@ -1,2 +1,7 @@
-// interface LComponentsForm {
-// }
+interface LComponentsForm {
+  table: {
+    field: {
+      defaultPlaceholder: string;
+    };
+  };
+}

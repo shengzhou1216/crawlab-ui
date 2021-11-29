@@ -14,7 +14,35 @@ const table: LComponentsTable = {
       left: '可用',
       right: '已选'
     }
-  }
+  },
+  header: {
+    sort: {
+      tooltip: {
+        sort: '排序',
+        sortAscending: '升序排序',
+        sortDescending: '降序排序',
+      },
+    },
+    filter: {
+      tooltip: {
+        filter: '筛选',
+        search: '搜索',
+        include: '包含',
+      },
+    },
+    dialog: {
+      sort: {
+        title: '排序',
+        clearSort: '清除排序',
+        ascending: '升序',
+        descending: '降序',
+      },
+      filter: {
+        title: '筛选',
+        search: '搜索',
+      },
+    },
+  },
 };
 
 export default table;

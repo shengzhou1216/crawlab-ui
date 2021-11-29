@@ -19,6 +19,8 @@ const common: LCommon = {
     hide: 'Hide',
     start: 'Start',
     stop: 'Stop',
+    clear: 'Clear',
+    apply: 'Apply',
   },
   messageBox: {
     confirm: {

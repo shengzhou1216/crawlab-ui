@@ -1,8 +1,11 @@
 <template>
   <div class="table-header-dialog-sort">
     <div class="title">
-      <span>Sort</span>
-      <el-tooltip v-if="value" content="Clear sort">
+      <span>{{ t('components.table.header.dialog.sort.title') }}</span>
+      <el-tooltip
+          v-if="value"
+          :content="t('components.table.header.dialog.sort.clearSort')"
+      >
         <span class="icon" @click="onClear">
           <el-icon name="circle-close"/>
         </span>
@@ -11,11 +14,11 @@
     <el-radio-group :model-value="value" size="mini" type="primary" @change="onChange">
       <el-radio-button :label="ASCENDING" class="sort-btn">
         <font-awesome-icon :icon="['fa', 'sort-amount-up']"/>
-        Ascending
+        {{ t('components.table.header.dialog.sort.ascending') }}
       </el-radio-button>
       <el-radio-button :label="DESCENDING" class="sort-btn">
         <font-awesome-icon :icon="['fa', 'sort-amount-down-alt']"/>
-        Descending
+        {{ t('components.table.header.dialog.sort.descending') }}
       </el-radio-button>
     </el-radio-group>
   </div>
@@ -24,6 +27,7 @@
 <script lang="ts">
 import {defineComponent} from 'vue';
 import {ASCENDING, DESCENDING, UNSORTED} from '@/constants/sort';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'TableHeaderDialogSort',
@@ -37,6 +41,9 @@ export default defineComponent({
     'change'
   ],
   setup(props, {emit}) {
+    // i18n
+    const {t} = useI18n();
+
     const onChange = (value: SortDirection) => {
       if (value === UNSORTED) {
         emit('change', undefined);
@@ -55,6 +62,7 @@ export default defineComponent({
       UNSORTED,
       ASCENDING,
       DESCENDING,
+      t,
     };
   },
 });
