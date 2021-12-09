@@ -23,7 +23,7 @@
             v-model="searchString"
             class="search"
             placeholder="Search"
-            prefix-icon="el-icon-search"
+            :prefix-icon="Search"
             size="mini"
         />
         <template v-if="items.length > 0">
@@ -60,6 +60,7 @@ import {computed, defineComponent, ref, watch} from 'vue';
 import {DataItem, Key} from 'element-plus/lib/components/transfer';
 import Empty from '@/components/empty/Empty.vue';
 import DraggableList from '@/components/drag/DraggableList.vue';
+import {Search} from '@element-plus/icons';
 
 export default defineComponent({
   name: 'TransferPanel',
@@ -143,6 +144,7 @@ export default defineComponent({
       onCheck,
       onCheckAll,
       onDragEnd,
+      Search,
     };
   },
 });

@@ -13,7 +13,9 @@
       {{ t(title) }}
     </span>
     <span v-if="showClose" class="close-btn" @click.stop="onClose">
-      <i class="el-icon-close"></i>
+      <el-icon>
+        <close/>
+      </el-icon>
     </span>
   </div>
 </template>
@@ -27,12 +29,14 @@ import {getPrimaryPath} from '@/utils/path';
 import {useRouter} from 'vue-router';
 import Icon from '@/components/icon/Icon.vue';
 import {useI18n} from 'vue-i18n';
+import {Close} from '@element-plus/icons';
 
 export default defineComponent({
   name: 'Tab',
   components: {
     Icon,
     MenuItemIcon,
+    Close,
   },
   props: {
     tab: {

@@ -7,7 +7,7 @@
           :model-value="internalSearchString"
           class="search"
           :placeholder="t('components.table.header.dialog.filter.search')"
-          prefix-icon="el-icon-search"
+          :prefix-icon="Search"
           size="mini"
           @input="onSearch"
           @clear="onClear"
@@ -49,6 +49,7 @@ import {getDefaultFilterCondition} from '@/components/filter/FilterCondition.vue
 // import FilterConditionList from '@/components/filter/FilterConditionList.vue';
 import {debounce} from '@/utils/debounce';
 import {useI18n} from 'vue-i18n';
+import {Search} from '@element-plus/icons';
 
 export default defineComponent({
   name: 'TableHeaderDialogFilter',
@@ -182,6 +183,7 @@ export default defineComponent({
       onSearch,
       onClear,
       onEnter,
+      Search,
       t,
     };
   },
