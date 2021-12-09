@@ -75,6 +75,7 @@ import FileEditorNavMenuContextMenu from '@/components/file/FileEditorNavMenuCon
 import {ElMessageBox, ElTree} from 'element-plus';
 import {useDropzone} from 'vue3-dropzone';
 import {emptyArrayFunc, emptyObjectFunc} from '@/utils/func';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'FileEditorNavMenu',
@@ -125,6 +126,8 @@ export default defineComponent({
     'drop-files',
   ],
   setup(props: FileEditorNavMenuProps, ctx) {
+    const {t} = useI18n();
+
     const {emit} = ctx;
 
     const tree = ref<typeof ElTree>();
@@ -223,27 +226,42 @@ export default defineComponent({
     };
 
     const onNodeContextMenuNewFile = async (item: FileNavItem) => {
-      const res = await ElMessageBox.prompt('Please enter the name of the new file', 'New File');
+      const res = await ElMessageBox.prompt(
+          t('components.file.editor.messageBox.prompt.newFile'),
+          t('components.file.editor.navMenu.newFile'),
+      );
       emit('ctx-menu-new-file', item, res.value);
     };
 
     const onNodeContextMenuNewDirectory = async (item: FileNavItem) => {
-      const res = await ElMessageBox.prompt('Please enter the name of the new directory', 'New Directory');
+      const res = await ElMessageBox.prompt(
+          t('components.file.editor.messageBox.prompt.newDirectory'),
+          t('components.file.editor.navMenu.newDirectory'),
+      );
       emit('ctx-menu-new-directory', item, res.value);
     };
 
     const onNodeContextMenuRename = async (item: FileNavItem) => {
-      const res = await ElMessageBox.prompt('Please enter the new name', 'Rename');
+      const res = await ElMessageBox.prompt(
+          t('components.file.editor.messageBox.prompt.rename'),
+          t('components.file.editor.navMenu.rename'),
+      );
       emit('ctx-menu-rename', item, res.value);
     };
 
     const onNodeContextMenuClone = async (item: FileNavItem) => {
-      const res = await ElMessageBox.prompt('Please enter the new name', 'Clone');
+      const res = await ElMessageBox.prompt(
+          t('components.file.editor.messageBox.prompt.duplicate'),
+          t('components.file.editor.navMenu.duplicate'),
+      );
       emit('ctx-menu-clone', item, res.value);
     };
 
     const onNodeContextMenuDelete = async (item: FileNavItem) => {
-      await ElMessageBox.confirm('Are you sure to delete?', 'Delete');
+      await ElMessageBox.confirm(
+          t('common.messageBox.confirm.delete'),
+          t('common.actions.delete'),
+      );
       emit('ctx-menu-delete', item);
     };
 

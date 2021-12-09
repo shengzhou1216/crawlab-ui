@@ -8,6 +8,7 @@ import input from './input';
 import git from './git';
 import empty from './empty';
 import form from './form';
+import file from './file';
 
 import node from './node';
 import project from './project';
@@ -29,6 +30,7 @@ const components: LComponents = {
   git,
   empty,
   form,
+  file,
 
   node,
   project,

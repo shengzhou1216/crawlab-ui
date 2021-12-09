@@ -5,6 +5,8 @@ import {loadModule} from '@/utils/sfc';
 import {Router} from 'vue-router';
 import useRequest from '@/services/request';
 import {SETTING_PLUGIN_BASE_URL_GITEE, SETTING_PLUGIN_BASE_URL_GITHUB} from '@/constants/setting';
+import i18n from '@/i18n';
+import {translatePlugin} from '@/utils/i18n';
 
 type Plugin = CPlugin;
 
@@ -76,7 +78,7 @@ const addPluginRouteTab = (router: Router, store: Store<RootStoreState>, p: Plug
     if (tabs.map(t => t.id).includes(pc.name as string)) return;
     tabs.push({
       id: pc.name as string,
-      title: pc.title,
+      title: translatePlugin(p.name || '', pc.title || ''),
     });
     store.commit(`${ns}/setTabs`, tabs);
   });
@@ -153,6 +155,24 @@ const initPluginAssets = (store: Store<RootStoreState>) => {
   });
 };
 
+const initPluginLang = (store: Store<RootStoreState>) => {
+  const {
+    plugin: state,
+  } = store.state;
+
+  state.allList.forEach(async p => {
+    const url = `${PLUGIN_PROXY_ENDPOINT}/${p.name}/_lang`;
+    const res = await getRaw(url);
+    Object.keys(res.data?.data).forEach(lang => {
+      const msg = {
+        plugins: {}
+      };
+      (msg.plugins as any)[p.name || ''] = res.data?.data?.[lang];
+      i18n.global.mergeLocaleMessage(lang, msg);
+    });
+  });
+};
+
 export const initPlugins = async (router: Router, store: Store<RootStoreState>) => {
   // store
   const ns = 'plugin';
@@ -174,6 +194,8 @@ export const initPlugins = async (router: Router, store: Store<RootStoreState>) 
   initPluginRoutes(router, store);
 
   initPluginAssets(store);
+
+  initPluginLang(store);
 };
 
 export const getPluginBaseUrlOptions = (): SelectOption[] => {

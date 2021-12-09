@@ -13,6 +13,7 @@
 import {defineComponent, readonly} from 'vue';
 import ContextMenu, {contextMenuDefaultProps} from '@/components/context-menu/ContextMenu.vue';
 import ContextMenuList from '@/components/context-menu/ContextMenuList.vue';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'FileEditorNavTabsContextMenu',
@@ -25,10 +26,12 @@ export default defineComponent({
     'close-all',
   ],
   setup(props, {emit}) {
+    const {t} = useI18n();
+
     const items = readonly<ContextMenuItem[]>([
-      {title: 'Close', icon: ['fa', 'times'], action: () => emit('close')},
-      {title: 'Close Others', action: () => emit('close-others')},
-      {title: 'Close All', action: () => emit('close-all')},
+      {title: t('components.file.editor.navTabs.close'), icon: ['fa', 'times'], action: () => emit('close')},
+      {title: t('components.file.editor.navTabs.closeOthers'), action: () => emit('close-others')},
+      {title: t('components.file.editor.navTabs.closeAll'), action: () => emit('close-all')},
     ]);
 
     return {

@@ -1,6 +1,13 @@
 export const sendPv = (page: any) => {
   if (localStorage.getItem('useStats') !== '0') {
+    // baidu tongji
     window._hmt?.push(['_trackPageview', page]);
+
+    // umeng
+    window.aplus_queue.push({
+      action: 'aplus.sendPV',
+      arguments: [{is_auto: true}, {}]
+    });
   }
 };
 

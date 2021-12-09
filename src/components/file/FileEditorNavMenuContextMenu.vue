@@ -10,9 +10,10 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, readonly} from 'vue';
+import {computed, defineComponent} from 'vue';
 import ContextMenu, {contextMenuDefaultProps} from '@/components/context-menu/ContextMenu.vue';
 import ContextMenuList from '@/components/context-menu/ContextMenuList.vue';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'FileEditorNavMenuContextMenu',
@@ -27,16 +28,39 @@ export default defineComponent({
     'delete',
   ],
   setup(props, {emit}) {
-    const items = readonly<ContextMenuItem[]>([
-      {title: 'New File', icon: ['fa', 'file-alt'], action: () => emit('new-file')},
-      {title: 'New Directory', icon: ['fa', 'folder-plus'], action: () => emit('new-directory')},
-      {title: 'Rename', icon: ['fa', 'edit'], action: () => emit('rename')},
-      {title: 'Duplicate', icon: ['fa', 'clone'], action: () => emit('clone')},
-      {title: 'Delete', icon: ['fa', 'trash'], action: () => emit('delete')},
+    const {t} = useI18n();
+
+    const items = computed<ContextMenuItem[]>(() => [
+      {
+        title: t('components.file.editor.navMenu.newFile'),
+        icon: ['fa', 'file-alt'],
+        action: () => emit('new-file'),
+      },
+      {
+        title: t('components.file.editor.navMenu.newDirectory'),
+        icon: ['fa', 'folder-plus'],
+        action: () => emit('new-directory')
+      },
+      {
+        title: t('components.file.editor.navMenu.rename'),
+        icon: ['fa', 'edit'],
+        action: () => emit('rename'),
+      },
+      {
+        title: t('components.file.editor.navMenu.duplicate'),
+        icon: ['fa', 'clone'],
+        action: () => emit('clone'),
+      },
+      {
+        title: t('components.file.editor.navMenu.delete'),
+        icon: ['fa', 'trash'],
+        action: () => emit('delete'),
+      },
     ]);
 
     return {
       items,
+      t,
     };
   },
 });

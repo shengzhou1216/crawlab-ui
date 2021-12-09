@@ -10,6 +10,12 @@ export const translate = (path: string): string => {
   if (typeof res === 'string') return res;
   return path;
 };
+window._t = translate;
+
+export const translatePlugin = (pluginName: string, path: string): string => {
+  return translate(`plugins.${pluginName}.${path}`);
+};
+window._tp = translatePlugin;
 
 export const setGlobalLang = (lang: Lang) => {
   localStorage.setItem('lang', lang);

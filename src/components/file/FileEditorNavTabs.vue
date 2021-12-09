@@ -40,7 +40,9 @@
               </span>
             </el-tooltip>
             <span class="close-btn" @click.stop="onClose(item)">
-              <i class="el-icon-close"></i>
+              <el-icon>
+                <close/>
+              </el-icon>
             </span>
             <div class="background"/>
           </div>
@@ -55,10 +57,11 @@ import {computed, defineComponent, onMounted, ref, watch} from 'vue';
 import DraggableList from '@/components/drag/DraggableList.vue';
 import AtomMaterialIcon from '@/components/icon/AtomMaterialIcon.vue';
 import FileEditorNavTabsContextMenu from '@/components/file/FileEditorNavTabsContextMenu.vue';
+import {Close} from '@element-plus/icons';
 
 export default defineComponent({
   name: 'FileEditorNavTabs',
-  components: {FileEditorNavTabsContextMenu, AtomMaterialIcon, DraggableList},
+  components: {FileEditorNavTabsContextMenu, AtomMaterialIcon, DraggableList, Close},
   props: {
     activeTab: {
       type: Object,
@@ -256,6 +259,8 @@ export default defineComponent({
     .close-btn {
       margin-left: 5px;
       z-index: 1;
+      display: flex;
+      align-items: center;
     }
   }
 

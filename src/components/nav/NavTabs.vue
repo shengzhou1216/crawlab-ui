@@ -111,6 +111,15 @@ export default defineComponent({
       height: $navTabsHeight;
       line-height: $navTabsHeight;
 
+      &:hover {
+        color: $primaryColor;
+        background: inherit;
+      }
+
+      &:focus {
+        background: inherit;
+      }
+
       &.emphasis {
         color: $infoColor;
         border-bottom: none;

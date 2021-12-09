@@ -16,7 +16,7 @@
               }"
               class="search"
               clearable
-              placeholder="Search files..."
+              :placeholder="t('components.file.editor.sidebar.search.placeholder')"
               size="mini"
           >
             <template #prefix>
@@ -27,13 +27,13 @@
           </el-input>
         </div>
         <div class="right">
-          <el-tooltip content="Settings">
+          <el-tooltip v-if="false" :content="t('components.file.editor.sidebar.settings')">
             <span class="action-icon" @click="showSettings = true">
               <div class="background"/>
               <font-awesome-icon :icon="['fa', 'cog']"/>
             </span>
           </el-tooltip>
-          <el-tooltip content="Hide files">
+          <el-tooltip :content="t('components.file.editor.sidebar.toggle.hideFiles')">
             <span class="action-icon" @click="onToggleNavMenu">
               <div class="background"/>
               <font-awesome-icon :icon="['fa', 'minus']"/>
@@ -71,7 +71,7 @@
           @tab-dragend="onTabDragEnd"
       >
         <template v-if="navMenuCollapsed" #prefix>
-          <el-tooltip content="Show files">
+          <el-tooltip :content="t('components.file.editor.sidebar.toggle.showFiles')">
             <span class="action-icon expand-files" @click="onToggleNavMenu">
               <div class="background"/>
               <font-awesome-icon :icon="['fa', 'bars']"/>
@@ -95,7 +95,7 @@
           }"
           class="empty-content"
       >
-        You can edit or view a file by double-clicking one of the files on the left.
+        {{ t('components.file.editor.empty.placeholder') }}
       </div>
       <template v-if="navTabs && navTabs.showMoreVisible">
         <FileEditorNavTabsShowMoreContextMenu
@@ -111,7 +111,7 @@
               }"
               class="nav-tabs-suffix"
           >
-            <el-tooltip content="Show more">
+            <el-tooltip :content="t('components.file.editor.sidebar.showMore')">
               <span class="action-icon" @click.prevent="onShowMoreShow">
                 <div class="background"/>
                 <font-awesome-icon :icon="['fa', 'angle-down']"/>
@@ -151,6 +151,7 @@ import FileEditorNavTabs from '@/components/file/FileEditorNavTabs.vue';
 import FileEditorSettingsDialog from '@/components/file/FileEditorSettingsDialog.vue';
 import FileEditorNavTabsShowMoreContextMenu from '@/components/file/FileEditorNavTabsShowMoreContextMenu.vue';
 import {emptyArrayFunc} from '@/utils/func';
+import {useI18n} from 'vue-i18n';
 
 // codemirror mode import cache
 const codeMirrorModeCache = new Set<string>();
@@ -202,6 +203,10 @@ export default defineComponent({
     'drop-files',
   ],
   setup(props: FileEditorProps, {emit}) {
+    // i18n
+    const {t} = useI18n();
+
+    // store
     const ns = 'spider';
     const store = useStore();
     const {file} = store.state as RootStoreState;
@@ -673,6 +678,7 @@ export default defineComponent({
       updateEditorContent,
       updateContentCache,
       onDropFiles,
+      t,
     };
   },
 });

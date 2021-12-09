@@ -9,6 +9,7 @@ interface LComponents {
   git: LComponentsGit;
   empty: LComponentsEmpty;
   form: LComponentsForm;
+  file: LComponentsFile;
 
   node: LComponentsNode;
   project: LComponentsProject;
