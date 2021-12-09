@@ -33,6 +33,29 @@ const file: LComponentsFile = {
         rename: '请输入新名称',
         duplicate: '请输入新名称',
       }
+    },
+    settings: {
+      title: '文件编辑器设置',
+    },
+  },
+  upload: {
+    title: '文件上传',
+    buttons: {
+      files: {
+        dragFilesHereOr: '拖拽文件至此，或',
+        clickToUpload: '点击上传',
+      },
+      folder: {
+        clickToSelectFolderToUpload: '点击选择目录上传',
+      }
+    },
+    tooltip: {
+      folderName: '目录名称',
+      filesCount: '文件数',
+    },
+    mode: {
+      folder: '目录',
+      files: '文件',
     }
   }
 };

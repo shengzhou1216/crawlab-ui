@@ -21,8 +21,12 @@
           multiple
           :show-file-list="false"
       >
-        <i class="el-icon-upload"></i>
-        <div class="el-upload__text">Drag files here, or <em>click to upload</em></div>
+        <el-icon>
+          <upload/>
+        </el-icon>
+        <div class="el-upload__text">{{ t('components.file.upload.buttons.files.dragFilesHereOr') }}
+          <em>{{ t('components.file.upload.buttons.files.clickToUpload') }}</em>
+        </div>
       </el-upload>
       <input v-bind="getInputProps()" multiple>
     </template>
@@ -30,7 +34,7 @@
       <div class="folder-upload">
         <Button size="large" @click="open">
           <i class="fa fa-folder"></i>
-          Click to Select Folder to Upload
+          {{ t('components.file.upload.buttons.folder.clickToSelectFolderToUpload') }}
         </Button>
         <template v-if="!!dirInfo?.dirName && dirInfo?.fileCount">
           <Tag
@@ -38,14 +42,14 @@
               class="info-tag"
               :label="dirInfo?.dirName"
               :icon="['fa', 'folder']"
-              tooltip="Folder Name"
+              :tooltip="t('components.file.upload.tooltip.fileName')"
           />
           <Tag
               type="success"
               class="info-tag"
               :label="dirInfo?.fileCount"
               :icon="['fa', 'hashtag']"
-              tooltip="Files Count"
+              :tooltip="t('components.file.upload.tooltip.filesCount')"
           />
         </template>
       </div>
@@ -63,18 +67,21 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, onBeforeMount, ref, watch} from 'vue';
+import {computed, defineComponent, onBeforeMount, ref, watch} from 'vue';
 import {FILE_UPLOAD_MODE_DIR, FILE_UPLOAD_MODE_FILES} from '@/constants/file';
 import {ElUpload, UploadFile} from 'element-plus/lib/components/upload/src/upload.type';
 import Button from '@/components/button/Button.vue';
 import Tag from '@/components/tag/Tag.vue';
 import {plainClone} from '@/utils/object';
+import {useI18n} from 'vue-i18n';
+import {Upload} from '@element-plus/icons';
 
 export default defineComponent({
   name: 'FileUpload',
   components: {
     Tag,
     Button,
+    Upload,
   },
   props: {
     mode: {
@@ -92,16 +99,18 @@ export default defineComponent({
     'files-change',
   ],
   setup(props: FileUploadProps, {emit}) {
-    const modeOptions: FileUploadModeOption[] = [
+    const {t} = useI18n();
+
+    const modeOptions = computed<FileUploadModeOption[]>(() => [
       {
-        label: 'Folder',
+        label: t('components.file.upload.mode.folder'),
         value: FILE_UPLOAD_MODE_DIR,
       },
       {
-        label: 'Files',
+        label: t('components.file.upload.mode.files'),
         value: FILE_UPLOAD_MODE_FILES,
       },
-    ];
+    ]);
     const internalMode = ref<string>();
 
     const uploadRef = ref<ElUpload>();
@@ -134,7 +143,7 @@ export default defineComponent({
 
     const setInfo = (info: FileUploadInfo) => {
       dirInfo.value = plainClone(info);
-    }
+    };
 
     const resetInfo = (info: FileUploadInfo) => {
       dirInfo.value = undefined;
@@ -153,6 +162,7 @@ export default defineComponent({
       dirInfo,
       setInfo,
       resetInfo,
+      t,
     };
   },
 });

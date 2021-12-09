@@ -33,6 +33,29 @@ const file: LComponentsFile = {
         rename: 'Please enter the new name',
         duplicate: 'Please enter the new name',
       }
+    },
+    settings: {
+      title: 'File Editor Settings',
+    },
+  },
+  upload: {
+    title: 'Files Upload',
+    buttons: {
+      files: {
+        dragFilesHereOr: 'Drag files here, or',
+        clickToUpload: 'click to upload',
+      },
+      folder: {
+        clickToSelectFolderToUpload: 'Click to select folder to upload',
+      }
+    },
+    tooltip: {
+      folderName: 'Folder Name',
+      filesCount: 'Files Count',
+    },
+    mode: {
+      folder: 'Folder',
+      files: 'Files',
     }
   }
 };

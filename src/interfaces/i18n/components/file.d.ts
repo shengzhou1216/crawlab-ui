@@ -34,5 +34,28 @@ interface LComponentsFile {
         duplicate: string;
       };
     };
+    settings: {
+      title: string;
+    };
+  };
+  upload: {
+    title: string;
+    buttons: {
+      files: {
+        dragFilesHereOr: string;
+        clickToUpload: string;
+      };
+      folder: {
+        clickToSelectFolderToUpload: string;
+      };
+    };
+    tooltip: {
+      folderName: string;
+      filesCount: string;
+    };
+    mode: {
+      folder: string;
+      files: string;
+    };
   };
 }

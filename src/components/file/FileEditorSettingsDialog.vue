@@ -2,7 +2,7 @@
   <div class="file-editor-settings-dialog">
     <el-dialog
         :model-value="visible"
-        title="File Editor Settings"
+        :title="t('components.file.editor.settings.title')"
         @close="onClose"
     >
       <el-menu :default-active="activeTabName" class="nav-menu" mode="horizontal" @select="onTabChange">
@@ -29,8 +29,8 @@
         </el-form-item>
       </el-form>
       <template #footer>
-        <el-button plain size="small" type="info" @click="onClose">Cancel</el-button>
-        <el-button size="small" type="primary" @click="onConfirm">Save</el-button>
+        <el-button plain size="small" type="info" @click="onClose">{{ t('common.actions.cancel') }}</el-button>
+        <el-button size="small" type="primary" @click="onConfirm">{{ t('common.actions.confirm') }}</el-button>
       </template>
     </el-dialog>
   </div>
@@ -44,11 +44,14 @@ import variables from '@/styles/variables.scss';
 import {getOptionDefinition, getThemes} from '@/utils/codemirror';
 import FileEditorSettingsFormItem from '@/components/file/FileEditorSettingsFormItem.vue';
 import {onBeforeRouteLeave} from 'vue-router';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'FileEditorSettingsDialog',
   components: {FileEditorSettingsFormItem},
   setup() {
+    const {t} = useI18n();
+
     const storeNamespace = 'file';
     const store = useStore();
     const {file} = store.state as RootStoreState;
@@ -153,6 +156,7 @@ export default defineComponent({
       onTabChange,
       getDefinitionDescription,
       getDefinitionTitle,
+      t,
     };
   },
 });

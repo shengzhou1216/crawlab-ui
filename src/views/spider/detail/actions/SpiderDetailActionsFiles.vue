@@ -22,7 +22,7 @@
 
   <Dialog
       :visible="fileUploadVisible"
-      title="Files Upload"
+      :title="t('components.file.upload.title')"
       :confirm-loading="confirmLoading"
       :confirm-disabled="confirmDisabled"
       @close="onUploadClose"
