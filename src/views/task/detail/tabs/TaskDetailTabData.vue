@@ -2,7 +2,7 @@
   <div class="task-detail-tab-data">
     <ListLayout
         :action-functions="actionFunctions"
-        :pagination="tablePagination"
+        :table-pagination="tablePagination"
         :table-columns="tableColumns"
         :table-data="tableData"
         :table-total="tableTotal"
@@ -15,7 +15,7 @@
   </div>
 </template>
 <script lang="ts">
-import {computed, defineComponent, watch} from 'vue';
+import {computed, defineComponent, ref, watch} from 'vue';
 import ListLayout from '@/layouts/ListLayout.vue';
 import {useStore} from 'vuex';
 import useTaskDetail from '@/views/task/detail/taskDetail';
@@ -61,7 +61,7 @@ export default defineComponent({
     });
 
     // action functions
-    const actionFunctions = {
+    const actionFunctions = ref<ListLayoutActionFunctions>({
       setPagination: (pagination) => store.commit(`${ns}/setResultTablePagination`, pagination),
       getList: async () => {
         return store.dispatch(`${ns}/getResultData`, activeId.value);
@@ -69,15 +69,15 @@ export default defineComponent({
       getAll: async () => {
         console.warn('getAll is not implemented');
       },
-      deleteList: (ids: string[]) => {
+      deleteList: async (ids: string[]) => {
         console.warn('deleteList is not implemented');
       },
-      deleteByIdConfirm: (row: BaseModel) => {
+      deleteByIdConfirm: async (row: BaseModel) => {
         console.warn('deleteByIdConfirm is not implemented');
       },
-    } as ListLayoutActionFunctions;
+    });
 
-    watch(() => tablePagination.value, actionFunctions.getList);
+    watch(() => tablePagination.value, actionFunctions.value.getList);
 
     return {
       actionFunctions,
@@ -90,7 +90,7 @@ export default defineComponent({
 });
 </script>
 <style lang="scss" scoped>
-.task-detail-tab-overview {
-  margin: 20px;
+.task-detail-tab-data > > > .el-table {
+  border: none;
 }
 </style>

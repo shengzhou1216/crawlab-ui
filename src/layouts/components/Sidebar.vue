@@ -42,13 +42,13 @@
           <!-- ./no sub menu items -->
 
           <!-- has sub menu items -->
-          <el-submenu
+          <el-sub-menu
               v-else
               :index="item.path"
           >
             <template #title>
               <MenuItemIcon :item="item" size="normal"/>
-              <span class="menu-item-title">{{ item.title }}</span>
+              <span class="menu-item-title">{{ t(item.title) }}</span>
             </template>
             <el-menu-item
                 v-for="(subItem, $index) in item.children"
@@ -58,10 +58,10 @@
             >
               <MenuItemIcon :item="subItem" size="normal"/>
               <template #title>
-                <span class="menu-item-title">{{ subItem.title }}</span>
+                <span class="menu-item-title">{{ t(subItem.title) }}</span>
               </template>
             </el-menu-item>
-          </el-submenu>
+          </el-sub-menu>
           <!-- ./has sub menu items -->
         </template>
         <div class="plugin-anchor"/>
@@ -72,7 +72,7 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, onMounted} from 'vue';
+import {computed, defineComponent} from 'vue';
 import {useStore} from 'vuex';
 import {useRoute, useRouter} from 'vue-router';
 import variables from '@/styles/variables.scss';
@@ -252,7 +252,7 @@ export default defineComponent({
       }
 
       .el-menu-item,
-      .el-submenu {
+      .el-sub-menu {
         &.is-active {
           background-color: $menuHover !important;
         }

@@ -2,7 +2,7 @@
   <ListLayout
       :action-functions="actionFunctions"
       :no-actions="noActions"
-      :pagination="tablePagination"
+      :table-pagination="tablePagination"
       :table-columns="tableColumns"
       :table-data="tableData"
       :table-total="tableTotal"
@@ -58,6 +58,7 @@ export default defineComponent({
         return {
           key,
           label: key,
+          minWidth: '240',
         };
       }) as TableColumns<Result>;
     });

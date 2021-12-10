@@ -63,7 +63,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.spider-detail-tab-tasks >>> .el-table {
+.spider-detail-tab-data >>> .el-table {
   border: none;
 }
 </style>

@@ -53,9 +53,9 @@ declare global {
     setPagination: (pagination: TablePagination) => void;
     getList: () => Promise<void>;
     getAll: () => Promise<void>;
-    deleteList: (ids: string[]) => Promise<Response>;
+    deleteList: (ids: string[]) => Promise<Response | void>;
     deleteByIdConfirm: (row: BaseModel) => Promise<void>;
-    onHeaderChange: (column: TableColumn, sort: SortData, filter: TableHeaderDialogFilterData) => Promise<void>;
+    onHeaderChange?: (column: TableColumn, sort: SortData, filter: TableHeaderDialogFilterData) => Promise<void>;
   }
 
   type ListActionButtonDisabledFunc = (table: typeof Table) => boolean;

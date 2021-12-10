@@ -136,6 +136,7 @@ export const getDefaultStoreMutations = <T = any>(): BaseStoreMutations<T> => {
       state.tableTotal = total;
     },
     setTablePagination: (state: BaseStoreState<T>, pagination: TablePagination) => {
+      console.debug(pagination);
       state.tablePagination = pagination;
     },
     resetTablePagination: (state: BaseStoreState<T>) => {
