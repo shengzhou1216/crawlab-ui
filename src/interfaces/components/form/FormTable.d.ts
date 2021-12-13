@@ -11,5 +11,5 @@ interface FormTableField {
   options?: SelectOption[];
   required?: boolean;
   placeholder?: string;
-  disabled?: boolean | Function;
+  disabled?: boolean | BoolFunc;
 }

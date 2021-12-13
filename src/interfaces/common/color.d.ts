@@ -10,3 +10,7 @@ type Color =
   | 'yellow'
   | 'gold'
   | 'orange';
+
+type ColorFunc = () => string;
+
+type BoolFunc = () => boolean;

@@ -141,8 +141,8 @@ declare global {
 
   interface TableStore extends Store {
     mutations: TableStoreMutations;
-    commit: Function;
-    updateColumns: Function;
+    commit: () => void;
+    updateColumns: () => void;
   }
 
   interface TableStoreMutations extends StoreMutations {

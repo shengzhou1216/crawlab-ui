@@ -11,6 +11,6 @@ interface MetricMeta {
   key: string;
   value: number | string;
   icon: Icon;
-  color?: string | Function;
+  color?: string | ColorFunc;
   path?: string;
 }

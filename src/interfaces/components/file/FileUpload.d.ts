@@ -1,7 +1,7 @@
 interface FileUploadProps {
   mode?: string;
-  getInputProps?: Function;
-  open?: Function;
+  getInputProps?: () => any;
+  open?: () => void;
 }
 
 interface FileUploadModeOption {

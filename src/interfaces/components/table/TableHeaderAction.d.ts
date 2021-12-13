@@ -4,5 +4,5 @@ interface TableHeaderActionProps {
   isHtml?: boolean;
   icon: string | string[];
   status?: TableHeaderActionStatus;
-  onClick?: Function;
+  onClick?: () => void;
 }
