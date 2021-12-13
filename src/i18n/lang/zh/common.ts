@@ -21,6 +21,7 @@ const common: LCommon = {
     stop: '停止',
     clear: '清除',
     apply: '应用',
+    search: '搜索',
   },
   messageBox: {
     confirm: {
@@ -36,6 +37,7 @@ const common: LCommon = {
       restart: '重新运行成功',
       copy: '复制成功',
       start: '启动成功',
+      save: '保存成功',
     },
     info: {
       cancel: '尝试取消',

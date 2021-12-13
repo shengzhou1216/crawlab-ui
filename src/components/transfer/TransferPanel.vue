@@ -22,7 +22,7 @@
         <el-input
             v-model="searchString"
             class="search"
-            placeholder="Search"
+            :placeholder="t('common.actions.search')"
             :prefix-icon="Search"
             size="mini"
         />
@@ -61,6 +61,7 @@ import {DataItem, Key} from 'element-plus/lib/components/transfer';
 import Empty from '@/components/empty/Empty.vue';
 import DraggableList from '@/components/drag/DraggableList.vue';
 import {Search} from '@element-plus/icons';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'TransferPanel',
@@ -94,6 +95,8 @@ export default defineComponent({
     'drag',
   ],
   setup(props, {emit}) {
+    const {t} = useI18n();
+
     const searchString = ref<string>('');
 
     const isCheckedAll = ref<boolean>(false);
@@ -145,6 +148,7 @@ export default defineComponent({
       onCheckAll,
       onDragEnd,
       Search,
+      t,
     };
   },
 });

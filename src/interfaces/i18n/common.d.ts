@@ -28,6 +28,7 @@ interface LCommon {
     stop: string;
     clear: string;
     apply: string;
+    search: string;
   };
   messageBox: {
     confirm: {
@@ -43,6 +44,7 @@ interface LCommon {
       restart: string;
       copy: string;
       start: string;
+      save: string;
     };
     info: {
       cancel: string;

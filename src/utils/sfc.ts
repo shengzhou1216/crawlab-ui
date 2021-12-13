@@ -3,6 +3,7 @@ import useRequest from '@/services/request';
 import * as vue from 'vue';
 import * as VueRouter from 'vue-router';
 import * as ElementPlus from 'element-plus';
+import * as ElementPlusIcons from '@element-plus/icons';
 import * as CrawlabUI from '@/index';
 import * as Vuex from 'vuex';
 
@@ -19,6 +20,7 @@ const getLoadModuleOptions = (): any => {
       'vuex': Vuex,
       'vue-router': VueRouter,
       'element-plus': ElementPlus,
+      '@element-plus/icons': ElementPlusIcons,
       'crawlab-ui': CrawlabUI,
     },
     pathResolve({refPath, relPath}: { refPath?: string; relPath?: string }) {

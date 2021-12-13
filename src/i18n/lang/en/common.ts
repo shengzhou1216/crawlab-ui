@@ -21,6 +21,7 @@ const common: LCommon = {
     stop: 'Stop',
     clear: 'Clear',
     apply: 'Apply',
+    search: 'Search',
   },
   messageBox: {
     confirm: {
@@ -36,6 +37,7 @@ const common: LCommon = {
       restart: 'Restarted successfully',
       copy: 'Copied successfully',
       start: 'Started successfully',
+      save: 'Saved successfully',
     },
     info: {
       cancel: 'Attempt to cancel',
