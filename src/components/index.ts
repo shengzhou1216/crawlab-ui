@@ -62,6 +62,7 @@ import PluginForm from './plugin/PluginForm.vue';
 import PluginPid from './plugin/PluginPid.vue';
 import PluginStatus from './plugin/PluginStatus.vue';
 import PluginStatusMultiNode from './plugin/PluginStatusMultiNode.vue';
+import SettingsPluginDialog from './plugin/SettingsPluginDialog.vue';
 import CreateEditProjectDialog from './project/CreateEditProjectDialog.vue';
 import ProjectForm from './project/ProjectForm.vue';
 import ProjectTag from './project/ProjectTag.vue';
@@ -172,6 +173,7 @@ export {
   PluginPid as ClPluginPid,
   PluginStatus as ClPluginStatus,
   PluginStatusMultiNode as ClPluginStatusMultiNode,
+  SettingsPluginDialog as ClSettingsPluginDialog,
   CreateEditProjectDialog as ClCreateEditProjectDialog,
   ProjectForm as ClProjectForm,
   ProjectTag as ClProjectTag,
