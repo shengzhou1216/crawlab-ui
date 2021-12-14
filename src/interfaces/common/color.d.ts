@@ -11,6 +11,4 @@ type Color =
   | 'gold'
   | 'orange';
 
-type ColorFunc = () => string;
-
-type BoolFunc = () => boolean;
+type ColorFunc = (m: MetricMeta) => string;

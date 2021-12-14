@@ -67,7 +67,7 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, onBeforeMount, ref, watch} from 'vue';
+import {computed, defineComponent, onBeforeMount, PropType, ref, watch} from 'vue';
 import {FILE_UPLOAD_MODE_DIR, FILE_UPLOAD_MODE_FILES} from '@/constants/file';
 import {ElUpload, UploadFile} from 'element-plus/lib/components/upload/src/upload.type';
 import Button from '@/components/button/Button.vue';
@@ -88,10 +88,10 @@ export default defineComponent({
       type: String,
     },
     getInputProps: {
-      type: Function,
+      type: Function as PropType<() => void>,
     },
     open: {
-      type: Function,
+      type: Function as PropType<() => void>,
     },
   },
   emits: [
