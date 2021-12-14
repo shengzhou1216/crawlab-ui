@@ -340,7 +340,6 @@ export default defineComponent({
     const updateMode = async () => {
       const mode = language.value?.mode;
       if (!mode || codeMirrorModeCache.has(mode)) return;
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
       // @ts-ignore
       require(`codemirror/mode/${mode}/${mode}.js`);
       codeMirrorModeCache.add(mode);
