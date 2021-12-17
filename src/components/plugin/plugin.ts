@@ -35,6 +35,7 @@ const usePlugin = (store: Store<RootStoreState>) => {
   // active public plugin info
   const activePublicPluginInfo = computed<PublicPluginInfo | undefined>(() => state.activePublicPluginInfo);
 
+  // all plugin dict by full name
   const allPluginDictByFullName = computed<{ [key: string]: CPlugin }>(() => {
     const dict = {} as { [key: string]: CPlugin };
     state.allList.forEach(p => {
@@ -43,6 +44,9 @@ const usePlugin = (store: Store<RootStoreState>) => {
     });
     return dict;
   });
+
+  // install type
+  const installType = computed<string>(() => state.installType);
 
   return {
     ...useForm(ns, store, usePluginService(store), formComponentData),
@@ -53,6 +57,7 @@ const usePlugin = (store: Store<RootStoreState>) => {
     activePublicPlugin,
     activePublicPluginInfo,
     allPluginDictByFullName,
+    installType,
   };
 };
 

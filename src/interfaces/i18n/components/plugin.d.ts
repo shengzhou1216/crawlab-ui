@@ -9,12 +9,21 @@ interface LComponentsPlugin {
     description: string;
   };
   installType: {
-    name: string;
-    git: string;
-    local: string;
+    label: {
+      public: string;
+      git: string;
+      local: string;
+    };
+    notice: {
+      public: string;
+      git: string;
+      local: string;
+    };
   };
   install: {
     title: string;
+    repoUrl: string;
+    author: string;
     pushedAt: string;
     updatedAt: string;
   };

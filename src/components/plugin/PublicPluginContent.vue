@@ -10,6 +10,26 @@
     <div class="content">
       <div class="info">
         <span class="label">
+          {{ t('components.plugin.install.author') }}:
+        </span>
+        <span class="value">
+          <a :href="info.repo?.owner?.html_url" target="_blank">
+            {{ info.repo?.owner?.login }}
+          </a>
+        </span>
+      </div>
+      <div class="info">
+        <span class="label">
+          {{ t('components.plugin.install.repoUrl') }}:
+        </span>
+        <span class="value">
+          <a :href="info.repo?.html_url" target="_blank">
+            {{ info.repo?.html_url }}
+          </a>
+        </span>
+      </div>
+      <div class="info">
+        <span class="label">
           {{ t('components.plugin.install.pushedAt') }}:
         </span>
         <span class="value">
@@ -73,6 +93,8 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+@import "../../styles/variables.scss";
+
 .public-plugin-content {
   .top {
     height: 100px;
@@ -99,6 +121,14 @@ export default defineComponent({
 
       .value {
         flex: 1 0 auto;
+
+        a {
+          color: $primaryColor;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
       }
     }
   }

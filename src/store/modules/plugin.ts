@@ -6,7 +6,7 @@ import {
 } from '@/utils/store';
 import useRequest from '@/services/request';
 import {SETTING_PLUGIN} from '@/constants/setting';
-import {PLUGIN_INSTALL_TYPE_NAME} from '@/constants/plugin';
+import {PLUGIN_INSTALL_TYPE_PUBLIC} from '@/constants/plugin';
 import {cloneArray, plainClone} from '@/utils/object';
 
 type Plugin = CPlugin;
@@ -21,7 +21,7 @@ const state = {
   ...getDefaultStoreState<Plugin>('plugin'),
   newFormFn: () => {
     return {
-      install_type: PLUGIN_INSTALL_TYPE_NAME,
+      install_type: PLUGIN_INSTALL_TYPE_PUBLIC,
       auto_start: true,
     };
   },
@@ -34,6 +34,7 @@ const state = {
   publicPlugins: [],
   activePublicPlugin: undefined,
   activePublicPluginInfo: undefined,
+  installType: PLUGIN_INSTALL_TYPE_PUBLIC,
 } as PluginStoreState;
 
 const getters = {
@@ -66,6 +67,12 @@ const mutations = {
   resetActivePublicPluginInfo: (state: PluginStoreState) => {
     state.activePublicPluginInfo = undefined;
   },
+  setInstallType: (state: PluginStoreState, installType: string) => {
+    state.installType = installType;
+  },
+  resetInstallType: (state: PluginStoreState) => {
+    state.installType = PLUGIN_INSTALL_TYPE_PUBLIC;
+  },
 } as PluginStoreMutations;
 
 const actions = {
@@ -86,6 +93,7 @@ const actions = {
       conditions: JSON.stringify(state.tableListFilter),
       sort: JSON.stringify(state.tableListSort),
       status: true,
+      all: true,
     };
     const res = await getList(`/plugins`, payload);
     commit('setAllList', res.data || []);

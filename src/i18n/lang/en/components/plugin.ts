@@ -9,12 +9,21 @@ const plugin: LComponentsPlugin = {
     description: 'Description',
   },
   installType: {
-    name: 'Name',
-    git: 'Git',
-    local: 'Local'
+    label: {
+      public: 'Public',
+      git: 'Git',
+      local: 'Local'
+    },
+    notice: {
+      public: 'Install official public plugins from Crawlab Team',
+      git: 'Install 3rd-party plugins on Git url',
+      local: 'Install from local source',
+    },
   },
   install: {
     title: 'Install Plugin',
+    repoUrl: 'Repo URL',
+    author: 'Author',
     pushedAt: 'Pushed At',
     updatedAt: 'Updated At',
   },

@@ -5,6 +5,7 @@ interface PluginStoreState extends BaseStoreState<CPlugin> {
   publicPlugins: PublicPlugin[];
   activePublicPlugin?: PublicPlugin;
   activePublicPluginInfo?: PublicPluginInfo;
+  installType: string;
 }
 
 type PluginStoreGetters = BaseStoreGetters<CPlugin>;
@@ -18,6 +19,8 @@ interface PluginStoreMutations extends BaseStoreMutations<CPlugin> {
   resetActivePublicPlugin: StoreMutation<PluginStoreState>;
   setActivePublicPluginInfo: StoreMutation<PluginStoreState, PublicPluginInfo>;
   resetActivePublicPluginInfo: StoreMutation<PluginStoreState>;
+  setInstallType: StoreMutation<PluginStoreState, string>;
+  resetInstallType: StoreMutation<PluginStoreState>;
 }
 
 interface PluginStoreActions extends BaseStoreActions<CPlugin> {

@@ -6,54 +6,57 @@
       @close="onClose"
       @confirm="onConfirm"
   >
-    <div class="container">
-      <div v-loading="loadingPublicPlugins" class="sidebar">
-        <PublicPluginItem
-            v-for="(p, $index) in publicPlugins"
-            :key="$index"
-            :plugin="p"
-            :active="p?.full_name === activePublicPlugin?.full_name"
-            clickable
-            :status="getPluginStatus(p)"
-            :installed="isInstalled(p)"
-            @click="onClickPlugin(p)"
-            @install="onInstallPlugin(p)"
-        />
-      </div>
-      <div v-loading="loadingActivePublicPluginInfo" class="content">
-        <PublicPluginContent
-            v-if="!!activePublicPlugin && !!activePublicPluginInfo"
-            :plugin="activePublicPlugin"
-            :info="activePublicPluginInfo"
-            :installing="isInstalling(activePublicPlugin)"
-        />
-      </div>
+    <div class="top">
+      <el-radio-group
+          v-model="internalInstallType"
+          class="install-type-select"
+          type="button"
+          size="small"
+          @change="onInstallTypeChange"
+      >
+        <el-radio-button :label="PLUGIN_INSTALL_TYPE_PUBLIC">
+          {{ t('components.plugin.installType.label.public') }}
+        </el-radio-button>
+        <el-radio-button :label="PLUGIN_INSTALL_TYPE_GIT">
+          {{ t('components.plugin.installType.label.git') }}
+        </el-radio-button>
+        <el-radio-button :label="PLUGIN_INSTALL_TYPE_LOCAL">
+          {{ t('components.plugin.installType.label.local') }}
+        </el-radio-button>
+      </el-radio-group>
+      <el-alert show-icon type="info" class="notice" :closable="false">
+        {{ noticeContent }}
+      </el-alert>
     </div>
+    <InstallPublicPlugin
+        v-if="installType === PLUGIN_INSTALL_TYPE_PUBLIC"
+    />
+    <PluginForm
+        v-else
+    />
   </Dialog>
 </template>
 
 <script lang="ts">
-import {defineComponent, onBeforeMount, onBeforeUnmount, ref} from 'vue';
+import {computed, defineComponent, onBeforeUnmount, ref} from 'vue';
 import Dialog from '@/components/dialog/Dialog.vue';
 import {useI18n} from 'vue-i18n';
 import {useStore} from 'vuex';
 import usePlugin from '@/components/plugin/plugin';
-import PublicPluginItem from '@/components/plugin/PublicPluginItem.vue';
-import PublicPluginContent from '@/components/plugin/PublicPluginContent.vue';
-import {ElMessageBox} from 'element-plus';
 import {
-  PLUGIN_INSTALL_TYPE_NAME, PLUGIN_STATUS_ERROR,
-  PLUGIN_STATUS_INSTALLING,
-  PLUGIN_STATUS_RUNNING,
-  PLUGIN_STATUS_STOPPED
+  PLUGIN_INSTALL_TYPE_PUBLIC,
+  PLUGIN_INSTALL_TYPE_GIT,
+  PLUGIN_INSTALL_TYPE_LOCAL,
 } from '@/constants/plugin';
+import PluginForm from '@/components/plugin/PluginForm.vue';
+import InstallPublicPlugin from '@/components/plugin/InstallPublicPlugin.vue';
 
 export default defineComponent({
   name: 'InstallPluginDialog',
   components: {
-    PublicPluginContent,
+    InstallPublicPlugin,
+    PluginForm,
     Dialog,
-    PublicPluginItem,
   },
   setup() {
     // i18n
@@ -64,11 +67,8 @@ export default defineComponent({
     const store = useStore();
 
     const {
-      allPluginDictByFullName,
+      installType,
     } = usePlugin(store);
-
-    const loadingPublicPlugins = ref(false);
-    const loadingActivePublicPluginInfo = ref(false);
 
     const onClose = () => {
       store.commit(`${ns}/hideDialog`, 'install');
@@ -80,84 +80,39 @@ export default defineComponent({
       store.commit(`${ns}/hideDialog`, 'install');
     };
 
-    const isClickingInstall = ref(false);
-    const onClickPlugin = async (p: PublicPlugin) => {
-      if (isClickingInstall.value) return;
+    const internalInstallType = ref<string>(PLUGIN_INSTALL_TYPE_PUBLIC);
 
-      store.commit(`${ns}/setActivePublicPlugin`, p);
-
-      loadingActivePublicPluginInfo.value = true;
-      try {
-        await store.dispatch(`${ns}/getPublicPluginInfo`, p?.full_name);
-      } finally {
-        loadingActivePublicPluginInfo.value = false;
-      }
+    const onInstallTypeChange = (value: string) => {
+      store.commit(`${ns}/setInstallType`, value);
     };
-
-    const onInstallPlugin = async (p: PublicPlugin) => {
-      isClickingInstall.value = true;
-      setTimeout(() => isClickingInstall.value = false, 100);
-
-      await ElMessageBox.confirm(
-          t('common.messageBox.confirm.install'),
-          t('common.actions.install'),
-      );
-      await store.dispatch(`${ns}/create`, {
-        full_name: p.full_name,
-        install_type: PLUGIN_INSTALL_TYPE_NAME,
-      });
-      await store.dispatch(`${ns}/getAllList`);
-    };
-
-    const getPluginStatus = (p: PublicPlugin): string => {
-      return allPluginDictByFullName.value[p.full_name]?.status?.[0]?.status;
-    };
-
-    const isInstalling = (p: PublicPlugin): boolean => {
-      return getPluginStatus(p) === PLUGIN_STATUS_INSTALLING;
-    };
-
-    const isInstalled = (p: PublicPlugin): boolean => {
-      if (!getPluginStatus(p)) return false;
-      return [
-        PLUGIN_STATUS_STOPPED,
-        PLUGIN_STATUS_RUNNING,
-        PLUGIN_STATUS_ERROR,
-      ].includes(getPluginStatus(p));
-    };
-
-    let handle: any;
-    onBeforeMount(async () => {
-      loadingPublicPlugins.value = true;
-      try {
-        await store.dispatch(`${ns}/getPublicPluginList`);
-      } finally {
-        loadingPublicPlugins.value = false;
-      }
-
-      handle = setInterval(() => {
-        store.dispatch(`${ns}/getAllList`);
-      }, 5000);
-    });
 
     onBeforeUnmount(() => {
-      store.commit(`${ns}/getPublicPluginList`);
-      store.commit(`${ns}/resetActivePublicPlugin`);
+      store.commit(`${ns}/resetInstallType`);
+    });
 
-      clearInterval(handle);
+    const noticeContent = computed<string>(() => {
+      switch (installType.value) {
+        case PLUGIN_INSTALL_TYPE_PUBLIC:
+          return t('components.plugin.installType.notice.public');
+        case PLUGIN_INSTALL_TYPE_GIT:
+          return t('components.plugin.installType.notice.git');
+        case PLUGIN_INSTALL_TYPE_LOCAL:
+          return t('components.plugin.installType.notice.local');
+        default:
+          return '';
+      }
     });
 
     return {
       ...usePlugin(store),
+      PLUGIN_INSTALL_TYPE_PUBLIC,
+      PLUGIN_INSTALL_TYPE_GIT,
+      PLUGIN_INSTALL_TYPE_LOCAL,
       onClose,
       onConfirm,
-      onClickPlugin,
-      onInstallPlugin,
-      loadingPublicPlugins,
-      loadingActivePublicPluginInfo,
-      isInstalling,
-      isInstalled,
-      getPluginStatus,
+      internalInstallType,
+      onInstallTypeChange,
+      noticeContent,
       t,
     };
   },
@@ -165,25 +120,22 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-@import "../../styles/variables.scss";
-
-.container {
+.top {
+  margin-bottom: 20px;
   display: flex;
-  border: 1px solid $infoMediumLightColor;
-  height: calc(100vh - 400px);
-  min-height: 360px;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
 
-  .sidebar {
-    flex: 0 0 450px;
-    border-right: 1px solid $infoMediumLightColor;
-    overflow-y: auto;
+  .install-type-select {
+    width: 200px;
+    flex: 0 0 200px;
   }
 
-  .content {
+  .notice {
+    width: calc(100% - 200px - 20px);
     flex: 1 0 auto;
-    height: 100%;
-    width: calc(100% - 450px);
-    overflow-y: auto;
+    margin-left: 20px;
   }
 }
 </style>

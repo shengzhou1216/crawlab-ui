@@ -231,11 +231,15 @@ const usePluginList = () => {
               const res = await ElMessageBox.confirm(
                 t('common.messageBox.confirm.delete'),
                 t('common.actions.delete'),
+                {type: 'warning'},
               );
               if (res) {
                 await deleteById(row._id as string);
               }
-              await getList();
+              await Promise.all([
+                getList(),
+                store.dispatch(`${ns}/getAllList`),
+              ]);
             },
           },
         ]);

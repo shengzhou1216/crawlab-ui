@@ -9,12 +9,21 @@ const plugin: LComponentsPlugin = {
     description: '描述',
   },
   installType: {
-    name: '名称',
-    git: 'Git',
-    local: '本地'
+    label: {
+      public: '公共',
+      git: 'Git',
+      local: '本地'
+    },
+    notice: {
+      public: '安装 Crawlab 团队维护的官方公共插件',
+      git: '安装 Git URL 地址对应的第三方插件',
+      local: '从本地安装插件',
+    },
   },
   install: {
     title: '安装插件',
+    repoUrl: '仓库地址',
+    author: '作者',
     pushedAt: '最近提交时间',
     updatedAt: '最近更新时间',
   },

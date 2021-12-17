@@ -4,7 +4,7 @@ import {
   PLUGIN_STATUS_ERROR,
   PLUGIN_STATUS_RUNNING,
   PLUGIN_STATUS_STOPPED,
-  PLUGIN_INSTALL_TYPE_NAME,
+  PLUGIN_INSTALL_TYPE_PUBLIC,
   PLUGIN_INSTALL_TYPE_GIT,
   PLUGIN_INSTALL_TYPE_LOCAL,
 } from '@/constants/plugin';
@@ -42,6 +42,11 @@ declare global {
     pushed_at: string;
     created_at: string;
     updated_at: string;
+    owner: {
+      id: number;
+      login: string;
+      html_url: string;
+    };
   }
 
   interface PublicPluginInfo {
@@ -76,5 +81,5 @@ declare global {
     error?: string;
   }
 
-  type PluginInstallType = PLUGIN_INSTALL_TYPE_NAME | PLUGIN_INSTALL_TYPE_GIT | PLUGIN_INSTALL_TYPE_LOCAL;
+  type PluginInstallType = PLUGIN_INSTALL_TYPE_PUBLIC | PLUGIN_INSTALL_TYPE_GIT | PLUGIN_INSTALL_TYPE_LOCAL;
 }

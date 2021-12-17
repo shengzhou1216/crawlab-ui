@@ -10,6 +10,6 @@ export const PLUGIN_STATUS_STOPPED = 'stopped';
 export const PLUGIN_STATUS_RUNNING = 'running';
 export const PLUGIN_STATUS_ERROR = 'error';
 
-export const PLUGIN_INSTALL_TYPE_NAME = 'name';
+export const PLUGIN_INSTALL_TYPE_PUBLIC = 'public';
 export const PLUGIN_INSTALL_TYPE_GIT = 'git';
 export const PLUGIN_INSTALL_TYPE_LOCAL = 'local';
