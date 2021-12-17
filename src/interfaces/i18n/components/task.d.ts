@@ -44,10 +44,20 @@ interface LComponentsTask {
     low: string;
   };
   mode: {
-    randomNode: string;
-    allNodes: string;
-    selectedNodes: string;
-    selectedTags: string;
+    label: {
+      randomNode: string;
+      allNodes: string;
+      selectedNodes: string;
+      selectedTags: string;
+      unknown: string;
+    };
+    tooltip: {
+      randomNode: string;
+      allNodes: string;
+      selectedNodes: string;
+      selectedTags: string;
+      unknown: string;
+    };
   };
   results: {
     results: string;

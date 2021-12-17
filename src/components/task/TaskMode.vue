@@ -15,6 +15,7 @@ import {
   TASK_MODE_SELECTED_NODE_TAGS,
   TASK_MODE_SELECTED_NODES
 } from '@/constants/task';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'TaskMode',
@@ -25,6 +26,9 @@ export default defineComponent({
     }
   },
   setup(props: TaskModeProps, {emit}) {
+    // i18n
+    const {t} = useI18n();
+
     const type = computed<string>(() => {
       const {mode} = props;
       switch (mode) {
@@ -45,15 +49,15 @@ export default defineComponent({
       const {mode} = props;
       switch (mode) {
         case TASK_MODE_RANDOM:
-          return 'Random';
+          return t('components.task.mode.label.randomNode');
         case TASK_MODE_ALL_NODES:
-          return 'All Nodes';
+          return t('components.task.mode.label.allNodes');
         case TASK_MODE_SELECTED_NODES:
-          return 'Nodes';
+          return t('components.task.mode.label.selectedNodes');
         case TASK_MODE_SELECTED_NODE_TAGS:
-          return 'Tags';
+          return t('components.task.mode.label.selectedTags');
         default:
-          return 'Unknown';
+          return t('components.task.mode.label.unknown');
       }
     });
 
@@ -77,15 +81,15 @@ export default defineComponent({
       const {mode} = props;
       switch (mode) {
         case TASK_MODE_RANDOM:
-          return 'Run on a random node';
+          return t('components.task.mode.tooltip.randomNode');
         case TASK_MODE_ALL_NODES:
-          return 'Run on all nodes';
+          return t('components.task.mode.tooltip.allNodes');
         case TASK_MODE_SELECTED_NODES:
-          return 'Run on selected nodes';
+          return t('components.task.mode.tooltip.selectedNodes');
         case TASK_MODE_SELECTED_NODE_TAGS:
-          return 'Run on nodes with selected tags';
+          return t('components.task.mode.tooltip.selectedTags');
         default:
-          return 'Unknown task mode';
+          return t('components.task.mode.tooltip.unknown');
       }
     });
 

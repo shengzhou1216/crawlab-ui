@@ -12,6 +12,7 @@ import {
 declare global {
   interface CPlugin extends BaseModel {
     name?: string;
+    full_name?: string;
     description?: string;
     type?: string;
     proto?: string;
@@ -30,6 +31,23 @@ declare global {
     ui_sidebar_navs?: MenuItem[];
     ui_assets?: PluginUIAsset[];
     status?: PluginStatus[];
+  }
+
+  interface PublicPlugin {
+    id: number;
+    name: string;
+    full_name: string;
+    description: string;
+    html_url: string;
+    pushed_at: string;
+    created_at: string;
+    updated_at: string;
+  }
+
+  interface PublicPluginInfo {
+    repo: PublicPlugin;
+    pluginJson: CPlugin;
+    readme: string;
   }
 
   interface PluginUIComponent {

@@ -44,10 +44,20 @@ const task: LComponentsTask = {
     low: '低',
   },
   mode: {
-    randomNode: '随机节点',
-    allNodes: '所有节点',
-    selectedNodes: '指定节点',
-    selectedTags: '指定标签',
+    label: {
+      randomNode: '随机节点',
+      allNodes: '所有节点',
+      selectedNodes: '指定节点',
+      selectedTags: '指定标签',
+      unknown: '未知',
+    },
+    tooltip: {
+      randomNode: '在随机一个节点运行',
+      allNodes: '在所有节点运行',
+      selectedNodes: '在指定节点运行',
+      selectedTags: '在指定标签对应节点运行',
+      unknown: '未知运行模式',
+    },
   },
   results: {
     results: '结果数',

@@ -36,10 +36,10 @@ export const isCancellable = (status: TaskStatus): boolean => {
 
 export const getModeOptions = (): SelectOption[] => {
   return [
-    {value: TASK_MODE_RANDOM, label: t('components.task.mode.randomNode')},
-    {value: TASK_MODE_ALL_NODES, label: t('components.task.mode.allNodes')},
-    {value: TASK_MODE_SELECTED_NODES, label: t('components.task.mode.selectedNodes')},
-    {value: TASK_MODE_SELECTED_NODE_TAGS, label: t('components.task.mode.selectedTags')},
+    {value: TASK_MODE_RANDOM, label: t('components.task.mode.label.randomNode')},
+    {value: TASK_MODE_ALL_NODES, label: t('components.task.mode.label.allNodes')},
+    {value: TASK_MODE_SELECTED_NODES, label: t('components.task.mode.label.selectedNodes')},
+    {value: TASK_MODE_SELECTED_NODE_TAGS, label: t('components.task.mode.label.selectedTags')},
   ];
 };
 

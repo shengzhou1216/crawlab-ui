@@ -44,10 +44,20 @@ const task: LComponentsTask = {
     low: 'Low',
   },
   mode: {
-    randomNode: 'Random Node',
-    allNodes: 'All Nodes',
-    selectedNodes: 'Selected Nodes',
-    selectedTags: 'Selected Tags',
+    label: {
+      randomNode: 'Random Node',
+      allNodes: 'All Nodes',
+      selectedNodes: 'Selected Nodes',
+      selectedTags: 'Selected Tags',
+      unknown: 'Unknown',
+    },
+    tooltip: {
+      randomNode: 'Run on a random node',
+      allNodes: 'Run on all nodes',
+      selectedNodes: 'Run on selected nodes',
+      selectedTags: 'Run on nodes with selected tags',
+      unknown: 'Unknown task mode',
+    },
   },
   results: {
     results: 'Results',

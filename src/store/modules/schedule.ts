@@ -7,6 +7,10 @@ import {
 import useRequest from '@/services/request';
 import {TAB_NAME_OVERVIEW, TAB_NAME_TASKS} from '@/constants/tab';
 import {TASK_MODE_RANDOM} from '@/constants/task';
+import {translate} from '@/utils/i18n';
+
+// i18n
+const t = translate;
 
 const {
   post,
@@ -21,8 +25,8 @@ const state = {
     };
   },
   tabs: [
-    {id: TAB_NAME_OVERVIEW, title: 'Overview'},
-    {id: TAB_NAME_TASKS, title: 'Tasks'},
+    {id: TAB_NAME_OVERVIEW, title: t('common.tabs.overview')},
+    {id: TAB_NAME_TASKS, title: t('common.tabs.tasks')},
   ],
 } as ScheduleStoreState;
 

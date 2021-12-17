@@ -200,7 +200,7 @@ export const initPlugins = async (router: Router, store: Store<RootStoreState>) 
 
 export const getPluginBaseUrlOptions = (): SelectOption[] => {
   return [
-    {value: SETTING_PLUGIN_BASE_URL_GITHUB, label: 'Github'},
+    {value: SETTING_PLUGIN_BASE_URL_GITHUB, label: 'GitHub'},
     {value: SETTING_PLUGIN_BASE_URL_GITEE, label: 'Gitee'},
   ];
 };

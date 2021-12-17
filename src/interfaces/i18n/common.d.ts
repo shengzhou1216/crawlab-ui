@@ -29,6 +29,7 @@ interface LCommon {
     clear: string;
     apply: string;
     search: string;
+    install: string;
   };
   messageBox: {
     confirm: {
@@ -36,6 +37,8 @@ interface LCommon {
       restart: string;
       cancel: string;
       stop: string;
+      install: string;
+      start: string;
     };
   };
   message: {

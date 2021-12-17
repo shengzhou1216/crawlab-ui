@@ -27,6 +27,7 @@ import {
 import Tag from '@/components/tag/Tag.vue';
 import colors from '@/styles/color.scss';
 import {emptyArrayFunc} from '@/utils/func';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'PluginStatus',
@@ -51,42 +52,45 @@ export default defineComponent({
   },
   emits: ['click'],
   setup(props: PluginStatusProps, {emit}) {
+    // i18n
+    const {t} = useI18n();
+
     const data = computed<TagData>(() => {
       const {status, error} = props;
       switch (status) {
         case PLUGIN_STATUS_INSTALLING:
           return {
-            label: 'Installing',
-            tooltip: 'Installing plugin',
+            label: t('components.plugin.status.label.installing'),
+            tooltip: t('components.plugin.status.tooltip.installing'),
             type: 'warning',
             icon: ['fa', 'spinner'],
             spinning: true,
           };
         case PLUGIN_STATUS_STOPPED:
           return {
-            label: 'Stopped',
-            tooltip: 'Plugin is stopped',
+            label: t('components.plugin.status.label.stopped'),
+            tooltip: t('components.plugin.status.tooltip.stopped'),
             type: 'info',
             icon: ['fa', 'stop'],
           };
         case PLUGIN_STATUS_RUNNING:
           return {
-            label: 'Running',
-            tooltip: 'Plugin is currently running',
+            label: t('components.plugin.status.label.running'),
+            tooltip: t('components.plugin.status.tooltip.running'),
             type: 'success',
             icon: ['fa', 'check'],
           };
         case PLUGIN_STATUS_ERROR:
           return {
-            label: 'Error',
-            tooltip: `Plugin stopped with an error:<br><span style="color: ${colors.red}">${error}</span>`,
+            label: t('components.plugin.status.label.error'),
+            tooltip: `${t('components.plugin.status.tooltip.error')}:<br><span style="color: ${colors.red}">${error}</span>`,
             type: 'danger',
             icon: ['fa', 'times'],
           };
         default:
           return {
-            label: 'Unknown',
-            tooltip: 'Unknown plugin status',
+            label: t('components.plugin.status.label.unknown'),
+            tooltip: t('components.plugin.status.tooltip.unknown'),
             type: 'info',
             icon: ['fa', 'question'],
           };

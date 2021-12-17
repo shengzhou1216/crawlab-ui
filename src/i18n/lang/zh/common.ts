@@ -22,6 +22,7 @@ const common: LCommon = {
     clear: '清除',
     apply: '应用',
     search: '搜索',
+    install: '安装',
   },
   messageBox: {
     confirm: {
@@ -29,6 +30,8 @@ const common: LCommon = {
       restart: '您是否确定重新运行?',
       cancel: '您是否确定取消?',
       stop: '您是否确定停止?',
+      install: '您是否确定安装?',
+      start: '您是否确定启动?',
     }
   },
   message: {

@@ -55,12 +55,12 @@ const usePluginList = () => {
       children: [
         {
           buttonType: 'label',
-          label: t('views.plugins.navActions.new.label'),
-          tooltip: t('views.plugins.navActions.new.tooltip'),
-          icon: ['fa', 'plus'],
+          label: t('views.plugins.navActions.install.label'),
+          tooltip: t('views.plugins.navActions.install.tooltip'),
+          icon: ['fa', 'download'],
           type: 'success',
           onClick: () => {
-            commit(`${ns}/showDialog`, 'create');
+            commit(`${ns}/showDialog`, 'install');
           }
         }
       ]
@@ -88,10 +88,10 @@ const usePluginList = () => {
       key: 'name', // name
       label: t('views.plugins.table.columns.name'),
       icon: ['fa', 'font'],
-      width: '150',
+      width: '250',
       value: (row: Plugin) => h(NavLink, {
         path: `/plugins/${row._id}`,
-        label: row.name,
+        label: row.name || row.full_name || row._id,
       }),
       hasSort: true,
       hasFilter: true,

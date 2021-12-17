@@ -11,6 +11,10 @@ interface LViewsPlugins {
 }
 
 interface LNavActionsPlugins extends LNavActions {
+  install: {
+    label: string;
+    tooltip: string;
+  };
   settings: {
     label: string;
     tooltip: string;

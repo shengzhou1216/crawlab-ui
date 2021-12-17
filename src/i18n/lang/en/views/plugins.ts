@@ -12,6 +12,10 @@ const plugins: LViewsPlugins = {
       label: 'New Plugin',
       tooltip: 'Create a new plugin',
     },
+    install: {
+      label: 'Install Plugin',
+      tooltip: 'Install a new plugin',
+    },
     settings: {
       label: 'Settings',
       tooltip: 'View or update global plugin settings',

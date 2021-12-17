@@ -26,8 +26,8 @@ import {
   PLUGIN_STATUS_ERROR,
 } from '@/constants/plugin';
 import Tag from '@/components/tag/Tag.vue';
-import colors from '@/styles/color.scss';
 import {emptyArrayFunc} from '@/utils/func';
+import {useI18n} from 'vue-i18n';
 
 const statusList = [
   PLUGIN_STATUS_INSTALLING,
@@ -55,6 +55,9 @@ export default defineComponent({
   },
   emits: ['click'],
   setup(props: PluginStatusMultiNodeProps, {emit}) {
+    // i18n
+    const {t} = useI18n();
+
     const tags = computed<TagData[]>(() => {
       const {status} = props;
       if (!status) return [];
@@ -76,7 +79,7 @@ export default defineComponent({
           case PLUGIN_STATUS_INSTALLING:
             return {
               label: status.length.toString(),
-              tooltip: `<span style="color: #e6a23c">Installing Nodes:</span><br>${tooltipNodes}`,
+              tooltip: `<span style="color: #e6a23c">${t('components.plugin.status.nodes.tooltip.installing')}:</span><br>${tooltipNodes}`,
               type: 'warning',
               icon: ['fa', 'spinner'],
               spinning: true,
@@ -84,28 +87,28 @@ export default defineComponent({
           case PLUGIN_STATUS_STOPPED:
             return {
               label: status.length.toString(),
-              tooltip: `<span style="color: #909399">Stopped Nodes:</span><br>${tooltipNodes}`,
+              tooltip: `<span style="color: #909399">${t('components.plugin.status.nodes.tooltip.stopped')}:</span><br>${tooltipNodes}`,
               type: 'info',
               icon: ['fa', 'stop'],
             };
           case PLUGIN_STATUS_RUNNING:
             return {
               label: status.length.toString(),
-              tooltip: `<span style="color: #67c23a">Running Nodes:</span><br>${tooltipNodes}`,
+              tooltip: `<span style="color: #67c23a">${t('components.plugin.status.nodes.tooltip.running')}:</span><br>${tooltipNodes}`,
               type: 'success',
               icon: ['fa', 'check'],
             };
           case PLUGIN_STATUS_ERROR:
             return {
               label: status.length.toString(),
-              tooltip: `<span style="color: #f56c6c">Error Nodes:</span><br>${tooltipNodes}`,
+              tooltip: `<span style="color: #f56c6c">${t('components.plugin.status.nodes.tooltip.error')}:</span><br>${tooltipNodes}`,
               type: 'danger',
               icon: ['fa', 'times'],
             };
           default:
             return {
               label: status.length.toString(),
-              tooltip: `<span style="color: #909399">Unknown Nodes:</span><br>${tooltipNodes}`,
+              tooltip: `<span style="color: #909399">${t('components.plugin.status.nodes.tooltip.unknown')}:</span><br>${tooltipNodes}`,
               type: 'info',
               icon: ['fa', 'question'],
             };

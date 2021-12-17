@@ -10,7 +10,7 @@
   >
     <template #extra>
       <!-- Dialogs (handled by store) -->
-      <CreateEditPluginDialog/>
+      <InstallPluginDialog v-if="activeDialogKey === 'install'"/>
       <SettingsPluginDialog v-if="activeDialogKey === 'settings'"/>
       <!-- ./Dialogs -->
     </template>
@@ -21,15 +21,15 @@
 import {defineComponent} from 'vue';
 import ListLayout from '@/layouts/ListLayout.vue';
 import usePluginList from '@/views/plugin/list/pluginList';
-import CreateEditPluginDialog from '@/components/plugin/CreateEditPluginDialog.vue';
+import InstallPluginDialog from '@/components/plugin/InstallPluginDialog.vue';
 import SettingsPluginDialog from '@/components/plugin/SettingsPluginDialog.vue';
 
 export default defineComponent({
   name: 'PluginList',
   components: {
+    InstallPluginDialog,
     SettingsPluginDialog,
     ListLayout,
-    CreateEditPluginDialog,
   },
   setup() {
     return {

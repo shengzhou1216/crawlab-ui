@@ -1,5 +1,5 @@
 import {computed, readonly} from 'vue';
-import {Store, useStore} from 'vuex';
+import {Store} from 'vuex';
 import useForm from '@/components/form/form';
 import usePluginService from '@/services/plugin/pluginService';
 import {getDefaultFormComponentData} from '@/utils/form';
@@ -26,11 +26,33 @@ const usePlugin = (store: Store<RootStoreState>) => {
   // settings
   const settings = computed<{ [key: string]: string }>(() => state.settings);
 
+  // public plugins
+  const publicPlugins = computed<PublicPlugin[]>(() => state.publicPlugins);
+
+  // active public plugin
+  const activePublicPlugin = computed<PublicPlugin | undefined>(() => state.activePublicPlugin);
+
+  // active public plugin info
+  const activePublicPluginInfo = computed<PublicPluginInfo | undefined>(() => state.activePublicPluginInfo);
+
+  const allPluginDictByFullName = computed<{ [key: string]: CPlugin }>(() => {
+    const dict = {} as { [key: string]: CPlugin };
+    state.allList.forEach(p => {
+      if (!p.full_name) return;
+      dict[p.full_name] = p;
+    });
+    return dict;
+  });
+
   return {
     ...useForm(ns, store, usePluginService(store), formComponentData),
     formRules,
     baseUrlOptions,
     settings,
+    publicPlugins,
+    activePublicPlugin,
+    activePublicPluginInfo,
+    allPluginDictByFullName,
   };
 };
 

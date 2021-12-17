@@ -22,6 +22,7 @@ const common: LCommon = {
     clear: 'Clear',
     apply: 'Apply',
     search: 'Search',
+    install: 'Install',
   },
   messageBox: {
     confirm: {
@@ -29,6 +30,8 @@ const common: LCommon = {
       restart: 'Are you sure to restart?',
       cancel: 'Are you sure to cancel?',
       stop: 'Are you sure to stop?',
+      install: 'Are you sure to install?',
+      start: 'Are you sure to start?',
     }
   },
   message: {

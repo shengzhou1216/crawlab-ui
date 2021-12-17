@@ -7,7 +7,7 @@ import {
 import useRequest from '@/services/request';
 import {SETTING_PLUGIN} from '@/constants/setting';
 import {PLUGIN_INSTALL_TYPE_NAME} from '@/constants/plugin';
-import {plainClone} from '@/utils/object';
+import {cloneArray, plainClone} from '@/utils/object';
 
 type Plugin = CPlugin;
 
@@ -31,6 +31,9 @@ const state = {
       baseUrl: '',
     },
   },
+  publicPlugins: [],
+  activePublicPlugin: undefined,
+  activePublicPluginInfo: undefined,
 } as PluginStoreState;
 
 const getters = {
@@ -44,6 +47,24 @@ const mutations = {
   },
   setSettingsByKey: (state: PluginStoreState, key: string, value: string) => {
     state.settings.value[key] = value;
+  },
+  setPublicPlugins: (state: PluginStoreState, plugins: PublicPlugin[]) => {
+    state.publicPlugins = cloneArray(plugins);
+  },
+  resetPublicPlugins: (state: PluginStoreState) => {
+    state.publicPlugins = [];
+  },
+  setActivePublicPlugin: (state: PluginStoreState, plugin: PublicPlugin) => {
+    state.activePublicPlugin = plainClone(plugin);
+  },
+  resetActivePublicPlugin: (state: PluginStoreState) => {
+    state.activePublicPlugin = undefined;
+  },
+  setActivePublicPluginInfo: (state: PluginStoreState, pluginInfo: PublicPluginInfo) => {
+    state.activePublicPluginInfo = plainClone(pluginInfo);
+  },
+  resetActivePublicPluginInfo: (state: PluginStoreState) => {
+    state.activePublicPluginInfo = undefined;
   },
 } as PluginStoreMutations;
 
@@ -60,6 +81,16 @@ const actions = {
     commit('setTableData', {data: res.data || [], total: res.total});
     return res;
   },
+  getAllList: async ({state, commit}: StoreActionContext<PluginStoreState>) => {
+    const payload = {
+      conditions: JSON.stringify(state.tableListFilter),
+      sort: JSON.stringify(state.tableListSort),
+      status: true,
+    };
+    const res = await getList(`/plugins`, payload);
+    commit('setAllList', res.data || []);
+    return res;
+  },
   getSettings: async ({commit}: StoreActionContext<PluginStoreState>) => {
     const res = await get(`/settings/${SETTING_PLUGIN}`);
     if (!res?.data) return;
@@ -67,6 +98,16 @@ const actions = {
   },
   saveSettings: async ({state}: StoreActionContext<PluginStoreState>) => {
     await post(`/settings/${SETTING_PLUGIN}`, state.settings);
+  },
+  getPublicPluginList: async ({commit}: StoreActionContext<PluginStoreState>) => {
+    const res = await get(`/plugins/public`);
+    if (!res?.data) return;
+    commit('setPublicPlugins', res.data);
+  },
+  getPublicPluginInfo: async ({commit}: StoreActionContext<PluginStoreState>, fullName: string) => {
+    const res = await get(`/plugins/public/info`, {full_name: fullName});
+    if (!res?.data) return;
+    commit('setActivePublicPluginInfo', res.data);
   },
 } as PluginStoreActions;
 
