@@ -32,6 +32,7 @@ const common: LCommon = {
       stop: '您是否确定停止?',
       install: '您是否确定安装?',
       start: '您是否确定启动?',
+      deleteSelected: '您是否确定删除已选项?',
     }
   },
   message: {
@@ -62,6 +63,7 @@ const common: LCommon = {
     unassigned: '未指定',
     unknown: '未知',
     invalid: '无效',
+    currentlyUnavailable: '暂不可用',
   },
 };
 

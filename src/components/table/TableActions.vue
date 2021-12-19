@@ -36,8 +36,9 @@
         :icon="['fa', 'file-export']"
         class="action-btn"
         size="mini"
-        :tooltip="t('components.table.actions.export')"
+        :tooltip="`${t('components.table.actions.export')} (${t('common.status.currentlyUnavailable')})`"
         type="primary"
+        disabled
         @click="onExport"
     />
     <FaIconButton

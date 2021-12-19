@@ -32,6 +32,7 @@ const common: LCommon = {
       stop: 'Are you sure to stop?',
       install: 'Are you sure to install?',
       start: 'Are you sure to start?',
+      deleteSelected: 'Are you sure to delete selected items?',
     }
   },
   message: {
@@ -62,6 +63,7 @@ const common: LCommon = {
     unassigned: 'Unassigned',
     unknown: 'Unknown',
     invalid: 'Invalid',
+    currentlyUnavailable: 'Currently unavailable',
   },
 };
 

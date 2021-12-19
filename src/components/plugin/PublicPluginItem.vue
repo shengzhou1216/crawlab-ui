@@ -37,11 +37,7 @@ import defaultLogo from '@/assets/logo.svg';
 import LabelButton from '@/components/button/LabelButton.vue';
 import {useI18n} from 'vue-i18n';
 import {
-  PLUGIN_STATUS_ERROR,
-  PLUGIN_STATUS_INSTALL_ERROR,
   PLUGIN_STATUS_INSTALLING,
-  PLUGIN_STATUS_RUNNING,
-  PLUGIN_STATUS_STOPPED
 } from '@/constants/plugin';
 
 export default defineComponent({

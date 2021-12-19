@@ -1,6 +1,9 @@
 import {inject, Ref, ref, SetupContext} from 'vue';
 import {ElMessageBox} from 'element-plus';
 import {voidAsyncFunc} from '@/utils/func';
+import {translate} from '@/utils/i18n';
+
+const t = translate;
 
 const useAction = (props: TableProps, ctx: SetupContext, table: Ref, actionFunctions?: ListLayoutActionFunctions) => {
   const {emit} = ctx;
@@ -35,11 +38,14 @@ const useAction = (props: TableProps, ctx: SetupContext, table: Ref, actionFunct
   };
 
   const onDelete = async () => {
-    const res = await ElMessageBox.confirm('Are you sure to delete selected items?', 'Batch Delete', {
-      type: 'warning',
-      confirmButtonText: 'Delete',
-      confirmButtonClass: 'el-button--danger',
-    });
+    const res = await ElMessageBox.confirm(
+      t('common.messageBox.confirm.delete'),
+      t('components.table.actions.deleteSelected'),
+      {
+        type: 'warning',
+        confirmButtonText: t('common.actions.delete'),
+        confirmButtonClass: 'el-button--danger',
+      });
     if (!res) return;
     const ids = selection.value.map(d => d._id as string);
     await deleteList(ids);

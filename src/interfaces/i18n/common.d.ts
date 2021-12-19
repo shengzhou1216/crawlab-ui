@@ -39,6 +39,7 @@ interface LCommon {
       stop: string;
       install: string;
       start: string;
+      deleteSelected: string;
     };
   };
   message: {
@@ -69,5 +70,6 @@ interface LCommon {
     unassigned: string;
     unknown: string;
     invalid: string;
+    currentlyUnavailable: string;
   };
 }

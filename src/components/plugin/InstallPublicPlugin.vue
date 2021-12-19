@@ -20,6 +20,7 @@
           :info="activePublicPluginInfo"
           :status="getPluginStatus(activePublicPlugin)"
           :installed="isInstalled(activePublicPlugin)"
+          @install="onInstallPlugin(activePublicPlugin)"
       />
     </div>
   </div>

@@ -5,6 +5,7 @@
           :plugin="plugin"
           :status="status"
           :installed="installed"
+          @install="() => $emit('install')"
       />
     </div>
     <div class="content">
@@ -74,6 +75,9 @@ export default defineComponent({
       default: false,
     },
   },
+  emits: [
+    'install',
+  ],
   setup(props: PublicPluginContentProps, {emit}) {
     // i18n
     const {t} = useI18n();
