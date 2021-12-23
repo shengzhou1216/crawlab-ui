@@ -58,10 +58,14 @@ import NodeRunners from './node/NodeRunners.vue';
 import NodeStatus from './node/NodeStatus.vue';
 import NodeType from './node/NodeType.vue';
 import CreateEditPluginDialog from './plugin/CreateEditPluginDialog.vue';
+import InstallPluginDialog from './plugin/InstallPluginDialog.vue';
+import InstallPublicPlugin from './plugin/InstallPublicPlugin.vue';
 import PluginForm from './plugin/PluginForm.vue';
 import PluginPid from './plugin/PluginPid.vue';
 import PluginStatus from './plugin/PluginStatus.vue';
 import PluginStatusMultiNode from './plugin/PluginStatusMultiNode.vue';
+import PublicPluginContent from './plugin/PublicPluginContent.vue';
+import PublicPluginItem from './plugin/PublicPluginItem.vue';
 import SettingsPluginDialog from './plugin/SettingsPluginDialog.vue';
 import CreateEditProjectDialog from './project/CreateEditProjectDialog.vue';
 import ProjectForm from './project/ProjectForm.vue';
@@ -169,10 +173,14 @@ export {
   NodeStatus as ClNodeStatus,
   NodeType as ClNodeType,
   CreateEditPluginDialog as ClCreateEditPluginDialog,
+  InstallPluginDialog as ClInstallPluginDialog,
+  InstallPublicPlugin as ClInstallPublicPlugin,
   PluginForm as ClPluginForm,
   PluginPid as ClPluginPid,
   PluginStatus as ClPluginStatus,
   PluginStatusMultiNode as ClPluginStatusMultiNode,
+  PublicPluginContent as ClPublicPluginContent,
+  PublicPluginItem as ClPublicPluginItem,
   SettingsPluginDialog as ClSettingsPluginDialog,
   CreateEditProjectDialog as ClCreateEditProjectDialog,
   ProjectForm as ClProjectForm,

@@ -33,7 +33,7 @@
 
 <script lang="ts">
 import {computed, defineComponent, PropType} from 'vue';
-import defaultLogo from '@/assets/logo.svg';
+import defaultLogo from '@/assets/js/svg/logo.js';
 import LabelButton from '@/components/button/LabelButton.vue';
 import {useI18n} from 'vue-i18n';
 import {
