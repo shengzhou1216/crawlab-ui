@@ -40,6 +40,7 @@ interface LCommon {
       install: string;
       start: string;
       deleteSelected: string;
+      loginAgain: string;
     };
   };
   message: {
@@ -71,5 +72,6 @@ interface LCommon {
     unknown: string;
     invalid: string;
     currentlyUnavailable: string;
+    unauthorized: string;
   };
 }

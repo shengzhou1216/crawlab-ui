@@ -4,11 +4,17 @@ import {PLUGIN_UI_COMPONENT_TYPE_TAB, PLUGIN_UI_COMPONENT_TYPE_VIEW} from '@/con
 import {loadModule} from '@/utils/sfc';
 import {Router} from 'vue-router';
 import useRequest from '@/services/request';
-import {SETTING_PLUGIN_BASE_URL_GITEE, SETTING_PLUGIN_BASE_URL_GITHUB} from '@/constants/setting';
+import {
+  SETTING_PLUGIN_BASE_URL_GITEE,
+  SETTING_PLUGIN_BASE_URL_GITHUB,
+  SETTING_PLUGIN_GOPROXY_GOPROXY_CN, SETTING_PLUGIN_GOPROXY_GOPROXY_IO
+} from '@/constants/setting';
 import i18n from '@/i18n';
-import {translatePlugin} from '@/utils/i18n';
+import {translate, translatePlugin} from '@/utils/i18n';
 
 type Plugin = CPlugin;
+
+const t = translate;
 
 const PLUGIN_PROXY_ENDPOINT = '/plugin-proxy';
 
@@ -202,5 +208,13 @@ export const getPluginBaseUrlOptions = (): SelectOption[] => {
   return [
     {value: SETTING_PLUGIN_BASE_URL_GITHUB, label: 'GitHub'},
     {value: SETTING_PLUGIN_BASE_URL_GITEE, label: 'Gitee'},
+  ];
+};
+
+export const getPluginGoproxyOptions = (): SelectOption[] => {
+  return [
+    {value: undefined, label: t('components.plugin.settings.goProxy.default')},
+    {value: SETTING_PLUGIN_GOPROXY_GOPROXY_CN, label: 'Goproxy.cn'},
+    {value: SETTING_PLUGIN_GOPROXY_GOPROXY_IO, label: 'Goproxy.io'},
   ];
 };

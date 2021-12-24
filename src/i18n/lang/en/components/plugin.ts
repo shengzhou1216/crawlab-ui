@@ -29,9 +29,16 @@ const plugin: LComponentsPlugin = {
   },
   settings: {
     title: 'Settings',
-    installSource: 'Install Source',
+    label: {
+      installSource: 'Install Source',
+      goProxy: 'Go Proxy',
+    },
     tips: {
-      installSource: 'You can select Install Source as "Gitee" to speed up plugin installation if you are in Mainland China.'
+      installSource: 'You can select Install Source as "Gitee" to speed up plugin installation if you are in Mainland China.',
+      goProxy: 'You can set Go Proxy to speed up plugin compilation if you are in Mainland China.',
+    },
+    goProxy: {
+      default: 'Default',
     }
   },
   status: {

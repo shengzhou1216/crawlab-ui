@@ -2,7 +2,9 @@ import axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
 import {ElMessageBox} from 'element-plus';
 import {getEmptyResponseWithListData, getRequestBaseUrl} from '@/utils/request';
 import {Router} from 'vue-router';
+import {translate} from '@/utils/i18n';
 
+const t = translate;
 
 // initialize request
 export const initRequest = (router?: Router) => {
@@ -19,7 +21,11 @@ export const initRequest = (router?: Router) => {
         // token expired, popup logout warning
         if (msgBoxVisible) return;
         msgBoxVisible = true;
-        ElMessageBox.confirm('You seem to have been logged-out, try to login again?', 'Unauthorized', {type: 'warning'})
+        ElMessageBox.confirm(
+          t('common.messageBox.confirm.loginAgain'),
+          t('common.status.unauthorized'),
+          {type: 'warning'},
+        )
           .then(_ => router?.push('/login'))
           .finally(() => {
             msgBoxVisible = false;

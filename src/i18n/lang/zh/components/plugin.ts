@@ -29,10 +29,17 @@ const plugin: LComponentsPlugin = {
   },
   settings: {
     title: '设置',
-    installSource: '安装源',
+    label: {
+      installSource: '安装源',
+      goProxy: 'Go 代理',
+    },
     tips: {
-      installSource: '如果您在中国内地，您可以选择安装源为 "Gitee" 来加速插件安装过程'
-    }
+      installSource: '如果您在中国内地，您可以选择安装源为 "Gitee" 来加速插件安装过程',
+      goProxy: '如果您在中国内地，您可以设置 Go 代理 来加速插件编译过程',
+    },
+    goProxy: {
+      default: '默认',
+    },
   },
   status: {
     label: {

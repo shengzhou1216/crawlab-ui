@@ -3,7 +3,7 @@ import {Store} from 'vuex';
 import useForm from '@/components/form/form';
 import usePluginService from '@/services/plugin/pluginService';
 import {getDefaultFormComponentData} from '@/utils/form';
-import {getPluginBaseUrlOptions} from '@/utils/plugin';
+import {getPluginBaseUrlOptions, getPluginGoproxyOptions} from '@/utils/plugin';
 
 type Plugin = CPlugin;
 
@@ -22,6 +22,9 @@ const usePlugin = (store: Store<RootStoreState>) => {
 
   // base url options
   const baseUrlOptions = getPluginBaseUrlOptions();
+
+  // goproxy options
+  const goproxyOptions = getPluginGoproxyOptions();
 
   // settings
   const settings = computed<{ [key: string]: string }>(() => state.settings);
@@ -58,6 +61,7 @@ const usePlugin = (store: Store<RootStoreState>) => {
     activePublicPluginInfo,
     allPluginDictByFullName,
     installType,
+    goproxyOptions,
   };
 };
 

@@ -29,9 +29,16 @@ interface LComponentsPlugin {
   };
   settings: {
     title: string;
-    installSource: string;
+    label: {
+      installSource: string;
+      goProxy: string;
+    };
     tips: {
       installSource: string;
+      goProxy: string;
+    };
+    goProxy: {
+      default: string;
     };
   };
   status: {
