@@ -21,8 +21,8 @@
           multiple
           :show-file-list="false"
       >
-        <el-icon>
-          <upload/>
+        <el-icon class="el-icon--upload">
+          <upload-filled/>
         </el-icon>
         <div class="el-upload__text">{{ t('components.file.upload.buttons.files.dragFilesHereOr') }}
           <em>{{ t('components.file.upload.buttons.files.clickToUpload') }}</em>
@@ -56,7 +56,9 @@
       <input v-bind="getInputProps()" webkitdirectory multiple>
     </template>
     <div v-if="dirInfo?.filePaths?.length > 0" class="file-list-wrapper">
-      <h4 class="title">Files to Upload</h4>
+      <h4 class="title">
+        {{ t('components.file.upload.fileList.title') }}
+      </h4>
       <ul class="file-list">
         <li v-for="(path, $index) in dirInfo?.filePaths" :key="$index" class="file-item">
           {{ path }}
@@ -74,14 +76,14 @@ import Button from '@/components/button/Button.vue';
 import Tag from '@/components/tag/Tag.vue';
 import {plainClone} from '@/utils/object';
 import {useI18n} from 'vue-i18n';
-import {Upload} from '@element-plus/icons';
+import {UploadFilled} from '@element-plus/icons';
 
 export default defineComponent({
   name: 'FileUpload',
   components: {
     Tag,
     Button,
-    Upload,
+    UploadFilled,
   },
   props: {
     mode: {

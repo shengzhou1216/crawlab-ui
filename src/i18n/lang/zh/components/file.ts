@@ -56,7 +56,10 @@ const file: LComponentsFile = {
     mode: {
       folder: '目录',
       files: '文件',
-    }
+    },
+    fileList: {
+      title: '带上传文件',
+    },
   }
 };
 

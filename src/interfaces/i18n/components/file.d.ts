@@ -57,5 +57,8 @@ interface LComponentsFile {
       folder: string;
       files: string;
     };
+    fileList: {
+      title: string;
+    };
   };
 }

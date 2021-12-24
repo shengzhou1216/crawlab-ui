@@ -108,7 +108,9 @@ export default defineComponent({
       return false;
     });
 
-    const getFilePath = (path: string) => {
+    const getFilePath = (f: FileWithPath): string => {
+      const path = f.path;
+      if (!path) return f.name;
       if (hasMultiDir.value) {
         return path;
       } else {
@@ -136,8 +138,9 @@ export default defineComponent({
     const uploadFiles = async () => {
       if (!files.value) return;
       await Promise.all(files.value.map((f: FileWithPath) => {
-        return saveFileBinary(id.value, getFilePath(f.path as string), f as File);
+        return saveFileBinary(id.value, getFilePath(f), f as File);
       }));
+      files.value = [];
       await listRootDir(id.value);
     };
 

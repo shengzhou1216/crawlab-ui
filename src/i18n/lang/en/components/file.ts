@@ -56,7 +56,10 @@ const file: LComponentsFile = {
     mode: {
       folder: 'Folder',
       files: 'Files',
-    }
+    },
+    fileList: {
+      title: 'Files to Upload',
+    },
   }
 };
 
