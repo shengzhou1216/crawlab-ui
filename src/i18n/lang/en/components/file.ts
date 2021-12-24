@@ -32,6 +32,11 @@ const file: LComponentsFile = {
         newDirectory: 'Please enter the name of the new directory',
         rename: 'Please enter the new name',
         duplicate: 'Please enter the new name',
+      },
+      validator: {
+        errorMessage: {
+          newNameNotSameAsOldName: 'New name cannot be the same as the old name',
+        },
       }
     },
     settings: {

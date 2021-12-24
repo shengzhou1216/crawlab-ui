@@ -229,6 +229,9 @@ export default defineComponent({
       const res = await ElMessageBox.prompt(
           t('components.file.editor.messageBox.prompt.newFile'),
           t('components.file.editor.navMenu.newFile'),
+          {
+            inputPlaceholder: t('components.file.editor.messageBox.prompt.newFile'),
+          }
       );
       emit('ctx-menu-new-file', item, res.value);
     };
@@ -237,6 +240,9 @@ export default defineComponent({
       const res = await ElMessageBox.prompt(
           t('components.file.editor.messageBox.prompt.newDirectory'),
           t('components.file.editor.navMenu.newDirectory'),
+          {
+            inputPlaceholder: t('components.file.editor.messageBox.prompt.newDirectory'),
+          }
       );
       emit('ctx-menu-new-directory', item, res.value);
     };
@@ -245,6 +251,12 @@ export default defineComponent({
       const res = await ElMessageBox.prompt(
           t('components.file.editor.messageBox.prompt.rename'),
           t('components.file.editor.navMenu.rename'),
+          {
+            inputValue: item.name,
+            inputPlaceholder: t('components.file.editor.messageBox.prompt.rename'),
+            inputValidator: (value: string) => value !== item.name,
+            inputErrorMessage: t('components.file.editor.messageBox.validator.errorMessage.newNameNotSameAsOldName'),
+          }
       );
       emit('ctx-menu-rename', item, res.value);
     };
@@ -253,6 +265,12 @@ export default defineComponent({
       const res = await ElMessageBox.prompt(
           t('components.file.editor.messageBox.prompt.duplicate'),
           t('components.file.editor.navMenu.duplicate'),
+          {
+            inputValue: `${item.name}`,
+            inputPlaceholder: t('components.file.editor.messageBox.prompt.newFile'),
+            inputValidator: (value: string) => value !== item.name,
+            inputErrorMessage: t('components.file.editor.messageBox.validator.errorMessage.newNameNotSameAsOldName'),
+          }
       );
       emit('ctx-menu-clone', item, res.value);
     };
@@ -261,6 +279,9 @@ export default defineComponent({
       await ElMessageBox.confirm(
           t('common.messageBox.confirm.delete'),
           t('common.actions.delete'),
+          {
+            type: 'warning',
+          }
       );
       emit('ctx-menu-delete', item);
     };

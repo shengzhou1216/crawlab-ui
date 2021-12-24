@@ -32,6 +32,11 @@ const file: LComponentsFile = {
         newDirectory: '请输入新建目录名',
         rename: '请输入新名称',
         duplicate: '请输入新名称',
+      },
+      validator: {
+        errorMessage: {
+          newNameNotSameAsOldName: '新名称不能跟旧名称相同',
+        },
       }
     },
     settings: {

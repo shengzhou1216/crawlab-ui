@@ -33,6 +33,11 @@ interface LComponentsFile {
         rename: string;
         duplicate: string;
       };
+      validator: {
+        errorMessage: {
+          newNameNotSameAsOldName: string;
+        };
+      };
     };
     settings: {
       title: string;
