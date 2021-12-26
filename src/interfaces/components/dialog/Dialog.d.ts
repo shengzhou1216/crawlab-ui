@@ -6,6 +6,7 @@ interface DialogProps {
   zIndex?: number;
   confirmDisabled?: boolean;
   confirmLoading?: boolean;
+  className?: string;
 }
 
 type DialogKey = 'create' | 'edit' | 'run';

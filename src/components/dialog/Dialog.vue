@@ -1,5 +1,6 @@
 <template>
   <el-dialog
+      :class="className"
       :modal-class="modalClass"
       :before-close="onClose"
       :model-value="visible"
@@ -12,6 +13,7 @@
     <template #footer>
       <slot name="prefix"/>
       <Button
+          class="cancel"
           plain
           size="mini"
           type="info"
@@ -20,6 +22,7 @@
         {{ t('common.actions.cancel') }}
       </Button>
       <Button
+          class="confirm"
           :disabled="confirmDisabled"
           :loading="confirmLoading"
           size="mini"
@@ -74,6 +77,9 @@ export default defineComponent({
     confirmLoading: {
       type: Boolean,
       default: false,
+    },
+    className: {
+      type: String,
     },
   },
   emits: [

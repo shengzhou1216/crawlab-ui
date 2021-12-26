@@ -1,5 +1,6 @@
 <template>
   <Dialog
+      class-name="create-edit-dialog"
       :title="computedTitle"
       :visible="visible"
       :width="width"
