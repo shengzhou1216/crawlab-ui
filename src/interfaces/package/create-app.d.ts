@@ -13,6 +13,7 @@ declare global {
     loadCrawlabUI?: boolean;
     loadI18n?: boolean;
     loadFontAwesome?: boolean;
+    loadTrack?: boolean;
     store?: Store;
     routes?: Array<RouteRecordRaw>;
     mount?: boolean | string;

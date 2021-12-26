@@ -7,7 +7,7 @@ declare global {
     resetCanvas?: () => void;
     _hmt?: Array;
     'vue3-sfc-loader'?: { loadModule };
-    aplus_queue: any;
+    aplus_queue: { action: string, arguments: any[] }[];
     _app?: App;
     _t?: (path: string) => string;
     _tp?: (pluginName: string, path: string) => string;

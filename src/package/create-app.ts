@@ -12,6 +12,7 @@ import {initPlugins} from '@/utils/plugin';
 import {initRequest} from '@/services/request';
 import {initUmeng} from '@/admin/umeng';
 import {setGlobalLang} from '@/utils/i18n';
+import track from '@/directives/track/track';
 
 export const getDefaultCreateAppOptions = (): CreateAppOptions => {
   return {
@@ -25,6 +26,7 @@ export const getDefaultCreateAppOptions = (): CreateAppOptions => {
     loadCrawlabUI: true,
     loadI18n: true,
     loadFontAwesome: true,
+    loadTrack: true,
     mount: true,
   };
 };
@@ -82,6 +84,7 @@ const createApp = async (options?: CreateAppOptions): Promise<VueApp> => {
     setGlobalLang(window.localStorage.getItem('lang') as Lang || 'en');
   }
   if (options.loadFontAwesome) app.component('font-awesome-icon', FontAwesomeIcon);
+  if (options.loadTrack) app.directive('track', track);
 
   // mount
   if (options.mount) app.mount(typeof options.mount === 'string' ? options.mount : '#app');

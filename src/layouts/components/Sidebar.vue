@@ -31,6 +31,12 @@
           <!-- no sub menu items -->
           <el-menu-item
               v-if="!item.children"
+              v-track="{
+                eventCode: 'click_sidebar_menu_item',
+                eventParams: {
+                  itemPath: item.path,
+                }
+              }"
               :index="item.path"
               @click="onMenuItemClick(item)"
           >
