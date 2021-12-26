@@ -19,7 +19,7 @@ export default defineComponent({
       default: '',
     },
     label: {
-      type: String,
+      type: [String, Number, Boolean],
       default: '',
     },
     icon: {

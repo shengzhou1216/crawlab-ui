@@ -4,7 +4,7 @@
         :icon="['fa', 'tasks']"
         :label="labels.tasks"
         :tooltip="tooltips.tasks"
-        type="primary"
+        type=""
     />
     <Tag
         :icon="['fa', 'database']"

@@ -8,7 +8,6 @@
       :confirm-disabled="confirmDisabled"
       :confirm-loading="confirmLoading"
       :batch-form-fields="batchFormFields"
-      :form-rules="formRules"
   >
     <template #default>
       <ProjectForm/>

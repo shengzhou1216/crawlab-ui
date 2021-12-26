@@ -1,5 +1,5 @@
 import {useRoute} from 'vue-router';
-import {computed} from 'vue';
+import {computed, readonly} from 'vue';
 import {Store} from 'vuex';
 import useForm from '@/components/form/form';
 import useSpiderService from '@/services/spider/spiderService';
