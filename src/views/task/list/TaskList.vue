@@ -2,7 +2,7 @@
   <ListLayout
       :action-functions="actionFunctions"
       :nav-actions="navActions"
-      :pagination="tablePagination"
+      :table-pagination="tablePagination"
       :table-columns="tableColumns"
       :table-data="tableData"
       :table-total="tableTotal"

@@ -8,6 +8,7 @@
       :spinning="data.spinning"
       :tooltip="data.tooltip"
       :type="data.type"
+      effect="plain"
       @click="$emit('click')"
   />
 </template>

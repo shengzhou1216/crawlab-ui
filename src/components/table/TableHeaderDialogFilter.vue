@@ -31,7 +31,7 @@
               :label="item.value"
               class="item"
           >
-            {{ t(item.label) }}
+            {{ item.label }}
           </el-checkbox>
         </el-checkbox-group>
       </template>

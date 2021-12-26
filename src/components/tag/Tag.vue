@@ -37,7 +37,6 @@ export const tagProps = {
   },
   type: {
     type: String as PropType<BasicType>,
-    default: 'plain',
   },
   color: {
     type: String as PropType<string>,

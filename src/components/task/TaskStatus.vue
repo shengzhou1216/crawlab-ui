@@ -61,7 +61,7 @@ export default defineComponent({
           return {
             label: t('components.task.status.label.pending'),
             tooltip: t('components.task.status.tooltip.pending'),
-            type: 'primary',
+            type: '',
             icon: ['fa', 'hourglass-start'],
             spinning: true,
           };

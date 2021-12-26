@@ -225,7 +225,7 @@ function initCanvas() {
   }
 
   function initHandlers() {
-    document.addEventListener('resize', resizeWindow, false)
+    document.addEventListener('resize', resizeWindow, {passive: true})
     // canvas.addEventListener('mousemove', mousemoveHandler, false)
   }
 

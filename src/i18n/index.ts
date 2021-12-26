@@ -10,6 +10,8 @@ const i18n = createI18n({
     zh
   },
   fallbackLocale: 'en',
+  missingWarn: process.env.NODE_ENV === 'development',
+  fallbackWarn: process.env.NODE_ENV === 'development',
 });
 
 export default i18n;

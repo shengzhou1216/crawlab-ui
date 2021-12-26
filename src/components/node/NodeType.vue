@@ -24,7 +24,7 @@ export default defineComponent({
 
     const type = computed<string>(() => {
       const {isMaster} = props;
-      return isMaster ? 'primary' : 'warning';
+      return isMaster ? '' : 'warning';
     });
 
     const computedLabel = computed<string>(() => {
