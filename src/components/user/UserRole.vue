@@ -22,7 +22,7 @@ export default defineComponent({
   setup(props: UserRoleProps, {emit}) {
     const type = computed<string>(() => {
       const {role} = props;
-      return role === ROLE_ADMIN ? 'primary' : 'warning';
+      return role === ROLE_ADMIN ? '' : 'warning';
     });
 
     const computedLabel = computed<string>(() => {

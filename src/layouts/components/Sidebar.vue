@@ -1,5 +1,15 @@
 <template>
-  <span :class="sidebarCollapsed ? 'collapsed' : ''" class="sidebar-toggle" @click="toggleSidebar">
+  <span
+      :class="sidebarCollapsed ? 'collapsed' : ''"
+      class="sidebar-toggle"
+      @click="toggleSidebar"
+      v-track="{
+        code: 'click_sidebar_toggle',
+        params: {
+          collapse: () => sidebarCollapsed,
+        }
+      }"
+  >
     <font-awesome-icon v-if="!sidebarCollapsed" :icon="['fas', 'outdent']"/>
     <font-awesome-icon v-else :icon="['fas', 'indent']"/>
   </span>
@@ -32,9 +42,9 @@
           <el-menu-item
               v-if="!item.children"
               v-track="{
-                eventCode: 'click_sidebar_menu_item',
-                eventParams: {
-                  itemPath: item.path,
+                code: 'click_sidebar_menu_item',
+                params: {
+                  path: item.path,
                 }
               }"
               :index="item.path"
