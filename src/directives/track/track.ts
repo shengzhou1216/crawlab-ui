@@ -1,18 +1,5 @@
 import {Directive, DirectiveBinding} from 'vue';
-
-const getEventParamsWrapped = (eventParams?: TrackEventParams): TrackEventParamsWrapped => {
-  if (!eventParams) return {};
-  const res: TrackEventParamsWrapped = {};
-  Object.keys(eventParams).forEach(key => {
-    const value = eventParams[key];
-    if (typeof value === 'function') {
-      res[key] = value();
-    } else {
-      res[key] = value;
-    }
-  });
-  return res;
-};
+import {sendEvent} from '@/admin/umeng';
 
 const _eventListenerCache = new Map<string, EventListener>();
 
@@ -22,12 +9,7 @@ const getEventListener = (binding: DirectiveBinding<Track>): EventListener => {
   if (_eventListenerCache.has(cacheKey)) {
     return _eventListenerCache.get(cacheKey) as EventListener;
   }
-  const listener = () => {
-    window.aplus_queue?.push({
-      action: 'aplus.record',
-      arguments: [eventCode, eventType || 'CLK', getEventParamsWrapped(eventParams)],
-    });
-  };
+  const listener = () => sendEvent(eventCode, eventParams, eventType);
   _eventListenerCache.set(cacheKey, listener);
   return listener;
 };

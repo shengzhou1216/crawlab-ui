@@ -25,3 +25,24 @@ export const initUmeng = () => {
       });
   }
 };
+
+export const getEventParamsWrapped = (eventParams?: TrackEventParams): TrackEventParamsWrapped => {
+  if (!eventParams) return {};
+  const res: TrackEventParamsWrapped = {};
+  Object.keys(eventParams).forEach(key => {
+    const value = eventParams[key];
+    if (typeof value === 'function') {
+      res[key] = value();
+    } else {
+      res[key] = value;
+    }
+  });
+  return res;
+};
+
+export const sendEvent = (eventCode: string, eventParams?: TrackEventParams, eventType?: TrackEventType) => {
+  window.aplus_queue?.push({
+    action: 'aplus.record',
+    arguments: [eventCode, eventType || 'CLK', getEventParamsWrapped(eventParams)],
+  });
+};

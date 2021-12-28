@@ -38,10 +38,7 @@
           </template>
         </el-dropdown>
         <el-link
-            v-track="{
-              code: 'click_header_logout',
-              params: {}
-            }"
+            v-track="{code: 'click_header_logout'}"
             class="item action"
             :underline="false"
             href="javascript:;"
@@ -85,8 +82,10 @@ export default defineComponent({
     });
 
     const onLogout = () => {
-      localStorage.removeItem('token');
-      router.push('/login');
+      setTimeout(() => {
+        localStorage.removeItem('token');
+        router.push('/login');
+      }, 10);
     };
 
     const langName = computed<string>(() => {

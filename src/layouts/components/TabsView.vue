@@ -7,12 +7,23 @@
         @d-end="onDragDrop"
     >
       <template v-slot="{item}">
-        <Tab :tab="item"/>
+        <Tab
+            v-track="{
+              code: 'click_tabs_view_click_tab',
+              params: {path: item.path}
+            }"
+            :tab="item"
+        />
       </template>
     </DraggableList>
 
     <!-- Add Tab -->
-    <ActionTab :icon="['fa', 'plus']" class="add-tab" @click="onAddTab"/>
+    <ActionTab
+        v-track="{code: 'click_tabs_view_add_tab'}"
+        :icon="['fa', 'plus']"
+        class="add-tab"
+        @click="onAddTab"
+    />
     <!-- ./Add Tab -->
   </div>
 </template>
