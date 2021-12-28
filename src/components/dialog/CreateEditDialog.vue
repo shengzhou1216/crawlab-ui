@@ -119,10 +119,12 @@ export default defineComponent({
     };
 
     const onConfirm = () => {
-      const {actionFunctions} = props;
+      const {actionFunctions, tabName} = props;
       actionFunctions?.onConfirm?.();
 
-      sendEvent('click_create_edit_dialog_confirm');
+      sendEvent('click_create_edit_dialog_confirm', {
+        tabName,
+      });
     };
 
     const internalTabName = ref<CreateEditTabName>('single');

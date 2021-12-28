@@ -208,7 +208,14 @@ const useNodeList = () => {
           tooltip: t('common.actions.delete'),
           disabled: (row: Node) => !!row.active,
           onClick: async (row: Node) => {
-            const res = await ElMessageBox.confirm(t('common.messageBox.message'), t('common.actions.delete'));
+            const res = await ElMessageBox.confirm(
+              t('common.messageBox.message'),
+              t('common.actions.delete'),
+              {
+                type: 'warning',
+                confirmButtonClass: 'el-button--danger'
+              }
+            );
             if (res) {
               await deleteById(row._id as string);
             }

@@ -9,7 +9,7 @@ type TrackEventType = 'CLK' | 'EXP';
 
 type TrackEventParamsWrapped = { [key: string]: any };
 
-type TrackEventParams = { [key: string]: string | number | Function };
+type TrackEventParams = { [key: string]: string | number | Function | undefined };
 
 type TrackEventListenerDict = { [key: string]: EventListener };
 

@@ -193,6 +193,10 @@ const useScheduleList = () => {
             const res = await ElMessageBox.confirm(
               t('common.messageBox.confirm.delete'),
               t('common.actions.delete'),
+              {
+                type: 'warning',
+                confirmButtonClass: 'el-button--danger'
+              }
             );
             if (res) {
               await deleteById(row._id as string);
