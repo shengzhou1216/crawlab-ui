@@ -15,12 +15,20 @@
           <template #dropdown>
             <el-dropdown-menu>
               <el-dropdown-item
+                  v-track="{
+                    code: 'click_header_lang',
+                    params: {locale: 'en'}
+                  }"
                   :class="locale === 'en' ? 'active' : ''"
                   @click="() => setLang('en')"
               >
                 {{ t('global.lang', [], { locale: 'en' }) }}
               </el-dropdown-item>
               <el-dropdown-item
+                  v-track="{
+                    code: 'click_header_lang',
+                    params: {locale: 'zh'}
+                  }"
                   :class="locale === 'zh' ? 'active' : ''"
                   @click="() => setLang('zh')"
               >
@@ -29,7 +37,16 @@
             </el-dropdown-menu>
           </template>
         </el-dropdown>
-        <el-link class="item action" :underline="false" href="javascript:;" @click="onLogout">
+        <el-link
+            v-track="{
+              code: 'click_header_logout',
+              params: {}
+            }"
+            class="item action"
+            :underline="false"
+            href="javascript:;"
+            @click="onLogout"
+        >
           {{ t('layouts.components.header.logout') }}
         </el-link>
       </div>

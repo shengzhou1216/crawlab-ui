@@ -69,7 +69,7 @@ export default defineComponent({
 
     const {t} = useI18n();
 
-    const item = computed(() => {
+    const item = computed<MenuItem | undefined>(() => {
       const {tab} = props as TabProps;
       if (!tab) return;
       const {menuItems} = state;
@@ -79,6 +79,10 @@ export default defineComponent({
           return _item;
         }
       }
+      return {
+        path: tab.path,
+        title: '',
+      };
     });
 
     const title = computed(() => {

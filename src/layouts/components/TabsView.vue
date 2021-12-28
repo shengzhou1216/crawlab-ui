@@ -68,19 +68,24 @@ export default defineComponent({
       store.commit(`${storeNameSpace}/setTabs`, tabs);
     };
 
-    watch(currentPath, (path) => {
+    const updateTabs = (path: string) => {
       // active tab
       const activeTab = store.getters[`${storeNameSpace}/activeTab`] as Tab | undefined;
 
       // skip if active tab is undefined
       if (!activeTab) return;
 
+      // clone
+      const activeTabClone = plainClone(activeTab);
+
       // set path to active tab
-      activeTab.path = path;
+      activeTabClone.path = path;
 
       // update path of active tab
-      store.commit(`${storeNameSpace}/updateTab`, plainClone(activeTab));
-    });
+      store.commit(`${storeNameSpace}/updateTab`, activeTabClone);
+    };
+
+    watch(currentPath, updateTabs);
 
     onMounted(() => {
       // add current page to tabs if no tab exists
@@ -95,6 +100,9 @@ export default defineComponent({
         // set active tab id
         setActiveTab(newTab);
       }
+
+      // update tabs
+      updateTabs(currentPath.value);
     });
 
     return {
