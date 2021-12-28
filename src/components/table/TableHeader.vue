@@ -228,7 +228,7 @@ export default defineComponent({
       // emit
       emit('change', column, sortData.value, filterData.value);
 
-      sendEvent('click_table_header_apply');
+      sendEvent('click_table_header_dialog_apply');
     };
 
     const hasDialog = computed<boolean>(() => {
