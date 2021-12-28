@@ -7,6 +7,12 @@
           :span="24 / Math.min(metrics.length, 4)"
       >
         <Metric
+            v-track="{
+              code: 'click_home',
+              params: {
+                metricName: m.name
+              }
+            }"
             :icon="m.icon"
             :title="m.name"
             :value="m.value"

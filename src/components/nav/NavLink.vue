@@ -9,6 +9,7 @@
 import {defineComponent, PropType} from 'vue';
 import Icon from '@/components/icon/Icon.vue';
 import {useRouter} from 'vue-router';
+import {sendEvent} from '@/admin/umeng';
 
 export default defineComponent({
   name: 'NavLink',
@@ -47,6 +48,12 @@ export default defineComponent({
         router.push(path);
       }
       emit('click');
+
+      sendEvent('click_nav_link', {
+        path,
+        external,
+        currentPath: router.currentRoute.value.path,
+      });
     };
 
     return {

@@ -5,6 +5,7 @@ import variables from '@/styles/variables.scss';
 import {plainClone} from '@/utils/object';
 import {getRoutePathByDepth, getTabName} from '@/utils/route';
 import {ElMessage} from 'element-plus';
+import {sendEvent} from '@/admin/umeng';
 
 const IGNORE_GET_ALL_NS = [
   'task',
@@ -71,6 +72,8 @@ const useDetail = <T = BaseModel>(ns: ListStoreNamespace) => {
     }
     await router.push(`${primaryRoutePath.value}/${id}`);
     await getForm();
+
+    sendEvent('click_detail_layout_nav_sidebar_select');
   };
 
   const onNavSidebarToggle = (value: boolean) => {
@@ -79,6 +82,10 @@ const useDetail = <T = BaseModel>(ns: ListStoreNamespace) => {
     } else {
       store.commit(`${ns}/expandSidebar`);
     }
+
+    sendEvent('click_detail_layout_nav_sidebar_toggle', {
+      collapse: value
+    });
   };
 
   const onActionsToggle = () => {
@@ -88,10 +95,18 @@ const useDetail = <T = BaseModel>(ns: ListStoreNamespace) => {
     } else {
       store.commit(`${ns}/collapseActions`);
     }
+
+    sendEvent('click_detail_layout_actions_toggle', {
+      collapse: !actionsCollapsed.value,
+    });
   };
 
   const onNavTabsSelect = (tabName: string) => {
     router.push(`${primaryRoutePath.value}/${activeId.value}/${tabName}`);
+
+    sendEvent('click_detail_layout_nav_tabs_select', {
+      tabName,
+    });
   };
 
   const onNavTabsToggle = () => {
@@ -100,10 +115,16 @@ const useDetail = <T = BaseModel>(ns: ListStoreNamespace) => {
     } else {
       store.commit(`${ns}/expandSidebar`);
     }
+
+    sendEvent('click_detail_layout_nav_tabs_toggle', {
+      collapse: !sidebarCollapsed.value
+    });
   };
 
   const onBack = () => {
     router.push(`${primaryRoutePath.value}`);
+
+    sendEvent('click_detail_layout_on_back');
   };
 
   const onSave = async () => {
@@ -120,6 +141,8 @@ const useDetail = <T = BaseModel>(ns: ListStoreNamespace) => {
 
     // after save
     afterSave.value.map(fn => fn());
+
+    sendEvent('click_detail_layout_on_save');
   };
 
   // get form before mount
