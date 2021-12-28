@@ -3,6 +3,7 @@ import {Table} from 'element-plus/lib/components/table/src/table/defaults';
 import {cloneArray, plainClone} from '@/utils/object';
 import useStore from '@/components/table/store';
 import {getColumnWidth, getTableWidth} from '@/utils/table';
+import {sendEvent} from '@/admin/umeng';
 
 const useColumns = (props: TableProps, ctx: SetupContext, table: Ref<Table<any> | undefined>, wrapper: Ref) => {
   const {columns} = props;
@@ -43,10 +44,14 @@ const useColumns = (props: TableProps, ctx: SetupContext, table: Ref<Table<any> 
 
   const onShowColumnsTransfer = () => {
     columnsTransferVisible.value = true;
+
+    sendEvent('click_table_columns_customize_show');
   };
 
   const onHideColumnsTransfer = () => {
     columnsTransferVisible.value = false;
+
+    sendEvent('click_table_columns_customize_hide');
   };
 
   const isColumnsEqual = (columnKeys: string[]) => {
@@ -104,6 +109,8 @@ const useColumns = (props: TableProps, ctx: SetupContext, table: Ref<Table<any> 
 
   const onColumnsChange = (value: string[]) => {
     updateColumns(value);
+
+    sendEvent('click_table_columns_customize_change');
   };
 
   const initColumns = () => {

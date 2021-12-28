@@ -46,3 +46,13 @@ export const sendEvent = (eventCode: string, eventParams?: TrackEventParams, eve
     arguments: [eventCode, eventType || 'CLK', getEventParamsWrapped(eventParams)],
   });
 };
+
+export const wrapTrack = (payload: TrackSendEventPayload, func: Function) => {
+  const {
+    eventCode,
+    eventParams,
+    eventType,
+  } = payload;
+  sendEvent(eventCode, eventParams, eventType);
+  func();
+};

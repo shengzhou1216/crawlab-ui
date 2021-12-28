@@ -19,7 +19,6 @@
 
     <!-- Add Tab -->
     <ActionTab
-        v-track="{code: 'click_tabs_view_add_tab'}"
         :icon="['fa', 'plus']"
         class="add-tab"
         @click="onAddTab"

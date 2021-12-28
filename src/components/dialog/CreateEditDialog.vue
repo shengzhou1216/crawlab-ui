@@ -35,6 +35,7 @@ import Dialog from '@/components/dialog/Dialog.vue';
 import {emptyArrayFunc, emptyObjectFunc} from '@/utils/func';
 import {Pane} from 'element-plus/lib/components/tabs/src/token.d';
 import {useI18n} from 'vue-i18n';
+import {sendEvent} from '@/admin/umeng';
 
 export default defineComponent({
   name: 'CreateEditDialog',
@@ -113,11 +114,15 @@ export default defineComponent({
     const onClose = () => {
       const {actionFunctions} = props;
       actionFunctions?.onClose?.();
+
+      sendEvent('click_create_edit_dialog_close');
     };
 
     const onConfirm = () => {
       const {actionFunctions} = props;
       actionFunctions?.onConfirm?.();
+
+      sendEvent('click_create_edit_dialog_confirm');
     };
 
     const internalTabName = ref<CreateEditTabName>('single');
@@ -125,6 +130,8 @@ export default defineComponent({
       const tabName = tab.paneName as unknown as CreateEditTabName;
       const {actionFunctions} = props;
       actionFunctions?.onTabChange?.(tabName);
+
+      sendEvent('click_create_edit_dialog_tab_change', {tabName});
     };
     watch(() => props.tabName, () => {
       internalTabName.value = props.tabName as CreateEditTabName;

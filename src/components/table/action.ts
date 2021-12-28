@@ -2,6 +2,7 @@ import {inject, Ref, ref, SetupContext} from 'vue';
 import {ElMessageBox} from 'element-plus';
 import {voidAsyncFunc} from '@/utils/func';
 import {translate} from '@/utils/i18n';
+import {sendEvent} from '@/admin/umeng';
 
 const t = translate;
 
@@ -18,6 +19,8 @@ const useAction = (props: TableProps, ctx: SetupContext, table: Ref, actionFunct
   const onSelectionChange = (value: TableData) => {
     selection.value = value;
     emit('selection-change', value);
+
+    sendEvent('click_table_action_selection_change');
   };
 
   // action functions
@@ -26,6 +29,8 @@ const useAction = (props: TableProps, ctx: SetupContext, table: Ref, actionFunct
 
   const onAdd = () => {
     emit('add');
+
+    sendEvent('click_table_action_on_add');
   };
 
   const onEdit = async () => {
@@ -35,6 +40,8 @@ const useAction = (props: TableProps, ctx: SetupContext, table: Ref, actionFunct
       store?.commit(`${ns}/setIsSelectiveForm`, true);
       store?.commit(`${ns}/setFormList`, selection.value);
     }
+
+    sendEvent('click_table_action_on_edit');
   };
 
   const onDelete = async () => {
@@ -52,10 +59,14 @@ const useAction = (props: TableProps, ctx: SetupContext, table: Ref, actionFunct
     table.value?.store?.clearSelection();
     await getList();
     emit('delete', selection.value);
+
+    sendEvent('click_table_action_on_delete');
   };
 
   const onExport = () => {
     emit('export');
+
+    sendEvent('click_table_action_on_export');
   };
 
   const clearSelection = () => {

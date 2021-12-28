@@ -12,7 +12,17 @@
     <span v-if="showTitle" class="title">
       {{ t(title) }}
     </span>
-    <span v-if="showClose" class="close-btn" @click.stop="onClose">
+    <span
+        v-track="{
+            code: 'click_tabs_view_close_tab',
+            params: {
+              path: () => tab.path,
+            }
+        }"
+        v-if="showClose"
+        class="close-btn"
+        @click.stop="onClose"
+    >
       <el-icon>
         <close/>
       </el-icon>
@@ -120,7 +130,7 @@ export default defineComponent({
       router.push(tab.path);
     };
 
-    const onClose = () => {
+    const close = () => {
       // current tab
       const {tab} = props as TabProps;
       if (!tab) return;
@@ -149,6 +159,10 @@ export default defineComponent({
           store.commit(`${storeNamespace}/setActiveTabId`, tabs[idx - 1].id);
         }
       }
+    };
+
+    const onClose = () => {
+      setTimeout(close, 10);
     };
 
     return {

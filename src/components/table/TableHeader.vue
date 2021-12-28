@@ -45,6 +45,7 @@ import variables from '@/styles/variables.scss';
 import {FILTER_OP_NOT_SET} from '@/constants/filter';
 import Icon from '@/components/icon/Icon.vue';
 import {useI18n} from 'vue-i18n';
+import {sendEvent} from '@/admin/umeng';
 
 export default defineComponent({
   name: 'TableHeader',
@@ -144,6 +145,8 @@ export default defineComponent({
           onClick: () => {
             dialogVisible.value = true;
             actionStatusMap.sort.focused = true;
+
+            sendEvent('click_table_header_sort_show');
           }
         });
       }
@@ -156,6 +159,8 @@ export default defineComponent({
           onClick: () => {
             dialogVisible.value = true;
             actionStatusMap.filter.focused = true;
+
+            sendEvent('click_table_header_filter_show');
           }
         });
       }
@@ -167,6 +172,8 @@ export default defineComponent({
       dialogVisible.value = false;
       actionStatusMap.filter.focused = false;
       actionStatusMap.sort.focused = false;
+
+      sendEvent('click_table_header_dialog_hide');
     };
 
     const clearDialog = () => {
@@ -185,6 +192,8 @@ export default defineComponent({
 
       // emit
       emit('change', column, undefined, undefined);
+
+      sendEvent('click_table_header_dialog_clear');
     };
 
     const onDialogCancel = () => {
@@ -218,6 +227,8 @@ export default defineComponent({
 
       // emit
       emit('change', column, sortData.value, filterData.value);
+
+      sendEvent('click_table_header_apply');
     };
 
     const hasDialog = computed<boolean>(() => {

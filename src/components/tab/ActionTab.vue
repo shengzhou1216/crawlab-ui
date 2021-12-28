@@ -1,6 +1,7 @@
 <template>
   <el-tooltip :content="t('components.tab.newTab')">
     <Tab
+        v-track="{code: 'click_tabs_view_add_tab'}"
         :icon="icon"
         :show-close="false"
         :show-title="false"
