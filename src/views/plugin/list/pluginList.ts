@@ -20,6 +20,7 @@ import PluginStatus from '@/components/plugin/PluginStatus.vue';
 import PluginStatusMultiNode from '@/components/plugin/PluginStatusMultiNode.vue';
 import PluginPid from '@/components/plugin/PluginPid.vue';
 import {translate} from '@/utils/i18n';
+import {sendEvent} from '@/admin/umeng';
 
 type Plugin = CPlugin;
 
@@ -61,6 +62,8 @@ const usePluginList = () => {
           type: 'success',
           onClick: () => {
             commit(`${ns}/showDialog`, 'install');
+
+            sendEvent('click_plugin_list_install');
           }
         }
       ]
@@ -76,6 +79,8 @@ const usePluginList = () => {
           type: 'primary',
           onClick: () => {
             commit(`${ns}/showDialog`, 'settings');
+
+            sendEvent('click_plugin_list_settings');
           }
         }
       ]
@@ -142,11 +147,16 @@ const usePluginList = () => {
             icon: ['fa', 'play'],
             tooltip: t('common.actions.start'),
             onClick: async (row) => {
+              sendEvent('click_plugin_list_actions_start');
+
               await ElMessageBox.confirm(
                 t('common.messageBox.confirm.start'),
                 t('common.actions.start'),
                 {type: 'warning'},
               );
+
+              sendEvent('click_plugin_list_actions_start_confirm');
+
               await post(`/plugins/${row._id}/start`);
               await ElMessage.success(t('common.message.success.start'));
               await store.dispatch(`${ns}/getList`);
@@ -179,11 +189,16 @@ const usePluginList = () => {
             icon: ['fa', 'stop'],
             tooltip: t('common.actions.stop'),
             onClick: async (row) => {
+              sendEvent('click_plugin_list_actions_stop');
+
               await ElMessageBox.confirm(
                 t('common.messageBox.confirm.stop'),
                 t('common.actions.stop'),
                 {type: 'warning'},
               );
+
+              sendEvent('click_plugin_list_actions_stop_confirm');
+
               await ElMessage.info(t('common.message.info.stop'));
               await post(`/plugins/${row._id}/stop`);
               await store.dispatch(`${ns}/getList`);
@@ -219,6 +234,8 @@ const usePluginList = () => {
             tooltip: t('common.actions.view'),
             onClick: (row) => {
               router.push(`/plugins/${row._id}`);
+
+              sendEvent('click_plugin_list_actions_view');
             },
           },
           {
@@ -228,6 +245,8 @@ const usePluginList = () => {
             tooltip: t('common.actions.delete'),
             disabled: (row: Plugin) => !!row.active,
             onClick: async (row: Plugin) => {
+              sendEvent('click_plugin_list_actions_delete');
+
               const res = await ElMessageBox.confirm(
                 t('common.messageBox.confirm.delete'),
                 t('common.actions.delete'),
@@ -236,6 +255,9 @@ const usePluginList = () => {
                   confirmButtonClass: 'el-button--danger'
                 },
               );
+
+              sendEvent('click_plugin_list_actions_delete_confirm');
+
               if (res) {
                 await deleteById(row._id as string);
               }

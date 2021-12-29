@@ -73,6 +73,7 @@ import Dialog from '@/components/dialog/Dialog.vue';
 import Form from '@/components/form/Form.vue';
 import FormItem from '@/components/form/FormItem.vue';
 import {useI18n} from 'vue-i18n';
+import {sendEvent} from '@/admin/umeng';
 
 export default defineComponent({
   name: 'SettingsPluginDialog',
@@ -89,13 +90,23 @@ export default defineComponent({
     const ns = 'plugin';
     const store = useStore();
 
+    const {
+      settings,
+    } = usePlugin(store);
+
     const onClose = () => {
       store.commit(`${ns}/hideDialog`, 'settings');
+
+      sendEvent('click_settings_plugin_dialog_close');
     };
 
     const onConfirm = async () => {
       await store.dispatch(`${ns}/saveSettings`);
       store.commit(`${ns}/hideDialog`, 'settings');
+
+      sendEvent('click_settings_plugin_dialog_confirm', {
+        ...settings.value,
+      });
     };
 
     return {

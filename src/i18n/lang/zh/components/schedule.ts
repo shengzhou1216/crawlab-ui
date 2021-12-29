@@ -7,7 +7,7 @@ const schedule: LComponentsSchedule = {
     command: '命令',
     param: '参数',
     defaultMode: '默认模式',
-    enabled: '已启用',
+    enabled: '是否启用',
     selectedTags: '指定标签',
     selectedNodes: '指定节点',
     description: '描述',

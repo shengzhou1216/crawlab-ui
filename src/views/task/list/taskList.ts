@@ -25,6 +25,7 @@ import {
 } from '@/constants/task';
 import useTask from '@/components/task/task';
 import {translate} from '@/utils/i18n';
+import {sendEvent} from '@/admin/umeng';
 
 const {
   post,
@@ -71,6 +72,8 @@ const useTaskList = () => {
           type: 'success',
           onClick: () => {
             commit(`${ns}/showDialog`, 'create');
+
+            sendEvent('click_task_list_new');
           }
         }
       ]
@@ -105,6 +108,8 @@ const useTaskList = () => {
           label: node?.name,
           onClick: () => {
             router.push(`/nodes/${node?._id}`);
+
+            sendEvent('click_task_list_actions_view');
           }
         } as NodeTypeProps);
       },
@@ -249,6 +254,8 @@ const useTaskList = () => {
           tooltip: t('common.actions.view'),
           onClick: (row) => {
             router.push(`/tasks/${row._id}`);
+
+            sendEvent('click_task_list_actions_view');
           }
         },
         {
@@ -257,11 +264,16 @@ const useTaskList = () => {
           icon: ['fa', 'redo'],
           tooltip: t('common.actions.restart'),
           onClick: async (row) => {
+            sendEvent('click_task_list_actions_restart');
+
             await ElMessageBox.confirm(
               t('common.messageBox.confirm.restart'),
               t('common.actions.restart'),
               {type: 'warning'},
             );
+
+            sendEvent('click_task_list_actions_restart_confirm');
+
             await post(`/tasks/${row._id}/restart`);
             await ElMessage.success(t('common.message.success.restart'));
             await store.dispatch(`task/getList`);
@@ -274,11 +286,16 @@ const useTaskList = () => {
             icon: ['fa', 'stop'],
             tooltip: 'Cancel',
             onClick: async (row: Task) => {
+              sendEvent('click_task_list_actions_cancel');
+
               await ElMessageBox.confirm(
                 t('common.messageBox.confirm.cancel'),
                 t('common.actions.cancel'),
                 {type: 'warning'},
               );
+
+              sendEvent('click_task_list_actions_cancel_confirm');
+
               await ElMessage.info(t('common.message.info.cancel'));
               await post(`/tasks/${row._id}/cancel`);
               await store.dispatch(`${ns}/getList`);

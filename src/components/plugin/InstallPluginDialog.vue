@@ -50,6 +50,7 @@ import {
 } from '@/constants/plugin';
 import PluginForm from '@/components/plugin/PluginForm.vue';
 import InstallPublicPlugin from '@/components/plugin/InstallPublicPlugin.vue';
+import {sendEvent} from '@/admin/umeng';
 
 export default defineComponent({
   name: 'InstallPluginDialog',
@@ -72,18 +73,28 @@ export default defineComponent({
 
     const onClose = () => {
       store.commit(`${ns}/hideDialog`, 'install');
+
+      sendEvent('click_install_plugin_dialog_close');
     };
 
     const onConfirm = async () => {
       // TODO: implement
       // await store.dispatch(`${ns}/create`, form);
       store.commit(`${ns}/hideDialog`, 'install');
+
+      sendEvent('click_install_plugin_dialog_confirm', {
+        installType: installType.value,
+      });
     };
 
     const internalInstallType = ref<string>(PLUGIN_INSTALL_TYPE_PUBLIC);
 
     const onInstallTypeChange = (value: string) => {
       store.commit(`${ns}/setInstallType`, value);
+
+      sendEvent('click_install_plugin_dialog_install_type_change', {
+        installType: value,
+      });
     };
 
     onBeforeUnmount(() => {

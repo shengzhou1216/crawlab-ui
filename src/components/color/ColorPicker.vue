@@ -12,6 +12,7 @@
 
 <script lang="ts">
 import {defineComponent, onMounted, PropType, ref, watch} from 'vue';
+import {sendEvent} from '@/admin/umeng';
 
 export default defineComponent({
   name: 'ColorPicker',
@@ -44,6 +45,8 @@ export default defineComponent({
     const onChange = (value: string) => {
       emit('update:model-value', value);
       emit('change', value);
+
+      sendEvent('click_color_picker_change');
     };
 
     onMounted(() => {

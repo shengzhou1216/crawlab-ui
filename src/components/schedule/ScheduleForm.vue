@@ -180,6 +180,7 @@ import Switch from '@/components/switch/Switch.vue';
 import {ElMessage} from 'element-plus';
 import ScheduleCron from '@/components/schedule/ScheduleCron.vue';
 import {useI18n} from 'vue-i18n';
+import {sendEvent} from '@/admin/umeng';
 
 export default defineComponent({
   name: 'ScheduleForm',
@@ -224,6 +225,9 @@ export default defineComponent({
         await store.dispatch(`${ns}/disable`, form.value._id);
         ElMessage.success(t('components.schedule.message.success.disable'));
       }
+
+      value ? sendEvent('click_schedule_form_enable') : sendEvent('click_schedule_form_disable');
+
       await store.dispatch(`${ns}/getList`);
     };
 

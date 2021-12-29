@@ -7,6 +7,7 @@ import {getActionColumn} from '@/utils/table';
 import {ACTION_DELETE, ACTION_VIEW} from '@/constants/action';
 import Tag from '@/components/tag/Tag.vue';
 import {translate} from '@/utils/i18n';
+import {sendEvent} from '@/admin/umeng';
 
 // i18n
 const t = translate;
@@ -30,6 +31,8 @@ const useTagList = () => {
           type: 'success',
           onClick: () => {
             commit(`${ns}/showDialog`, 'create');
+
+            sendEvent('click_tag_list_new');
           }
         }
       ]

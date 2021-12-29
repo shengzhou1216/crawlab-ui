@@ -9,6 +9,7 @@ import {useRouter} from 'vue-router';
 import UserRole from '@/components/user/UserRole.vue';
 import {ROLE_ADMIN, ROLE_NORMAL, USERNAME_ADMIN} from '@/constants/user';
 import {translate} from '@/utils/i18n';
+import {sendEvent} from '@/admin/umeng';
 
 // i18n
 const t = translate;
@@ -41,6 +42,8 @@ const useUserList = () => {
           type: 'success',
           onClick: () => {
             commit(`${ns}/showDialog`, 'create');
+
+            sendEvent('click_user_list_new');
           }
         }
       ]
@@ -96,6 +99,8 @@ const useUserList = () => {
           tooltip: t('common.actions.view'),
           onClick: (row) => {
             router.push(`/users/${row._id}`);
+
+            sendEvent('click_user_list_actions_view');
           },
         },
         {
@@ -105,6 +110,8 @@ const useUserList = () => {
           tooltip: (row: User) => row.username === USERNAME_ADMIN ? t('components.user.delete.tooltip.adminUserNonDeletable') : t('common.actions.delete'),
           disabled: (row: User) => row.username === USERNAME_ADMIN,
           onClick: async (row: User) => {
+            sendEvent('click_user_list_actions_delete');
+
             const res = await ElMessageBox.confirm(
               t('common.messageBox.confirm.delete'),
               t('common.actions.delete'),
@@ -113,6 +120,9 @@ const useUserList = () => {
                 confirmButtonClass: 'el-button--danger',
               }
             );
+
+            sendEvent('click_user_list_actions_delete_confirm');
+
             if (res) {
               await deleteById(row._id as string);
             }

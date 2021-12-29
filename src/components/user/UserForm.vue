@@ -82,6 +82,7 @@ import LabelButton from '@/components/button/LabelButton.vue';
 import {ElMessageBox} from 'element-plus';
 import useUserDetail from '@/views/user/detail/userDetail';
 import {useI18n} from 'vue-i18n';
+import {sendEvent} from '@/admin/umeng';
 
 export default defineComponent({
   name: 'UserForm',
@@ -113,6 +114,9 @@ export default defineComponent({
               return value?.length < 5 ? t('components.user.rules.invalidPassword') : true;
             }
           });
+
+      sendEvent('click_user_form_change_password');
+
       return await store.dispatch(`${ns}/changePassword`, {id: activeId.value, password: value});
     };
 
