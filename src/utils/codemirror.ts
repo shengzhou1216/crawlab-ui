@@ -17,6 +17,10 @@ import 'codemirror/addon/hint/show-hint';
 import 'codemirror/keymap/emacs.js';
 import 'codemirror/keymap/sublime.js';
 import 'codemirror/keymap/vim.js';
+import {translate} from '@/utils/i18n';
+
+// i18n
+const t = translate;
 
 const themes = [
   '3024-day',
@@ -94,8 +98,8 @@ class Class1:
 const optionsDefinitions: FileEditorOptionDefinition[] = [
   {
     name: 'theme',
-    title: 'Theme',
-    description: 'The theme to style the editor with.',
+    title: t('components.file.editor.settings.form.title.theme'),
+    description: t('components.file.editor.settings.form.description.theme'),
     type: 'select',
     data: {
       options: themes,
@@ -103,8 +107,8 @@ const optionsDefinitions: FileEditorOptionDefinition[] = [
   },
   {
     name: 'indentUnit',
-    title: 'Indent Unit',
-    description: 'How many spaces a block (whatever that means in the edited language) should be indented.',
+    title: t('components.file.editor.settings.form.title.indentUnit'),
+    description: t('components.file.editor.settings.form.description.indentUnit'),
     type: 'input-number',
     data: {
       min: 1,
@@ -112,14 +116,14 @@ const optionsDefinitions: FileEditorOptionDefinition[] = [
   },
   {
     name: 'smartIndent',
-    title: 'Smart Indent',
-    description: 'Whether to use the context-sensitive indentation that the mode provides (or just indent the same as the line before).',
+    title: t('components.file.editor.settings.form.title.smartIndent'),
+    description: t('components.file.editor.settings.form.description.smartIndent'),
     type: 'switch',
   },
   {
     name: 'tabSize',
-    title: 'Tab Size',
-    description: 'The width of a tab character. Defaults to 4.',
+    title: t('components.file.editor.settings.form.title.tabSize'),
+    description: t('components.file.editor.settings.form.description.tabSize'),
     type: 'input-number',
     data: {
       min: 1,
@@ -127,20 +131,20 @@ const optionsDefinitions: FileEditorOptionDefinition[] = [
   },
   {
     name: 'indentWithTabs',
-    title: 'Indent with Tabs',
-    description: 'Whether, when indenting, the first N*tabSize spaces should be replaced by N tabs.',
+    title: t('components.file.editor.settings.form.title.indentWithTabs'),
+    description: t('components.file.editor.settings.form.description.indentWithTabs'),
     type: 'switch',
   },
   {
     name: 'electricChars',
-    title: 'Electric Chars',
-    description: 'Configures whether the editor should re-indent the current line when a character is typed that might change its proper indentation (only works if the mode supports indentation).',
+    title: t('components.file.editor.settings.form.title.electricChars'),
+    description: t('components.file.editor.settings.form.description.electricChars'),
     type: 'switch',
   },
   {
     name: 'keyMap',
-    title: 'Keymap',
-    description: 'Configures the keymap to use.',
+    title: t('components.file.editor.settings.form.title.keyMap'),
+    description: t('components.file.editor.settings.form.description.keyMap'),
     type: 'select',
     data: {
       options: [
@@ -153,38 +157,38 @@ const optionsDefinitions: FileEditorOptionDefinition[] = [
   },
   {
     name: 'lineWrapping',
-    title: 'Line Wrapping',
-    description: 'Whether to scroll or wrap for long lines.',
+    title: t('components.file.editor.settings.form.title.lineWrapping'),
+    description: t('components.file.editor.settings.form.description.lineWrapping'),
     type: 'switch',
   },
   {
     name: 'lineNumbers',
-    title: 'Line Numbers',
-    description: 'Whether to show line numbers to the left of the editor.',
+    title: t('components.file.editor.settings.form.title.lineNumbers'),
+    description: t('components.file.editor.settings.form.description.lineNumbers'),
     type: 'switch',
   },
   {
     name: 'showCursorWhenSelecting',
-    title: 'Show Cursor When Selecting',
-    description: 'Whether the cursor should be drawn when a selection is active.',
+    title: t('components.file.editor.settings.form.title.showCursorWhenSelecting'),
+    description: t('components.file.editor.settings.form.description.showCursorWhenSelecting'),
     type: 'switch',
   },
   {
     name: 'lineWiseCopyCut',
-    title: 'Line-wise Copy-Cut',
-    description: 'When enabled, doing copy or cut when there is no selection will copy or cut the whole lines that have cursors on them.',
+    title: t('components.file.editor.settings.form.title.lineWiseCopyCut'),
+    description: t('components.file.editor.settings.form.description.lineWiseCopyCut'),
     type: 'switch',
   },
   {
     name: 'pasteLinesPerSelection',
-    title: 'Paste Lines per Selection',
-    description: 'When pasting something from an external source (not from the editor itself), if the number of lines matches the number of selection, the editor will by default insert one line per selection. You can set this to false to disable that behavior.',
+    title: t('components.file.editor.settings.form.title.pasteLinesPerSelection'),
+    description: t('components.file.editor.settings.form.description.pasteLinesPerSelection'),
     type: 'switch',
   },
   {
     name: 'undoDepth',
-    title: 'Paste Lines per Selection',
-    description: 'The maximum number of undo levels that the editor stores.',
+    title: t('components.file.editor.settings.form.title.undoDepth'),
+    description: t('components.file.editor.settings.form.description.undoDepth'),
     type: 'input-number',
     data: {
       min: 1,
@@ -192,8 +196,8 @@ const optionsDefinitions: FileEditorOptionDefinition[] = [
   },
   {
     name: 'cursorBlinkRate',
-    title: 'Cursor Blink Rate',
-    description: 'Half-period in milliseconds used for cursor blinking.',
+    title: t('components.file.editor.settings.form.title.cursorBlinkRate'),
+    description: t('components.file.editor.settings.form.description.cursorBlinkRate'),
     type: 'input-number',
     data: {
       min: 10,
@@ -201,8 +205,8 @@ const optionsDefinitions: FileEditorOptionDefinition[] = [
   },
   {
     name: 'cursorScrollMargin',
-    title: 'Cursor Scroll Margin',
-    description: 'How much extra space to always keep above and below the cursor when approaching the top or bottom of the visible view in a scrollable document.',
+    title: t('components.file.editor.settings.form.title.cursorScrollMargin'),
+    description: t('components.file.editor.settings.form.description.cursorScrollMargin'),
     type: 'input-number',
     data: {
       min: 0,
@@ -210,8 +214,8 @@ const optionsDefinitions: FileEditorOptionDefinition[] = [
   },
   {
     name: 'cursorHeight',
-    title: 'Cursor Height',
-    description: 'Determines the height of the cursor. Setting it to 1, means it spans the whole height of the line. For some fonts (and by some tastes) a smaller height (for example 0.85), which causes the cursor to not reach all the way to the bottom of the line, looks better',
+    title: t('components.file.editor.settings.form.title.cursorHeight'),
+    description: t('components.file.editor.settings.form.description.cursorHeight'),
     type: 'input-number',
     data: {
       min: 0,
@@ -220,8 +224,8 @@ const optionsDefinitions: FileEditorOptionDefinition[] = [
   },
   {
     name: 'maxHighlightLength',
-    title: 'Max Highlight Length',
-    description: 'When highlighting long lines, in order to stay responsive, the editor will give up and simply style the rest of the line as plain text when it reaches a certain position.',
+    title: t('components.file.editor.settings.form.title.maxHighlightLength'),
+    description: t('components.file.editor.settings.form.description.maxHighlightLength'),
     type: 'input-number',
     data: {
       min: 1,
@@ -229,56 +233,56 @@ const optionsDefinitions: FileEditorOptionDefinition[] = [
   },
   {
     name: 'spellcheck',
-    title: 'Spell Check',
-    description: 'Specifies whether or not spellcheck will be enabled on the input.',
+    title: t('components.file.editor.settings.form.title.spellcheck'),
+    description: t('components.file.editor.settings.form.description.spellcheck'),
     type: 'switch',
   },
   {
     name: 'autocorrect',
-    title: 'Auto Correct',
-    description: 'Specifies whether or not auto-correct will be enabled on the input.',
+    title: t('components.file.editor.settings.form.title.autocorrect'),
+    description: t('components.file.editor.settings.form.description.autocorrect'),
     type: 'switch',
   },
   {
     name: 'autocapitalize',
-    title: 'Auto Capitalize',
-    description: 'Specifies whether or not auto-capitalization will be enabled on the input.',
+    title: t('components.file.editor.settings.form.title.autocapitalize'),
+    description: t('components.file.editor.settings.form.description.autocapitalize'),
     type: 'switch',
   },
   {
     name: 'highlightSelectionMatches',
-    title: 'Highlight Selection Matches',
-    description: 'Adds a highlightSelectionMatches option that can be enabled to highlight all instances of a currently selected word. When enabled, it causes the current word to be highlighted when nothing is selected.',
+    title: t('components.file.editor.settings.form.title.highlightSelectionMatches'),
+    description: t('components.file.editor.settings.form.description.highlightSelectionMatches'),
     type: 'switch',
   },
   {
     name: 'matchBrackets',
-    title: 'Match Brackets',
-    description: 'When set to true or an options object, causes matching brackets to be highlighted whenever the cursor is next to them.',
+    title: t('components.file.editor.settings.form.title.matchBrackets'),
+    description: t('components.file.editor.settings.form.description.matchBrackets'),
     type: 'switch',
   },
   {
     name: 'matchTags',
-    title: 'Match Tags',
-    description: 'When enabled will cause the tags around the cursor to be highlighted',
+    title: t('components.file.editor.settings.form.title.matchTags'),
+    description: t('components.file.editor.settings.form.description.matchTags'),
     type: 'switch',
   },
   {
     name: 'autoCloseBrackets',
-    title: 'Auto-Close Brackets',
-    description: 'Will auto-close brackets and quotes when typed. It\'ll auto-close ()[]{}\'\'"".',
+    title: t('components.file.editor.settings.form.title.autoCloseBrackets'),
+    description: t('components.file.editor.settings.form.description.autoCloseBrackets'),
     type: 'switch',
   },
   {
     name: 'autoCloseTags',
-    title: 'Auto-Close Tags',
-    description: 'Will auto-close XML tags when \'>\' or \'/\' is typed.',
+    title: t('components.file.editor.settings.form.title.autoCloseTags'),
+    description: t('components.file.editor.settings.form.description.autoCloseTags'),
     type: 'switch',
   },
   {
     name: 'showHint',
-    title: 'Show Hint',
-    description: '',
+    title: t('components.file.editor.settings.form.title.showHint'),
+    description: t('components.file.editor.settings.form.description.showHint'),
     type: 'switch',
   },
 ];

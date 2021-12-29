@@ -59,10 +59,10 @@ export default defineComponent({
     const options = ref<FileEditorConfiguration>({});
 
     const tabs = readonly([
-      {name: 'general', title: 'General'},
-      {name: 'edit', title: 'Edit'},
-      {name: 'indentation', title: 'Indentation'},
-      {name: 'cursor', title: 'Cursor'},
+      {name: 'general', title: t('components.file.editor.settings.tabs.general')},
+      {name: 'edit', title: t('components.file.editor.settings.tabs.edit')},
+      {name: 'indentation', title: t('components.file.editor.settings.tabs.indentation')},
+      {name: 'cursor', title: t('components.file.editor.settings.tabs.cursor')},
     ]);
 
     const optionNames = readonly({

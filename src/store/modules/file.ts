@@ -53,8 +53,7 @@ export default {
     setEditorOptions: (state: FileStoreState, options: EditorConfiguration) => {
       for (const k in options) {
         const key = k as keyof EditorConfiguration;
-        const editorOptions = state.editorOptions[key];
-        editorOptions[key] = options[key];
+        state.editorOptions[key] = options[key];
       }
     },
     resetEditorOptions: (state: FileStoreState) => {
