@@ -18,6 +18,7 @@
               clearable
               :placeholder="t('components.file.editor.sidebar.search.placeholder')"
               size="mini"
+              @change="onFileSearch"
           >
             <template #prefix>
               <el-icon class="el-input__icon">
@@ -637,6 +638,10 @@ export default defineComponent({
       sendEvent('click_file_editor_drop_files');
     };
 
+    const onFileSearch = () => {
+      sendEvent('click_file_editor_file_search');
+    };
+
     onMounted(async () => {
       // init codemirror editor
       const el = codeMirrorEditor.value as HTMLElement;
@@ -716,6 +721,7 @@ export default defineComponent({
       updateEditorContent,
       updateContentCache,
       onDropFiles,
+      onFileSearch,
       t,
     };
   },
