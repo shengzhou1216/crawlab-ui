@@ -94,7 +94,11 @@
         :label="t('components.node.form.enabled')"
         prop="enabled"
     >
-      <Switch v-model="form.enabled" :disabled="isFormItemDisabled('enabled')"/>
+      <Switch
+          v-model="form.enabled"
+          :disabled="isFormItemDisabled('enabled')"
+          @change="onEnabledChange"
+      />
     </FormItem>
     <FormItem
         :span="2"
@@ -137,6 +141,7 @@ import FormItem from '@/components/form/FormItem.vue';
 import NodeType from '@/components/node/NodeType.vue';
 import Switch from '@/components/switch/Switch.vue';
 import {useI18n} from 'vue-i18n';
+import {sendEvent} from '@/admin/umeng';
 
 export default defineComponent({
   name: 'NodeForm',
@@ -159,8 +164,13 @@ export default defineComponent({
     // store
     const store = useStore();
 
+    const onEnabledChange = (value: boolean) => {
+      sendEvent(value ? 'click_node_form_enable' : 'click_node_form_disable');
+    };
+
     return {
       ...useNode(store),
+      onEnabledChange,
       t,
     };
   },

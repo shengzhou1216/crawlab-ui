@@ -17,14 +17,15 @@
     <!-- Button -->
     <Button
         v-if="buttonLabel"
-        :disabled="disabled"
+        disabled
+        :tooltip="t('common.status.currentlyUnavailable')"
         :size="size"
         :type="buttonType"
         class="button"
         no-margin
         @click="onClick"
     >
-      <Icon v-if="buttonIcon" :icon="buttonIcon" />
+      <Icon v-if="buttonIcon" :icon="buttonIcon"/>
       {{ buttonLabel }}
     </Button>
     <template v-else-if="buttonIcon">
@@ -58,6 +59,7 @@ import Icon from '@/components/icon/Icon.vue';
 import FaIconButton from '@/components/button/FaIconButton.vue';
 import useIcon from '@/components/icon/icon';
 import IconButton from '@/components/button/IconButton.vue';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'InputWithButton',
@@ -91,7 +93,7 @@ export default defineComponent({
     },
     disabled: {
       type: Boolean,
-      default: false,
+      default: true,
     }
   },
   emits: [
@@ -103,6 +105,9 @@ export default defineComponent({
     'keyup.enter',
   ],
   setup(props: InputWithButtonProps, {emit}) {
+    // i18n
+    const {t} = useI18n();
+
     const internalValue = ref<string>();
 
     const {
@@ -153,6 +158,7 @@ export default defineComponent({
       onBlur,
       onFocus,
       onKeyUpEnter,
+      t,
     };
   },
 });

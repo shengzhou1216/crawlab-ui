@@ -3,6 +3,7 @@ import {Store} from 'vuex';
 import useFormTable from '@/components/form/formTable';
 import {EMPTY_OBJECT_ID} from '@/utils/mongo';
 import {translate} from '@/utils/i18n';
+import {sendEvent} from '@/admin/umeng';
 
 // i18n
 const t = translate;
@@ -176,6 +177,10 @@ const useForm = (ns: ListStoreNamespace, store: Store<RootStoreState>, services:
           } else {
             res = await create(form.value);
           }
+          sendEvent('click_form_create_confirm', {
+            ns,
+            batch: isBatchForm.value,
+          });
           break;
         case 'edit':
           if (isBatchForm.value) {
@@ -183,6 +188,10 @@ const useForm = (ns: ListStoreNamespace, store: Store<RootStoreState>, services:
           } else {
             res = await updateById(form.value._id as string, form.value);
           }
+          sendEvent('click_form_create_edit', {
+            ns,
+            batch: isBatchForm.value,
+          });
           break;
         default:
           console.error(`activeDialogKey "${activeDialogKey.value}" is invalid`);

@@ -9,6 +9,7 @@ import {useRouter} from 'vue-router';
 import TagList from '@/components/tag/TagList.vue';
 import {TAB_NAME_SPIDERS} from '@/constants/tab';
 import {translate} from '@/utils/i18n';
+import {sendEvent} from '@/admin/umeng';
 
 const useProjectList = () => {
   // router
@@ -101,32 +102,36 @@ const useProjectList = () => {
           tooltip: t('common.actions.view'),
           onClick: (row) => {
             router.push(`/projects/${row._id}`);
+
+            sendEvent('click_project_list_actions_view');
           },
         },
-        {
-          type: 'warning',
-          icon: ['fa', 'edit'],
-          tooltip: t('common.actions.edit'),
-          onClick: (row) => {
-            store.commit(`${ns}/setForm`, row);
-            store.commit(`${ns}/showDialog`, 'edit');
-          },
-        },
-        {
-          type: 'info',
-          size: 'mini',
-          icon: ['fa', 'clone'],
-          tooltip: t('common.actions.clone'),
-          onClick: (row) => {
-            console.log('clone', row);
-          }
-        },
+        // {
+        //   type: 'warning',
+        //   icon: ['fa', 'edit'],
+        //   tooltip: t('common.actions.edit'),
+        //   onClick: (row) => {
+        //     store.commit(`${ns}/setForm`, row);
+        //     store.commit(`${ns}/showDialog`, 'edit');
+        //   },
+        // },
+        // {
+        //   type: 'info',
+        //   size: 'mini',
+        //   icon: ['fa', 'clone'],
+        //   tooltip: t('common.actions.clone'),
+        //   onClick: (row) => {
+        //     console.log('clone', row);
+        //   }
+        // },
         {
           type: 'danger',
           size: 'mini',
           icon: ['fa', 'trash-alt'],
           tooltip: t('common.actions.delete'),
           onClick: async (row: Project) => {
+            sendEvent('click_project_list_actions_delete');
+
             const res = await ElMessageBox.confirm(
               t('common.messageBox.confirm.delete'),
               t('common.actions.delete'),
@@ -135,6 +140,9 @@ const useProjectList = () => {
                 confirmButtonClass: 'el-button--danger'
               }
             );
+
+            sendEvent('click_project_list_actions_delete_confirm');
+
             if (res) {
               await deleteById(row._id as string);
             }

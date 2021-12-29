@@ -116,6 +116,7 @@ import InputWithButton from '@/components/input/InputWithButton.vue';
 import CheckTagGroup from '@/components/tag/CheckTagGroup.vue';
 import {ElMessage} from 'element-plus';
 import {useI18n} from 'vue-i18n';
+import {sendEvent} from '@/admin/umeng';
 
 export default defineComponent({
   name: 'RunSpiderDialog',
@@ -176,6 +177,8 @@ export default defineComponent({
 
     const onClose = () => {
       store.commit(`${ns}/hideDialog`);
+
+      sendEvent('click_run_spider_dialog_close');
     };
 
     const onConfirm = async () => {
@@ -184,6 +187,11 @@ export default defineComponent({
       store.commit(`${ns}/hideDialog`);
       await ElMessage.success(t('components.spider.message.success.scheduleTask'));
       await store.dispatch(`${ns}/getList`);
+
+      sendEvent('click_run_spider_dialog_confirm', {
+        mode: options.value.mode,
+        priority: options.value.priority,
+      });
     };
 
     return {

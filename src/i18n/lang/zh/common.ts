@@ -43,6 +43,7 @@ const common: LCommon = {
       copy: '复制成功',
       start: '启动成功',
       save: '保存成功',
+      upload: '上传成功',
     },
     info: {
       cancel: '尝试取消',

@@ -43,6 +43,7 @@ const common: LCommon = {
       copy: 'Copied successfully',
       start: 'Started successfully',
       save: 'Saved successfully',
+      upload: 'Uploaded successfully',
     },
     info: {
       cancel: 'Attempt to cancel',

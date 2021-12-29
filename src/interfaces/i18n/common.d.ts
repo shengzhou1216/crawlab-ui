@@ -50,6 +50,7 @@ interface LCommon {
       copy: string;
       start: string;
       save: string;
+      upload: string;
     };
     info: {
       cancel: string;

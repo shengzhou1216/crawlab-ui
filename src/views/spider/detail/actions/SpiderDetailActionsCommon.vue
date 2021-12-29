@@ -4,7 +4,8 @@
     <NavActionItem>
       <FaIconButton :icon="['fa', 'play']" :tooltip="t('common.actions.run')" type="success" @click="onRun"/>
     </NavActionItem>
-    <NavActionItem>
+    <!--TODO: implement-->
+    <NavActionItem v-if="false">
       <FaIconButton :icon="['fa', 'clone']" :tooltip="t('common.actions.clone')" type="info"/>
     </NavActionItem>
     <!--TODO: implement-->
@@ -28,6 +29,7 @@ import {useStore} from 'vuex';
 import useSpider from '@/components/spider/spider';
 import RunSpiderDialog from '@/components/spider/RunSpiderDialog.vue';
 import {useI18n} from 'vue-i18n';
+import {sendEvent} from '@/admin/umeng';
 
 export default defineComponent({
   name: 'SpiderDetailActionsCommon',
@@ -48,6 +50,8 @@ export default defineComponent({
 
     const onRun = () => {
       store.commit(`${ns}/showDialog`, 'run');
+
+      sendEvent('click_spider_detail_actions_run');
     };
 
     return {

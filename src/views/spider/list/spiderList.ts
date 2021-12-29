@@ -10,6 +10,7 @@ import SpiderStat from '@/components/spider/SpiderStat.vue';
 import {setupListComponent} from '@/utils/list';
 import useProject from '@/components/project/project';
 import {translate} from '@/utils/i18n';
+import {sendEvent} from '@/admin/umeng';
 
 const useSpiderList = () => {
   // i18n
@@ -46,6 +47,8 @@ const useSpiderList = () => {
           type: 'success',
           onClick: () => {
             commit(`${ns}/showDialog`, 'create');
+
+            sendEvent('click_spider_list_new');
           }
         }
       ]
@@ -196,6 +199,8 @@ const useSpiderList = () => {
           onClick: (row) => {
             store.commit(`${ns}/setForm`, row);
             store.commit(`${ns}/showDialog`, 'run');
+
+            sendEvent('click_spider_list_actions_run');
           },
         },
         {
@@ -205,17 +210,19 @@ const useSpiderList = () => {
           tooltip: t('common.actions.view'),
           onClick: (row) => {
             router.push(`/spiders/${row._id}`);
+
+            sendEvent('click_spider_list_actions_view');
           }
         },
-        {
-          type: 'info',
-          size: 'mini',
-          icon: ['fa', 'clone'],
-          tooltip: t('common.actions.clone'),
-          onClick: (row) => {
-            console.log('clone', row);
-          }
-        },
+        // {
+        //   type: 'info',
+        //   size: 'mini',
+        //   icon: ['fa', 'clone'],
+        //   tooltip: t('common.actions.clone'),
+        //   onClick: (row) => {
+        //     console.log('clone', row);
+        //   }
+        // },
         {
           type: 'danger',
           size: 'mini',

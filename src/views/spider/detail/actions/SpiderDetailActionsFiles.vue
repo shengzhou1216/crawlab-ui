@@ -56,6 +56,7 @@ import {FILE_UPLOAD_MODE_DIR} from '@/constants/file';
 import {FileWithPath} from 'file-selector';
 import {getOSPathSeparator} from '@/utils/os';
 import {useI18n} from 'vue-i18n';
+import {sendEvent} from '@/admin/umeng';
 
 export default defineComponent({
   name: 'SpiderDetailActionsFiles',
@@ -133,6 +134,8 @@ export default defineComponent({
 
     const onOpenFilesSettings = () => {
       store.commit(`${storeNamespace}/setEditorSettingsDialogVisible`, true);
+
+      sendEvent('click_spider_detail_actions_files_settings');
     };
 
     const uploadFiles = async () => {
@@ -160,6 +163,8 @@ export default defineComponent({
 
     const onClickUpload = () => {
       fileUploadVisible.value = true;
+
+      sendEvent('click_spider_detail_actions_upload');
     };
 
     const onModeChange = (value: string) => {
@@ -177,13 +182,19 @@ export default defineComponent({
 
       // set file upload info
       setInfo();
+
+      sendEvent('click_spider_detail_actions_files_change');
     };
 
     const onUploadConfirm = async () => {
       confirmLoading.value = true;
       try {
+        sendEvent('click_spider_detail_actions_upload_confirm', {
+          mode: mode.value
+        });
+
         await uploadFiles();
-        await ElMessage.success('Uploaded successfully');
+        await ElMessage.success(t('common.message.success.upload'));
       } catch (e: any) {
         await ElMessage.error(e);
       } finally {
@@ -195,6 +206,8 @@ export default defineComponent({
 
     const onUploadClose = () => {
       fileUploadVisible.value = false;
+
+      sendEvent('click_spider_detail_actions_upload_close');
     };
 
     return {

@@ -54,6 +54,8 @@ const useNodeList = () => {
           type: 'success',
           onClick: () => {
             commit(`${ns}/showDialog`, 'create');
+
+            sendEvent('click_node_list_new');
           }
         }
       ]

@@ -77,6 +77,7 @@ import Tag from '@/components/tag/Tag.vue';
 import {plainClone} from '@/utils/object';
 import {useI18n} from 'vue-i18n';
 import {UploadFilled} from '@element-plus/icons';
+import {sendEvent} from '@/admin/umeng';
 
 export default defineComponent({
   name: 'FileUpload',
@@ -119,6 +120,16 @@ export default defineComponent({
 
     const dirPath = ref<string>();
 
+    const dirInfo = ref<FileUploadInfo>();
+
+    const setInfo = (info: FileUploadInfo) => {
+      dirInfo.value = plainClone(info);
+    };
+
+    const resetInfo = () => {
+      dirInfo.value = undefined;
+    };
+
     watch(() => props.mode, () => {
       internalMode.value = props.mode;
       uploadRef.value?.clearFiles();
@@ -130,26 +141,20 @@ export default defineComponent({
 
     const clearFiles = () => {
       uploadRef.value?.clearFiles();
+      resetInfo();
     };
 
     const onModeChange = (mode: string) => {
       emit('mode-change', mode);
+      resetInfo();
+
+      sendEvent('click_file_upload_mode_change', {mode});
     };
 
     onBeforeMount(() => {
       const {mode} = props;
       internalMode.value = mode;
     });
-
-    const dirInfo = ref<FileUploadInfo>();
-
-    const setInfo = (info: FileUploadInfo) => {
-      dirInfo.value = plainClone(info);
-    };
-
-    const resetInfo = (info: FileUploadInfo) => {
-      dirInfo.value = undefined;
-    };
 
     return {
       uploadRef,
