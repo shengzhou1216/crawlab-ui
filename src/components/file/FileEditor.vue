@@ -844,6 +844,9 @@ export default defineComponent({
 .file-editor .file-editor-content .code-mirror-editor >>> .CodeMirror {
   position: relative;
   min-height: 100%;
+  border: none;
+  border-radius: 0;
+  padding: 0;
 }
 
 .file-editor .file-editor-content .code-mirror-editor >>> .CodeMirror.dialog-opened {
