@@ -8,6 +8,28 @@ const git: LComponentsGit = {
   },
   common: {
     currentBranch: '当前分支',
+    message: {
+      success: {
+        checkout: '成功签出',
+        pull: '成功拉取代码',
+        commit: '成功提交代码',
+      }
+    },
+    messageBox: {
+      confirm: {
+        pull: '确定从远端拉取代码?',
+      },
+      prompt: {
+        commit: {
+          label: '确定提交代码?',
+          placeholder: '提交信息',
+        }
+      }
+    },
+    actions: {
+      pull: '拉取代码',
+      commit: '提交代码',
+    }
   },
   actions: {
     title: 'Git 操作',

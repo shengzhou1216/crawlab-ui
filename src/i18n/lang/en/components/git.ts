@@ -8,6 +8,28 @@ const git: LComponentsGit = {
   },
   common: {
     currentBranch: 'Current Branch',
+    message: {
+      success: {
+        checkout: 'Checkout successfully',
+        pull: 'Pulled successfully',
+        commit: 'Committed successfully',
+      }
+    },
+    messageBox: {
+      confirm: {
+        pull: 'Are you sure to pull from remote?',
+      },
+      prompt: {
+        commit: {
+          label: 'Are you sure to commit?',
+          placeholder: 'Commit Message',
+        }
+      }
+    },
+    actions: {
+      pull: 'Git Pull',
+      commit: 'Git Commit',
+    }
   },
   actions: {
     title: 'Git Actions',

@@ -13,6 +13,7 @@
             v-model="internalGitRefType"
             size="mini"
             class="ref-type-select"
+            @change="onRefTypeChange"
         >
           <el-radio-button :label="GIT_REF_TYPE_BRANCH">
             <el-tooltip :content="t('components.git.references.type.branch')">
@@ -103,7 +104,6 @@
 import {computed, defineComponent, onBeforeMount, onBeforeUnmount, ref, watch} from 'vue';
 import {useStore} from 'vuex';
 import {useRoute} from 'vue-router';
-import {ElMessage, ElMessageBox} from 'element-plus';
 import LabelButton from '@/components/button/LabelButton.vue';
 import NavTabs from '@/components/nav/NavTabs.vue';
 import useSpiderDetail from '@/views/spider/detail/spiderDetail';
@@ -117,6 +117,7 @@ import {GIT_REF_TYPE_BRANCH, GIT_REF_TYPE_TAG} from '@/constants/git';
 import Form from '@/components/form/Form.vue';
 import FormItem from '@/components/form/FormItem.vue';
 import {useI18n} from 'vue-i18n';
+import {sendEvent} from '@/admin/umeng';
 
 export default defineComponent({
   name: 'SpiderDetailTabGit',
@@ -157,6 +158,14 @@ export default defineComponent({
     // active tab key
     const activeTabKey = ref<string>('remote');
 
+    const {
+      gitDialogVisible,
+      gitCheckoutFormRef,
+      gitCheckoutForm,
+      gitLoading,
+      gitActions,
+    } = useSpiderDetail();
+
     // git changes
     const gitChanges = computed<GitChange[]>(() => state.gitData?.changes || []);
 
@@ -165,43 +174,28 @@ export default defineComponent({
       {id: 'remote', title: t('components.git.tabs.remote')},
       {id: 'references', title: t('components.git.tabs.references')},
       {id: 'logs', title: t('components.git.tabs.logs')},
-      {id: 'changes', title: gitChanges.value?.length > 0 ? `${t('components.git.tabs.changes')} (${gitChanges.value.length})` : t('components.git.tabs.changes')},
+      {
+        id: 'changes',
+        title: gitChanges.value?.length > 0 ? `${t('components.git.tabs.changes')} (${gitChanges.value.length})` : t('components.git.tabs.changes')
+      },
       {id: 'ignore', title: t('components.git.tabs.ignore')},
     ]);
 
     const onTabSelect = (key: string) => {
       activeTabKey.value = key;
+
+      sendEvent('click_spider_detail_git_tab_select', {tabKey: key});
     };
 
     const gitChangeSelection = computed<TableData<GitChange>>(() => state.gitChangeSelection);
 
-    const checkoutFormRef = ref<typeof Form>();
 
-    const checkoutForm = ref({
-      type: GIT_REF_TYPE_BRANCH,
-      name: '',
-    });
-
-    const dialogVisible = ref({
-      checkout: false,
-    });
-
-    watch(() => dialogVisible.value.checkout, async () => {
+    watch(() => gitDialogVisible.value.checkout, async () => {
       if (state.currentGitBranch) {
-        checkoutForm.value.name = state.currentGitBranch;
+        gitCheckoutForm.value.name = state.currentGitBranch;
       }
       await store.dispatch(`${ns}/getGitRemoteRefs`, {id: id.value});
     });
-
-    const loading = ref({
-      checkout: false,
-      pull: false,
-      commit: false,
-    });
-
-    const {
-      saveGit,
-    } = useSpiderDetail();
 
     const internalGitRefType = ref<string>(GIT_REF_TYPE_BRANCH);
 
@@ -210,48 +204,13 @@ export default defineComponent({
     });
 
     const onClickCheckout = async () => {
-      dialogVisible.value.checkout = true;
-    };
+      gitDialogVisible.value.checkout = true;
 
-    const onClickPull = async () => {
-      await ElMessageBox.confirm('Are you sure to pull from remote?', 'Git Pull', {
-        type: 'warning',
-      });
-      loading.value.pull = true;
-      await saveGit();
-      try {
-        const res = await store.dispatch(`${ns}/gitPull`, {id: id.value});
-        if (res) {
-          await ElMessage.success('Pulled successfully');
-        }
-        await store.dispatch(`${ns}/getGit`, {id: id.value});
-      } finally {
-        loading.value.pull = false;
-      }
-    };
-
-    const onClickCommit = async () => {
-      const res = await ElMessageBox.prompt('Are you sure to commit?', 'Git Commit', {
-        type: 'warning',
-        inputPlaceholder: 'Commit Message'
-      });
-      const commitMessage = res.value;
-      loading.value.commit = true;
-      await saveGit();
-      try {
-        const res = await store.dispatch(`${ns}/gitCommit`, {id: id.value, commit_message: commitMessage});
-        store.commit(`${ns}/resetGitChangeSelection`);
-        if (res) {
-          await ElMessage.success('Committed successfully');
-        }
-        await store.dispatch(`${ns}/getGit`, {id: id.value});
-      } finally {
-        loading.value.commit = false;
-      }
+      sendEvent('click_spider_detail_git_checkout');
     };
 
     const gitRemoteRefs = computed<SelectOption[]>(() => state.gitRemoteRefs
-        .filter(d => d.type === checkoutForm.value.type)
+        .filter(d => d.type === gitCheckoutForm.value.type)
         .map(d => {
           return {
             label: d.name,
@@ -259,25 +218,18 @@ export default defineComponent({
           };
         }) as SelectOption[]);
 
-    const onDialogCheckoutConfirm = async () => {
-      await checkoutFormRef.value?.validate();
-      dialogVisible.value.checkout = false;
-      loading.value.checkout = true;
-      try {
-        await store.dispatch(`${ns}/gitPull`, {id: id.value, branch: checkoutForm.value.name});
-        await ElMessage.success('Checkout successfully');
-        await store.dispatch(`${ns}/getGit`, {id: id.value});
-      } finally {
-        loading.value.checkout = false;
-      }
-    };
-
     const onDialogCheckoutClose = () => {
-      dialogVisible.value.checkout = false;
-      checkoutForm.value = {
+      gitDialogVisible.value.checkout = false;
+      gitCheckoutForm.value = {
         type: GIT_REF_TYPE_BRANCH,
         name: '',
       };
+
+      sendEvent('click_spider_detail_git_checkout_close');
+    };
+
+    const onRefTypeChange = (refType: string) => {
+      sendEvent('click_spider_detail_git_reftype_change', {refType});
     };
 
     onBeforeMount(async () => {
@@ -304,8 +256,7 @@ export default defineComponent({
     onBeforeUnmount(() => store.commit(`${ns}/resetGitRefType`));
 
     return {
-      dialogVisible,
-      loading,
+      dialogVisible: gitDialogVisible,
       gitForm,
       activeTabKey,
       tabItems,
@@ -313,15 +264,15 @@ export default defineComponent({
       gitChangeSelection,
       gitRemoteRefs,
       internalGitRefType,
-      checkoutFormRef,
-      checkoutForm,
+      checkoutFormRef: gitCheckoutFormRef,
+      checkoutForm: gitCheckoutForm,
       GIT_REF_TYPE_BRANCH,
       GIT_REF_TYPE_TAG,
       onClickCheckout,
-      onClickPull,
-      onClickCommit,
-      onDialogCheckoutConfirm,
       onDialogCheckoutClose,
+      onRefTypeChange,
+      loading: gitLoading,
+      ...gitActions,
       t,
     };
   },

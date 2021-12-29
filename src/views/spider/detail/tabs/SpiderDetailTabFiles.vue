@@ -26,11 +26,15 @@ import FileEditor from '@/components/file/FileEditor.vue';
 import {useStore} from 'vuex';
 import useSpiderService from '@/services/spider/spiderService';
 import {ElMessage} from 'element-plus';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'SpiderDetailTabFiles',
   components: {FileEditor},
   setup() {
+    // i18n
+    const {t} = useI18n();
+
     // route
     const route = useRoute();
 
@@ -108,7 +112,7 @@ export default defineComponent({
     const onSaveFile = async (item: FileNavItem) => {
       if (!item.path) return;
       await saveFile(id.value, item.path, content.value);
-      ElMessage.success('Saved successfully');
+      ElMessage.success(t('common.message.success.save'));
     };
 
     const onNavItemDbClick = async (item: FileNavItem) => {

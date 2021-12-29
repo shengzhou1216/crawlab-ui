@@ -6,6 +6,10 @@ import {plainClone} from '@/utils/object';
 import {getRoutePathByDepth, getTabName} from '@/utils/route';
 import {ElMessage} from 'element-plus';
 import {sendEvent} from '@/admin/umeng';
+import {translate} from '@/utils/i18n';
+
+// i18n
+const t = translate;
 
 const IGNORE_GET_ALL_NS = [
   'task',
@@ -133,7 +137,7 @@ const useDetail = <T = BaseModel>(ns: ListStoreNamespace) => {
       return;
     }
     await store.dispatch(`${ns}/updateById`, {id: activeId.value, form: state.form});
-    ElMessage.success('Saved successfully');
+    ElMessage.success(t('common.message.success.save'));
     await Promise.all([
       store.dispatch(`${ns}/getAllList`),
       store.dispatch(`${ns}/getById`, activeId.value),

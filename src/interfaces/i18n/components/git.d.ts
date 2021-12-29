@@ -8,6 +8,28 @@ interface LComponentsGit {
   };
   common: {
     currentBranch: string;
+    message: {
+      success: {
+        checkout: string;
+        pull: string;
+        commit: string;
+      };
+    };
+    messageBox: {
+      confirm: {
+        pull: string;
+      };
+      prompt: {
+        commit: {
+          label: string;
+          placeholder: string;
+        };
+      };
+    };
+    actions: {
+      pull: string;
+      commit: string;
+    };
   };
   actions: {
     title: string;

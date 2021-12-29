@@ -49,6 +49,7 @@ import NavActionFaIcon from '@/components/nav/NavActionFaIcon.vue';
 import Tag from '@/components/tag/Tag.vue';
 import {useStore} from 'vuex';
 import {useI18n} from 'vue-i18n';
+import useSpiderDetail from '@/views/spider/detail/spiderDetail';
 
 export default defineComponent({
   name: 'SpiderDetailActionsGit',
@@ -69,6 +70,10 @@ export default defineComponent({
     const {
       spider: state,
     } = store.state as RootStoreState;
+
+    const {
+      gitActions,
+    } = useSpiderDetail();
 
     const currentBranch = computed<string>(() => state.currentGitBranch);
 
@@ -107,6 +112,7 @@ export default defineComponent({
       onBranchClick,
       onBranchCancel,
       onBranchCheckout,
+      ...gitActions,
       t,
     };
   },
