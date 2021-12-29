@@ -152,6 +152,7 @@ import FileEditorSettingsDialog from '@/components/file/FileEditorSettingsDialog
 import FileEditorNavTabsShowMoreContextMenu from '@/components/file/FileEditorNavTabsShowMoreContextMenu.vue';
 import {emptyArrayFunc} from '@/utils/func';
 import {useI18n} from 'vue-i18n';
+import {sendEvent} from '@/admin/umeng';
 
 // codemirror mode import cache
 const codeMirrorModeCache = new Set<string>();
@@ -437,6 +438,8 @@ export default defineComponent({
 
     const onNavItemClick = (item: FileNavItem) => {
       emit('node-click', item);
+
+      sendEvent('click_file_editor_nav_menu_item_click');
     };
 
     const onNavItemDbClick = (item: FileNavItem) => {
@@ -445,30 +448,44 @@ export default defineComponent({
 
       // update tabs
       updateTabs(item);
+
+      sendEvent('click_file_editor_nav_menu_item_dbclick');
     };
 
     const onNavItemDrop = (draggingItem: FileNavItem, dropItem: FileNavItem) => {
       emit('node-drop', draggingItem, dropItem);
+
+      sendEvent('click_file_editor_nav_menu_item_drop');
     };
 
     const onContextMenuNewFile = (item: FileNavItem, name: string) => {
       emit('ctx-menu-new-file', item, name);
+
+      sendEvent('click_file_editor_nav_menu_item_context_menu_new_file');
     };
 
     const onContextMenuNewDirectory = (item: FileNavItem, name: string) => {
       emit('ctx-menu-new-directory', item, name);
+
+      sendEvent('click_file_editor_nav_menu_item_context_menu_new_directory');
     };
 
     const onContextMenuRename = (item: FileNavItem, name: string) => {
       emit('ctx-menu-rename', item, name);
+
+      sendEvent('click_file_editor_nav_menu_item_context_menu_rename');
     };
 
     const onContextMenuClone = (item: FileNavItem, name: string) => {
       emit('ctx-menu-clone', item, name);
+
+      sendEvent('click_file_editor_nav_menu_item_context_menu_clone');
     };
 
     const onContextMenuDelete = (item: FileNavItem) => {
       emit('ctx-menu-delete', item);
+
+      sendEvent('click_file_editor_nav_menu_item_context_menu_delete');
     };
 
     const onContentChange = (cm: Editor) => {
@@ -478,6 +495,8 @@ export default defineComponent({
 
       // update in cache
       updateContentCache(activeFileItem.value, content);
+
+      sendEvent('click_file_editor_content_change');
     };
 
     const onTabClick = (tab: FileNavItem) => {
@@ -486,6 +505,8 @@ export default defineComponent({
 
       // get from cache and update content
       getContentCache(tab);
+
+      sendEvent('click_file_editor_tab_click');
     };
 
     const closeTab = (tab: FileNavItem) => {
@@ -516,6 +537,8 @@ export default defineComponent({
 
     const onTabClose = (tab: FileNavItem) => {
       closeTab(tab);
+
+      sendEvent('click_file_editor_tab_close');
     };
 
     const onTabCloseOthers = (tab: FileNavItem) => {
@@ -524,6 +547,8 @@ export default defineComponent({
 
       // clear cache and update current tab content
       deleteOtherContentCache(tab);
+
+      sendEvent('click_file_editor_tab_close_others');
     };
 
     const onTabCloseAll = () => {
@@ -532,23 +557,33 @@ export default defineComponent({
 
       // clear cache
       clearContentCache();
+
+      sendEvent('click_file_editor_tab_close_all');
     };
 
     const onTabDragEnd = (newTabs: FileNavItem[]) => {
       tabs.value = newTabs;
+
+      sendEvent('click_file_editor_tab_dragend');
     };
 
     const onShowMoreShow = () => {
       showMoreContextMenuVisible.value = true;
+
+      sendEvent('click_file_editor_showmore_show');
     };
 
     const onShowMoreHide = () => {
       showMoreContextMenuVisible.value = false;
+
+      sendEvent('click_file_editor_showmore_hide');
     };
 
     const onClickShowMoreContextMenuItem = (tab: FileNavItem) => {
       store.commit(`${ns}/setActiveFileNavItem`, tab);
       emit('tab-click', tab);
+
+      sendEvent('click_file_editor_showmore_click_context_menu_item');
     };
 
     const keyMapSave = () => {
@@ -573,6 +608,8 @@ export default defineComponent({
 
     const onToggleNavMenu = () => {
       navMenuCollapsed.value = !navMenuCollapsed.value;
+
+      sendEvent('click_file_editor_nav_menu_toggle', {collapse: !navMenuCollapsed.value});
     };
 
     const listenToKeyboardEvents = () => {
@@ -596,6 +633,8 @@ export default defineComponent({
 
     const onDropFiles = (files: InputFile[]) => {
       emit('drop-files', files);
+
+      sendEvent('click_file_editor_drop_files');
     };
 
     onMounted(async () => {

@@ -76,6 +76,7 @@ import {ElMessageBox, ElTree} from 'element-plus';
 import {useDropzone} from 'vue3-dropzone';
 import {emptyArrayFunc, emptyObjectFunc} from '@/utils/func';
 import {useI18n} from 'vue-i18n';
+import {sendEvent} from '@/admin/umeng';
 
 export default defineComponent({
   name: 'FileEditorNavMenu',
@@ -281,6 +282,7 @@ export default defineComponent({
           t('common.actions.delete'),
           {
             type: 'warning',
+            confirmButtonClass: 'el-button--danger',
           }
       );
       emit('ctx-menu-delete', item);
