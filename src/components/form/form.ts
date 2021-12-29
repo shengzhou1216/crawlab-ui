@@ -188,7 +188,7 @@ const useForm = (ns: ListStoreNamespace, store: Store<RootStoreState>, services:
           } else {
             res = await updateById(form.value._id as string, form.value);
           }
-          sendEvent('click_form_create_edit', {
+          sendEvent('click_form_edit_confirm', {
             ns,
             batch: isBatchForm.value,
           });
