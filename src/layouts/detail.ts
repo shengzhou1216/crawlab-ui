@@ -166,7 +166,9 @@ const useDetail = <T = BaseModel>(ns: ListStoreNamespace) => {
 
   // reset form before unmount
   onBeforeUnmount(() => {
-    store.commit(`${ns}/resetForm`);
+    if (!activeTabName.value) {
+      store.commit(`${ns}/resetForm`);
+    }
   });
 
   // store context
