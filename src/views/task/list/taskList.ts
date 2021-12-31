@@ -168,6 +168,19 @@ const useTaskList = () => {
       ],
     },
     {
+      key: 'priority',
+      label: t('views.tasks.table.columns.priority'),
+      icon: ['fa', 'sort-numeric-down'],
+      width: '120',
+      value: (row: Task) => {
+        return h(TaskPriority, {priority: row.priority} as TaskPriorityProps);
+      },
+      hasSort: true,
+      hasFilter: true,
+      allowFilterItems: true,
+      filterItems: priorityOptions,
+    },
+    {
       key: 'stat.create_ts',
       label: t('views.tasks.table.columns.stat.create_ts'),
       icon: ['fa', 'clock'],
@@ -284,7 +297,7 @@ const useTaskList = () => {
             type: 'info',
             size: 'mini',
             icon: ['fa', 'stop'],
-            tooltip: 'Cancel',
+            tooltip: t('common.actions.cancel'),
             onClick: async (row: Task) => {
               sendEvent('click_task_list_actions_cancel');
 
