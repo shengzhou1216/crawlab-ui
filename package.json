@@ -27,6 +27,7 @@
     "build:lib": "vue-cli-service build --target lib --mode production src/index.ts",
     "build:lib:watch": "vue-cli-service build --target lib --mode production --watch src/index.ts",
     "build:lib:local": "vue-cli-service build --target lib --mode local src/index.ts",
+    "build:lib:analyze": "vue-cli-service build --target lib --mode analyze src/index.ts",
     "lint": "vue-cli-service lint",
     "test": "jest"
   },

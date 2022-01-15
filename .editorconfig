@@ -30,3 +30,7 @@ root = true
 
 [{.babelrc, .prettierrc, .stylelintrc, .eslintrc, jest.config, *.json, *.jsb3, *.jsb2, *.bowerrc}]
 # indent_size = 2
+
+[vue.config.js]
+indent_size = 2
+tab_width = 2

@@ -14,7 +14,7 @@
         not-editable
         prop="key"
     >
-      <el-input :value="form.key" disabled/>
+      <el-input :model-value="form.key" disabled/>
     </FormItem>
     <!--./Row-->
 
