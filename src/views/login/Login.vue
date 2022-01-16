@@ -2,12 +2,12 @@
   <div class="login-container">
     <canvas id="canvas"/>
     <el-form
-        ref="loginFormRef"
-        :model="loginForm"
-        :rules="loginRules"
-        auto-complete="on"
-        class="login-form"
-        label-position="left"
+      ref="loginFormRef"
+      :model="loginForm"
+      :rules="loginRules"
+      auto-complete="on"
+      class="login-form"
+      label-position="left"
     >
       <h3 class="title">
         <img :src="logo" alt="logo" class="logo-img"/>
@@ -23,54 +23,54 @@
       </h3>
       <el-form-item prop="username" style="margin-bottom: 28px;">
         <el-input
-            v-model="loginForm.username"
-            :placeholder="t('views.login.loginForm.username')"
-            auto-complete="on"
-            name="username"
-            type="text"
-            @keyup.enter="onLogin"
+          v-model="loginForm.username"
+          :placeholder="t('views.login.loginForm.username')"
+          auto-complete="on"
+          name="username"
+          type="text"
+          @keyup.enter="onLogin"
         />
       </el-form-item>
       <el-form-item prop="password" style="margin-bottom: 28px;">
         <el-input
-            v-model="loginForm.password"
-            :placeholder="t('views.login.loginForm.password')"
-            auto-complete="on"
-            name="password"
-            type="password"
-            @keyup.enter="onLogin"
+          v-model="loginForm.password"
+          :placeholder="t('views.login.loginForm.password')"
+          auto-complete="on"
+          name="password"
+          type="password"
+          @keyup.enter="onLogin"
         />
       </el-form-item>
       <el-form-item v-if="isSignup" prop="confirmPassword" style="margin-bottom: 28px;">
         <el-input
-            v-model="loginForm.confirmPassword"
-            :placeholder="t('views.login.loginForm.confirmPassword')"
-            auto-complete="on"
-            name="confirm-password"
+          v-model="loginForm.confirmPassword"
+          :placeholder="t('views.login.loginForm.confirmPassword')"
+          auto-complete="on"
+          name="confirm-password"
         />
       </el-form-item>
       <el-form-item v-if="isSignup" prop="email" style="margin-bottom: 28px;">
         <el-input
-            v-model="loginForm.email"
-            :placeholder="t('views.login.loginForm.email')"
-            name="email"
+          v-model="loginForm.email"
+          :placeholder="t('views.login.loginForm.email')"
+          name="email"
         />
       </el-form-item>
       <el-form-item style="border: none">
         <el-button
-            v-if="isSignup"
-            :loading="loading"
-            style="width:100%;"
-            type="primary"
+          v-if="isSignup"
+          :loading="loading"
+          style="width:100%;"
+          type="primary"
         >
           {{ t('views.login.loginForm.signUp') }}
         </el-button>
         <el-button
-            v-if="!isSignup"
-            :loading="loading"
-            style="width:100%;"
-            type="primary"
-            @click="onLogin"
+          v-if="!isSignup"
+          :loading="loading"
+          style="width:100%;"
+          type="primary"
+          @click="onLogin"
         >
           {{ t('views.login.loginForm.signIn') }}
         </el-button>
@@ -231,8 +231,8 @@ export default defineComponent({
 
         // initialize plugins
         initPlugins(router, store)
-            .then(() => console.info('[Crawlab] plugins initialized'))
-            .catch(e => console.warn('[Crawlab] initializing plugins with error', e));
+          .then(() => console.info('[Crawlab] plugins initialized'))
+          .catch(e => console.warn('[Crawlab] initializing plugins with error', e));
 
         // redirect to home page
         await router.push('/');
