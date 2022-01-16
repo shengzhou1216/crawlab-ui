@@ -1,9 +1,9 @@
-export const TOKEN_KEY = 'token';
+import {LOCAL_STORAGE_KEY_TOKEN} from "@/constants/localStorage";
 
 export const getToken = () => {
-  return localStorage.getItem(TOKEN_KEY);
+  return localStorage.getItem(LOCAL_STORAGE_KEY_TOKEN);
 };
 
 export const setToken = (token: string) => {
-  return localStorage.setItem(TOKEN_KEY, token);
+  return localStorage.setItem(LOCAL_STORAGE_KEY_TOKEN, token);
 };

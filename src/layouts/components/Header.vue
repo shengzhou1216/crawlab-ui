@@ -9,43 +9,53 @@
             <font-awesome-icon class="icon" :icon="['fa', 'globe']"/>
             {{ langName }}
             <el-icon class="el-icon--right">
-              <arrow-down />
+              <arrow-down/>
             </el-icon>
           </span>
           <template #dropdown>
             <el-dropdown-menu>
               <el-dropdown-item
-                  v-track="{
-                    code: 'click_header_lang',
-                    params: {locale: 'en'}
-                  }"
-                  :class="locale === 'en' ? 'active' : ''"
-                  @click="() => setLang('en')"
+                v-track="{
+                  code: 'click_header_lang',
+                  params: {locale: 'en'}
+                }"
+                :class="locale === 'en' ? 'active' : ''"
+                @click="() => setLang('en')"
               >
-                {{ t('global.lang', [], { locale: 'en' }) }}
+                {{ t('global.lang', [], {locale: 'en'}) }}
               </el-dropdown-item>
               <el-dropdown-item
-                  v-track="{
-                    code: 'click_header_lang',
-                    params: {locale: 'zh'}
-                  }"
-                  :class="locale === 'zh' ? 'active' : ''"
-                  @click="() => setLang('zh')"
+                v-track="{
+                  code: 'click_header_lang',
+                  params: {locale: 'zh'}
+                }"
+                :class="locale === 'zh' ? 'active' : ''"
+                @click="() => setLang('zh')"
               >
-                {{ t('global.lang', [], { locale: 'zh' }) }}
+                {{ t('global.lang', [], {locale: 'zh'}) }}
               </el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
-        <el-link
-            v-track="{code: 'click_header_logout'}"
-            class="item action"
-            :underline="false"
-            href="javascript:;"
-            @click="onLogout"
-        >
-          {{ t('layouts.components.header.logout') }}
-        </el-link>
+        <el-dropdown class="me">
+          <span class="el-dropdown-link item action ">
+            <font-awesome-icon class="icon" :icon="['far', 'user']"/>
+            {{ username }}
+            <el-icon class="el-icon--right">
+              <arrow-down/>
+            </el-icon>
+          </span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item
+                v-track="{code: 'click_header_logout'}"
+                @click="onLogout"
+              >
+                {{ t('layouts.components.header.logout') }}
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
       </div>
     </el-header>
   </div>
@@ -75,25 +85,45 @@ export default defineComponent({
     // store
     const store = useStore();
 
-    const {layout} = store.state as RootStoreState;
+    // store states
+    const {
+      layout: layoutState,
+    } = store.state as RootStoreState;
 
+    // whether side is collapsed
     const sidebarCollapsed = computed(() => {
-      return layout.sidebarCollapsed;
+      return layoutState.sidebarCollapsed;
     });
 
-    const onLogout = () => {
-      setTimeout(() => {
-        localStorage.removeItem('token');
-        router.push('/login');
-      }, 10);
-    };
-
+    // language name
     const langName = computed<string>(() => {
       return t('global.lang', [], {locale: locale.value});
     });
 
+    // set language
     const setLang = (lang: Lang) => {
       setGlobalLang(lang);
+    };
+
+    // current user's username
+    const username = computed<string | undefined>(() => {
+      const me = store.getters['user/me'] as User | undefined;
+      if (!me) return;
+      return me.username;
+    });
+
+    // on logout hook
+    const onLogout = () => {
+      setTimeout(() => {
+        // clear token
+        localStorage.removeItem('token');
+
+        // clear me
+        store.commit('user/resetMe');
+
+        // navigate to login page
+        router.push('/login');
+      }, 10);
     };
 
     return {
@@ -103,6 +133,7 @@ export default defineComponent({
       langName,
       setLang,
       locale,
+      username,
       t,
     };
   },

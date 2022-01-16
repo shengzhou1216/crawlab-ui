@@ -118,6 +118,7 @@ import {initPlugins} from '@/utils/plugin';
 import {useStore} from 'vuex';
 import {setGlobalLang} from '@/utils/i18n';
 import {useI18n} from 'vue-i18n';
+import {LOCAL_STORAGE_KEY_TOKEN} from "@/constants/localStorage";
 
 const {
   post,
@@ -199,7 +200,8 @@ export default defineComponent({
       setGlobalLang(lang);
     };
 
-    const onLogin = async () => {
+    // validate and perform login request
+    const login = async () => {
       // skip if login form ref is empty
       if (!loginFormRef.value) return;
 
@@ -227,7 +229,7 @@ export default defineComponent({
         }
 
         // set token to local storage
-        localStorage.setItem('token', res.data);
+        localStorage.setItem(LOCAL_STORAGE_KEY_TOKEN, res.data);
 
         // initialize plugins
         initPlugins(router, store)
@@ -252,7 +254,17 @@ export default defineComponent({
       }
     };
 
+    // on login hook
+    const onLogin = async () => {
+      // login
+      await login();
+
+      // get current user (me)
+      await store.dispatch('user/getMe');
+    };
+
     onMounted(() => {
+      // initialize canvas
       if (window.innerWidth >= 1024) {
         if (!window.initCanvas) {
           require('../../assets/js/loginCanvas.js');
@@ -264,6 +276,7 @@ export default defineComponent({
       }
     });
     onUnmounted(() => {
+      // reset canvas
       if (window.resetCanvas) {
         window.resetCanvas();
       }

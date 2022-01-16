@@ -3,53 +3,53 @@
     <!-- Table Header -->
     <div class="table-header">
       <el-pagination
-          v-if="[TABLE_PAGINATION_POSITION_ALL, TABLE_PAGINATION_POSITION_TOP].includes(paginationPosition)"
-          :current-page="page"
-          :page-size="pageSize"
-          :total="total"
-          class="pagination"
-          :layout="paginationLayout"
-          @current-change="onCurrentChange"
-          @size-change="onSizeChange"
+        v-if="[TABLE_PAGINATION_POSITION_ALL, TABLE_PAGINATION_POSITION_TOP].includes(paginationPosition)"
+        :current-page="page"
+        :page-size="pageSize"
+        :total="total"
+        class="pagination"
+        :layout="paginationLayout"
+        @current-change="onCurrentChange"
+        @size-change="onSizeChange"
       />
     </div>
     <!-- ./Table Header -->
 
     <!-- Table Body -->
     <el-table
-        v-if="selectedColumns.length > 0"
-        ref="tableRef"
-        :data="tableData"
-        :fit="false"
-        :row-key="rowKey"
-        :height="height"
-        :max-height="maxHeight"
-        border
-        size="small"
-        @selection-change="onSelectionChange"
+      v-if="selectedColumns.length > 0"
+      ref="tableRef"
+      :data="tableData"
+      :fit="false"
+      :row-key="rowKey"
+      :height="height"
+      :max-height="maxHeight"
+      border
+      size="small"
+      @selection-change="onSelectionChange"
     >
       <el-table-column
-          v-if="selectable"
-          align="center"
-          reserve-selection
-          type="selection"
-          width="40"
-          fixed="left"
-          :selectable="selectableFunction"
+        v-if="selectable"
+        align="center"
+        reserve-selection
+        type="selection"
+        width="40"
+        fixed="left"
+        :selectable="selectableFunction"
       />
       <el-table-column
-          v-for="c in selectedColumns"
-          :key="c.key"
-          :column-key="c.key"
-          :align="c.align"
-          :fixed="c.fixed ? c.fixed : false"
-          :label="c.label"
-          :width="c.width"
-          :min-width="c.minWidth || c.width"
-          :sortable="c.sortable"
-          :index="c.index"
-          :resizable="c.resizable === undefined ? true : c.resizable"
-          :class-name="c.className"
+        v-for="c in selectedColumns"
+        :key="c.key"
+        :column-key="c.key"
+        :align="c.align"
+        :fixed="c.fixed ? c.fixed : false"
+        :label="c.label"
+        :width="c.width"
+        :min-width="c.minWidth || c.width"
+        :sortable="c.sortable"
+        :index="c.index"
+        :resizable="c.resizable === undefined ? true : c.resizable"
+        :class-name="c.className"
       >
         <template #header="scope">
           <TableHeader :column="c" :index="scope.$index" @change="onHeaderChange"/>
@@ -64,12 +64,12 @@
     <!-- Table Footer-->
     <div v-if="!hideFooter" class="table-footer">
       <TableActions
-          :selection="internalSelection"
-          :visible-buttons="visibleButtons"
-          @delete="onDelete"
-          @edit="onEdit"
-          @export="onExport"
-          @customize-columns="onShowColumnsTransfer"
+        :selection="internalSelection"
+        :visible-buttons="visibleButtons"
+        @delete="onDelete"
+        @edit="onEdit"
+        @export="onExport"
+        @customize-columns="onShowColumnsTransfer"
       >
         <template #prefix>
           <slot name="actions-prefix"></slot>
@@ -79,25 +79,25 @@
         </template>
       </TableActions>
       <el-pagination
-          v-if="[TABLE_PAGINATION_POSITION_ALL, TABLE_PAGINATION_POSITION_BOTTOM].includes(paginationPosition)"
-          :current-page="page"
-          :page-size="pageSize"
-          :total="total"
-          class="pagination"
-          :layout="paginationLayout"
-          @current-change="onCurrentChange"
-          @size-change="onSizeChange"
+        v-if="[TABLE_PAGINATION_POSITION_ALL, TABLE_PAGINATION_POSITION_BOTTOM].includes(paginationPosition)"
+        :current-page="page"
+        :page-size="pageSize"
+        :total="total"
+        class="pagination"
+        :layout="paginationLayout"
+        @current-change="onCurrentChange"
+        @size-change="onSizeChange"
       />
     </div>
     <!-- ./Table Footer-->
 
     <!-- Table Columns Transfer -->
     <TableColumnsTransfer
-        :columns="columns"
-        :selected-column-keys="internalSelectedColumnKeys"
-        :visible="columnsTransferVisible"
-        @apply="onColumnsChange"
-        @close="onHideColumnsTransfer"
+      :columns="columns"
+      :selected-column-keys="internalSelectedColumnKeys"
+      :visible="columnsTransferVisible"
+      @confirm="onColumnsChange"
+      @close="onHideColumnsTransfer"
     />
     <!-- ./Table Columns Transfer -->
   </div>

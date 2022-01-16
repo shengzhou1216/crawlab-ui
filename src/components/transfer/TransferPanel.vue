@@ -4,11 +4,11 @@
       <div class="transfer-panel-header">
         <div class="left">
           <el-checkbox
-              v-model="isCheckedAll"
-              :disabled="data.length === 0"
-              :indeterminate="isIntermediate"
-              class="check-all"
-              @change="onCheckAll"
+            v-model="isCheckedAll"
+            :disabled="data.length === 0"
+            :indeterminate="isIntermediate"
+            class="check-all"
+            @change="onCheckAll"
           />
           <span class="title">{{ title }}</span>
         </div>
@@ -20,24 +20,24 @@
     <template #default>
       <div class="transfer-panel-body">
         <el-input
-            v-model="searchString"
-            class="search"
-            :placeholder="t('common.actions.search')"
-            :prefix-icon="Search"
-            size="mini"
+          v-model="searchString"
+          class="search"
+          :placeholder="t('common.actions.search')"
+          :prefix-icon="Search"
+          size="mini"
         />
         <template v-if="items.length > 0">
           <el-checkbox-group
-              :model-value="checked"
-              class="check-list"
-              @change="onCheck"
+            :model-value="checked"
+            class="check-list"
+            @change="onCheck"
           >
             <DraggableList :items="items" @d-end="onDragEnd">
               <template #default="{item}">
                 <el-checkbox
-                    :label="item.key"
-                    class="check-item"
-                    :disabled="item.disabled"
+                  :label="item.key"
+                  class="check-item"
+                  :disabled="item.disabled"
                 >
                   {{ item.label }}
                 </el-checkbox>

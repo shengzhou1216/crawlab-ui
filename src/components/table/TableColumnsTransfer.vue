@@ -1,22 +1,26 @@
 <template>
   <el-dialog
-      :before-close="onClose"
-      :model-value="visible"
-      :title="t('components.table.columnsTransfer.title')">
+    :before-close="onClose"
+    :model-value="visible"
+    :title="t('components.table.columnsTransfer.title')">
     <div class="table-columns-transfer-content">
       <Transfer
-          :data="computedData"
-          :titles="[
-              t('components.table.columnsTransfer.titles.left'),
-              t('components.table.columnsTransfer.titles.right')
-          ]"
-          :value="internalSelectedColumnKeys"
-          @change="onChange"
+        :data="computedData"
+        :titles="[
+          t('components.table.columnsTransfer.titles.left'),
+          t('components.table.columnsTransfer.titles.right')
+        ]"
+        :value="internalSelectedColumnKeys"
+        @change="onChange"
       />
     </div>
     <template #footer>
-      <Button plain size="mini" type="info" @click="onClose">Cancel</Button>
-      <Button size="mini" @click="onApply">Apply</Button>
+      <Button plain size="mini" type="info" @click="onClose">
+        {{ t('common.actions.cancel') }}
+      </Button>
+      <Button size="mini" @click="onConfirm">
+        {{ t('common.actions.confirm') }}
+      </Button>
     </template>
   </el-dialog>
 </template>
@@ -53,7 +57,7 @@ export default defineComponent({
     'close',
     'change',
     'sort',
-    'apply',
+    'confirm',
   ],
   setup(props, {emit}) {
     // i18n
@@ -81,8 +85,8 @@ export default defineComponent({
       internalSelectedColumnKeys.value = value;
     };
 
-    const onApply = () => {
-      emit('apply', internalSelectedColumnKeys.value);
+    const onConfirm = () => {
+      emit('confirm', internalSelectedColumnKeys.value);
       emit('close');
     };
 
@@ -96,7 +100,7 @@ export default defineComponent({
       computedData,
       onClose,
       onChange,
-      onApply,
+      onConfirm,
       t,
     };
   },
