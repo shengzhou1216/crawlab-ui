@@ -77,7 +77,7 @@
       </el-form-item>
       <div class="alternatives">
         <div class="left">
-          <el-tooltip content="views.login.forgotPassword.content" trigger="click">
+          <el-tooltip :content="t('views.login.forgotPassword.content')" trigger="click">
             <span class="forgot-password">{{ t('views.login.forgotPassword.label') }}</span>
           </el-tooltip>
         </div>
