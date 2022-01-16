@@ -1,9 +1,9 @@
 <template>
   <div
-      :class="classes"
-      :draggable="true"
-      class="tab"
-      @click="onClick"
+    :class="classes"
+    :draggable="true"
+    class="tab"
+    @click="onClick"
   >
     <span :key="item?.icon || icon" class="icon">
       <MenuItemIcon v-if="!icon" :item="item" size="10px"/>
@@ -13,15 +13,15 @@
       {{ t(title) }}
     </span>
     <span
-        v-track="{
-            code: 'click_tabs_view_close_tab',
-            params: {
-              path: () => tab.path,
-            }
-        }"
-        v-if="showClose"
-        class="close-btn"
-        @click.stop="onClose"
+      v-track="{
+        code: 'click_tabs_view_close_tab',
+        params: {
+          path: () => tab.path,
+        }
+      }"
+      v-if="showClose"
+      class="close-btn"
+      @click.stop="onClose"
     >
       <el-icon>
         <close/>
@@ -85,7 +85,8 @@ export default defineComponent({
       const {menuItems} = state;
       for (const _item of menuItems) {
         const primaryPath = getPrimaryPath(tab.path);
-        if (primaryPath === _item.path) {
+        if (primaryPath === _item.path ||
+          tab.path === _item.path) {
           return _item;
         }
       }
@@ -238,6 +239,7 @@ export default defineComponent({
     margin: 0 3px;
     font-size: 12px;
     height: $tabsViewTabHeight;
+    line-height: $tabsViewTabHeight;
   }
 }
 </style>

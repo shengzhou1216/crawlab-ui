@@ -252,7 +252,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "../styles/variables.scss";
+@import "../../../styles/variables";
 
 .list-layout {
   .nav-actions {

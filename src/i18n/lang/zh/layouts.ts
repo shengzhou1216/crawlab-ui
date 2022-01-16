@@ -2,6 +2,8 @@ const layouts: LLayouts = {
   components: {
     header: {
       logout: '注销',
+      mySettings: '我的设置',
+      disclaimer: '免责声明',
     }
   },
   detailLayout: {

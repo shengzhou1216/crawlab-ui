@@ -1,6 +1,6 @@
 import {useStore} from 'vuex';
 import {computed, h} from 'vue';
-import useList from '@/layouts/list';
+import useList from '@/layouts/content/list/list';
 import NavLink from '@/components/nav/NavLink.vue';
 import ColorPicker from '@/components/color/ColorPicker.vue';
 import {getActionColumn} from '@/utils/table';

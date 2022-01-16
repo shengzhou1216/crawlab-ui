@@ -1,4 +1,4 @@
-import useList from '@/layouts/list';
+import useList from '@/layouts/content/list/list';
 import {useStore} from 'vuex';
 import {computed} from 'vue';
 import {TABLE_COLUMN_NAME_ACTIONS} from '@/constants/table';

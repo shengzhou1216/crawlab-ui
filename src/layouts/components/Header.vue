@@ -48,6 +48,18 @@
           <template #dropdown>
             <el-dropdown-menu>
               <el-dropdown-item
+                v-track="{code: 'click_header_disclaimer'}"
+                @click="onClickDisclaimer"
+              >
+                {{ t('layouts.components.header.disclaimer') }}
+              </el-dropdown-item>
+              <el-dropdown-item
+                v-track="{code: 'click_header_my_settings'}"
+                @click="onClickMySettings"
+              >
+                {{ t('layouts.components.header.mySettings') }}
+              </el-dropdown-item>
+              <el-dropdown-item
                 v-track="{code: 'click_header_logout'}"
                 @click="onLogout"
               >
@@ -126,14 +138,26 @@ export default defineComponent({
       }, 10);
     };
 
+    // on click disclaimer
+    const onClickDisclaimer = () => {
+      router.push('/misc/disclaimer');
+    };
+
+    // on click my settings
+    const onClickMySettings = () => {
+      router.push('/misc/my-settings');
+    };
+
     return {
-      sidebarCollapsed,
-      onLogout,
       ...variables,
-      langName,
-      setLang,
+      sidebarCollapsed,
       locale,
+      langName,
       username,
+      setLang,
+      onLogout,
+      onClickDisclaimer,
+      onClickMySettings,
       t,
     };
   },

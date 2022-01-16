@@ -5,7 +5,7 @@
 
 <script lang="ts">
 import {defineComponent} from 'vue';
-import DetailLayout from '@/layouts/DetailLayout.vue';
+import DetailLayout from '@/layouts/content/detail/DetailLayout.vue';
 import useUserDetail from '@/views/user/detail/userDetail';
 
 export default defineComponent({

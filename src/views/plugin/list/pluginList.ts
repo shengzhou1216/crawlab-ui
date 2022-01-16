@@ -1,4 +1,4 @@
-import useList from '@/layouts/list';
+import useList from '@/layouts/content/list/list';
 import {useStore} from 'vuex';
 import {getDefaultUseListOptions, setupListComponent} from '@/utils/list';
 import {computed, h, onBeforeMount} from 'vue';

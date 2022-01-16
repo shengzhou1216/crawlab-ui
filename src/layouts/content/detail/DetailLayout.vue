@@ -48,7 +48,7 @@
 
 <script lang="ts">
 import {computed, defineComponent, PropType} from 'vue';
-import useDetail from '@/layouts/detail';
+import useDetail from '@/layouts/content/detail/detail';
 import NavSidebar from '@/components/nav/NavSidebar.vue';
 import NavTabs from '@/components/nav/NavTabs.vue';
 import NavActions from '@/components/nav/NavActions.vue';
@@ -103,7 +103,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 
-@import "../styles/variables.scss";
+@import "../../../styles/variables";
 
 .detail-layout {
   display: flex;
@@ -158,7 +158,7 @@ export default defineComponent({
 
     &.collapsed {
       .icon {
-        transform: rotateZ(180deg);
+        transform: rotate(180deg);
       }
     }
   }

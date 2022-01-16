@@ -10,16 +10,17 @@ import user from '@/router/user';
 import tag from '@/router/tag';
 import token from '@/router/token';
 import plugin from '@/router/plugin';
+import misc from "@/router/misc";
 import {initRouterAuth} from '@/router/hooks/auth';
 import {initRouterStats} from '@/router/hooks/stats';
-import BasicLayout from '@/layouts/BasicLayout.vue';
+import NormalLayout from '@/layouts/NormalLayout.vue';
 
 export const getDefaultRoutes = (): Array<RouteRecordRaw> => [
   ...login,
   {
     path: '/',
     name: 'Root',
-    component: BasicLayout,
+    component: NormalLayout,
     children: [
       ...home,
       ...node,
@@ -31,11 +32,12 @@ export const getDefaultRoutes = (): Array<RouteRecordRaw> => [
       ...tag,
       ...token,
       ...plugin,
+      ...misc,
     ],
   },
 ];
 
-export const getDefaultMenuItems = (): MenuItem[] => {
+export const getDefaultSidebarMenuItems = (): MenuItem[] => {
   return [
     {path: '/', title: 'router.menuItems.home', icon: ['fa', 'home']},
     {path: '/nodes', title: 'router.menuItems.nodes', icon: ['fa', 'server']},
@@ -47,6 +49,24 @@ export const getDefaultMenuItems = (): MenuItem[] => {
     {path: '/tags', title: 'router.menuItems.tags', icon: ['fa', 'tag']},
     {path: '/tokens', title: 'router.menuItems.tokens', icon: ['fa', 'key']},
     {path: '/plugins', title: 'router.menuItems.plugins', icon: ['fa', 'plug']},
+  ];
+};
+
+export const getDefaultHiddenMenuItems = (): MenuItem[] => {
+  const items = [
+    {path: '/misc/disclaimer', title: 'router.menuItems.misc.disclaimer', icon: ['fa', 'file-signature']},
+    {path: '/misc/my-settings', title: 'router.menuItems.misc.mySettings', icon: ['fa', 'user-cog']},
+  ] as MenuItem[];
+  return items.map(d => {
+    d.hidden = true;
+    return d;
+  });
+};
+
+export const getDefaultMenuItems = (): MenuItem[] => {
+  return [
+    ...getDefaultSidebarMenuItems(),
+    ...getDefaultHiddenMenuItems(),
   ];
 };
 

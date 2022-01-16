@@ -1,4 +1,4 @@
-import useDetail from '@/layouts/detail';
+import useDetail from '@/layouts/content/detail/detail';
 import {computed, onBeforeMount, onBeforeUnmount, ref} from 'vue';
 import {useStore} from 'vuex';
 import useSpiderService from '@/services/spider/spiderService';

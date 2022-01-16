@@ -10,5 +10,8 @@ interface LRouter {
     tags: string;
     tokens: string;
     plugins: string;
+    misc: {
+      disclaimer: string;
+    };
   };
 }

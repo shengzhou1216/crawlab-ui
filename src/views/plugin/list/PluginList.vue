@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import {defineComponent} from 'vue';
-import ListLayout from '@/layouts/ListLayout.vue';
+import ListLayout from '@/layouts/content/list/ListLayout.vue';
 import usePluginList from '@/views/plugin/list/pluginList';
 import InstallPluginDialog from '@/components/plugin/InstallPluginDialog.vue';
 import SettingsPluginDialog from '@/components/plugin/SettingsPluginDialog.vue';

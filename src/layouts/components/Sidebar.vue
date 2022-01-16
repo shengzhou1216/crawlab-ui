@@ -1,9 +1,9 @@
 <template>
   <span
-      :class="sidebarCollapsed ? 'collapsed' : ''"
-      class="sidebar-toggle"
-      @click="toggleSidebar"
-      v-track="{
+    :class="sidebarCollapsed ? 'collapsed' : ''"
+    class="sidebar-toggle"
+    @click="toggleSidebar"
+    v-track="{
         code: 'click_sidebar_toggle',
         params: {
           collapse: () => sidebarCollapsed,
@@ -30,25 +30,25 @@
     </div>
     <div class="sidebar-menu">
       <el-menu
-          :collapse="sidebarCollapsed"
-          :active-text-color="menuActiveText"
-          :background-color="menuBg"
-          :text-color="menuText"
-          :default-active="activePath"
-          :default-openeds="openedIndexes"
+        :collapse="sidebarCollapsed"
+        :active-text-color="menuActiveText"
+        :background-color="menuBg"
+        :text-color="menuText"
+        :default-active="activePath"
+        :default-openeds="openedIndexes"
       >
         <template v-for="(item, $index) in menuItems" :key="$index">
           <!-- no sub menu items -->
           <el-menu-item
-              v-if="!item.children"
-              v-track="{
+            v-if="!item.children"
+            v-track="{
                 code: 'click_sidebar_menu_item',
                 params: {
                   path: item.path,
                 }
               }"
-              :index="item.path"
-              @click="onMenuItemClick(item)"
+            :index="item.path"
+            @click="onMenuItemClick(item)"
           >
             <MenuItemIcon :item="item" size="normal"/>
             <template #title>
@@ -59,18 +59,18 @@
 
           <!-- has sub menu items -->
           <el-sub-menu
-              v-else
-              :index="item.path"
+            v-else
+            :index="item.path"
           >
             <template #title>
               <MenuItemIcon :item="item" size="normal"/>
               <span class="menu-item-title">{{ t(item.title) }}</span>
             </template>
             <el-menu-item
-                v-for="(subItem, $index) in item.children"
-                :key="$index"
-                :index="subItem.path"
-                @click="onMenuItemClick(subItem)"
+              v-for="(subItem, $index) in item.children"
+              :key="$index"
+              :index="subItem.path"
+              @click="onMenuItemClick(subItem)"
             >
               <MenuItemIcon :item="subItem" size="normal"/>
               <template #title>
@@ -118,7 +118,7 @@ export default defineComponent({
 
     const sidebarCollapsed = computed<boolean>(() => layout.sidebarCollapsed);
 
-    const menuItems = computed<MenuItem[]>(() => layout.menuItems);
+    const menuItems = computed<MenuItem[]>(() => store.getters['layout/sidebarMenuItems']);
 
     const getMenuItemPathMap = (rootPath: string, item: MenuItem): Map<string, string> => {
       const paths = new Map<string, string>();

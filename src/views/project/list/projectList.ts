@@ -2,7 +2,7 @@ import {computed, h} from 'vue';
 import {TABLE_COLUMN_NAME_ACTIONS} from '@/constants/table';
 import {useStore} from 'vuex';
 import {ElMessageBox} from 'element-plus';
-import useList from '@/layouts/list';
+import useList from '@/layouts/content/list/list';
 import useProjectService from '@/services/project/projectService';
 import NavLink from '@/components/nav/NavLink.vue';
 import {useRouter} from 'vue-router';

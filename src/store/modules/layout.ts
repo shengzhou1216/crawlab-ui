@@ -32,7 +32,8 @@ export default {
       const {tabs, activeTabId} = state;
       if (activeTabId === undefined) return;
       return tabs.find(d => d.id === activeTabId);
-    }
+    },
+    sidebarMenuItems: state => state.menuItems.filter(d => !d.hidden),
   },
   mutations: {
     setMenuItems(state: LayoutStoreState, items: MenuItem[]) {

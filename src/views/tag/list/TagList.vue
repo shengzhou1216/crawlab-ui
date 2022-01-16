@@ -19,7 +19,7 @@
 <script lang="ts">
 import {defineComponent} from 'vue';
 import CreateTagDialog from '@/components/tag/CreateEditTagDialog.vue';
-import ListLayout from '@/layouts/ListLayout.vue';
+import ListLayout from '@/layouts/content/list/ListLayout.vue';
 import useTagList from '@/views/tag/list/tagList';
 
 export default defineComponent({

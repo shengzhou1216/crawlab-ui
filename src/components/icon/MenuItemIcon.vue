@@ -1,12 +1,16 @@
 <template>
   <template v-if="!item || !item.icon">
-    <i :style="{'font-size': fontSize}" class="menu-item-icon fa fa-circle-o"></i>
+    <font-awesome-icon
+      :icon="['far', 'circle']"
+      :style="{'font-size': fontSize}"
+      class="menu-item-icon"
+    />
   </template>
   <template v-else-if="Array.isArray(item.icon)">
     <font-awesome-icon
-        :icon="item.icon"
-        :style="{'font-size': fontSize}"
-        class="menu-item-icon"
+      :icon="item.icon"
+      :style="{'font-size': fontSize}"
+      class="menu-item-icon"
     />
   </template>
   <template v-else>

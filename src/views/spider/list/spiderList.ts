@@ -3,7 +3,7 @@ import {useStore} from 'vuex';
 import {computed, h} from 'vue';
 import TaskStatus from '@/components/task/TaskStatus.vue';
 import {TABLE_COLUMN_NAME_ACTIONS} from '@/constants/table';
-import useList from '@/layouts/list';
+import useList from '@/layouts/content/list/list';
 import NavLink from '@/components/nav/NavLink.vue';
 import Time from '@/components/time/Time.vue';
 import SpiderStat from '@/components/spider/SpiderStat.vue';

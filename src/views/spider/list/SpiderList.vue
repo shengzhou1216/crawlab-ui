@@ -22,7 +22,7 @@
 <script lang="ts">
 import {defineComponent} from 'vue';
 import CreateSpiderDialog from '@/components/spider/CreateEditSpiderDialog.vue';
-import ListLayout from '@/layouts/ListLayout.vue';
+import ListLayout from '@/layouts/content/list/ListLayout.vue';
 import useSpiderList from '@/views/spider/list/spiderList';
 import RunSpiderDialog from '@/components/spider/RunSpiderDialog.vue';
 

@@ -19,7 +19,7 @@ import {useStore} from 'vuex';
 import TabsView from '@/layouts/components/TabsView.vue';
 
 export default defineComponent({
-  name: 'BasicLayout',
+  name: 'NormalLayout',
   components: {
     TabsView,
     Header,

@@ -1,6 +1,8 @@
 interface LLayouts {
   components: {
     header: {
+      disclaimer: string;
+      mySettings: string;
       logout: string;
     };
   };

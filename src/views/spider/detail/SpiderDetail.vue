@@ -11,7 +11,7 @@
 import {defineComponent} from 'vue';
 import SpiderDetailActionsFiles from '@/views/spider/detail/actions/SpiderDetailActionsFiles.vue';
 import SpiderDetailActionsCommon from '@/views/spider/detail/actions/SpiderDetailActionsCommon.vue';
-import DetailLayout from '@/layouts/DetailLayout.vue';
+import DetailLayout from '@/layouts/content/detail/DetailLayout.vue';
 import useSpiderDetail from '@/views/spider/detail/spiderDetail';
 import SpiderDetailActionsGit from '@/views/spider/detail/actions/SpiderDetailActionsGit.vue';
 

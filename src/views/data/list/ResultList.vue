@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import {computed, defineComponent, watch} from 'vue';
-import ListLayout from '@/layouts/ListLayout.vue';
+import ListLayout from '@/layouts/content/list/ListLayout.vue';
 import {useStore} from 'vuex';
 
 export default defineComponent({

@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import {defineComponent} from 'vue';
-import ListLayout from '@/layouts/ListLayout.vue';
+import ListLayout from '@/layouts/content/list/ListLayout.vue';
 import useProjectList from './projectList';
 import CreateEditProjectDialog from '@/components/project/CreateEditProjectDialog.vue';
 

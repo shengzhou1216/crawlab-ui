@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import {defineComponent} from 'vue';
-import ListLayout from '@/layouts/ListLayout.vue';
+import ListLayout from '@/layouts/content/list/ListLayout.vue';
 import useTaskList from '@/views/task/list/taskList';
 import CreateTaskDialog from '@/components/task/CreateTaskDialog.vue';
 

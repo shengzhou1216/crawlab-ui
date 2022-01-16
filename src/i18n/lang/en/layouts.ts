@@ -2,6 +2,8 @@ const layouts: LLayouts = {
   components: {
     header: {
       logout: 'Logout',
+      mySettings: 'My Settings',
+      disclaimer: 'Disclaimer',
     }
   },
   detailLayout: {

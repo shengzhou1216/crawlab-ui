@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import {defineComponent} from 'vue';
-import ListLayout from '@/layouts/ListLayout.vue';
+import ListLayout from '@/layouts/content/list/ListLayout.vue';
 import useUserList from './userList';
 import CreateEditUserDialog from '@/components/user/CreateEditUserDialog.vue';
 

@@ -23,6 +23,7 @@ declare global {
   interface LayoutStoreGetters extends GetterTree<LayoutStoreState, RootStoreState> {
     tabs: StoreGetter<LayoutStoreState, Tab[]>;
     activeTab: StoreGetter<LayoutStoreState, Tab | undefined>;
+    sidebarMenuItems: StoreGetter<LayoutStoreState, MenuItem[]>;
   }
 
   interface LayoutStoreMutations extends MutationTree<LayoutStoreState> {

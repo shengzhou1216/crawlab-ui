@@ -3,4 +3,5 @@ interface MenuItem {
   title: string;
   icon?: string | string[];
   children?: MenuItem[];
+  hidden?: boolean;
 }

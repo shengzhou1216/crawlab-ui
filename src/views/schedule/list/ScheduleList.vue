@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import {defineComponent} from 'vue';
-import ListLayout from '@/layouts/ListLayout.vue';
+import ListLayout from '@/layouts/content/list/ListLayout.vue';
 import useScheduleList from './scheduleList';
 import CreateEditScheduleDialog from '@/components/schedule/CreateEditScheduleDialog.vue';
 

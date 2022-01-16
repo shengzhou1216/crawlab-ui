@@ -10,4 +10,5 @@ interface LViews {
   tags: LViewsTags;
   tokens: LViewsTokens;
   plugins: LViewsPlugins;
+  misc: LViewsMisc;
 }

@@ -10,6 +10,9 @@ const router: LRouter = {
     tags: 'Tags',
     tokens: 'Tokens',
     plugins: 'Plugins',
+    misc: {
+      disclaimer: 'Disclaimer',
+    },
   }
 };
 

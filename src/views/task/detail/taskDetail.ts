@@ -1,5 +1,5 @@
 import {useStore} from 'vuex';
-import useDetail from '@/layouts/detail';
+import useDetail from '@/layouts/content/detail/detail';
 import {setupGetAllList} from '@/utils/list';
 import useTask from '@/components/task/task';
 import {computed, onBeforeMount, onBeforeUnmount} from 'vue';

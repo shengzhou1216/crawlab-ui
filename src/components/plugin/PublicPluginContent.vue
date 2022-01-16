@@ -82,6 +82,7 @@ export default defineComponent({
     // i18n
     const {t} = useI18n();
 
+    // markdown-to-text converter
     const converter = new Converter();
 
     const readme = computed<string>(() => {
