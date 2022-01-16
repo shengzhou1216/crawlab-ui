@@ -1,5 +1,4 @@
 import {createStore as createVuexStore, Store} from 'vuex';
-import login from '@/store/modules/login';
 import layout from '@/store/modules/layout';
 import node from '@/store/modules/node';
 import project from '@/store/modules/project';
@@ -17,7 +16,6 @@ import git from '@/store/modules/git';
 export const createStore = (): Store<RootStoreState> => {
   return createVuexStore<RootStoreState>({
     modules: {
-      login,
       layout,
       node,
       project,

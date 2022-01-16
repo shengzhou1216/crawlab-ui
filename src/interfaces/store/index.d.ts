@@ -2,6 +2,9 @@ import {ActionContext, ActionTree, GetterTree, Module, MutationTree, Store} from
 
 declare global {
   interface RootStoreState {
+    /**
+     * @deprecated
+     */
     login: LoginStoreState;
     layout: LayoutStoreState;
     node: NodeStoreState;
@@ -126,8 +129,7 @@ declare global {
   type StoreActionContext<S = BaseStoreState> = ActionContext<S, RootStoreState>;
 
   type StoreNamespace =
-    'login'
-    | 'layout'
+    'layout'
     | 'node'
     | 'project'
     | 'spider'
