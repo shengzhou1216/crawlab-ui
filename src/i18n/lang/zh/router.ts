@@ -12,6 +12,7 @@ const router: LRouter = {
     plugins: '插件',
     misc: {
       disclaimer: '免责声明',
+      mySettings: '我的设置',
     },
   }
 };

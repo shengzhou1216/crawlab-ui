@@ -1,66 +1,66 @@
 <template>
   <Form
-      v-if="form"
-      ref="formRef"
-      :model="form"
-      :rules="formRules"
-      :selective="isSelectiveForm"
-      class="user-form"
+    v-if="form"
+    ref="formRef"
+    :model="form"
+    :rules="formRules"
+    :selective="isSelectiveForm"
+    class="user-form"
   >
     <!-- Row -->
     <FormItem
-        :span="2"
-        :label="t('components.user.form.username')"
-        prop="username"
-        required
+      :span="2"
+      :label="t('components.user.form.username')"
+      prop="username"
+      required
     >
       <el-input
-          v-model="form.username"
-          :disabled="isFormItemDisabled('username')"
-          :placeholder="t('components.user.form.username')"
+        v-model="form.username"
+        :disabled="isFormItemDisabled('username')"
+        :placeholder="t('components.user.form.username')"
       />
     </FormItem>
     <FormItem
-        :span="2"
-        :label="t('components.user.form.password')"
-        prop="password"
-        required
+      :span="2"
+      :label="t('components.user.form.password')"
+      prop="password"
+      required
     >
       <el-input
-          v-if="isSelectiveForm || !isDetail"
-          v-model="form.password"
-          :disabled="isFormItemDisabled('password')"
-          :placeholder="t('components.user.form.password')"
-          type="password"
+        v-if="(isSelectiveForm || !isDetail) && !isMySettings"
+        v-model="form.password"
+        :disabled="isFormItemDisabled('password')"
+        :placeholder="t('components.user.form.password')"
+        type="password"
       />
       <LabelButton
-          v-else
-          :icon="['fa','lock']"
-          :label="t('components.user.form.changePassword')"
-          type="danger"
-          @click="onChangePassword"
+        v-else
+        :icon="['fa','lock']"
+        :label="t('components.user.form.changePassword')"
+        type="danger"
+        @click="onChangePassword"
       />
     </FormItem>
     <!-- ./Row -->
 
     <!-- Row -->
     <FormItem
-        :span="2"
-        :label="t('components.user.form.email')"
-        prop="email"
+      :span="2"
+      :label="t('components.user.form.email')"
+      prop="email"
     >
       <el-input
-          v-model="form.email"
-          :disabled="isFormItemDisabled('email')"
-          :placeholder="t('components.user.form.email')"
-          type="email"
+        v-model="form.email"
+        :disabled="isFormItemDisabled('email')"
+        :placeholder="t('components.user.form.email')"
+        type="email"
       />
     </FormItem>
     <FormItem
-        :span="2"
-        :label="t('components.user.form.role')"
-        prop="role"
-        required
+      :span="2"
+      :label="t('components.user.form.role')"
+      prop="role"
+      required
     >
       <el-select v-model="form.role" :disabled="isFormItemDisabled('role')">
         <el-option :value="ROLE_ADMIN" :label="t('components.user.role.admin')"/>
@@ -92,6 +92,7 @@ export default defineComponent({
     Form,
   },
   setup() {
+
     // i18n
     const {t} = useI18n();
 
@@ -105,15 +106,15 @@ export default defineComponent({
 
     const onChangePassword = async () => {
       const {value} = await ElMessageBox.prompt(
-          t('components.user.messageBox.prompt.changePassword'),
-          t('components.user.form.changePassword'),
-          {
-            inputType: 'password',
-            inputPlaceholder: t('components.user.form.newPassword'),
-            inputValidator: (value: string) => {
-              return value?.length < 5 ? t('components.user.rules.invalidPassword') : true;
-            }
-          });
+        t('components.user.messageBox.prompt.changePassword'),
+        t('components.user.form.changePassword'),
+        {
+          inputType: 'password',
+          inputPlaceholder: t('components.user.form.newPassword'),
+          inputValidator: (value: string) => {
+            return value?.length < 5 ? t('components.user.rules.invalidPassword') : true;
+          }
+        });
 
       sendEvent('click_user_form_change_password');
 

@@ -12,6 +12,7 @@ interface LRouter {
     plugins: string;
     misc: {
       disclaimer: string;
+      mySettings: string;
     };
   };
 }

@@ -12,6 +12,7 @@ const router: LRouter = {
     plugins: 'Plugins',
     misc: {
       disclaimer: 'Disclaimer',
+      mySettings: 'My Settings',
     },
   }
 };
