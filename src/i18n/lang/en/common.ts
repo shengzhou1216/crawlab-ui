@@ -48,7 +48,10 @@ const common: LCommon = {
     info: {
       cancel: 'Attempt to cancel',
       stop: 'Attempt to stop',
-    }
+    },
+    error: {
+      login: 'Login failed',
+    },
   },
   tabs: {
     overview: 'Overview',

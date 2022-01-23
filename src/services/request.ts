@@ -15,8 +15,11 @@ export const initRequest = (router?: Router) => {
   axios.interceptors.response.use(res => {
     return res;
   }, err => {
+    // status code
     const status = err?.response?.status;
+
     if (status === 401) {
+      // 401 error
       if (window.localStorage.getItem('token')) {
         // token expired, popup logout warning
         if (msgBoxVisible) return;
@@ -35,6 +38,7 @@ export const initRequest = (router?: Router) => {
         router?.push('/login');
       }
     } else {
+      // other errors
       console.error(err);
     }
   });

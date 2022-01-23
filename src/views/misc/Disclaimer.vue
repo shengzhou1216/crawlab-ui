@@ -12,10 +12,10 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent} from "vue";
+import {computed, defineComponent} from 'vue';
 import {Converter} from 'showdown';
-import {useI18n} from "vue-i18n";
-import SimpleLayout from "@/layouts/content/simple/SimpleLayout.vue";
+import {useI18n} from 'vue-i18n';
+import SimpleLayout from '@/layouts/content/simple/SimpleLayout.vue';
 
 export default defineComponent({
   name: 'Disclaimer',
@@ -40,7 +40,7 @@ export default defineComponent({
       content,
     };
   },
-})
+});
 </script>
 
 <style scoped lang="scss">

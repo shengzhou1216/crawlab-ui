@@ -6,7 +6,7 @@ import {
 } from '@/utils/store';
 import useRequest from '@/services/request';
 import {ROLE_NORMAL} from '@/constants/user';
-import {LOCAL_STORAGE_KEY_ME} from "@/constants/localStorage";
+import {LOCAL_STORAGE_KEY_ME} from '@/constants/localStorage';
 
 const {
   get,
@@ -58,6 +58,9 @@ const actions = {
   getMe: async ({commit}: StoreActionContext) => {
     const res = await get(`/users/me`);
     commit('setMe', res.data);
+  },
+  postMe: async (ctx: StoreActionContext, me: User) => {
+    await post(`/users/me`, me);
   },
 } as UserStoreActions;
 

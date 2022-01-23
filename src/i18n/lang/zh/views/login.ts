@@ -23,6 +23,7 @@ const login: LViewsLogin = {
     passwordLength: '密码长度不能低于 5',
     passwordSame: '两次密码必须相同',
     unauthorized: '验证失败，请检查用户名和密码',
+    noTokenReturned: '未返回令牌',
   }
 };
 

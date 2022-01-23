@@ -118,7 +118,7 @@ import {initPlugins} from '@/utils/plugin';
 import {useStore} from 'vuex';
 import {setGlobalLang} from '@/utils/i18n';
 import {useI18n} from 'vue-i18n';
-import {LOCAL_STORAGE_KEY_TOKEN} from "@/constants/localStorage";
+import {LOCAL_STORAGE_KEY_TOKEN} from '@/constants/localStorage';
 
 const {
   post,
@@ -222,9 +222,8 @@ export default defineComponent({
         });
 
         // validate data
-        if (!res.data) {
-          // no data
-          ElMessage.error('No token returned');
+        if (!res?.data) {
+          await ElMessage.error(t('views.login.errors.unauthorized'));
           return;
         }
 
@@ -243,11 +242,12 @@ export default defineComponent({
         // error
         if (e.toString().includes('401')) {
           // unauthorized
-          ElMessage.error('views.login.errors.unauthorized');
+          await ElMessage.error(t('views.login.errors.unauthorized'));
         } else {
           // other error
-          ElMessage.error(e.toString());
+          await ElMessage.error(e.toString());
         }
+        throw e;
       } finally {
         // unset loading
         loading.value = false;

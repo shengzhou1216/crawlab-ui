@@ -6,6 +6,12 @@ import {getDefaultFormComponentData} from '@/utils/form';
 import {FORM_FIELD_TYPE_INPUT, FORM_FIELD_TYPE_INPUT_PASSWORD, FORM_FIELD_TYPE_SELECT,} from '@/constants/form';
 import {getModeOptions} from '@/utils/task';
 import {ROLE_ADMIN, ROLE_NORMAL} from '@/constants/user';
+import {ElMessage, ElMessageBox} from 'element-plus';
+import {sendEvent} from '@/admin/umeng';
+import {translate} from '@/utils/i18n';
+
+// i18n
+const t = translate;
 
 // form component data
 const formComponentData = getDefaultFormComponentData<User>();
@@ -77,12 +83,34 @@ const useUser = (store: Store<RootStoreState>) => {
     };
   }));
 
+  // on change password
+  const onChangePasswordFunc = async (id?: string) => {
+    if (!id) return;
+
+    const {value} = await ElMessageBox.prompt(
+      t('components.user.messageBox.prompt.changePassword'),
+      t('components.user.form.changePassword'),
+      {
+        inputType: 'password',
+        inputPlaceholder: t('components.user.form.newPassword'),
+        inputValidator: (value: string) => {
+          return value?.length < 5 ? t('components.user.rules.invalidPassword') : true;
+        }
+      });
+
+    sendEvent('click_user_form_change_password');
+
+    await store.dispatch(`${ns}/changePassword`, {id, password: value});
+    await ElMessage.success(t('common.message.success.save'));
+  };
+
   return {
     ...useForm('user', store, useUserService(store), formComponentData),
     modeOptions,
     batchFormFields,
     formRules,
     allUserSelectOptions,
+    onChangePasswordFunc,
   };
 };
 

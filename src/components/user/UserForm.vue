@@ -92,7 +92,6 @@ export default defineComponent({
     Form,
   },
   setup() {
-
     // i18n
     const {t} = useI18n();
 
@@ -104,22 +103,11 @@ export default defineComponent({
       activeId,
     } = useUserDetail();
 
-    const onChangePassword = async () => {
-      const {value} = await ElMessageBox.prompt(
-        t('components.user.messageBox.prompt.changePassword'),
-        t('components.user.form.changePassword'),
-        {
-          inputType: 'password',
-          inputPlaceholder: t('components.user.form.newPassword'),
-          inputValidator: (value: string) => {
-            return value?.length < 5 ? t('components.user.rules.invalidPassword') : true;
-          }
-        });
+    const {
+      onChangePasswordFunc,
+    } = useUser(store);
 
-      sendEvent('click_user_form_change_password');
-
-      return await store.dispatch(`${ns}/changePassword`, {id: activeId.value, password: value});
-    };
+    const onChangePassword = () => onChangePasswordFunc(activeId.value);
 
     const isDetail = computed<boolean>(() => !!activeId.value);
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="simple-layout" :style="{background}">
+  <div class="simple-layout" :style="{background, padding}">
     <slot>
     </slot>
   </div>
@@ -12,7 +12,10 @@ export default {
     background: {
       type: String,
       default: '#ffffff',
-    }
+    },
+    padding: {
+      type: String,
+    },
   },
   setup() {
     return {};

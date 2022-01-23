@@ -23,7 +23,8 @@ const login: LViewsLogin = {
     passwordLength: 'Password length should be no shorter than 5',
     passwordSame: 'Two passwords must be the same',
     unauthorized: 'Unauthorized. Please check username and password.',
-  }
+    noTokenReturned: 'No token returned',
+  },
 };
 
 export default login;

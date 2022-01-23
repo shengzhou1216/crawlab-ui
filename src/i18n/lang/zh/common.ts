@@ -48,7 +48,10 @@ const common: LCommon = {
     info: {
       cancel: '尝试取消',
       stop: '尝试停止',
-    }
+    },
+    error: {
+      login: '登陆失败',
+    },
   },
   tabs: {
     overview: '概览',

@@ -23,5 +23,6 @@ interface LViewsLogin {
     passwordLength: string;
     passwordSame: string;
     unauthorized: string;
+    noTokenReturned: string;
   };
-};
+}

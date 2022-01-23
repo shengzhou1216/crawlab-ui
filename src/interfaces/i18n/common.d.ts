@@ -56,6 +56,9 @@ interface LCommon {
       cancel: string;
       stop: string;
     };
+    error: {
+      login: string;
+    };
   };
   tabs: {
     overview: string;
