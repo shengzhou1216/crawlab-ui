@@ -2,11 +2,14 @@ export const getFieldsFromData = (data: TableData<Result>) => {
   if (data.length === 0) {
     return [];
   }
-  const item = data[0];
-  if (typeof item !== 'object') return [];
-  return Object.keys(item).map(key => {
-    return {
-      key,
-    };
+  const keys = new Set<string>();
+  data.forEach(item => {
+    if (typeof item !== 'object') return;
+    Object.keys(item).forEach(key => {
+      keys.add(key);
+    });
+  });
+  return Array.from(keys).map(key => {
+    return {key};
   });
 };

@@ -26,15 +26,6 @@ export default defineComponent({
       const {row, column, rowIndex} = props;
       const {value, buttons} = column;
 
-      // value
-      if (value !== undefined) {
-        if (typeof value === 'function') {
-          return [value(row, rowIndex, column)];
-        } else {
-          return value;
-        }
-      }
-
       // buttons
       if (buttons) {
         let _buttons: TableColumnButton[] = [];
@@ -62,8 +53,18 @@ export default defineComponent({
         });
       }
 
-      // plain text
-      return [row[column.key]];
+      // normalized value
+      let normalizedValue = value || row[column.key];
+      switch (typeof normalizedValue) {
+        case 'undefined':
+          return '';
+        case 'function':
+          return [normalizedValue(row, rowIndex, column)];
+        case 'object':
+          return JSON.stringify(normalizedValue);
+        default:
+          return normalizedValue;
+      }
     };
 
     return () => h('div', getChildren());

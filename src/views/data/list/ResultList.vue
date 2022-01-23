@@ -1,12 +1,12 @@
 <template>
   <ListLayout
-      :action-functions="actionFunctions"
-      :no-actions="noActions"
-      :table-pagination="tablePagination"
-      :table-columns="tableColumns"
-      :table-data="tableData"
-      :table-total="tableTotal"
-      class="result-list"
+    :action-functions="actionFunctions"
+    :no-actions="noActions"
+    :table-pagination="tablePagination"
+    :table-columns="tableColumns"
+    :table-data="tableData"
+    :table-total="tableTotal"
+    class="result-list"
   >
     <template #extra>
     </template>
@@ -105,5 +105,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-
+.result-list {
+  .nav-actions {
+    border-bottom: none;
+  }
+}
 </style>

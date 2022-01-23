@@ -1,13 +1,13 @@
 <template>
   <div class="task-detail-tab-data">
     <ListLayout
-        :action-functions="actionFunctions"
-        :table-pagination="tablePagination"
-        :table-columns="tableColumns"
-        :table-data="tableData"
-        :table-total="tableTotal"
-        class="result-list"
-        no-actions
+      :action-functions="actionFunctions"
+      :table-pagination="tablePagination"
+      :table-columns="tableColumns"
+      :table-data="tableData"
+      :table-total="tableTotal"
+      class="result-list"
+      no-actions
     >
       <template #extra>
       </template>
@@ -89,8 +89,8 @@ export default defineComponent({
   },
 });
 </script>
-<style lang="scss" scoped>
-.task-detail-tab-data > > > .el-table {
+<style scoped>
+.task-detail-tab-data >>> .el-table {
   border: none;
 }
 </style>
