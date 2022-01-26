@@ -1,18 +1,18 @@
 <template>
   <Dialog
-      :title="t('components.plugin.install.title')"
-      :visible="activeDialogKey === 'install'"
-      width="1200px"
-      @close="onClose"
-      @confirm="onConfirm"
+    :title="t('components.plugin.install.title')"
+    :visible="activeDialogKey === 'install'"
+    width="1200px"
+    @close="onClose"
+    @confirm="onConfirm"
   >
     <div class="top">
       <el-radio-group
-          v-model="internalInstallType"
-          class="install-type-select"
-          type="button"
-          size="small"
-          @change="onInstallTypeChange"
+        v-model="internalInstallType"
+        class="install-type-select"
+        type="button"
+        size="small"
+        @change="onInstallTypeChange"
       >
         <el-radio-button :label="PLUGIN_INSTALL_TYPE_PUBLIC">
           {{ t('components.plugin.installType.label.public') }}
@@ -29,10 +29,10 @@
       </el-alert>
     </div>
     <InstallPublicPlugin
-        v-if="installType === PLUGIN_INSTALL_TYPE_PUBLIC"
+      v-if="installType === PLUGIN_INSTALL_TYPE_PUBLIC"
     />
     <PluginForm
-        v-else
+      v-else
     />
   </Dialog>
 </template>
@@ -66,6 +66,9 @@ export default defineComponent({
     // store
     const ns = 'plugin';
     const store = useStore();
+    const {
+      plugin: pluginState,
+    } = store.state as RootStoreState;
 
     const {
       installType,
@@ -78,13 +81,23 @@ export default defineComponent({
     };
 
     const onConfirm = async () => {
-      // TODO: implement
-      // await store.dispatch(`${ns}/create`, form);
+      // skip public
+      if (installType.value === PLUGIN_INSTALL_TYPE_PUBLIC) {
+        store.commit(`${ns}/hideDialog`, 'install');
+        return;
+      }
+
+      await store.dispatch(`${ns}/create`, {
+        install_url: pluginState.form.install_url,
+        install_type: PLUGIN_INSTALL_TYPE_LOCAL,
+      });
       store.commit(`${ns}/hideDialog`, 'install');
 
       sendEvent('click_install_plugin_dialog_confirm', {
         installType: installType.value,
       });
+
+      await store.dispatch(`${ns}/getList`);
     };
 
     const internalInstallType = ref<string>(PLUGIN_INSTALL_TYPE_PUBLIC);
