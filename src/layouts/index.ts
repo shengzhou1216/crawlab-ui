@@ -5,6 +5,7 @@ import Sidebar from './components/Sidebar.vue';
 import TabsView from './components/TabsView.vue';
 import DetailLayout from './content/detail/DetailLayout.vue';
 import ListLayout from './content/list/ListLayout.vue';
+import SimpleLayout from './content/simple/SimpleLayout.vue';
 
 export {
   BlankLayout as ClBlankLayout,
@@ -14,4 +15,5 @@ export {
   TabsView as ClTabsView,
   DetailLayout as ClDetailLayout,
   ListLayout as ClListLayout,
+  SimpleLayout as ClSimpleLayout,
 };

@@ -75,10 +75,20 @@ if (process.env.ENTRY) {
   }
 }
 
-if (['development', 'local'].includes(process.env.NODE_ENV)) {
-  config.configureWebpack.optimization = optimization
-} else if (['production'].includes(process.env.NODE_ENV)) {
-  // config.configureWebpack.optimization = optimization  // TODO: temporarily comment out this line
+if (['production'].includes(process.env.NODE_ENV)) {
+  // config.configureWebpack.optimization = optimization  // TODO: need to figure out how to optimize output file size
+  config.configureWebpack.externals = {
+    '@fortawesome/fontawesome-svg-core': '@fortawesome/fontawesome-svg-core',
+    '@fortawesome/free-brands-svg-icons': '@fortawesome/free-brands-svg-icons',
+    '@fortawesome/free-regular-svg-icons': '@fortawesome/free-regular-svg-icons',
+    '@fortawesome/free-solid-svg-icons': '@fortawesome/free-solid-svg-icons',
+    '@element-plus/icons': '@element-plus/icons',
+    'atom-material-icons': 'atom-material-icons',
+    'codemirror': 'codemirror',
+    'fontawesome': 'fontawesome',
+    'echarts': 'echarts',
+    'element-plus': 'element-plus',
+  }
   config.configureWebpack.plugins.push(new CopyWebpackPlugin({
     patterns: [
       {
@@ -88,7 +98,9 @@ if (['development', 'local'].includes(process.env.NODE_ENV)) {
   }))
 } else if (['analyze'].includes(process.env.NODE_ENV)) {
   config.configureWebpack.optimization = optimization
-  config.configureWebpack.plugins.push(new BundleAnalyzerPlugin())
+  config.configureWebpack.plugins.push(new BundleAnalyzerPlugin({
+    analyzerPort: 8889,
+  }))
 }
 
 
