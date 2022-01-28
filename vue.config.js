@@ -78,6 +78,7 @@ if (process.env.ENTRY) {
 if (['development', 'local'].includes(process.env.NODE_ENV)) {
   config.configureWebpack.optimization = optimization
 } else if (['production'].includes(process.env.NODE_ENV)) {
+  // config.configureWebpack.optimization = optimization  // TODO: temporarily comment out this line
   config.configureWebpack.plugins.push(new CopyWebpackPlugin({
     patterns: [
       {
