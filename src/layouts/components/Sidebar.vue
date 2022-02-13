@@ -95,8 +95,8 @@ import variables from '@/styles/variables.scss';
 import logo from '@/assets/js/svg/logo.js';
 import MenuItemIcon from '@/components/icon/MenuItemIcon.vue';
 import {getPrimaryPath} from '@/utils/path';
-import * as path from 'path';
 import {useI18n} from 'vue-i18n';
+import urljoin from 'url-join';
 
 export default defineComponent({
   name: 'Sidebar',
@@ -122,7 +122,7 @@ export default defineComponent({
 
     const getMenuItemPathMap = (rootPath: string, item: MenuItem): Map<string, string> => {
       const paths = new Map<string, string>();
-      const itemPath = item.path.startsWith('/') ? item.path : path.join(rootPath, item.path);
+      const itemPath = item.path.startsWith('/') ? item.path : urljoin(rootPath, item.path);
       paths.set(itemPath, rootPath);
       if (item.children && item.children.length > 0) {
         for (const subItem of item.children) {

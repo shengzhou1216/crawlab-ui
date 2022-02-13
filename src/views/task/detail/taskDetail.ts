@@ -51,9 +51,10 @@ const useTaskDetail = () => {
   };
 
   // auto update
-  let autoUpdateHandle: NodeJS.Timeout;
+  let autoUpdateHandle: number;
   const setupDetail = () => {
     if (isCancellable(form.value?.status)) {
+      // @ts-ignore
       autoUpdateHandle = setInterval(async () => {
         // form data
         const res = await store.dispatch(`${ns}/getById`, activeId.value);

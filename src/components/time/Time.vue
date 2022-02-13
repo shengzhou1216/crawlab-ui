@@ -6,14 +6,14 @@
 
 <script lang="ts">
 import {computed, defineComponent, PropType} from 'vue';
-import TimeAgo from 'javascript-time-ago';
+import TimeAgo, { LocaleData } from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
 import zh from 'javascript-time-ago/locale/zh';
 import dayjs from 'dayjs';
 import i18n from '@/i18n';
 
-TimeAgo.addLocale(en);
-TimeAgo.addLocale(zh);
+TimeAgo.addLocale(en as LocaleData);
+TimeAgo.addLocale(zh as LocaleData);
 
 export default defineComponent({
   name: 'Time',
@@ -41,7 +41,7 @@ export default defineComponent({
 
       if (ago) {
         const timeAgo = new TimeAgo(i18n.global.locale.value === 'zh' ? 'zh' : 'en');
-        return timeAgo.format(new Date(time));
+        return timeAgo.format(new Date(time)) as string;
       } else {
         return dayjs(time).format(format);
       }
