@@ -262,7 +262,7 @@ const useTaskList = () => {
       buttons: (row) => [
         {
           type: 'primary',
-          size: 'mini',
+          size: 'small',
           icon: ['fa', 'search'],
           tooltip: t('common.actions.view'),
           onClick: (row) => {
@@ -273,7 +273,7 @@ const useTaskList = () => {
         },
         {
           type: 'warning',
-          size: 'mini',
+          size: 'small',
           icon: ['fa', 'redo'],
           tooltip: t('common.actions.restart'),
           onClick: async (row) => {
@@ -295,7 +295,7 @@ const useTaskList = () => {
         isCancellable(row.status) ?
           {
             type: 'info',
-            size: 'mini',
+            size: 'small',
             icon: ['fa', 'stop'],
             tooltip: t('common.actions.cancel'),
             onClick: async (row: Task) => {
@@ -317,7 +317,7 @@ const useTaskList = () => {
           :
           {
             type: 'danger',
-            size: 'mini',
+            size: 'small',
             icon: ['fa', 'trash-alt'],
             tooltip: t('common.actions.delete'),
             onClick: deleteByIdConfirm,

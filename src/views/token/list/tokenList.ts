@@ -98,7 +98,7 @@ const useTokenList = () => {
       buttons: (row) => [
         {
           type: 'primary',
-          size: 'mini',
+          size: 'small',
           icon: !row._visible ? ['fa', 'eye'] : ['fa', 'eye-slash'],
           tooltip: !row._visible ? t('common.actions.view') : t('common.actions.hide'),
           onClick: async (row: Token) => {
@@ -109,7 +109,7 @@ const useTokenList = () => {
         },
         {
           type: 'info',
-          size: 'mini',
+          size: 'small',
           icon: ['far', 'clipboard'],
           tooltip: t('common.actions.copy'),
           onClick: async (row: Token) => {
@@ -122,7 +122,7 @@ const useTokenList = () => {
         },
         {
           type: 'danger',
-          size: 'mini',
+          size: 'small',
           icon: ['fa', 'trash-alt'],
           tooltip: t('common.actions.edit'),
           onClick: deleteByIdConfirm,

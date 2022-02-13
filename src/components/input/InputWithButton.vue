@@ -2,50 +2,50 @@
   <div class="input-with-button">
     <!-- Input -->
     <el-input
-        v-model="internalValue"
-        :placeholder="placeholder"
-        :size="size"
-        class="input"
-        :disabled="disabled"
-        @input="onInput"
-        @blur="onBlur"
-        @focus="onFocus"
-        @keyup.enter="onBlur"
+      v-model="internalValue"
+      :placeholder="placeholder"
+      :size="size"
+      class="input"
+      :disabled="disabled"
+      @input="onInput"
+      @blur="onBlur"
+      @focus="onFocus"
+      @keyup.enter="onBlur"
     />
     <!-- ./Input -->
 
     <!-- Button -->
     <Button
-        v-if="buttonLabel"
-        disabled
-        :tooltip="t('common.status.currentlyUnavailable')"
-        :size="size"
-        :type="buttonType"
-        class="button"
-        no-margin
-        @click="onClick"
+      v-if="buttonLabel"
+      disabled
+      :tooltip="t('common.status.currentlyUnavailable')"
+      :size="size"
+      :type="buttonType"
+      no-margin
+      class-name="button"
+      @click="onClick"
     >
       <Icon v-if="buttonIcon" :icon="buttonIcon"/>
       {{ buttonLabel }}
     </Button>
     <template v-else-if="buttonIcon">
       <FaIconButton
-          v-if="isFaIcon"
-          :disabled="disabled"
-          :icon="buttonIcon"
-          :size="size"
-          :type="buttonType"
-          class="button"
-          @click="onClick"
+        v-if="isFaIcon"
+        :disabled="disabled"
+        :icon="buttonIcon"
+        :size="size"
+        :type="buttonType"
+        class-name="button"
+        @click="onClick"
       />
       <IconButton
-          v-else
-          :disabled="disabled"
-          :icon="buttonIcon"
-          :size="size"
-          :type="buttonType"
-          class="button"
-          @click="onClick"
+        v-else
+        :disabled="disabled"
+        :icon="buttonIcon"
+        :size="size"
+        :type="buttonType"
+        class-name="button"
+        @click="onClick"
       />
     </template>
     <!-- ./Button -->
@@ -77,8 +77,8 @@ export default defineComponent({
       type: String,
     },
     size: {
-      type: String,
-      default: 'mini',
+      type: String as PropType<BasicSize>,
+      default: 'default',
     },
     buttonType: {
       type: String as PropType<BasicType>,
@@ -166,17 +166,8 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .input-with-button {
-  display: inline-table;
-  vertical-align: middle;
-  //align-items: start;
-
-  .input {
-    display: table-cell;
-  }
-
-  .button {
-    display: table-cell;
-  }
+  display: flex;
+  align-items: center;
 }
 </style>
 
@@ -184,11 +175,15 @@ export default defineComponent({
 .input-with-button >>> .input.el-input .el-input__inner {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+  /*border-right-color: transparent;*/
 }
 
-.input-with-button >>> .button .el-button {
+.input-with-button >>> .button-wrapper .el-button {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-  height: 28px;
+}
+
+.input-with-button >>> .button-wrapper {
+  height: 32px;
 }
 </style>

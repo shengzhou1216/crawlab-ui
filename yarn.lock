@@ -906,6 +906,16 @@
     "@babel/helper-validator-identifier" "^7.14.9"
     to-fast-properties "^2.0.0"
 
+"@ctrl/tinycolor@^3.4.0":
+  version "3.4.0"
+  resolved "https://registry.npmmirror.com/@ctrl/tinycolor/-/tinycolor-3.4.0.tgz#c3c5ae543c897caa9c2a68630bed355be5f9990f"
+  integrity sha512-JZButFdZ1+/xAfpguQHoabIXkcqRRKpMrWKBkpEZZyxfY9C1DpADFB8PEqGSTeFr135SaTRfKqGKx5xSCLI7ZQ==
+
+"@element-plus/icons-vue@^0.2.6":
+  version "0.2.7"
+  resolved "https://registry.npmmirror.com/@element-plus/icons-vue/-/icons-vue-0.2.7.tgz#c0b75363098bf1fba414e18706604bfe5057ae1b"
+  integrity sha512-S8kDbfVaWkQvbUYQE1ui448tzaHfUvyESCep9J6uPRlViyQPXjdIfwLBhV6AmQSOfFS8rL+xehJGhvzPXLrSBg==
+
 "@element-plus/icons@^0.0.11":
   version "0.0.11"
   resolved "https://registry.nlark.com/@element-plus/icons/download/@element-plus/icons-0.0.11.tgz#9b187c002774548b911850d17fa5fc2f9a515f57"
@@ -1171,10 +1181,10 @@
   resolved "https://registry.npm.taobao.org/@polka/url/download/@polka/url-1.0.0-next.11.tgz#aeb16f50649a91af79dbe36574b66d0f9e4d9f71"
   integrity sha1-rrFvUGSaka952+NldLZtD55Nn3E=
 
-"@popperjs/core@^2.10.2":
-  version "2.10.2"
-  resolved "https://registry.npmmirror.com/@popperjs/core/download/@popperjs/core-2.10.2.tgz#0798c03351f0dea1a5a4cabddf26a55a7cbee590"
-  integrity sha1-B5jAM1Hw3qGlpMq93yalWny+5ZA=
+"@popperjs/core@^2.11.2":
+  version "2.11.2"
+  resolved "https://registry.npmmirror.com/@popperjs/core/-/core-2.11.2.tgz#830beaec4b4091a9e9398ac50f865ddea52186b9"
+  integrity sha512-92FRmppjjqz29VMJ2dn+xdyXZBrMlE42AV6Kq6BwjWV7CNUW1hs2FtxSNLQE+gJhaZ6AAmYuO9y8dshhcBl7vA==
 
 "@popperjs/core@^2.6.0":
   version "2.6.0"
@@ -2020,18 +2030,18 @@
   resolved "https://registry.npm.taobao.org/@vue/web-component-wrapper/download/@vue/web-component-wrapper-1.2.0.tgz#bb0e46f1585a7e289b4ee6067dcc5a6ae62f1dd1"
   integrity sha1-uw5G8VhafiibTuYGfcxaauYvHdE=
 
-"@vueuse/core@^6.7.3":
-  version "6.9.2"
-  resolved "https://registry.npmmirror.com/@vueuse/core/download/@vueuse/core-6.9.2.tgz#76b16d01f33cf367dd1a2d7f2e31d106443ceb8a"
-  integrity sha512-FRwl4ccSFuHZBHLGgS9TMv/+Dd6XFaL4o9nph2qtgQIV+z29RBFokw08XjHfykiENRzB01MjYHJ7iRUnsIFQXg==
+"@vueuse/core@^7.5.5":
+  version "7.6.1"
+  resolved "https://registry.npmmirror.com/@vueuse/core/-/core-7.6.1.tgz#6919dc0c9289a77f00bfa3403f861f7e4c7adc89"
+  integrity sha512-492y7R9HRu6TXzcGBMVG5qg5o9CHjrWLfOHh+TEknJeLe3LIYHsIBi1IlUN5s/yP3OHlBynjrzMMUm4gEyBmQg==
   dependencies:
-    "@vueuse/shared" "6.9.2"
+    "@vueuse/shared" "7.6.1"
     vue-demi "*"
 
-"@vueuse/shared@6.9.2":
-  version "6.9.2"
-  resolved "https://registry.npmmirror.com/@vueuse/shared/download/@vueuse/shared-6.9.2.tgz#97e4369fa7262ebc96fe1d6e210268f30b037005"
-  integrity sha512-lAiMh6XROs0kSKVd0Yb/6GKoQMxC1fYrFDi6opvQWISPtcqRNluRrQxLUZ3WTI78ovtoKRLktjhkFAtydcfFDg==
+"@vueuse/shared@7.6.1":
+  version "7.6.1"
+  resolved "https://registry.npmmirror.com/@vueuse/shared/-/shared-7.6.1.tgz#48db62a4ad160838353ae78d0dcbfc7c9c94c89c"
+  integrity sha512-VhURBjuyELYLW94TLqwyM+tUZ0uyWAOjp8zDnJts5wwyHZlGt/yabLbuEl70cKmt0zR9psVyAyHC+LTgRrA1Zw==
   dependencies:
     vue-demi "*"
 
@@ -4325,19 +4335,20 @@ electron-to-chromium@^1.3.621:
   resolved "https://registry.npm.taobao.org/electron-to-chromium/download/electron-to-chromium-1.3.622.tgz#9726bd2e67a5462154750ce9701ca6af07d07877"
   integrity sha1-lya9LmelRiFUdQzpcBymrwfQeHc=
 
-element-plus@^1.2.0-beta.3:
-  version "1.2.0-beta.3"
-  resolved "https://registry.npmmirror.com/element-plus/download/element-plus-1.2.0-beta.3.tgz#0ded059e6c8ddc6f5d9dcdf32e1b7ed44ac38099"
-  integrity sha512-vvUxR3uL2k9K+WCWz/98hq4uPQ6jvfGf0hfzWvao7pySJkNQq9DtRPC6/4/zUceA/J6Y2Yo3xSbR19JRCwurRw==
+element-plus@^1.3.0-beta.10:
+  version "1.3.0-beta.10"
+  resolved "https://registry.npmmirror.com/element-plus/-/element-plus-1.3.0-beta.10.tgz#10dd01586074c147df1b7902fd4d76b50f16e3cc"
+  integrity sha512-uPcre5liDfYvGbfaBDN2K7K5x6egBFdDQz0sv2cupcqzepUQoTMpq+mdTnHXzHChHhVwcLGp95kLYLL9yMkT8g==
   dependencies:
-    "@element-plus/icons" "^0.0.11"
-    "@popperjs/core" "^2.10.2"
-    "@vueuse/core" "^6.7.3"
+    "@ctrl/tinycolor" "^3.4.0"
+    "@element-plus/icons-vue" "^0.2.6"
+    "@popperjs/core" "^2.11.2"
+    "@vueuse/core" "^7.5.5"
     async-validator "^4.0.7"
     dayjs "^1.10.7"
     lodash "^4.17.21"
     memoize-one "^6.0.0"
-    normalize-wheel-es "^1.1.0"
+    normalize-wheel-es "^1.1.1"
 
 elliptic@^6.5.3:
   version "6.5.3"
@@ -7453,10 +7464,10 @@ normalize-url@^3.0.0:
   resolved "https://registry.npm.taobao.org/normalize-url/download/normalize-url-3.3.0.tgz#b2e1c4dc4f7c6d57743df733a4f5978d18650559"
   integrity sha1-suHE3E98bVd0PfczpPWXjRhlBVk=
 
-normalize-wheel-es@^1.1.0:
+normalize-wheel-es@^1.1.1:
   version "1.1.1"
-  resolved "https://registry.npmmirror.com/normalize-wheel-es/download/normalize-wheel-es-1.1.1.tgz#a8096db6a56f94332d884fd8ebeda88f2fc79569"
-  integrity sha1-qAlttqVvlDMtiE/Y6+2ojy/HlWk=
+  resolved "https://registry.npmmirror.com/normalize-wheel-es/-/normalize-wheel-es-1.1.1.tgz#a8096db6a56f94332d884fd8ebeda88f2fc79569"
+  integrity sha512-157VNH4CngrcsvF8xOVOe22cwniIR3nxSltdctvQeHZj8JttEeOXffK28jucWfWBXs0QNetAumjc1GiInnwX4w==
 
 normalize.css@^8.0.1:
   version "8.0.1"

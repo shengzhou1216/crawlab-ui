@@ -1,5 +1,5 @@
 <template>
-  <el-tag :type="type" class="user-role" size="mini">
+  <el-tag :type="type" class="user-role">
     <font-awesome-icon :icon="icon" class="icon"/>
     <span>{{ computedLabel }}</span>
   </el-tag>

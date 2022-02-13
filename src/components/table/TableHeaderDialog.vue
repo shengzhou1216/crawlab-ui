@@ -1,10 +1,10 @@
 <template>
   <el-popover
-      :show-arrow="false"
-      :visible="visible"
-      class="table-header-dialog"
-      popper-class="table-header-popper"
-      trigger="manual"
+    :show-arrow="false"
+    :visible="visible"
+    class="table-header-dialog"
+    popper-class="table-header-popper"
+    trigger="manual"
   >
     <template #reference>
       <div>
@@ -25,40 +25,37 @@
           </div>
           <div v-if="column.hasFilter" class="item filter">
             <TableHeaderDialogFilter
-                :column="column"
-                :conditions="conditions"
-                :search-string="searchString"
-                @change="onFilterChange"
-                @enter="onFilterEnter"
+              :column="column"
+              :conditions="conditions"
+              :search-string="searchString"
+              @change="onFilterChange"
+              @enter="onFilterEnter"
             />
           </div>
         </div>
       </div>
       <div class="footer">
         <Button
-            plain
-            size="mini"
-            :tooltip="t('common.actions.cancel')"
-            type="info"
-            @click="onCancel"
+          plain
+          :tooltip="t('common.actions.cancel')"
+          type="info"
+          @click="onCancel"
         >
           {{ t('common.actions.cancel') }}
         </Button>
         <Button
-            plain
-            size="mini"
-            :tooltip="t('common.actions.clear')"
-            type="warning"
-            @click="onClear"
+          plain
+          :tooltip="t('common.actions.clear')"
+          type="warning"
+          @click="onClear"
         >
           {{ t('common.actions.clear') }}
         </Button>
         <Button
-            :disabled="isApplyDisabled"
-            size="mini"
-            :tooltip="t('common.actions.apply')"
-            type="primary"
-            @click="onApply"
+          :disabled="isApplyDisabled"
+          :tooltip="t('common.actions.apply')"
+          type="primary"
+          @click="onApply"
         >
           {{ t('common.actions.apply') }}
         </Button>

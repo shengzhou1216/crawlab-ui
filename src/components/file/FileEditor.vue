@@ -2,23 +2,22 @@
   <div ref="fileEditor" class="file-editor">
     <div :class="navMenuCollapsed ? 'collapsed' : ''" class="nav-menu">
       <div
-          :style="{
+        :style="{
             backgroundColor: style.backgroundColorGutters,
             color: style.color,
           }"
-          class="nav-menu-top-bar"
+        class="nav-menu-top-bar"
       >
         <div class="left">
           <el-input
-              v-model="fileSearchString"
-              :style="{
+            v-model="fileSearchString"
+            :style="{
                 color: style.color,
               }"
-              class="search"
-              clearable
-              :placeholder="t('components.file.editor.sidebar.search.placeholder')"
-              size="mini"
-              @change="onFileSearch"
+            class="search"
+            clearable
+            :placeholder="t('components.file.editor.sidebar.search.placeholder')"
+            @change="onFileSearch"
           >
             <template #prefix>
               <el-icon class="el-input__icon">
@@ -43,33 +42,33 @@
         </div>
       </div>
       <FileEditorNavMenu
-          :active-item="activeFileItem"
-          :default-expand-all="!!fileSearchString"
-          :default-expanded-keys="defaultExpandedKeys"
-          :items="files"
-          :style="style"
-          @node-click="onNavItemClick"
-          @node-db-click="onNavItemDbClick"
-          @node-drop="onNavItemDrop"
-          @ctx-menu-new-file="onContextMenuNewFile"
-          @ctx-menu-new-directory="onContextMenuNewDirectory"
-          @ctx-menu-rename="onContextMenuRename"
-          @ctx-menu-clone="onContextMenuClone"
-          @ctx-menu-delete="onContextMenuDelete"
-          @drop-files="onDropFiles"
+        :active-item="activeFileItem"
+        :default-expand-all="!!fileSearchString"
+        :default-expanded-keys="defaultExpandedKeys"
+        :items="files"
+        :style="style"
+        @node-click="onNavItemClick"
+        @node-db-click="onNavItemDbClick"
+        @node-drop="onNavItemDrop"
+        @ctx-menu-new-file="onContextMenuNewFile"
+        @ctx-menu-new-directory="onContextMenuNewDirectory"
+        @ctx-menu-rename="onContextMenuRename"
+        @ctx-menu-clone="onContextMenuClone"
+        @ctx-menu-delete="onContextMenuDelete"
+        @drop-files="onDropFiles"
       />
     </div>
     <div class="file-editor-content">
       <FileEditorNavTabs
-          ref="navTabs"
-          :active-tab="activeFileItem"
-          :tabs="tabs"
-          :style="style"
-          @tab-click="onTabClick"
-          @tab-close="onTabClose"
-          @tab-close-others="onTabCloseOthers"
-          @tab-close-all="onTabCloseAll"
-          @tab-dragend="onTabDragEnd"
+        ref="navTabs"
+        :active-tab="activeFileItem"
+        :tabs="tabs"
+        :style="style"
+        @tab-click="onTabClick"
+        @tab-close="onTabClose"
+        @tab-close-others="onTabCloseOthers"
+        @tab-close-all="onTabCloseAll"
+        @tab-dragend="onTabDragEnd"
       >
         <template v-if="navMenuCollapsed" #prefix>
           <el-tooltip :content="t('components.file.editor.sidebar.toggle.showFiles')">
@@ -81,36 +80,36 @@
         </template>
       </FileEditorNavTabs>
       <div
-          ref="codeMirrorEditor"
-          :class="showCodeMirrorEditor ? '' : 'hidden'"
-          :style="{
+        ref="codeMirrorEditor"
+        :class="showCodeMirrorEditor ? '' : 'hidden'"
+        :style="{
             scrollbar: style.backgroundColorGutters,
           }"
-          class="code-mirror-editor"
+        class="code-mirror-editor"
       />
       <div
-          v-show="!showCodeMirrorEditor"
-          :style="{
+        v-show="!showCodeMirrorEditor"
+        :style="{
             backgroundColor: style.backgroundColor,
             color: style.color,
           }"
-          class="empty-content"
+        class="empty-content"
       >
         {{ t('components.file.editor.empty.placeholder') }}
       </div>
       <template v-if="navTabs && navTabs.showMoreVisible">
         <FileEditorNavTabsShowMoreContextMenu
-            :tabs="tabs"
-            :visible="showMoreContextMenuVisible"
-            @hide="onShowMoreHide"
-            @tab-click="onClickShowMoreContextMenuItem"
+          :tabs="tabs"
+          :visible="showMoreContextMenuVisible"
+          @hide="onShowMoreHide"
+          @tab-click="onClickShowMoreContextMenuItem"
         >
           <div
-              :style="{
+            :style="{
                 background: style.backgroundColor,
                 color: style.color,
               }"
-              class="nav-tabs-suffix"
+            class="nav-tabs-suffix"
           >
             <el-tooltip :content="t('components.file.editor.sidebar.showMore')">
               <span class="action-icon" @click.prevent="onShowMoreShow">
@@ -395,23 +394,23 @@ export default defineComponent({
 
     const getFilteredFiles = (items: FileNavItem[]): FileNavItem[] => {
       return items
-          .filter(d => {
-            if (!d.is_dir) {
-              return d.name?.toLowerCase().includes(fileSearchString.value.toLowerCase());
+        .filter(d => {
+          if (!d.is_dir) {
+            return d.name?.toLowerCase().includes(fileSearchString.value.toLowerCase());
+          }
+          if (d.children) {
+            const children = getFilteredFiles(d.children);
+            if (children.length > 0) {
+              return true;
             }
-            if (d.children) {
-              const children = getFilteredFiles(d.children);
-              if (children.length > 0) {
-                return true;
-              }
-            }
-            return false;
-          })
-          .map(d => {
-            if (!d.is_dir) return d;
-            d.children = getFilteredFiles(d.children || []);
-            return d;
-          });
+          }
+          return false;
+        })
+        .map(d => {
+          if (!d.is_dir) return d;
+          d.children = getFilteredFiles(d.children || []);
+          return d;
+        });
     };
 
     const files = computed<FileNavItem[]>(() => {

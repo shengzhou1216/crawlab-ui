@@ -3,15 +3,14 @@
     <div class="title">
       <span>{{ t('components.table.header.dialog.filter.title') }}</span>
       <el-input
-          v-if="column.allowFilterSearch"
-          :model-value="internalSearchString"
-          class="search"
-          :placeholder="t('components.table.header.dialog.filter.search')"
-          :prefix-icon="Search"
-          size="mini"
-          @input="onSearch"
-          @clear="onClear"
-          @keyup.enter="onEnter"
+        v-if="column.allowFilterSearch"
+        :model-value="internalSearchString"
+        class="search"
+        :placeholder="t('components.table.header.dialog.filter.search')"
+        :prefix-icon="Search"
+        @input="onSearch"
+        @clear="onClear"
+        @keyup.enter="onEnter"
       />
       <!--      <el-tooltip content="Add Condition">-->
       <!--        <span class="icon" @click="onAddCondition">-->
@@ -26,10 +25,10 @@
       <template v-if="filteredItems.length > 0">
         <el-checkbox-group v-model="internalItems" class="item-list" @change="onItemsChange">
           <el-checkbox
-              v-for="(item, $index) in filteredItems"
-              :key="$index"
-              :label="item.value"
-              class="item"
+            v-for="(item, $index) in filteredItems"
+            :key="$index"
+            :label="item.value"
+            class="item"
           >
             {{ item.label }}
           </el-checkbox>

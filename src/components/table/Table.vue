@@ -25,7 +25,6 @@
       :height="height"
       :max-height="maxHeight"
       border
-      size="small"
       @selection-change="onSelectionChange"
     >
       <el-table-column

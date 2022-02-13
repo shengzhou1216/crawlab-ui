@@ -11,7 +11,6 @@
         v-model="internalInstallType"
         class="install-type-select"
         type="button"
-        size="small"
         @change="onInstallTypeChange"
       >
         <el-radio-button :label="PLUGIN_INSTALL_TYPE_PUBLIC">

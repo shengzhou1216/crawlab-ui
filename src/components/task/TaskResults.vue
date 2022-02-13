@@ -39,7 +39,7 @@ export default defineComponent({
     size: {
       type: String as PropType<BasicSize>,
       required: false,
-      default: 'mini',
+      default: 'default',
     },
   },
   setup(props: TaskResultsProps, {emit}) {

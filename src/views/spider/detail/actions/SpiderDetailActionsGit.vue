@@ -1,35 +1,35 @@
 <template>
   <NavActionGroup>
     <NavActionFaIcon
-        :icon="['fa', 'code-branch']"
-        :tooltip="t('components.git.actions.title')"
+      :icon="['fa', 'code-branch']"
+      :tooltip="t('components.git.actions.title')"
     />
     <NavActionItem>
       <FaIconButton
-          :icon="['fa', 'download']"
-          :tooltip="t('components.git.actions.tooltip.pull')"
-          type="primary"
-          @click="onClickPull"
+        :icon="['fa', 'download']"
+        :tooltip="t('components.git.actions.tooltip.pull')"
+        type="primary"
+        @click="onClickPull"
       />
       <FaIconButton
-          :icon="['fa', 'upload']"
-          :tooltip="t('components.git.actions.tooltip.commit')"
-          type="success"
-          @click="onClickCommit"
+        :icon="['fa', 'upload']"
+        :tooltip="t('components.git.actions.tooltip.commit')"
+        type="success"
+        @click="onClickCommit"
       />
       <div class="branch">
         <Tag
-            class="branch-label"
-            :label="currentBranch"
-            :icon="['fa','code-branch']"
-            size="small"
-            @click="onBranchClick"
+          class="branch-label"
+          :label="currentBranch"
+          :icon="['fa','code-branch']"
+          size="large"
+          @click="onBranchClick"
         >
           <template #tooltip>
             <span>{{ t('components.git.common.currentBranch') }}:</span>
             <span
-                class="current-branch"
-                style="color: #409eff; margin-left: 5px; font-weight: bolder"
+              class="current-branch"
+              style="color: #409eff; margin-left: 5px; font-weight: bolder"
             >
               {{ currentBranch }}
             </span>

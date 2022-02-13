@@ -1,6 +1,6 @@
 <template>
   <Tag
-      class="task-status"
+      class-name="task-status"
       :key="data"
       :icon="data.icon"
       :label="data.label"
@@ -42,7 +42,7 @@ export default defineComponent({
     size: {
       type: String as PropType<BasicSize>,
       required: false,
-      default: 'mini',
+      default: 'default',
     },
     error: {
       type: String,

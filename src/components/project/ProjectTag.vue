@@ -1,5 +1,5 @@
 <template>
-  <el-tag :color="color" :type="type" class="project-tag" size="mini">
+  <el-tag :color="color" :type="type" class="project-tag">
     <span>{{ label }}</span>
   </el-tag>
 </template>

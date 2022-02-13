@@ -2,40 +2,38 @@
   <div class="tag-input">
     <template v-for="(item, $index) in selectedValue" :key="$index">
       <TagInputItem
-          v-if="item.isEdit"
-          ref="inputItemRef"
-          v-model="selectedValue[$index]"
-          :disabled="disabled"
-          :placeholder="t('components.input.tagInput.tagName')"
-          size="mini"
-          @blur="onBlur($index, $event)"
-          @check="onCheck($index, $event)"
-          @close="onClose($index, $event)"
-          @delete="onDelete($index, $event)"
-          @focus="onFocus($index, $event)"
+        v-if="item.isEdit"
+        ref="inputItemRef"
+        v-model="selectedValue[$index]"
+        :disabled="disabled"
+        :placeholder="t('components.input.tagInput.tagName')"
+        @blur="onBlur($index, $event)"
+        @check="onCheck($index, $event)"
+        @close="onClose($index, $event)"
+        @delete="onDelete($index, $event)"
+        @focus="onFocus($index, $event)"
       />
       <Tag
-          v-else
-          :closable="!disabled"
-          :color="item.color"
-          :disabled="disabled"
-          :label="item.name"
-          clickable
-          size="small"
-          type="plain"
-          @click="onEdit($index, $event)"
-          @close="onDelete($index, $event)"
+        v-else
+        :closable="!disabled"
+        :color="item.color"
+        :disabled="disabled"
+        :label="item.name"
+        clickable
+        type="plain"
+        @click="onEdit($index, $event)"
+        @close="onDelete($index, $event)"
       />
     </template>
 
     <el-tooltip :content="addButtonTooltip" :disabled="!addButtonTooltip">
       <Tab
-          :icon="['fa', 'plus']"
-          :show-close="false"
-          :show-title="false"
-          class="add-btn"
-          :class="disabled ? 'disabled' : ''"
-          @click="onAdd"
+        :icon="['fa', 'plus']"
+        :show-close="false"
+        :show-title="false"
+        class="add-btn"
+        :class="disabled ? 'disabled' : ''"
+        @click="onAdd"
       />
     </el-tooltip>
   </div>

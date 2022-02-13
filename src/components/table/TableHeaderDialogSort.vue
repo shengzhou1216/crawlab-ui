@@ -3,15 +3,15 @@
     <div class="title">
       <span>{{ t('components.table.header.dialog.sort.title') }}</span>
       <el-tooltip
-          v-if="value"
-          :content="t('components.table.header.dialog.sort.clearSort')"
+        v-if="value"
+        :content="t('components.table.header.dialog.sort.clearSort')"
       >
         <span class="icon" @click="onClear">
           <el-icon name="circle-close"/>
         </span>
       </el-tooltip>
     </div>
-    <el-radio-group :model-value="value" size="mini" type="primary" @change="onChange">
+    <el-radio-group :model-value="value" type="primary" @change="onChange">
       <el-radio-button :label="ASCENDING" class="sort-btn">
         <font-awesome-icon :icon="['fa', 'sort-amount-up']"/>
         {{ t('components.table.header.dialog.sort.ascending') }}

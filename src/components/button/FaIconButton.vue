@@ -1,15 +1,15 @@
 <template>
   <Button
-      :circle="circle"
-      :disabled="disabled"
-      :plain="plain"
-      :round="round"
-      :size="size"
-      :tooltip="tooltip"
-      :type="type"
-      is-icon
-      class="fa-icon-button"
-      @click="() => $emit('click')"
+    :circle="circle"
+    :disabled="disabled"
+    :plain="plain"
+    :round="round"
+    :size="size"
+    :tooltip="tooltip"
+    :type="type"
+    is-icon
+    :class-name="cls"
+    @click="() => $emit('click')"
   >
     <font-awesome-icon :icon="icon" :spin="spin"/>
     <div v-if="badgeIcon" class="badge-icon">
@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, PropType} from 'vue';
+import {computed, defineComponent, PropType} from 'vue';
 import {buttonProps} from './Button.vue';
 import Button from '@/components/button/Button.vue';
 
@@ -46,8 +46,19 @@ export default defineComponent({
   emits: [
     'click',
   ],
-  setup() {
-    return {};
+  setup(props: FaIconButtonProps) {
+    const cls = computed<string>(() => {
+      const {className} = props;
+      const classes = [
+        'fa-icon-button',
+      ];
+      if (className) classes.push(className);
+      return classes.join(' ');
+    });
+
+    return {
+      cls,
+    };
   },
 });
 </script>

@@ -41,7 +41,7 @@ export default defineComponent({
             key: JSON.stringify({tooltip, type, size, icon}),
             tooltip: typeof tooltip === 'function' ? tooltip(row) : tooltip,
             type,
-            size,
+            size: size || 'small',
             icon,
             disabled: disabled?.(row),
             onClick: () => {

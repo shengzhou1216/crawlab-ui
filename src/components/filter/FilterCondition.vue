@@ -1,22 +1,20 @@
 <template>
   <div class="filter-condition">
     <el-select
-        :model-value="condition.type"
-        :popper-append-to-body="false"
-        class="filter-condition-type"
-        size="mini"
-        @change="onTypeChange"
+      :model-value="condition.type"
+      :popper-append-to-body="false"
+      class="filter-condition-type"
+      @change="onTypeChange"
     >
       <el-option v-for="op in conditionTypesOptions" :key="op.value" :label="op.label" :value="op.value"/>
     </el-select>
     <el-input
-        :model-value="condition.value"
-        class="filter-condition-value"
-        :class="isInvalidValue ? 'invalid' : ''"
-        size="mini"
-        placeholder="Value"
-        :disabled="condition.type === FILTER_OP_NOT_SET"
-        @input="onValueChange"
+      :model-value="condition.value"
+      class="filter-condition-value"
+      :class="isInvalidValue ? 'invalid' : ''"
+      placeholder="Value"
+      :disabled="condition.type === FILTER_OP_NOT_SET"
+      @input="onValueChange"
     />
     <el-tooltip content="Delete Condition">
       <el-icon class="icon" name="circle-close" @click="onDelete"/>

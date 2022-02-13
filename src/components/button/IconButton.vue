@@ -2,17 +2,17 @@
   <el-tooltip :content="tooltip ? tooltip : undefined">
     <span>
       <el-button
-          :circle="circle"
-          :disabled="disabled"
-          :icon="icon"
-          :plain="plain"
-          :round="round"
-          :size="size"
-          :title="tooltip"
-          :type="type"
-          class="button"
-          style="padding: 7px"
-          @click="() => $emit('click')"
+        :circle="circle"
+        :disabled="disabled"
+        :icon="icon"
+        :plain="plain"
+        :round="round"
+        :size="size"
+        :title="tooltip"
+        :type="type"
+        class="icon-button button"
+        style="padding: 7px"
+        @click="() => $emit('click')"
       />
     </span>
   </el-tooltip>

@@ -1,9 +1,9 @@
 <template>
   <div class="file-editor-settings-dialog">
     <el-dialog
-        :model-value="visible"
-        :title="t('components.file.editor.settings.title')"
-        @close="onClose"
+      :model-value="visible"
+      :title="t('components.file.editor.settings.title')"
+      @close="onClose"
     >
       <el-menu :default-active="activeTabName" class="nav-menu" mode="horizontal" @select="onTabChange">
         <el-menu-item v-for="tab in tabs" :key="tab.name" :index="tab.name">
@@ -11,13 +11,12 @@
         </el-menu-item>
       </el-menu>
       <el-form
-          :label-width="variables.fileEditorSettingsDialogLabelWidth"
-          class="form"
-          size="small"
+        :label-width="variables.fileEditorSettingsDialogLabelWidth"
+        class="form"
       >
         <el-form-item
-            v-for="name in optionNames[activeTabName]"
-            :key="name"
+          v-for="name in optionNames[activeTabName]"
+          :key="name"
         >
           <template #label>
             <el-tooltip :content="getDefinitionDescription(name)" popper-class="help-tooltip" trigger="click">
@@ -29,8 +28,8 @@
         </el-form-item>
       </el-form>
       <template #footer>
-        <el-button plain size="small" type="info" @click="onClose">{{ t('common.actions.cancel') }}</el-button>
-        <el-button size="small" type="primary" @click="onConfirm">{{ t('common.actions.confirm') }}</el-button>
+        <el-button plain type="info" @click="onClose">{{ t('common.actions.cancel') }}</el-button>
+        <el-button type="primary" @click="onConfirm">{{ t('common.actions.confirm') }}</el-button>
       </template>
     </el-dialog>
   </div>

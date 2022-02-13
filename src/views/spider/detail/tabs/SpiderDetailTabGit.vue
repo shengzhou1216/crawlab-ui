@@ -1,19 +1,18 @@
 <template>
   <NavTabs
-      :active-key="activeTabKey"
-      :items="tabItems"
-      @select="onTabSelect"
+    :active-key="activeTabKey"
+    :items="tabItems"
+    @select="onTabSelect"
   >
     <template #extra>
       <div
-          class="actions"
+        class="actions"
       >
         <el-radio-group
-            v-if="activeTabKey === 'references'"
-            v-model="internalGitRefType"
-            size="mini"
-            class="ref-type-select"
-            @change="onRefTypeChange"
+          v-if="activeTabKey === 'references'"
+          v-model="internalGitRefType"
+          class="ref-type-select"
+          @change="onRefTypeChange"
         >
           <el-radio-button :label="GIT_REF_TYPE_BRANCH">
             <el-tooltip :content="t('components.git.references.type.branch')">
@@ -27,31 +26,31 @@
           </el-radio-button>
         </el-radio-group>
         <LabelButton
-            :type="!loading.checkout ? 'primary' : 'warning'"
-            :icon="!loading.checkout ? ['fa', 'code-branch'] : null"
-            :label="t('components.git.actions.label.checkout')"
-            :tooltip="t('components.git.actions.tooltip.checkout')"
-            :disabled="!gitForm.url || !gitForm.auth_type"
-            :loading="loading.checkout"
-            @click="onClickCheckout"
+          :type="!loading.checkout ? 'primary' : 'warning'"
+          :icon="!loading.checkout ? ['fa', 'code-branch'] : null"
+          :label="t('components.git.actions.label.checkout')"
+          :tooltip="t('components.git.actions.tooltip.checkout')"
+          :disabled="!gitForm.url || !gitForm.auth_type"
+          :loading="loading.checkout"
+          @click="onClickCheckout"
         />
         <LabelButton
-            :type="!loading.pull ? 'primary' : 'warning'"
-            :icon="!loading.pull ? ['fa', 'download'] : null"
-            :label="t('components.git.actions.label.pull')"
-            :tooltip="t('components.git.actions.tooltip.pull')"
-            :disabled="!gitForm.url || !gitForm.auth_type"
-            :loading="loading.pull"
-            @click="onClickPull"
+          :type="!loading.pull ? 'primary' : 'warning'"
+          :icon="!loading.pull ? ['fa', 'download'] : null"
+          :label="t('components.git.actions.label.pull')"
+          :tooltip="t('components.git.actions.tooltip.pull')"
+          :disabled="!gitForm.url || !gitForm.auth_type"
+          :loading="loading.pull"
+          @click="onClickPull"
         />
         <LabelButton
-            :type="!loading.commit ? 'success' : 'warning'"
-            :icon="!loading.commit ? ['fa', 'paper-plane'] : null"
-            :label="t('components.git.actions.label.commit')"
-            :tooltip="t('components.git.actions.tooltip.commit')"
-            :disabled="!gitChangeSelection?.length"
-            :loading="loading.commit"
-            @click="onClickCommit"
+          :type="!loading.commit ? 'success' : 'warning'"
+          :icon="!loading.commit ? ['fa', 'paper-plane'] : null"
+          :label="t('components.git.actions.label.commit')"
+          :tooltip="t('components.git.actions.tooltip.commit')"
+          :disabled="!gitChangeSelection?.length"
+          :loading="loading.commit"
+          @click="onClickCommit"
         />
       </div>
     </template>
@@ -64,17 +63,16 @@
     <SpiderDetailTabGitIgnore v-else-if="activeTabKey === 'ignore'"/>
   </div>
   <Dialog
-      :visible="dialogVisible.checkout"
-      title="Checkout"
-      @confirm="onDialogCheckoutConfirm"
-      @close="onDialogCheckoutClose"
+    :visible="dialogVisible.checkout"
+    title="Checkout"
+    @confirm="onDialogCheckoutConfirm"
+    @close="onDialogCheckoutClose"
   >
     <Form ref="checkoutFormRef" :model="checkoutForm">
       <FormItem :span="4" :label="t('components.git.checkout.type')" prop="type" required>
         <el-radio-group
-            v-model="checkoutForm.type"
-            size="small"
-            class="ref-type-select"
+          v-model="checkoutForm.type"
+          class="ref-type-select"
         >
           <el-radio-button :label="GIT_REF_TYPE_BRANCH">
             <font-awesome-icon :icon="['fa', 'code-branch']"/>
@@ -87,12 +85,12 @@
         </el-radio-group>
       </FormItem>
       <FormItem :span="4" :label="t('components.git.checkout.reference')" prop="name" required>
-        <el-select size="small" v-model="checkoutForm.name">
+        <el-select v-model="checkoutForm.name">
           <el-option
-              v-for="(op, $index) in gitRemoteRefs"
-              :key="$index"
-              :label="op.label"
-              :value="op.value"
+            v-for="(op, $index) in gitRemoteRefs"
+            :key="$index"
+            :label="op.label"
+            :value="op.value"
           />
         </el-select>
       </FormItem>
@@ -210,13 +208,13 @@ export default defineComponent({
     };
 
     const gitRemoteRefs = computed<SelectOption[]>(() => state.gitRemoteRefs
-        .filter(d => d.type === gitCheckoutForm.value.type)
-        .map(d => {
-          return {
-            label: d.name,
-            value: d.name,
-          };
-        }) as SelectOption[]);
+      .filter(d => d.type === gitCheckoutForm.value.type)
+      .map(d => {
+        return {
+          label: d.name,
+          value: d.name,
+        };
+      }) as SelectOption[]);
 
     const onDialogCheckoutClose = () => {
       gitDialogVisible.value.checkout = false;

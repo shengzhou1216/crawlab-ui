@@ -1,15 +1,16 @@
 <template>
   <Button
-      :circle="circle"
-      :disabled="disabled"
-      :plain="plain"
-      :round="round"
-      :size="size"
-      :tooltip="tooltip"
-      :type="type"
-      class="label-button"
-      :loading="loading"
-      @click="() => $emit('click')"
+    :circle="circle"
+    :disabled="disabled"
+    :plain="plain"
+    :round="round"
+    :size="size"
+    :is-icon="isIcon"
+    :tooltip="tooltip"
+    :type="type"
+    class-name="label-button"
+    :loading="loading"
+    @click="() => $emit('click')"
   >
     <font-awesome-icon v-if="icon" :icon="icon" class="icon"/>
     {{ label }}
@@ -43,9 +44,4 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.label-button {
-  .icon {
-    margin-right: 3px;
-  }
-}
 </style>

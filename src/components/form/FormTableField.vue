@@ -2,66 +2,61 @@
   <el-form ref="formRef" :model="form" :rules="computedFormRules" inline-message>
     <el-form-item ref="formItemRef" :prop="prop" :required="isRequired">
       <el-input
-          v-if="fieldType === FORM_FIELD_TYPE_INPUT"
-          v-model="internalValue"
-          :placeholder="t(placeholder)"
-          size="mini"
-          :disabled="disabled"
-          @input="onInputChange"
+        v-if="fieldType === FORM_FIELD_TYPE_INPUT"
+        v-model="internalValue"
+        :placeholder="t(placeholder)"
+        :disabled="disabled"
+        @input="onInputChange"
       />
       <el-input
-          v-else-if="fieldType === FORM_FIELD_TYPE_INPUT_PASSWORD"
-          v-model="internalValue"
-          :disabled="disabled"
-          :placeholder="t(placeholder)"
-          size="mini"
-          type="password"
-          @input="onInputChange"
+        v-else-if="fieldType === FORM_FIELD_TYPE_INPUT_PASSWORD"
+        v-model="internalValue"
+        :disabled="disabled"
+        :placeholder="t(placeholder)"
+        type="password"
+        @input="onInputChange"
       />
       <el-input
-          v-else-if="fieldType === FORM_FIELD_TYPE_INPUT_TEXTAREA"
-          v-model="internalValue"
-          :placeholder="t(placeholder)"
-          size="mini"
-          type="textarea"
-          :disabled="disabled"
-          @input="onInputChange"
+        v-else-if="fieldType === FORM_FIELD_TYPE_INPUT_TEXTAREA"
+        v-model="internalValue"
+        :placeholder="t(placeholder)"
+        type="textarea"
+        :disabled="disabled"
+        @input="onInputChange"
       />
       <el-select
-          v-else-if="fieldType === FORM_FIELD_TYPE_SELECT"
-          v-model="internalValue"
-          :placeholder="t(placeholder)"
-          size="mini"
-          :disabled="disabled"
-          @change="onInputChange"
+        v-else-if="fieldType === FORM_FIELD_TYPE_SELECT"
+        v-model="internalValue"
+        :placeholder="t(placeholder)"
+        :disabled="disabled"
+        @change="onInputChange"
       >
         <el-option
-            v-for="op in options"
-            :key="op.value"
-            :label="op.label"
-            :value="op.value"
+          v-for="op in options"
+          :key="op.value"
+          :label="op.label"
+          :value="op.value"
         />
       </el-select>
       <InputWithButton
-          v-else-if="fieldType === FORM_FIELD_TYPE_INPUT_WITH_BUTTON"
-          v-model="internalValue"
-          :placeholder="t(placeholder)"
-          :button-label="t('common.actions.edit')"
-          size="mini"
-          :disabled="disabled"
-          @input="onInputChange"
+        v-else-if="fieldType === FORM_FIELD_TYPE_INPUT_WITH_BUTTON"
+        v-model="internalValue"
+        :placeholder="t(placeholder)"
+        :button-label="t('common.actions.edit')"
+        :disabled="disabled"
+        @input="onInputChange"
       />
       <TagInput
-          v-else-if="fieldType === FORM_FIELD_TYPE_TAG_INPUT"
-          v-model="internalValue"
-          :disabled="disabled"
-          @change="onInputChange"
+        v-else-if="fieldType === FORM_FIELD_TYPE_TAG_INPUT"
+        v-model="internalValue"
+        :disabled="disabled"
+        @change="onInputChange"
       />
       <Switch
-          v-else-if="fieldType === FORM_FIELD_TYPE_SWITCH"
-          v-model="internalValue"
-          :disabled="disabled"
-          @change="onInputChange"
+        v-else-if="fieldType === FORM_FIELD_TYPE_SWITCH"
+        v-model="internalValue"
+        :disabled="disabled"
+        @change="onInputChange"
       />
       <!-- TODO: implement more field types -->
     </el-form-item>

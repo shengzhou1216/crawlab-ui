@@ -89,7 +89,7 @@ export default defineComponent({
     },
     size: {
       type: String as PropType<BasicSize>,
-      default: 'mini',
+      default: 'default',
     },
     disabled: {
       type: Boolean,

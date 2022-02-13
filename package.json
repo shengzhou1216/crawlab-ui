@@ -55,7 +55,7 @@
     "cronstrue": "^1.114.0",
     "dayjs": "^1.10.5",
     "echarts": "^5.1.2",
-    "element-plus": "^1.2.0-beta.3",
+    "element-plus": "^1.3.0-beta.10",
     "font-awesome": "^4.7.0",
     "getos": "^3.2.1",
     "humanize-duration": "^3.26.0",

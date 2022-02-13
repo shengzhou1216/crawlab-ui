@@ -15,10 +15,10 @@
       />
     </div>
     <template #footer>
-      <Button plain size="mini" type="info" @click="onClose">
+      <Button plain type="info" @click="onClose">
         {{ t('common.actions.cancel') }}
       </Button>
-      <Button size="mini" @click="onConfirm">
+      <Button @click="onConfirm">
         {{ t('common.actions.confirm') }}
       </Button>
     </template>

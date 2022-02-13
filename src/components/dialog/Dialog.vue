@@ -15,7 +15,6 @@
       <Button
           class="cancel"
           plain
-          size="mini"
           type="info"
           @click="onClose"
       >
@@ -25,7 +24,6 @@
           class="confirm"
           :disabled="confirmDisabled"
           :loading="confirmLoading"
-          size="mini"
           type="primary"
           @click="onConfirm"
       >

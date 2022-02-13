@@ -193,7 +193,7 @@ const useSpiderList = () => {
       buttons: [
         {
           type: 'success',
-          size: 'mini',
+          size: 'small',
           icon: ['fa', 'play'],
           tooltip: t('common.actions.run'),
           onClick: (row) => {
@@ -205,7 +205,7 @@ const useSpiderList = () => {
         },
         {
           type: 'primary',
-          size: 'mini',
+          size: 'small',
           icon: ['fa', 'search'],
           tooltip: t('common.actions.view'),
           onClick: (row) => {
@@ -216,7 +216,7 @@ const useSpiderList = () => {
         },
         // {
         //   type: 'info',
-        //   size: 'mini',
+        //   size: 'small',
         //   icon: ['fa', 'clone'],
         //   tooltip: t('common.actions.clone'),
         //   onClick: (row) => {
@@ -225,7 +225,7 @@ const useSpiderList = () => {
         // },
         {
           type: 'danger',
-          size: 'mini',
+          size: 'small',
           icon: ['fa', 'trash-alt'],
           tooltip: t('common.actions.delete'),
           onClick: deleteByIdConfirm,
@@ -241,7 +241,7 @@ const useSpiderList = () => {
       // {
       //   buttonType: 'fa-icon',
       //   tooltip: 'Run',
-      //   size: 'mini',
+      //   size: 'small',
       //   icon: ['fa', 'play'],
       //   type: 'success',
       //   disabled: (table: typeof Table) => {

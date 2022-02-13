@@ -33,7 +33,7 @@ import {computed, defineComponent, PropType, provide, ref, SetupContext, watch} 
 import CreateDialogContentBatch from '@/components/dialog/CreateDialogContentBatch.vue';
 import Dialog from '@/components/dialog/Dialog.vue';
 import {emptyArrayFunc, emptyObjectFunc} from '@/utils/func';
-import {Pane} from 'element-plus/lib/components/tabs/src/token.d';
+import {TabsPaneContext} from 'element-plus/lib/tokens/tabs.d';
 import {useI18n} from 'vue-i18n';
 import {sendEvent} from '@/admin/umeng';
 
@@ -128,8 +128,8 @@ export default defineComponent({
     };
 
     const internalTabName = ref<CreateEditTabName>('single');
-    const onTabChange = (tab: Pane) => {
-      const tabName = tab.paneName as unknown as CreateEditTabName;
+    const onTabChange = (tab: TabsPaneContext) => {
+      const tabName = tab.paneName as CreateEditTabName;
       const {actionFunctions} = props;
       actionFunctions?.onTabChange?.(tabName);
 

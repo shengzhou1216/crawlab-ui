@@ -35,7 +35,7 @@ export default defineComponent({
     },
     size: {
       type: String,
-      default: 'mini',
+      default: 'default',
     },
     grid: {
       type: Number,

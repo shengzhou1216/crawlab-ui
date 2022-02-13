@@ -1,61 +1,59 @@
 <template>
   <Dialog
-      :title="t('components.plugin.settings.title')"
-      :visible="activeDialogKey === 'settings'"
-      @close="onClose"
-      @confirm="onConfirm"
+    :title="t('components.plugin.settings.title')"
+    :visible="activeDialogKey === 'settings'"
+    @close="onClose"
+    @confirm="onConfirm"
   >
     <Form class="settings-form" :model="settings.value">
       <FormItem
-          :span="2"
-          :offset="2"
-          :label="t('components.plugin.settings.label.installSource')"
-          prop="plugin_base_url"
+        :span="2"
+        :offset="2"
+        :label="t('components.plugin.settings.label.installSource')"
+        prop="plugin_base_url"
       >
         <el-select
-            v-model="settings.value.plugin_base_url"
-            size="small"
-            :placeholder="t('components.plugin.settings.label.installSource')"
+          v-model="settings.value.plugin_base_url"
+          :placeholder="t('components.plugin.settings.label.installSource')"
         >
           <el-option
-              v-for="(op, $index) in baseUrlOptions"
-              :key="$index"
-              :label="op.label"
-              :value="op.value"
+            v-for="(op, $index) in baseUrlOptions"
+            :key="$index"
+            :label="op.label"
+            :value="op.value"
           />
         </el-select>
       </FormItem>
       <FormItem
-          :span="4"
-          label=" "
+        :span="4"
+        label=" "
       >
         <el-alert class="alert-tip" type="info" :closable="false" show-icon>
           {{ t('components.plugin.settings.tips.installSource') }}
         </el-alert>
       </FormItem>
       <FormItem
-          :span="2"
-          :offset="2"
-          :label="t('components.plugin.settings.label.goProxy')"
-          prop="plugin_base_url"
+        :span="2"
+        :offset="2"
+        :label="t('components.plugin.settings.label.goProxy')"
+        prop="plugin_base_url"
       >
         <el-select
-            v-model="settings.value.go_proxy"
-            size="small"
-            :placeholder="t('components.plugin.settings.label.goProxy')"
-            clearable
+          v-model="settings.value.go_proxy"
+          :placeholder="t('components.plugin.settings.label.goProxy')"
+          clearable
         >
           <el-option
-              v-for="(op, $index) in goproxyOptions"
-              :key="$index"
-              :label="op.label"
-              :value="op.value"
+            v-for="(op, $index) in goproxyOptions"
+            :key="$index"
+            :label="op.label"
+            :value="op.value"
           />
         </el-select>
       </FormItem>
       <FormItem
-          :span="4"
-          label=" "
+        :span="4"
+        label=" "
       >
         <el-alert class="alert-tip" type="info" :closable="false" show-icon>
           {{ t('components.plugin.settings.tips.goProxy') }}

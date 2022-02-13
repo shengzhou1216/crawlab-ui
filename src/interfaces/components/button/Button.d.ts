@@ -9,4 +9,6 @@ interface ButtonProps {
   isIcon?: boolean;
   loading?: boolean;
   onClick?: () => void;
+  className?: string;
+  noMargin?: boolean;
 }

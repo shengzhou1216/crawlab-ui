@@ -8,26 +8,26 @@
     </span>
 
     <TableHeaderDialog
-        v-if="hasDialog"
-        :action-status-map="actionStatusMap"
-        :column="column"
-        :visible="dialogVisible"
-        :filter="filterData"
-        :sort="sortData"
-        @apply="onDialogApply"
-        @clear="onDialogClear"
-        @cancel="onDialogCancel"
+      v-if="hasDialog"
+      :action-status-map="actionStatusMap"
+      :column="column"
+      :visible="dialogVisible"
+      :filter="filterData"
+      :sort="sortData"
+      @apply="onDialogApply"
+      @clear="onDialogClear"
+      @cancel="onDialogCancel"
     >
       <template #reference>
         <div class="actions">
           <TableHeaderAction
-              v-for="{key, tooltip, isHtml, icon, onClick} in actions"
-              :key="key + JSON.stringify(icon)"
-              :icon="icon"
-              :status="actionStatusMap[key]"
-              :tooltip="tooltip"
-              :is-html="isHtml"
-              @click="onClick"
+            v-for="{key, tooltip, isHtml, icon, onClick} in actions"
+            :key="key + JSON.stringify(icon)"
+            :icon="icon"
+            :status="actionStatusMap[key]"
+            :tooltip="tooltip"
+            :is-html="isHtml"
+            @click="onClick"
           />
         </div>
       </template>
@@ -122,8 +122,8 @@ export default defineComponent({
         // filter conditions
         if (conditions && conditions.length > 0) {
           filterTooltip += '<br>' + conditions.filter(d => d.op !== FILTER_OP_NOT_SET)
-              .map(d => `<span style="color: ${variables.primaryColor};margin-right: 5px">${conditionTypesMap[d.op || '']}:</span> <span style="color: ${variables.warningColor};">"${d.value}"</span>`)
-              .join('<br>');
+            .map(d => `<span style="color: ${variables.primaryColor};margin-right: 5px">${conditionTypesMap[d.op || '']}:</span> <span style="color: ${variables.warningColor};">"${d.value}"</span>`)
+            .join('<br>');
           filterIsHtml = true;
         }
 
@@ -274,7 +274,7 @@ export default defineComponent({
 
     .label-icon {
       color: $infoMediumLightColor;
-      font-size: 8px;
+      font-size: 10px;
       margin-right: 5px;
     }
   }

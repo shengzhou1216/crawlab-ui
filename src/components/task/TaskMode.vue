@@ -1,6 +1,6 @@
 <template>
   <el-tooltip :content="tooltip">
-    <el-tag :type="type" class="task-mode" size="mini">
+    <el-tag :type="type" class="task-mode">
       <font-awesome-icon :icon="icon" class="icon"/>
       <span>{{ label }}</span>
     </el-tag>

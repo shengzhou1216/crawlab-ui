@@ -4,22 +4,22 @@
       <!-- Nav Actions -->
       <NavActions v-if="!noActions" ref="navActions" class="nav-actions">
         <NavActionGroup
-            v-for="(grp, i) in navActions"
-            :key="i"
+          v-for="(grp, i) in navActions"
+          :key="i"
         >
           <NavActionItem
-              v-for="(btn, j) in grp.children"
-              :key="j"
+            v-for="(btn, j) in grp.children"
+            :key="j"
           >
             <NavActionButton
-                :button-type="btn.buttonType"
-                :disabled="btn.disabled"
-                :icon="btn.icon"
-                :label="btn.label"
-                :size="btn.size"
-                :tooltip="btn.tooltip"
-                :type="btn.type"
-                @click="btn.onClick"
+              :button-type="btn.buttonType"
+              :disabled="btn.disabled"
+              :icon="btn.icon"
+              :label="btn.label"
+              :size="btn.size"
+              :tooltip="btn.tooltip"
+              :type="btn.type"
+              @click="btn.onClick"
             />
           </NavActionItem>
         </NavActionGroup>
@@ -29,50 +29,50 @@
 
       <!-- Table -->
       <Table
-          ref="tableRef"
-          :key="tableColumnsHash"
-          :columns="tableColumns"
-          :data="tableData"
-          :total="tableTotal"
-          :page="tablePagination.page"
-          :page-size="tablePagination.size"
-          selectable
-          :selectable-function="selectableFunction"
-          :visible-buttons="visibleButtons"
-          :pagination-layout="tablePaginationLayout"
-          :loading="tableLoading"
-          @selection-change="onSelect"
-          @delete="onDelete"
-          @edit="onEdit"
-          @pagination-change="onPaginationChange"
-          @header-change="onHeaderChange"
+        ref="tableRef"
+        :key="tableColumnsHash"
+        :columns="tableColumns"
+        :data="tableData"
+        :total="tableTotal"
+        :page="tablePagination.page"
+        :page-size="tablePagination.size"
+        selectable
+        :selectable-function="selectableFunction"
+        :visible-buttons="visibleButtons"
+        :pagination-layout="tablePaginationLayout"
+        :loading="tableLoading"
+        @selection-change="onSelect"
+        @delete="onDelete"
+        @edit="onEdit"
+        @pagination-change="onPaginationChange"
+        @header-change="onHeaderChange"
       >
         <template #actions-prefix>
           <NavActionButton
-              v-for="(btn, $index) in tableActionsPrefix"
-              :key="$index"
-              :button-type="btn.buttonType"
-              :disabled="getNavActionButtonDisabled(btn)"
-              :icon="btn.icon"
-              :label="btn.label"
-              :size="btn.size"
-              :tooltip="btn.tooltip"
-              :type="btn.type"
-              @click="btn.onClick"
+            v-for="(btn, $index) in tableActionsPrefix"
+            :key="$index"
+            :button-type="btn.buttonType"
+            :disabled="getNavActionButtonDisabled(btn)"
+            :icon="btn.icon"
+            :label="btn.label"
+            :size="btn.size"
+            :tooltip="btn.tooltip"
+            :type="btn.type"
+            @click="btn.onClick"
           />
         </template>
         <template #actions-suffix>
           <NavActionButton
-              v-for="(btn, $index) in tableActionsSuffix"
-              :key="$index"
-              :button-type="btn.buttonType"
-              :disabled="btn.disabled"
-              :icon="btn.icon"
-              :label="btn.label"
-              :size="btn.size"
-              :tooltip="btn.tooltip"
-              :type="btn.type"
-              @click="btn.onClick"
+            v-for="(btn, $index) in tableActionsSuffix"
+            :key="$index"
+            :button-type="btn.buttonType"
+            :disabled="btn.disabled"
+            :icon="btn.icon"
+            :label="btn.label"
+            :size="btn.size"
+            :tooltip="btn.tooltip"
+            :type="btn.type"
+            @click="btn.onClick"
           />
         </template>
       </Table>

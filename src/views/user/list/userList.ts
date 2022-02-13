@@ -105,7 +105,7 @@ const useUserList = () => {
         },
         {
           type: 'danger',
-          size: 'mini',
+          size: 'small',
           icon: ['fa', 'trash-alt'],
           tooltip: (row: User) => row.username === USERNAME_ADMIN ? t('components.user.delete.tooltip.adminUserNonDeletable') : t('common.actions.delete'),
           disabled: (row: User) => row.username === USERNAME_ADMIN,

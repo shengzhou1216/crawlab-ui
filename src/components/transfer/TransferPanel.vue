@@ -24,7 +24,6 @@
           class="search"
           :placeholder="t('common.actions.search')"
           :prefix-icon="Search"
-          size="mini"
         />
         <template v-if="items.length > 0">
           <el-checkbox-group

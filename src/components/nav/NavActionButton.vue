@@ -3,6 +3,7 @@
       v-if="buttonType === 'label'"
       :disabled="disabled"
       :icon="icon"
+      :is-icon="!!icon"
       :label="label"
       :size="size"
       :tooltip="tooltip"

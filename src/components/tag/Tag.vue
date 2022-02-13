@@ -52,7 +52,7 @@ export const tagProps = {
   },
   size: {
     type: String,
-    default: 'mini',
+    default: 'default',
   },
   spinning: {
     type: Boolean,
@@ -78,6 +78,9 @@ export const tagProps = {
   },
   tag: {
     type: Object as PropType<Tag>,
+  },
+  className: {
+    type: String,
   },
 };
 
@@ -111,11 +114,12 @@ export default defineComponent({
     };
 
     const cls = computed<string[]>(() => {
-      const {clickable, disabled, label, tag} = props;
+      const {clickable, disabled, label, tag, className} = props;
       const cls = [] as string[];
       if (clickable) cls.push('clickable');
       if (disabled) cls.push('disabled');
       if (!label && !tag?.name) cls.push('no-label');
+      if (className) cls.push(className);
       return cls;
     });
 

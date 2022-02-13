@@ -201,7 +201,7 @@ const useNodeList = () => {
         },
         // {
         //   type: 'info',
-        //   size: 'mini',
+        //   size: 'small',
         //   icon: ['fa', 'clone'],
         //   tooltip: 'Clone',
         //   onClick: (row) => {
@@ -210,7 +210,7 @@ const useNodeList = () => {
         // },
         {
           type: 'danger',
-          size: 'mini',
+          size: 'small',
           icon: ['fa', 'trash-alt'],
           tooltip: t('common.actions.delete'),
           disabled: (row: Node) => !!row.active,

@@ -185,7 +185,7 @@ const usePluginList = () => {
           },
           {
             type: 'info',
-            size: 'mini',
+            size: 'small',
             icon: ['fa', 'stop'],
             tooltip: t('common.actions.stop'),
             onClick: async (row) => {
@@ -240,7 +240,7 @@ const usePluginList = () => {
           },
           {
             type: 'danger',
-            size: 'mini',
+            size: 'small',
             icon: ['fa', 'trash-alt'],
             tooltip: t('common.actions.delete'),
             disabled: (row: Plugin) => !!row.active,

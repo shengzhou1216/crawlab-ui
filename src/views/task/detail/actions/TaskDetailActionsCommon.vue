@@ -2,30 +2,30 @@
   <NavActionGroup class="task-detail-actions-common">
     <NavActionFaIcon :icon="['fa', 'tools']"/>
     <NavActionItem>
-      <TaskStatus :status="form.status" size="normal"/>
+      <TaskStatus :status="form.status" size="large"/>
     </NavActionItem>
     <NavActionItem>
       <FaIconButton
-          :icon="['fa', 'redo']"
-          :tooltip="t('common.actions.restart')"
-          type="warning"
-          @click="onRestart"
+        :icon="['fa', 'redo']"
+        :tooltip="t('common.actions.restart')"
+        type="warning"
+        @click="onRestart"
       />
     </NavActionItem>
     <NavActionItem>
       <FaIconButton
-          v-if="cancellable"
-          :icon="['fa', 'pause']"
-          :tooltip="t('common.actions.cancel')"
-          type="info"
-          @click="onCancel"
+        v-if="cancellable"
+        :icon="['fa', 'pause']"
+        :tooltip="t('common.actions.cancel')"
+        type="info"
+        @click="onCancel"
       />
       <FaIconButton
-          v-else
-          :icon="['fa', 'trash-alt']"
-          :tooltip="t('common.actions.delete')"
-          type="danger"
-          @click="onDelete"
+        v-else
+        :icon="['fa', 'trash-alt']"
+        :tooltip="t('common.actions.delete')"
+        type="danger"
+        @click="onDelete"
       />
     </NavActionItem>
   </NavActionGroup>

@@ -1,18 +1,18 @@
 <template>
   <el-tooltip :content="tooltip" :disabled="!tooltip">
-    <span :class="[noMargin ? 'no-margin' : '']" class="button-wrapper">
+    <span
+      :class="cls"
+    >
       <el-button
-          :circle="circle"
-          :class="[isIcon ? 'icon-button' : '']"
-          :disabled="disabled"
-          :plain="plain"
-          :round="round"
-          :size="size"
-          :title="tooltip"
-          :type="type"
-          :loading="loading"
-          class="button"
-          @click="() => $emit('click')"
+        :circle="circle"
+        :disabled="disabled"
+        :plain="plain"
+        :round="round"
+        :size="size"
+        :title="tooltip"
+        :type="type"
+        :loading="loading"
+        @click="() => $emit('click')"
       >
         <slot></slot>
       </el-button>
@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, PropType} from 'vue';
+import {computed, defineComponent, PropType} from 'vue';
 
 export const buttonProps = {
   tooltip: {
@@ -37,7 +37,7 @@ export const buttonProps = {
   size: {
     type: String as PropType<BasicSize>,
     required: false,
-    default: 'mini',
+    default: 'default',
   },
   round: {
     type: Boolean,
@@ -73,7 +73,12 @@ export const buttonProps = {
     type: Boolean,
     required: false,
     default: false,
-  }
+  },
+  className: {
+    type: String,
+    required: false,
+    default: '',
+  },
 };
 
 export default defineComponent({
@@ -82,8 +87,21 @@ export default defineComponent({
   emits: [
     'click',
   ],
-  setup(props) {
-    return {};
+  setup(props: ButtonProps) {
+    const cls = computed<string>(() => {
+      const {noMargin, className, isIcon} = props;
+      const classes = [
+        'button-wrapper',
+      ];
+      if (noMargin) classes.push('no-margin');
+      if (isIcon) classes.push('icon-button');
+      if (className) classes.push(className);
+      return classes.join(' ');
+    });
+
+    return {
+      cls,
+    };
   },
 });
 </script>
@@ -96,11 +114,25 @@ export default defineComponent({
   &.no-margin {
     margin-right: 0;
   }
+
+  .el-button {
+    vertical-align: inherit;
+  }
 }
 </style>
 
 <style scoped>
 .button-wrapper >>> .icon-button {
   padding: 7px;
+}
+
+.button-wrapper.label-button >>> .icon,
+.button-wrapper.icon-button >>> .icon {
+  margin-right: 5px;
+}
+
+.button-wrapper.fa-icon-button >>> .el-button--small {
+  width: 32px;
+  height: 32px;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <el-tag :type="type" class="node-active" size="mini">
+  <el-tag :type="type" class="node-active">
     <font-awesome-icon :icon="icon" class="icon"/>
     <span>{{ label }}</span>
   </el-tag>

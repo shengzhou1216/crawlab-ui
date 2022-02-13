@@ -5,50 +5,49 @@
     <!--        v-if="showButton(ACTION_ADD)"-->
     <!--        :icon="['fa', 'plus']"-->
     <!--        class="action-btn"-->
-    <!--        size="mini"-->
     <!--        tooltip="Add"-->
     <!--        type="success"-->
     <!--        :disabled="selection.length === 0"-->
     <!--        @click="onAdd"-->
     <!--    />-->
     <FaIconButton
-        v-if="showButton(ACTION_EDIT)"
-        :disabled="selection.length === 0"
-        :icon="['fa', 'edit']"
-        class="action-btn"
-        size="mini"
-        :tooltip="t('components.table.actions.editSelected')"
-        type="warning"
-        @click="onEdit"
+      v-if="showButton(ACTION_EDIT)"
+      :disabled="selection.length === 0"
+      :icon="['fa', 'edit']"
+      class="action-btn"
+      size="small"
+      :tooltip="t('components.table.actions.editSelected')"
+      type="warning"
+      @click="onEdit"
     />
     <FaIconButton
-        v-if="showButton(ACTION_DELETE)"
-        :disabled="selection.length === 0"
-        :icon="['fa', 'trash-alt']"
-        class="action-btn"
-        size="mini"
-        :tooltip="t('components.table.actions.deleteSelected')"
-        type="danger"
-        @click="onDelete"
+      v-if="showButton(ACTION_DELETE)"
+      :disabled="selection.length === 0"
+      :icon="['fa', 'trash-alt']"
+      class="action-btn"
+      size="small"
+      :tooltip="t('components.table.actions.deleteSelected')"
+      type="danger"
+      @click="onDelete"
     />
     <FaIconButton
-        v-if="showButton(TABLE_ACTION_EXPORT)"
-        :icon="['fa', 'file-export']"
-        class="action-btn"
-        size="mini"
-        :tooltip="`${t('components.table.actions.export')} (${t('common.status.currentlyUnavailable')})`"
-        type="primary"
-        disabled
-        @click="onExport"
+      v-if="showButton(TABLE_ACTION_EXPORT)"
+      :icon="['fa', 'file-export']"
+      class="action-btn"
+      size="small"
+      :tooltip="`${t('components.table.actions.export')} (${t('common.status.currentlyUnavailable')})`"
+      type="primary"
+      disabled
+      @click="onExport"
     />
     <FaIconButton
-        v-if="showButton(TABLE_ACTION_CUSTOMIZE_COLUMNS)"
-        :icon="['fa', 'arrows-alt']"
-        class="action-btn"
-        size="mini"
-        :tooltip="t('components.table.actions.customizeColumns')"
-        type="primary"
-        @click="onCustomizeColumns"
+      v-if="showButton(TABLE_ACTION_CUSTOMIZE_COLUMNS)"
+      :icon="['fa', 'arrows-alt']"
+      class="action-btn"
+      size="small"
+      :tooltip="t('components.table.actions.customizeColumns')"
+      type="primary"
+      @click="onCustomizeColumns"
     />
     <slot name="suffix"></slot>
   </div>

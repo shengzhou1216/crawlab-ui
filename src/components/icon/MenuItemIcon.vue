@@ -29,7 +29,7 @@ export default defineComponent({
     },
     size: {
       type: String as PropType<IconSize>,
-      default: 'mini',
+      default: 'default',
     }
   },
   setup(props: MenuItemIconProps) {

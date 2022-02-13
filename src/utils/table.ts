@@ -83,7 +83,7 @@ export const getActionColumn = (endpoint: string, ns: ListStoreNamespace, action
       case ACTION_CLONE:
         buttons.push({
           type: 'info',
-          size: 'mini',
+          size: 'small',
           icon: ['fa', 'clone'],
           tooltip: t('common.actions.clone'),
           onClick: (row: BaseModel) => {
@@ -97,7 +97,7 @@ export const getActionColumn = (endpoint: string, ns: ListStoreNamespace, action
       case ACTION_DELETE:
         buttons.push({
           type: 'danger',
-          size: 'mini',
+          size: 'small',
           icon: ['fa', 'trash-alt'],
           tooltip: t('common.actions.delete'),
           onClick: async (row: BaseModel) => {
@@ -120,7 +120,7 @@ export const getActionColumn = (endpoint: string, ns: ListStoreNamespace, action
       case ACTION_RUN:
         buttons.push({
           type: 'success',
-          size: 'mini',
+          size: 'small',
           icon: ['fa', 'play'],
           tooltip: 'Run',
           onClick: async (row: BaseModel) => {
@@ -134,7 +134,7 @@ export const getActionColumn = (endpoint: string, ns: ListStoreNamespace, action
       case ACTION_CANCEL:
         buttons.push({
           type: 'info',
-          size: 'mini',
+          size: 'small',
           icon: ['fa', 'pause'],
           tooltip: 'Cancel',
           onClick: async (row: BaseModel) => {

@@ -13,6 +13,7 @@ interface TagProps {
   closable?: boolean;
   disabled?: boolean;
   tag?: Tag;
+  className?: string;
 }
 
 type TagData = TagProps;
