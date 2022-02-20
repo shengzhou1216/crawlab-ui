@@ -1,6 +1,10 @@
 const global: LGlobal = {
   lang: 'English',
-  community: 'Community',
+  edition: {
+    community: 'Community',
+    pro: 'Pro',
+    enterprise: 'Enterprise',
+  },
   title: 'Crawlab | Distributed Web Crawler Platform',
 };
 

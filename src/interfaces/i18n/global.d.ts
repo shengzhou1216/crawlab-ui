@@ -1,5 +1,9 @@
 interface LGlobal {
   lang: string;
-  community: string;
+  edition: {
+    community: string;
+    pro: string;
+    enterprise: string;
+  };
   title: string;
 }

@@ -4,7 +4,8 @@
   </el-config-provider>
 </template>
 <script lang="ts">
-import {computed, defineComponent} from 'vue';
+import {computed, defineComponent, onBeforeMount} from 'vue';
+import {useStore} from 'vuex';
 import en from 'element-plus/lib/locale/lang/en';
 import zh from 'element-plus/lib/locale/lang/zh-cn';
 import i18n from '@/i18n';
@@ -12,9 +13,18 @@ import i18n from '@/i18n';
 export default defineComponent({
   name: 'App',
   setup() {
+    // store
+    const store = useStore();
+
+    // locale
     const locale = computed(() => {
       const lang = i18n.global.locale.value;
       return lang === 'zh' ? zh : en;
+    });
+
+    onBeforeMount(() => {
+      // system info
+      store.dispatch('common/getSystemInfo');
     });
 
     return {

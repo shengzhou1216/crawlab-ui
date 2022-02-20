@@ -20,10 +20,10 @@
         <span class="logo-title">Crawlab</span>
         <span class="logo-sub-title">
           <div class="logo-sub-title-block">
-            {{ t('global.community') }}
+            {{ t(systemInfo.edition || '') }}
           </div>
           <div class="logo-sub-title-block">
-            v0.6.0
+            {{ systemInfo.version }}
           </div>
         </span>
       </div>
@@ -112,11 +112,14 @@ export default defineComponent({
 
     const store = useStore();
 
-    const {layout} = store.state as RootStoreState;
+    const {
+      common: commonState,
+      layout: layoutState,
+    } = store.state as RootStoreState;
 
     const storeNamespace = 'layout';
 
-    const sidebarCollapsed = computed<boolean>(() => layout.sidebarCollapsed);
+    const sidebarCollapsed = computed<boolean>(() => layoutState.sidebarCollapsed);
 
     const menuItems = computed<MenuItem[]>(() => store.getters['layout/sidebarMenuItems']);
 
@@ -173,6 +176,8 @@ export default defineComponent({
       store.commit(`${storeNamespace}/setSideBarCollapsed`, !sidebarCollapsed.value);
     };
 
+    const systemInfo = computed<SystemInfo>(() => commonState.systemInfo || {});
+
     return {
       sidebarCollapsed,
       toggleIcon,
@@ -182,6 +187,7 @@ export default defineComponent({
       openedIndexes,
       onMenuItemClick,
       toggleSidebar,
+      systemInfo,
       ...variables,
       t,
     };

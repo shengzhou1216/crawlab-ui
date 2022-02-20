@@ -2,10 +2,7 @@ import {ActionContext, ActionTree, GetterTree, Module, MutationTree, Store} from
 
 declare global {
   interface RootStoreState {
-    /**
-     * @deprecated
-     */
-    login: LoginStoreState;
+    common: CommonStoreState;
     layout: LayoutStoreState;
     node: NodeStoreState;
     project: ProjectStoreState;
