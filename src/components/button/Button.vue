@@ -128,7 +128,7 @@ export default defineComponent({
 
 .button-wrapper.label-button >>> .icon,
 .button-wrapper.icon-button >>> .icon {
-  margin-right: 5px;
+  width: 20px;
 }
 
 .button-wrapper.fa-icon-button >>> .el-button--small {

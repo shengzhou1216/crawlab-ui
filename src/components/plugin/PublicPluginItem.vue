@@ -1,11 +1,11 @@
 <template>
   <div
-      class="public-plugin-item"
-      :class="[
+    class="public-plugin-item"
+    :class="[
         active ? 'active' : '',
         clickable ? 'clickable' : '',
       ]"
-      @click="onClick"
+    @click="onClick"
   >
     <div class="container">
       <div class="image-wrapper">
@@ -19,12 +19,12 @@
       </div>
       <div class="actions-wrapper">
         <LabelButton
-            :type="type"
-            :icon="icon"
-            :loading="loading"
-            :label="label"
-            :disabled="disabled"
-            @click="onInstall"
+          :type="type"
+          :icon="icon"
+          :loading="loading"
+          :label="label"
+          :disabled="disabled"
+          @click="onInstall"
         />
       </div>
     </div>
