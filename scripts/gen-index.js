@@ -2,6 +2,8 @@ const path = require('path')
 const fs = require('fs')
 const rd = require('rd')
 
+const INDEX_COMP_NAME = 'index'
+
 const IGNORE_COMPONENTS_SUB_MODULES = [
   // 'node',
   // 'project',
@@ -13,18 +15,19 @@ const IGNORE_COMPONENTS_SUB_MODULES = [
   // 'user',
   // 'token',
   // 'plugin',
+  // 'git',
+  // 'file',
 ]
 
 const EXPORT_MODULES = [
   'components',
-  'constants',
+  // 'constants',
   'directives',
   'layouts',
-  'router',
-  'services',
-  'store',
-  'utils',
-  'views',
+  // 'services',
+  // 'store',
+  // 'utils',
+  // 'views',
 ]
 
 const COMPONENT_PREFIX = 'Cl'
@@ -39,33 +42,52 @@ const genIndex = (moduleName) => {
 
   // read each file
   rd.eachSync(modulePath, (f, s) => {
-    // skip non-vue files
-    if (!f.endsWith('.vue')) return
-
     // relative path
     const relPath = `.${f.replace(modulePath, '')}`
 
     // file name
     const fileName = path.basename(f)
 
-    // component name
-    const compName = fileName.replace('.vue', '')
+    // vue
+    if (f.endsWith('.vue')) {
+      // component name
+      const compName = fileName.replace('.vue', '')
 
-    // skip ignored components sub-modules
-    if (moduleName === 'components') {
-      const subModuleName = relPath.split('/')[1]
-      if (IGNORE_COMPONENTS_SUB_MODULES.includes(subModuleName)) return
+      // skip ignored components sub-modules
+      if (moduleName === 'components') {
+        const subModuleName = relPath.split('/')[1]
+        if (IGNORE_COMPONENTS_SUB_MODULES.includes(subModuleName)) return
+      }
+
+      // import line
+      const importLine = `import ${compName} from '${relPath}';`
+
+      // export line
+      const exportLine = `${compName} as ${COMPONENT_PREFIX}${compName},`
+
+      // add to importLines/exportLines
+      importLines.push(importLine)
+      exportLines.push(exportLine)
+    } else if (f.endsWith('.ts')) {
+      // component name
+      const compName = fileName.replace('.ts', '')
+
+      // skip index
+      if (compName === INDEX_COMP_NAME) return
+
+      // relative component name
+      const relCompName = relPath.replace('.ts', '')
+
+      // import line
+      const importLine = `import ${compName} from '${relCompName}';`
+
+      // export line
+      const exportLine = `${compName} as ${compName},`
+
+      // add to importLines/exportLines
+      importLines.push(importLine)
+      exportLines.push(exportLine)
     }
-
-    // import line
-    const importLine = `import ${compName} from '${relPath}';`
-
-    // export line
-    const exportLine = `${compName} as ${COMPONENT_PREFIX}${compName},`
-
-    // add to importLines/exportLines
-    importLines.push(importLine)
-    exportLines.push(exportLine)
   })
 
   // write to index.ts
@@ -82,6 +104,7 @@ ${exportLines.map(l => '  ' + l).join('\n')}
 const genRootIndex = () => {
   const exportLines = EXPORT_MODULES.map(m => `export * from './${m}';`)
   const content = `${exportLines.join('\n')}
+export * from './router';
 export * from './package';
 export {installer as default} from './package';
 export {default as useRequest} from './services/request';
