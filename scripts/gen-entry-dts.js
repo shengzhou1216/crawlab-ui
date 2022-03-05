@@ -2,11 +2,11 @@ const path = require('path')
 const fs = require('fs')
 const chalk = require('chalk')
 const glob = require('fast-glob')
-const { Project } = require('ts-morph')
-const { epRoot, buildOutput } = require('./paths')
+const {Project} = require('ts-morph')
+const {epRoot, buildOutput} = require('./paths')
 const TSCONFIG_PATH = path.resolve(__dirname, '../tsconfig.json')
 
-const gen = async() => {
+const gen = async () => {
   const files = await glob(epRoot + '/*.ts')
   const project = new Project({
     compilerOptions: {
@@ -19,7 +19,6 @@ const gen = async() => {
       esModuleInterop: true,
       target: 99, // ESNext
       downlevelIteration: true,
-      // types: ["./typings", "esnext", "dom"],
     },
     skipFileDependencyResolution: true,
     tsConfigFilePath: TSCONFIG_PATH,
@@ -48,7 +47,6 @@ const gen = async() => {
         outputFile
           .getText()
           .replace(new RegExp('@element-plus', 'g'), '.'),
-        // .replaceAll('@element-plus/theme-chalk', 'element-plus/theme-chalk'),
         'utf8')
       console.log(
         chalk.green(
@@ -67,4 +65,3 @@ const gen = async() => {
 (async function () {
   await gen()
 })()
-// module.exports = gen

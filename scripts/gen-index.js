@@ -17,7 +17,14 @@ const IGNORE_COMPONENTS_SUB_MODULES = [
 
 const EXPORT_MODULES = [
   'components',
+  'constants',
+  'directives',
   'layouts',
+  'router',
+  'services',
+  'store',
+  'utils',
+  'views',
 ]
 
 const COMPONENT_PREFIX = 'Cl'

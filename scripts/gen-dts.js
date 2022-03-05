@@ -1,6 +1,6 @@
 const path = require('path')
 const fs = require('fs')
-const { Project, ts } = require('ts-morph')
+const {Project} = require('ts-morph')
 const vueCompiler = require('@vue/compiler-sfc')
 const klawSync = require('klaw-sync')
 const chalk = require('chalk')
@@ -27,7 +27,7 @@ const include = (path) => includedFiles.some(f => path.includes(f))
 /**
  * fork = require( https://github.com/egoist/vue-dts-gen/blob/main/src/index.ts
  */
-const genVueTypes = async(root, outDir = path.resolve(__dirname, '../typings')) => {
+const genVueTypes = async (root, outDir = path.resolve(__dirname, '../typings')) => {
   const options = {
     compilerOptions: {
       allowJs: true,
@@ -36,7 +36,6 @@ const genVueTypes = async(root, outDir = path.resolve(__dirname, '../typings')) 
       // noEmitOnError: true,
       noEmitOnError: false,
       outDir,
-      // baseUrl: path.resolve(__dirname, '../'),
       paths: {
         '@': [
           path.resolve(__dirname, '../src')
@@ -68,7 +67,7 @@ const genVueTypes = async(root, outDir = path.resolve(__dirname, '../typings')) 
       if (file.endsWith('.vue')) {
         const content = await fs.promises.readFile(file, 'utf-8')
         const sfc = vueCompiler.parse(content)
-        const { script, scriptSetup } = sfc.descriptor
+        const {script, scriptSetup} = sfc.descriptor
         if (script || scriptSetup) {
           let content = ''
           let isTS = false
@@ -119,9 +118,6 @@ const genVueTypes = async(root, outDir = path.resolve(__dirname, '../typings')) 
       await fs.promises.writeFile(filepath,
         outputFile
           .getText(),
-        // .replace(new RegExp('@element-plus/components', 'g'), 'element-plus/es')
-        // .replace(new RegExp('@element-plus/theme-chalk', 'g'), 'element-plus/theme-chalk')
-        // .replace(new RegExp('@element-plus', 'g'), 'element-plus/es'),
         'utf8')
       console.log(
         chalk.green(
@@ -138,7 +134,4 @@ const genVueTypes = async(root, outDir = path.resolve(__dirname, '../typings')) 
 
 (async function () {
   await genVueTypes(path.resolve(__dirname, '../src'), path.resolve(__dirname, '../typings'))
-  // await genVueTypes(path.resolve(__dirname, '../src/components'), path.resolve(__dirname, '../typings/components'))
-  // await genVueTypes(path.resolve(__dirname, '../src/layouts'), path.resolve(__dirname, '../typings/layouts'))
 })()
-// module.exports = genVueTypes
