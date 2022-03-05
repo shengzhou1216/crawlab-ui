@@ -69,6 +69,12 @@ const genIndex = (moduleName) => {
       importLines.push(importLine)
       exportLines.push(exportLine)
     } else if (f.endsWith('.ts')) {
+      // skip components, layouts
+      if ([
+        'components',
+        'layouts',
+      ].includes(moduleName)) return;
+
       // component name
       const compName = fileName.replace('.ts', '')
 
