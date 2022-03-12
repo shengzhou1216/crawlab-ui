@@ -14,6 +14,8 @@ import token from '@/store/modules/token';
 import plugin from '@/store/modules/plugin';
 import git from '@/store/modules/git';
 
+let _store: Store<RootStoreState>;
+
 export const createStore = (): Store<RootStoreState> => {
   return createVuexStore<RootStoreState>({
     modules: {
@@ -33,4 +35,15 @@ export const createStore = (): Store<RootStoreState> => {
       git,
     },
   });
+};
+
+export const setStore = (store: Store<RootStoreState>) => {
+  _store = store;
+};
+
+export const getStore = (): Store<RootStoreState> => {
+  if (!_store) {
+    _store = createStore();
+  }
+  return _store;
 };

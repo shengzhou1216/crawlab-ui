@@ -1,1 +1,3 @@
-type BoolFunc = (data: any) => boolean;
+export declare global {
+  type BoolFunc = (data: any) => boolean;
+}

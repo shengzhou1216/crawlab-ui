@@ -111,6 +111,8 @@ const genRootIndex = () => {
   const exportLines = EXPORT_MODULES.map(m => `export * from './${m}';`)
   const content = `${exportLines.join('\n')}
 export * from './router';
+export * from './store';
+export * from './i18n';
 export * from './package';
 export {installer as default} from './package';
 export {default as useRequest} from './services/request';

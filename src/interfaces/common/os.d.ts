@@ -4,6 +4,6 @@ import {
   OS_LINUX,
 } from '@/constants/os';
 
-declare global {
+export declare global {
   type OS = OS_WINDOWS | OS_MAC | OS_LINUX;
 }

@@ -1,7 +1,9 @@
-interface Result {
-  [key: string]: any;
-}
+export declare global {
+  interface Result {
+    [key: string]: any;
+  }
 
-interface ResultField {
-  key?: string;
+  interface ResultField {
+    key?: string;
+  }
 }

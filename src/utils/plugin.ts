@@ -9,7 +9,7 @@ import {
   SETTING_PLUGIN_BASE_URL_GITHUB,
   SETTING_PLUGIN_GOPROXY_GOPROXY_CN, SETTING_PLUGIN_GOPROXY_GOPROXY_IO
 } from '@/constants/setting';
-import i18n from '@/i18n';
+import {getI18n} from '@/i18n';
 import {translate, translatePlugin} from '@/utils/i18n';
 
 type Plugin = CPlugin;
@@ -174,7 +174,7 @@ const initPluginLang = (store: Store<RootStoreState>) => {
         plugins: {}
       };
       (msg.plugins as any)[p.name || ''] = res.data?.data?.[lang];
-      i18n.global.mergeLocaleMessage(lang, msg);
+      getI18n().global.mergeLocaleMessage(lang, msg);
     });
   });
 };

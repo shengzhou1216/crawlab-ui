@@ -1,7 +1,7 @@
 import {LocaleMessageDictionary} from '@intlify/core-base';
-import {VueMessageType} from 'vue-i18n';
+import {VueMessageType, I18n} from 'vue-i18n';
 
-declare global {
+export declare global {
   interface L extends LocaleMessageDictionary<VueMessageType> {
     global: LGlobal;
     common: LCommon;
@@ -10,4 +10,13 @@ declare global {
     components: LComponents;
     views: LViews;
   }
+
+  type LI18n = I18n<{en: L, zh: L}, unknown, unknown, false>;
 }
+
+export * from './components';
+export * from './views';
+export * from './common';
+export * from './global';
+export * from './layouts';
+export * from './router';

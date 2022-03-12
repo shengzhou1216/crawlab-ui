@@ -1,9 +1,9 @@
-import i18n from '@/i18n';
+import {getI18n} from '@/i18n';
 import {updateTitle} from '@/utils/dom';
 import {LOCAL_STORAGE_KEY_LANG} from '@/constants/localStorage';
 
 export const translate = (path: string): string => {
-  const {tm} = i18n.global;
+  const {tm} = getI18n().global;
   const res = tm(path);
   if (typeof res === 'string') return res;
   return path;
@@ -17,10 +17,10 @@ window._tp = translatePlugin;
 
 export const setGlobalLang = (lang: Lang) => {
   localStorage.setItem(LOCAL_STORAGE_KEY_LANG, lang);
-  i18n.global.locale.value = lang;
+  getI18n().global.locale.value = lang;
   updateTitle(translate('global.title'));
 };
 
 export const getLanguage = (): string => {
-  return i18n.global.locale.value === 'zh' ? 'zh_CN' : 'en';
+  return getI18n().global.locale.value === 'zh' ? 'zh_CN' : 'en';
 };

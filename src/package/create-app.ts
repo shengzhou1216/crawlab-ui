@@ -3,8 +3,8 @@ import ElementPlus from 'element-plus';
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
 import {installer as CrawlabUI} from '@/package/index';
 import App from './App.vue';
-import {createStore} from '@/store';
-import i18n from '@/i18n';
+import {getStore} from '@/store';
+import {getI18n} from '@/i18n';
 import {initBaiduTonji} from '@/admin/baidu';
 import {importScripts, importStylesheets, initWindowGlobals} from '@/package/utils';
 import {createRouter} from '@/router';
@@ -53,7 +53,7 @@ const createApp = async (options?: CreateAppOptions): Promise<VueApp> => {
   document.querySelector('#loading-placeholder')?.remove();
 
   // store
-  const store = options.store || createStore();
+  const store = options.store || getStore();
 
   // router
   const router = createRouter(options.routes);
@@ -80,7 +80,7 @@ const createApp = async (options?: CreateAppOptions): Promise<VueApp> => {
   if (options.loadElementPlus) app.use(ElementPlus);
   if (options.loadCrawlabUI) app.use(CrawlabUI);
   if (options.loadI18n) {
-    app.use(i18n);
+    app.use(getI18n());
     setGlobalLang(window.localStorage.getItem('lang') as Lang || 'en');
   }
   if (options.loadFontAwesome) app.component('font-awesome-icon', FontAwesomeIcon);

@@ -1,7 +1,9 @@
-interface MenuItem {
-  path: string;
-  title: string;
-  icon?: string | string[];
-  children?: MenuItem[];
-  hidden?: boolean;
+export declare global {
+  interface MenuItem {
+    path: string;
+    title: string;
+    icon?: string | string[];
+    children?: MenuItem[];
+    hidden?: boolean;
+  }
 }

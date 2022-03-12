@@ -1,7 +1,7 @@
 import {RouteRecordRaw} from 'vue-router';
 import {Store} from 'vuex';
 
-declare global {
+export declare global {
   interface CreateAppOptions {
     initStylesheet?: boolean;
     initScripts?: boolean;

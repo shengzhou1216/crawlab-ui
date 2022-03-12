@@ -30,7 +30,6 @@ import Tag from '@/components/tag/Tag.vue';
 import colors from '@/styles/color.scss';
 import humanizeDuration from 'humanize-duration';
 import {useI18n} from 'vue-i18n';
-import i18n from '@/i18n';
 import {getLanguage} from '@/utils/i18n';
 
 export default defineComponent({

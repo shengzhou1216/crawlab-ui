@@ -1,6 +1,6 @@
 import {Dayjs} from 'dayjs';
 
-declare global {
+export declare global {
   interface StatsResult extends Result {
     date?: string;
   }

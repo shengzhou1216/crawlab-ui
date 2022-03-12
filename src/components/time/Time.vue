@@ -10,7 +10,7 @@ import TimeAgo, { LocaleData } from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
 import zh from 'javascript-time-ago/locale/zh';
 import dayjs from 'dayjs';
-import i18n from '@/i18n';
+import {getI18n} from '@/i18n';
 
 TimeAgo.addLocale(en as LocaleData);
 TimeAgo.addLocale(zh as LocaleData);
@@ -40,7 +40,7 @@ export default defineComponent({
       if (!time) return;
 
       if (ago) {
-        const timeAgo = new TimeAgo(i18n.global.locale.value === 'zh' ? 'zh' : 'en');
+        const timeAgo = new TimeAgo(getI18n().global.locale.value === 'zh' ? 'zh' : 'en');
         return timeAgo.format(new Date(time)) as string;
       } else {
         return dayjs(time).format(format);

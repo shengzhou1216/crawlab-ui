@@ -1,6 +1,6 @@
 import {ActionContext, ActionTree, GetterTree, Module, MutationTree, Store} from 'vuex';
 
-declare global {
+export declare global {
   interface RootStoreState {
     common: CommonStoreState;
     layout: LayoutStoreState;

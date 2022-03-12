@@ -49,7 +49,7 @@ import zh from 'dayjs/locale/zh';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import colors from '@/styles/color.scss';
 import {useI18n} from 'vue-i18n';
-import i18n from '@/i18n';
+import {getI18n} from '@/i18n';
 
 dayjs.extend(localizedFormat);
 
@@ -91,7 +91,7 @@ export default defineComponent({
     const next = computed<string | undefined>(() => {
       if (!interval.value) return;
       return dayjs(interval.value.next().toDate())
-          .locale(i18n.global.locale.value === 'zh' ? zh : en)
+          .locale(getI18n().global.locale.value === 'zh' ? zh : en)
           .format('llll');
     });
 
@@ -99,7 +99,7 @@ export default defineComponent({
       const {cron} = props;
       if (!cron) return;
       return cronstrue.toString(cron, {
-        locale: i18n.global.locale.value === 'zh' ? 'zh_CN' : 'en',
+        locale: getI18n().global.locale.value === 'zh' ? 'zh_CN' : 'en',
       });
     });
 

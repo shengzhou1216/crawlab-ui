@@ -8,7 +8,7 @@ import {computed, defineComponent, onBeforeMount} from 'vue';
 import {useStore} from 'vuex';
 import en from 'element-plus/lib/locale/lang/en';
 import zh from 'element-plus/lib/locale/lang/zh-cn';
-import i18n from '@/i18n';
+import {getI18n} from '@/i18n';
 
 export default defineComponent({
   name: 'App',
@@ -18,7 +18,7 @@ export default defineComponent({
 
     // locale
     const locale = computed(() => {
-      const lang = i18n.global.locale.value;
+      const lang = getI18n().global.locale.value;
       return lang === 'zh' ? zh : en;
     });
 

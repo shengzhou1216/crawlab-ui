@@ -1,6 +1,21 @@
-interface BaseModel {
-  _id?: string;
-  tags?: Tag[];
+export declare global {
+  interface BaseModel {
+    _id?: string;
+    tags?: Tag[];
 
-  [field: string]: any;
+    [field: string]: any;
+  }
 }
+
+export * from './dataCollection';
+export * from './git';
+export * from './node';
+export * from './plugin';
+export * from './project';
+export * from './result';
+export * from './setting';
+export * from './spider';
+export * from './stats';
+export * from './systemInfo';
+export * from './tag';
+export * from './token';

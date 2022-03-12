@@ -9,7 +9,7 @@ import {
   PLUGIN_INSTALL_TYPE_LOCAL,
 } from '@/constants/plugin';
 
-declare global {
+export declare global {
   interface CPlugin extends BaseModel {
     name?: string;
     full_name?: string;

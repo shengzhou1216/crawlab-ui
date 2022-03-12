@@ -1,1 +1,3 @@
-type Lang = 'en' | 'zh';
+export declare global {
+  type Lang = 'en' | 'zh';
+}

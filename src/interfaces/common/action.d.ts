@@ -1,6 +1,6 @@
 import {ACTION_CLONE, ACTION_DELETE, ACTION_EDIT, ACTION_RUN, ACTION_VIEW,} from '@/constants/action';
 
-declare global {
+export declare global {
   type ActionName =
     ACTION_VIEW |
     ACTION_EDIT |

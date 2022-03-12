@@ -64,7 +64,10 @@ const genVueTypes = async (root, outDir = path.resolve(__dirname, '../typings'))
 
   await Promise.all(
     filePaths.map(async file => {
+      const fileName = file.replace(root + '/', '')
+
       if (file.endsWith('.vue')) {
+        // .vue file
         const content = await fs.promises.readFile(file, 'utf-8')
         const sfc = vueCompiler.parse(content)
         const {script, scriptSetup} = sfc.descriptor
@@ -89,6 +92,7 @@ const genVueTypes = async (root, outDir = path.resolve(__dirname, '../typings'))
           sourceFiles.push(sourceFile)
         }
       } else if (file.endsWith('.ts')) {
+        // .ts file
         const sourceFile = project.addSourceFileAtPath(file)
         sourceFiles.push(sourceFile)
       }
@@ -103,6 +107,7 @@ const genVueTypes = async (root, outDir = path.resolve(__dirname, '../typings'))
     emitOnlyDtsFiles: true,
   })
 
+  // iterate source files
   for (const sourceFile of sourceFiles) {
     const emitOutput = sourceFile.getEmitOutput()
     const outputFiles = emitOutput.getOutputFiles()
@@ -129,6 +134,17 @@ const genVueTypes = async (root, outDir = path.resolve(__dirname, '../typings'))
         ),
       )
     }
+  }
+
+  // export interfaces in typings/index.d.ts
+  const idxFilePath = path.resolve(__dirname, '../typings/index.d.ts')
+  if (fs.existsSync(idxFilePath)) {
+    let fileContent = fs.readFileSync(idxFilePath)
+    const exportInterfacesLine = 'export * from \'./interfaces\';'
+    if (!fileContent.includes(exportInterfacesLine)) {
+      fileContent = exportInterfacesLine + '\n' + fileContent
+    }
+    fs.writeFileSync(idxFilePath, fileContent)
   }
 }
 
