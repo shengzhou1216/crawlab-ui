@@ -2,10 +2,10 @@
   <div class="nav-sidebar" :class="classes">
     <div class="search">
       <el-input
-          v-model="searchString"
-          class="search-input"
-          :placeholder="t('components.nav.sidebar.search')"
-          :clearable="true"
+        v-model="searchString"
+        class="search-input"
+        :placeholder="t('components.nav.sidebar.search')"
+        :clearable="true"
       >
         <template #prefix>
           <el-icon v-if="!collapsed" class="el-input__icon">
@@ -15,11 +15,11 @@
       </el-input>
     </div>
     <el-menu
-        ref="navMenu"
-        v-if="filteredItems && filteredItems.length > 0"
-        class="nav-menu"
-        :default-active="activeKey"
-        @select="onSelect"
+      ref="navMenu"
+      v-if="filteredItems && filteredItems.length > 0"
+      class="nav-menu"
+      :default-active="activeKey"
+      @select="onSelect"
     >
       <el-menu-item v-for="item in filteredItems" :key="item.id" :index="item.id" class="nav-menu-item">
         <span class="title">{{ item.title }}</span>
@@ -32,8 +32,8 @@
       </el-menu-item>
     </el-menu>
     <Empty
-        v-else
-        description="No Items"
+      v-else
+      description="No Items"
     />
   </div>
 </template>
@@ -150,6 +150,7 @@ export default defineComponent({
 
     .search-input {
       width: 100%;
+      height: 100%;
       border: none;
       padding: 0;
       margin: 0;
@@ -255,6 +256,7 @@ export default defineComponent({
 <style scoped>
 .nav-sidebar > .search >>> .el-input__inner {
   border: none;
+  height: 100%;
 }
 
 .nav-sidebar.collapsed > .search >>> .el-input__inner {
