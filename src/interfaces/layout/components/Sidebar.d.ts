@@ -1,9 +1,8 @@
 export declare global {
-  interface MenuItem {
-    path: string;
+  interface MenuItem extends TreeNode<MenuItem> {
     title: string;
+    path?: string;
     icon?: string | string[];
-    children?: MenuItem[];
     hidden?: boolean;
   }
 }

@@ -7,6 +7,7 @@ export declare global {
     initScripts?: boolean;
     initBaiduTongji?: boolean;
     initUmeng?: boolean;
+    initDemo?: boolean;
     loadStore?: boolean;
     loadRouter?: boolean;
     loadElementPlus?: boolean;

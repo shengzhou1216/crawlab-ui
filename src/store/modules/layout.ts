@@ -1,4 +1,5 @@
 import {plainClone} from '@/utils/object';
+import {normalizeTree} from '@/utils/tree';
 import {getDefaultMenuItems} from '@/router';
 
 export default {
@@ -34,6 +35,7 @@ export default {
       return tabs.find(d => d.id === activeTabId);
     },
     sidebarMenuItems: state => state.menuItems.filter(d => !d.hidden),
+    normalizedMenuItems: state => normalizeTree<MenuItem>(state.menuItems),
   },
   mutations: {
     setMenuItems(state: LayoutStoreState, items: MenuItem[]) {

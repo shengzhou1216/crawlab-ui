@@ -1,4 +1,4 @@
-interface NavItem<T = any> {
+interface NavItem<T = any> extends TreeNode<NavItem<T>> {
   id: string;
   title?: string;
   subtitle?: string;

@@ -14,12 +14,13 @@ import misc from '@/router/misc';
 import {initRouterAuth} from '@/router/hooks/auth';
 import {initRouterStats} from '@/router/hooks/stats';
 import NormalLayout from '@/layouts/NormalLayout.vue';
+import {ROUTER_ROOT_NAME_ROOT} from '@/constants/router';
 
 export const getDefaultRoutes = (): Array<RouteRecordRaw> => [
   ...login,
   {
     path: '/',
-    name: 'Root',
+    name: ROUTER_ROOT_NAME_ROOT,
     component: NormalLayout,
     children: [
       ...home,
@@ -70,6 +71,17 @@ export const getDefaultMenuItems = (): MenuItem[] => {
   ];
 };
 
+export const getRootRoute = (routes: Array<RouteRecordRaw>): RouteRecordRaw | undefined => {
+  return routes.find(r => r.name === ROUTER_ROOT_NAME_ROOT);
+};
+
+export const addRoutesToRoot = (routes: Array<RouteRecordRaw>) => {
+  const router = getRouter();
+  routes.forEach(route => {
+    router.addRoute(ROUTER_ROOT_NAME_ROOT, route);
+  });
+};
+
 export const createRouter = (routes?: Array<RouteRecordRaw>): Router => {
   const router = createVueRouter({
     history: createWebHashHistory(process.env.BASE_URL),
@@ -82,7 +94,11 @@ export const createRouter = (routes?: Array<RouteRecordRaw>): Router => {
   return router;
 };
 
-export default {
-  getDefaultRoutes,
-  createRouter,
+let _router: Router;
+
+export const getRouter = (routes?: Array<RouteRecordRaw>): Router => {
+  if (!_router) {
+    _router = createRouter(routes);
+  }
+  return _router;
 };

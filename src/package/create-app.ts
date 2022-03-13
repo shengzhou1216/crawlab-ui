@@ -7,12 +7,13 @@ import {getStore} from '@/store';
 import {getI18n} from '@/i18n';
 import {initBaiduTonji} from '@/admin/baidu';
 import {importScripts, importStylesheets, initWindowGlobals} from '@/package/utils';
-import {createRouter} from '@/router';
+import {getRouter} from '@/router';
 import {initPlugins} from '@/utils/plugin';
 import {initRequest} from '@/services/request';
 import {initUmeng} from '@/admin/umeng';
 import {setGlobalLang} from '@/utils/i18n';
 import track from '@/directives/track/track';
+import {initDemo} from '@/demo';
 
 export const getDefaultCreateAppOptions = (): CreateAppOptions => {
   return {
@@ -20,6 +21,7 @@ export const getDefaultCreateAppOptions = (): CreateAppOptions => {
     initScripts: true,
     initBaiduTongji: true,
     initUmeng: true,
+    initDemo: false,
     loadStore: true,
     loadRouter: true,
     loadElementPlus: true,
@@ -49,6 +51,9 @@ const createApp = async (options?: CreateAppOptions): Promise<VueApp> => {
   // umeng
   if (options.initUmeng) initUmeng();
 
+  // demo
+  if (options.initDemo) initDemo();
+
   // remove loading placeholder
   document.querySelector('#loading-placeholder')?.remove();
 
@@ -56,7 +61,8 @@ const createApp = async (options?: CreateAppOptions): Promise<VueApp> => {
   const store = options.store || getStore();
 
   // router
-  const router = createRouter(options.routes);
+  const router = getRouter(options.routes);
+  console.debug(router.getRoutes())
 
   // window globals
   initWindowGlobals();

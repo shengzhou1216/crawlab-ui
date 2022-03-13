@@ -24,6 +24,7 @@ declare global {
     tabs: StoreGetter<LayoutStoreState, Tab[]>;
     activeTab: StoreGetter<LayoutStoreState, Tab | undefined>;
     sidebarMenuItems: StoreGetter<LayoutStoreState, MenuItem[]>;
+    normalizedMenuItems: StoreGetter<LayoutStoreState, MenuItem[]>;
   }
 
   interface LayoutStoreMutations extends MutationTree<LayoutStoreState> {

@@ -14,48 +14,68 @@
         </template>
       </el-input>
     </div>
-    <el-menu
-      ref="navMenu"
-      v-if="filteredItems && filteredItems.length > 0"
-      class="nav-menu"
-      :default-active="activeKey"
-      @select="onSelect"
+    <template
+      v-if="filteredItems.length > 0"
     >
-      <el-menu-item v-for="item in filteredItems" :key="item.id" :index="item.id" class="nav-menu-item">
-        <span class="title">{{ item.title }}</span>
-        <!-- TODO: implement -->
-        <span v-if="false" class="actions">
-          <font-awesome-icon class="icon" :icon="['far', 'star']" @click="onStar(item.id)"/>
-          <font-awesome-icon class="icon" :icon="['far', 'clone']" @click="onDuplicate(item.id)"/>
-          <font-awesome-icon class="icon" :icon="['fa', 'trash-alt']" @click="onRemove(item.id)"/>
-        </span>
-      </el-menu-item>
-    </el-menu>
+      <NavSidebarList
+        v-if="type === 'list'"
+        :active-key="activeKey"
+        :items="filteredItems"
+        @select="onSelectList"
+      />
+      <NavSidebarTree
+        v-else-if="type === 'tree'"
+        :active-key="activeKey"
+        :items="filteredItems"
+        @select="onSelectTree"
+      />
+    </template>
     <Empty
       v-else
-      description="No Items"
     />
   </div>
 </template>
 <script lang="ts">
-import {computed, defineComponent, ref} from 'vue';
+import {computed, defineComponent, PropType, ref} from 'vue';
 import {ElMenu} from 'element-plus';
 import variables from '@/styles/variables.scss';
+import NavSidebarList from '@/components/nav/NavSidebarList.vue';
+import NavSidebarTree from '@/components/nav/NavSidebarTree.vue';
 import Empty from '@/components/empty/Empty.vue';
 import {useI18n} from 'vue-i18n';
+import {emptyArrayFunc} from '@/utils/func';
+
+export const navSidebarContentProps = {
+  items: {
+    type: Array as PropType<NavItem[]>,
+    default: emptyArrayFunc,
+  },
+  activeKey: {
+    type: String,
+  },
+};
 
 export default defineComponent({
   name: 'NavSidebar',
   components: {
+    NavSidebarList,
+    NavSidebarTree,
     Empty,
   },
   props: {
-    items: Array,
-    activeKey: String,
-    collapsed: Boolean,
-    showActions: Boolean,
+    type: {
+      type: String as PropType<NavSidebarType>,
+      default: 'list',
+    },
+    collapsed: {
+      type: Boolean,
+    },
+    showActions: {
+      type: Boolean,
+    },
+    ...navSidebarContentProps,
   },
-  setup(props, {emit}) {
+  setup(props: NavSidebarProps, {emit}) {
     // i18n
     const {t} = useI18n();
 
@@ -71,14 +91,18 @@ export default defineComponent({
     });
 
     const classes = computed(() => {
-      const {collapsed} = props as NavSidebarProps;
+      const {collapsed} = props;
       const cls = [];
       if (collapsed) cls.push('collapsed');
       return cls;
     });
 
-    const onSelect = (index: string) => {
-      emit('select', index);
+    const onSelectList = (index: number) => {
+      emit('select', filteredItems.value[index]);
+    };
+
+    const onSelectTree = (item: NavItem) => {
+      emit('select', item);
     };
 
     const onStar = (index: string) => {
@@ -112,7 +136,8 @@ export default defineComponent({
       toggleTooltipValue,
       filteredItems,
       classes,
-      onSelect,
+      onSelectList,
+      onSelectTree,
       onStar,
       onDuplicate,
       onRemove,
@@ -166,61 +191,6 @@ export default defineComponent({
       width: 25px;
       color: $navSidebarItemActionColor;
       cursor: pointer;
-    }
-  }
-
-  .nav-menu {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    border: none;
-    max-height: calc(100% - #{$navSidebarSearchHeight});
-    overflow-y: auto;
-    color: $navSidebarColor;
-
-    &.empty {
-      height: $navSidebarItemHeight;
-      display: flex;
-      align-items: center;
-      padding-left: 20px;
-      font-size: 14px;
-    }
-
-    .nav-menu-item {
-      position: relative;
-      height: $navSidebarItemHeight;
-      line-height: $navSidebarItemHeight;
-
-      &:hover {
-        .actions {
-          display: inherit;
-        }
-      }
-
-      .title {
-        font-size: 14px;
-        margin-bottom: 3px;
-      }
-
-      .subtitle {
-        font-size: 12px;
-      }
-
-      .actions {
-        display: none;
-        position: absolute;
-        top: 0;
-        right: 10px;
-
-        .icon {
-          color: $navSidebarItemActionColor;
-          margin-left: 3px;
-
-          &:hover {
-            color: $primaryColor;
-          }
-        }
-      }
     }
   }
 

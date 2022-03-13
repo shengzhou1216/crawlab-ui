@@ -82,14 +82,22 @@ export default defineComponent({
     const item = computed<MenuItem | undefined>(() => {
       const {tab} = props as TabProps;
       if (!tab) return;
-      const {menuItems} = state;
+
+      // normalized menu items
+      const menuItems = store.getters['layout/normalizedMenuItems'] as MenuItem[];
+
+      // iterate normalized menu items
       for (const _item of menuItems) {
+        // primary path, or first-level path
         const primaryPath = getPrimaryPath(tab.path);
+
+        // if primary path equals to item path, or tab path equals to item path, return it
         if (primaryPath === _item.path ||
           tab.path === _item.path) {
           return _item;
         }
       }
+
       return {
         path: tab.path,
         title: '',
