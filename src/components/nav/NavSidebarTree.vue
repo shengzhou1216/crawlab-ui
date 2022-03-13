@@ -72,6 +72,10 @@ export default defineComponent({
   height: 48px;
 }
 
+.nav-menu >>> .el-tree-node > .el-tree-node__content:hover {
+  background-color: #ecf5ff !important;
+}
+
 .nav-menu >>> .el-tree-node.active > .el-tree-node__content,
 .nav-menu >>> .el-tree-node > .el-tree-node__content:hover {
   color: #409eff;
