@@ -1,13 +1,8 @@
-import {addRoutesToRoot} from '@/router';
-import components from '@/demo/router/components';
+import {RouteRecordRaw} from 'vue-router';
 import {getStore} from '@/store';
+import components from '@/demo/router/components';
 
 export const initDemoRoutes = () => {
-  // routes
-  addRoutesToRoot([
-    ...components,
-  ]);
-
   // store
   const store = getStore();
   const state = store.state as RootStoreState;
@@ -37,4 +32,10 @@ export const initDemoRoutes = () => {
     ...layoutState.menuItems,
     ...menuItems,
   ]);
+};
+
+export const getDemoRoutes = (): Array<RouteRecordRaw> => {
+  return [
+    ...components,
+  ];
 };

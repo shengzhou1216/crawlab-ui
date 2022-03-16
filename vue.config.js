@@ -49,6 +49,7 @@ const optimization = {
 }
 
 const alias = {
+  'vue$': 'vue/dist/vue.esm-bundler.js',
   'element-plus$': 'element-plus/dist/index.full.min.js',
   'echarts$': 'echarts/dist/echarts.min.js',
   'codemirror$': 'codemirror/lib/codemirror.js',
@@ -88,6 +89,7 @@ if (['production'].includes(process.env.NODE_ENV)) {
     'fontawesome': 'fontawesome',
     'echarts': 'echarts',
     'element-plus': 'element-plus',
+    'vue': 'vue',
   }
   config.configureWebpack.plugins.push(new CopyWebpackPlugin({
     patterns: [

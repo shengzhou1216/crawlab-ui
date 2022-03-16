@@ -114,7 +114,6 @@ export default defineComponent({
             };
         }
       }) as TagData[];
-      console.debug(tags);
       return tags;
     });
 

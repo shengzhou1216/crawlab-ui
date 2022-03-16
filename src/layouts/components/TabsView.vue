@@ -109,7 +109,6 @@ export default defineComponent({
 
         // set active tab id
         setActiveTab(newTab);
-        console.debug(tabs.value);
       }
 
       // update tabs

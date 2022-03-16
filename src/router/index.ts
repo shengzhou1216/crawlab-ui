@@ -75,19 +75,40 @@ export const getRootRoute = (routes: Array<RouteRecordRaw>): RouteRecordRaw | un
   return routes.find(r => r.name === ROUTER_ROOT_NAME_ROOT);
 };
 
-export const addRoutesToRoot = (routes: Array<RouteRecordRaw>) => {
-  const router = getRouter();
-  routes.forEach(route => {
-    router.addRoute(ROUTER_ROOT_NAME_ROOT, route);
-  });
+export const addRoutes = (route: RouteRecordRaw, routes: Array<RouteRecordRaw>): void => {
+  if (!route.children) {
+    route.children = [];
+  }
+  route.children = route.children.concat(routes);
 };
 
-export const createRouter = (routes?: Array<RouteRecordRaw>): Router => {
+export const createRouter = (rootRoutes?: Array<RouteRecordRaw>, routes?: Array<RouteRecordRaw>): Router => {
+  // all routes
+  let allRoutes = getDefaultRoutes();
+
+  // add routes
+  if (routes) {
+    allRoutes = allRoutes.concat(routes)
+  }
+
+  // add root routes
+  if (rootRoutes) {
+    const rootRoute = getRootRoute(allRoutes);
+    if (rootRoute) {
+      addRoutes(rootRoute, rootRoutes);
+    }
+  }
+
+  // history
+  const history = createWebHashHistory(process.env.BASE_URL);
+
+  // router
   const router = createVueRouter({
-    history: createWebHashHistory(process.env.BASE_URL),
-    routes: routes || getDefaultRoutes(),
+    history,
+    routes: allRoutes,
   });
 
+  // initialize
   initRouterAuth(router);
   initRouterStats(router);
 
@@ -96,9 +117,10 @@ export const createRouter = (routes?: Array<RouteRecordRaw>): Router => {
 
 let _router: Router;
 
-export const getRouter = (routes?: Array<RouteRecordRaw>): Router => {
+export const getRouter = (rootRoutes?: Array<RouteRecordRaw>, routes?: Array<RouteRecordRaw>): Router => {
+  console.debug('getRouter', rootRoutes, routes)
   if (!_router) {
-    _router = createRouter(routes);
+    _router = createRouter(rootRoutes, routes);
   }
   return _router;
 };

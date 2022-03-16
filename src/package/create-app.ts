@@ -30,6 +30,9 @@ export const getDefaultCreateAppOptions = (): CreateAppOptions => {
     loadFontAwesome: true,
     loadTrack: true,
     mount: true,
+    store: undefined,
+    rootRoutes: undefined,
+    routes: undefined,
   };
 };
 
@@ -61,8 +64,7 @@ const createApp = async (options?: CreateAppOptions): Promise<VueApp> => {
   const store = options.store || getStore();
 
   // router
-  const router = getRouter(options.routes);
-  console.debug(router.getRoutes())
+  const router = getRouter(options.rootRoutes, options.routes);
 
   // window globals
   initWindowGlobals();

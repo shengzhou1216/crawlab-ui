@@ -89,7 +89,6 @@ const mutations = {
     state.resultTableData = [];
   },
   setResultTablePagination: (state: TaskStoreState, pagination: TablePagination) => {
-    console.debug(pagination);
     state.resultTablePagination = pagination;
   },
   resetResultTablePagination: (state: TaskStoreState) => {

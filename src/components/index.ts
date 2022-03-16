@@ -50,6 +50,8 @@ import NavActionItem from './nav/NavActionItem.vue';
 import NavActions from './nav/NavActions.vue';
 import NavLink from './nav/NavLink.vue';
 import NavSidebar from './nav/NavSidebar.vue';
+import NavSidebarList from './nav/NavSidebarList.vue';
+import NavSidebarTree from './nav/NavSidebarTree.vue';
 import NavTabs from './nav/NavTabs.vue';
 import CreateEditNodeDialog from './node/CreateEditNodeDialog.vue';
 import NodeActive from './node/NodeActive.vue';
@@ -165,6 +167,8 @@ export {
   NavActions as ClNavActions,
   NavLink as ClNavLink,
   NavSidebar as ClNavSidebar,
+  NavSidebarList as ClNavSidebarList,
+  NavSidebarTree as ClNavSidebarTree,
   NavTabs as ClNavTabs,
   CreateEditNodeDialog as ClCreateEditNodeDialog,
   NodeActive as ClNodeActive,
