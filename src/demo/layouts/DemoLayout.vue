@@ -30,7 +30,22 @@ export default defineComponent({
 </style>
 
 <style scoped>
+.demo-layout >>> .el-tabs {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .demo-layout >>> .el-tabs .el-tabs__header {
   margin: 0;
+  flex: 0 0;
+}
+
+.demo-layout >>> .el-tabs .el-tabs__content {
+  flex: 1 0;
+}
+
+.demo-layout >>> .el-tabs .el-tabs__content .el-tab-pane {
+  height: 100%;
 }
 </style>

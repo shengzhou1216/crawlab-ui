@@ -65,17 +65,17 @@ export default defineComponent({
       return dataMetas ? dataMetas.length > 1 : false;
     });
 
-    const getSeriesData = (data: StatsResult[], key?: string) => {
+    const getSeriesData = (data?: StatsResult[], key?: string) => {
       const {valueKey, labelKey, isTimeSeries} = props;
       const _valueKey = !key ? valueKey : key;
 
       if (_valueKey) {
         if (isTimeSeries) {
           // time series
-          return data.map(d => [d[labelKey || 'date'], d[_valueKey] || 0]);
+          return data?.map(d => [d[labelKey || 'date'], d[_valueKey] || 0]);
         } else {
           // not time series
-          return data.map(d => d[_valueKey] || 0);
+          return data?.map(d => d[_valueKey] || 0);
         }
       } else {
         // default

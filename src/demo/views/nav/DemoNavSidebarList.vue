@@ -21,7 +21,7 @@
 import {defineComponent, ref} from 'vue';
 import NavSidebar from '@/components/nav/NavSidebar.vue';
 import {ElMessage} from 'element-plus';
-import DemoNavSidebarLayout from '@/demo/components/nav/DemoNavSidebarLayout.vue';
+import DemoNavSidebarLayout from '@/demo/views/nav/DemoNavSidebarLayout.vue';
 import Tag from '@/components/tag/Tag.vue';
 
 export default defineComponent({

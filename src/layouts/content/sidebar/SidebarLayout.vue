@@ -1,5 +1,6 @@
 <template>
-  <div class="demo-metric-dashboard">
+  <div class="sidebar-layout">
+    <slot/>
   </div>
 </template>
 
@@ -7,7 +8,7 @@
 import {defineComponent} from 'vue';
 
 export default defineComponent({
-  name: 'MetricDashboard',
+  name: 'SidebarLayout',
   setup() {
     return {};
   }
@@ -15,4 +16,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.sidebar-layout {
+  display: flex;
+  height: 100%;
+}
 </style>

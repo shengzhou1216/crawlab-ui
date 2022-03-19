@@ -1,6 +1,6 @@
 import {RouteRecordRaw} from 'vue-router';
-import nav from '@/demo/router/components/nav';
-import chart from '@/demo/router/components/chart';
+import nav from '@/demo/router/views/nav';
+import chart from '@/demo/router/views/chart';
 
 export default [
   ...nav,

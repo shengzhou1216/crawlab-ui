@@ -1,4 +1,8 @@
 interface MetricDashboardProps {
   metrics?: NavItem[];
-  metricDataFunc: () => Promise<StatsResult[]>;
+  metricDataFunc?: MetricDataFunc;
+  // TODO: implement
+  // dateRange?: DateRange;
 }
+
+type MetricDataFunc = (metricName: string) => Promise<StatsResult[]>;

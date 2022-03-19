@@ -49,6 +49,7 @@ import NavSidebarTree from '@/components/nav/NavSidebarTree.vue';
 import Empty from '@/components/empty/Empty.vue';
 import {useI18n} from 'vue-i18n';
 import {emptyArrayFunc} from '@/utils/func';
+import {cloneArray} from '@/utils/object';
 
 export const navSidebarContentProps = {
   items: {
@@ -166,11 +167,11 @@ export default defineComponent({
 @import "../../styles/variables.scss";
 
 .nav-sidebar {
+  height: 100%;
   position: relative;
   width: $navSidebarWidth;
   border-right: 1px solid $navSidebarBorderColor;
   background-color: $navSidebarBg;
-  height: calc(100vh - #{$headerHeight} - #{$tabsViewHeight} - 1px);
 
   &.collapsed {
     margin: 10px 0;

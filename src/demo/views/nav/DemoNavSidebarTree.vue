@@ -59,7 +59,7 @@ import {defineComponent, ref} from 'vue';
 import NavSidebar from '@/components/nav/NavSidebar.vue';
 import {ElMessage} from 'element-plus';
 import Tag from '@/components/tag/Tag.vue';
-import DemoNavSidebarLayout from '@/demo/components/nav/DemoNavSidebarLayout.vue';
+import DemoNavSidebarLayout from '@/demo/views/nav/DemoNavSidebarLayout.vue';
 import DemoLayout from '@/demo/layouts/DemoLayout.vue';
 
 export default defineComponent({

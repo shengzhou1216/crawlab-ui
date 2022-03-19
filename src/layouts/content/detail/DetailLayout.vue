@@ -2,29 +2,29 @@
   <div :class="(noSidebar || sidebarCollapsed) ? 'collapsed' : ''" class="detail-layout">
     <div class="sidebar">
       <NavSidebar
-          v-if="!noSidebar"
-          ref="navSidebar"
-          :active-key="activeId"
-          :collapsed="noSidebar || sidebarCollapsed"
-          :items="computedNavItems"
-          @select="onNavSidebarSelect"
-          @toggle="onNavSidebarToggle"
+        v-if="!noSidebar"
+        ref="navSidebar"
+        :active-key="activeId"
+        :collapsed="noSidebar || sidebarCollapsed"
+        :items="computedNavItems"
+        @select="onNavSidebarSelect"
+        @toggle="onNavSidebarToggle"
       />
     </div>
     <div class="content">
       <NavTabs
-          :active-key="activeTabName"
-          :items="tabs"
-          :collapsed="sidebarCollapsed"
-          toggle
-          class="nav-tabs"
-          @select="onNavTabsSelect"
-          @toggle="onNavTabsToggle"
+        :active-key="activeTabName"
+        :items="tabs"
+        :collapsed="sidebarCollapsed"
+        toggle
+        class="nav-tabs"
+        @select="onNavTabsSelect"
+        @toggle="onNavTabsToggle"
       >
         <template #extra>
           <el-tooltip
-              v-model="showActionsToggleTooltip"
-              :content="actionsCollapsed ? t('layouts.detailLayout.navTabs.toggle.tooltip.expand') : t('layouts.detailLayout.navTabs.toggle.tooltip.collapse')"
+            v-model="showActionsToggleTooltip"
+            :content="actionsCollapsed ? t('layouts.detailLayout.navTabs.toggle.tooltip.expand') : t('layouts.detailLayout.navTabs.toggle.tooltip.collapse')"
           >
             <div :class="actionsCollapsed ? 'collapsed' : ''" class="actions-toggle" @click="onActionsToggle">
               <font-awesome-icon :icon="['fa', 'angle-up']" class="icon"/>
@@ -34,8 +34,8 @@
       </NavTabs>
       <NavActions ref="navActions" :collapsed="actionsCollapsed" class="nav-actions">
         <NavActionGroupDetailCommon
-            @back="onBack"
-            @save="onSave"
+          @back="onBack"
+          @save="onSave"
         />
         <slot name="actions"/>
       </NavActions>
@@ -124,6 +124,8 @@ export default defineComponent({
     flex: 0 0 $navSidebarWidth;
     width: 0;
     transition: flex $navSidebarCollapseTransitionDuration;
+    border-right: 1px solid $infoLightColor;
+    background-color: #ffffff;
   }
 
   .content {

@@ -1,6 +1,6 @@
 import {RouteRecordRaw} from 'vue-router';
 import {getStore} from '@/store';
-import components from '@/demo/router/components';
+import components from '@/demo/router/views';
 
 export const initDemoRoutes = () => {
   // store
@@ -28,7 +28,7 @@ export const initDemoRoutes = () => {
           icon: ['fa', 'chart-bar'],
           children: [
             {path: '/demo/chart/line', title: 'Line Chart', icon: ['fa', 'chart-line']},
-            {path: '/demo/chart/dashboard', title: 'Metric Dashboard', icon: ['fa', 'dashboard']},
+            {path: '/demo/chart/dashboard', title: 'Dashboard', icon: ['fa', 'dashboard']},
           ]
         }
       ],

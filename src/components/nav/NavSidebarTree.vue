@@ -92,9 +92,15 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .nav-menu {
+  height: 100%;
+  overflow-y: auto;
 }
 </style>
 <style scoped>
+.nav-menu >>> .el-tree {
+  /*overflow-y: auto;*/
+}
+
 .nav-menu >>> .el-tree-node {
   font-size: 14px;
   cursor: pointer;

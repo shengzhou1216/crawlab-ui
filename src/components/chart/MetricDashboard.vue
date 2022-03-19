@@ -1,36 +1,153 @@
 <template>
   <div class="metric-dashboard">
-    <NavSidebar type="tree" :items="metrics"/>
-    <div class="metric-dashboard-top">
+    <div class="sidebar">
+      <NavSidebar
+        ref="navSidebarRef"
+        type="tree"
+        :items="metrics"
+        show-checkbox
+        @check="onCheck"
+      />
+    </div>
+    <div class="content">
+      <div class="top">
+        <!--      <div class="filter"/>-->
+      </div>
+      <div class="chart-list">
+        <div
+          v-for="(metric, $index) in checkedNormalizedMetrics"
+          :key="$index"
+          class="metric-chart"
+        >
+          <LineChart
+            height="240px"
+            :config="getChartConfig(metric)"
+          />
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import {defineComponent, PropType} from 'vue';
+import {computed, defineComponent, PropType, ref, watch} from 'vue';
 import NavSidebar from '@/components/nav/NavSidebar.vue';
 import {emptyArrayFunc, voidFunc} from '@/utils/func';
+import LineChart from '@/components/chart/LineChart.vue';
+import {cloneArray} from '@/utils/object';
 
 export default defineComponent({
   name: 'MetricDashboard',
-  components: {NavSidebar},
+  components: {LineChart, NavSidebar},
   props: {
     metrics: {
       type: Array as PropType<NavItem[]>,
       default: emptyArrayFunc,
     },
     metricDataFunc: {
-      type: Function as PropType<() => Promise<StatsResult[]>>,
+      type: Function as PropType<MetricDataFunc>,
       default: voidFunc,
-    }
+    },
+    // TODO: implement
+    // dateRange: {
+    // },
   },
   setup(props: MetricDashboardProps, {emit}) {
-    return {};
+    const navSidebarRef = ref();
+
+    const getNormalizedMetrics = (items?: NavItem[]): NavItem[] => {
+      let normalizedItems = [] as NavItem[];
+
+      if (items === undefined) {
+        items = cloneArray(props.metrics || []);
+      }
+
+      items.forEach(item => {
+        if (item.children) {
+          normalizedItems = normalizedItems.concat(getNormalizedMetrics(item.children));
+        } else {
+          normalizedItems.push(item);
+        }
+      });
+
+      return normalizedItems;
+    };
+
+    const normalizedMetrics = computed<NavItem[]>(() => getNormalizedMetrics());
+
+    const checkedKeys = ref<string[]>([]);
+
+    const checkedNormalizedMetrics = computed<NavItem[]>(() => normalizedMetrics.value.filter(m => checkedKeys.value.includes(m.id)));
+
+    const chartConfigMap = ref<{ [key: string]: EChartsConfig }>({});
+
+    const getChartConfig = (metric: NavItem): EChartsConfig | undefined => {
+      const metricName = metric.title as string;
+      if (!chartConfigMap.value[metricName]) {
+        chartConfigMap.value[metricName] = {
+          option: {
+            title: {
+              text: metric.title,
+            },
+            tooltip: {
+              axisPointer: {
+                type: 'cross',
+              }
+            }
+          },
+        } as EChartsConfig;
+      }
+      return chartConfigMap.value[metricName];
+    };
+
+    const updateAllChartData = async () => {
+      console.debug('updateAllChartData');
+      await Promise.all(checkedNormalizedMetrics.value.map(metric => updateChartData(metric)));
+    };
+
+    const updateChartData = async (metric: NavItem) => {
+      const metricName = metric.title as string;
+      const data = await props.metricDataFunc?.(metricName) || [];
+      console.log(metric, data);
+      chartConfigMap.value[metricName].data = data;
+    };
+
+    const onCheck = (item: NavItem, checked: boolean, items: NavItem[]) => {
+      checkedKeys.value = items.map(item => item.id);
+    };
+
+    watch(() => checkedNormalizedMetrics.value.map(m => m.title), updateAllChartData);
+
+    return {
+      navSidebarRef,
+      normalizedMetrics,
+      chartConfigMap,
+      checkedNormalizedMetrics,
+      getChartConfig,
+      updateAllChartData,
+      onCheck,
+    };
   }
 });
 </script>
 
 <style lang="scss" scoped>
+@import "../../styles/variables";
+
 .metric-dashboard {
+  display: flex;
+  height: 100%;
+
+  .sidebar {
+    height: 100%;
+    flex: 0 0;
+    border-right: 1px solid $infoLightColor;
+  }
+
+  .content {
+    height: 100%;
+    flex: 1 0;
+    overflow-y: auto;
+  }
 }
 </style>

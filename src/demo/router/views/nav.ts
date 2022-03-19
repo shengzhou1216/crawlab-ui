@@ -1,6 +1,6 @@
 import {RouteRecordRaw} from 'vue-router';
-import DemoNavSidebarList from '@/demo/components/nav/DemoNavSidebarList.vue';
-import DemoNavSidebarTree from '@/demo/components/nav/DemoNavSidebarTree.vue';
+import DemoNavSidebarList from '@/demo/views/nav/DemoNavSidebarList.vue';
+import DemoNavSidebarTree from '@/demo/views/nav/DemoNavSidebarTree.vue';
 
 const endpoint = '/demo/nav';
 
