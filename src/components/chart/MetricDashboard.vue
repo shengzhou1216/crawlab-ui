@@ -82,41 +82,39 @@ export default defineComponent({
     const chartConfigMap = ref<{ [key: string]: EChartsConfig }>({});
 
     const getChartConfig = (metric: NavItem): EChartsConfig | undefined => {
-      const metricName = metric.title as string;
-      if (!chartConfigMap.value[metricName]) {
-        chartConfigMap.value[metricName] = {
+      if (!chartConfigMap.value[metric.id]) {
+        chartConfigMap.value[metric.id] = {
           option: {
             title: {
-              text: metric.title,
+              text: metric.id,
             },
             tooltip: {
               axisPointer: {
                 type: 'cross',
               }
+            },
+            yAxis: {
+              scale: true,
             }
           },
         } as EChartsConfig;
       }
-      return chartConfigMap.value[metricName];
+      return chartConfigMap.value[metric.id];
     };
 
     const updateAllChartData = async () => {
-      console.debug('updateAllChartData');
       await Promise.all(checkedNormalizedMetrics.value.map(metric => updateChartData(metric)));
     };
 
     const updateChartData = async (metric: NavItem) => {
-      const metricName = metric.title as string;
-      const data = await props.metricDataFunc?.(metricName) || [];
-      console.log(metric, data);
-      chartConfigMap.value[metricName].data = data;
+      chartConfigMap.value[metric.id].data = await props.metricDataFunc?.(metric.id) || [];
     };
 
     const onCheck = (item: NavItem, checked: boolean, items: NavItem[]) => {
       checkedKeys.value = items.map(item => item.id);
     };
 
-    watch(() => checkedNormalizedMetrics.value.map(m => m.title), updateAllChartData);
+    watch(() => checkedNormalizedMetrics.value.map(m => m.value), updateAllChartData);
 
     return {
       navSidebarRef,

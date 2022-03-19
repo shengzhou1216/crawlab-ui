@@ -5,4 +5,4 @@ interface MetricDashboardProps {
   // dateRange?: DateRange;
 }
 
-type MetricDataFunc = (metricName: string) => Promise<StatsResult[]>;
+type MetricDataFunc = (metric: string) => Promise<StatsResult[]>;
