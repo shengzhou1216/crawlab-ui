@@ -163,6 +163,7 @@ export default defineComponent({
 .sidebar {
   overflow-x: hidden;
   user-select: none;
+  background-color: $menuBg;
 
   &.collapsed {
     .logo-container,

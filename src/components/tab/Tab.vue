@@ -195,7 +195,7 @@ export default defineComponent({
   display: flex;
   align-items: center;
   padding: 3px 5px;
-  max-width: $tabsViewTabMaxWidth;
+  //max-width: $tabsViewTabMaxWidth;
   border: 1px solid $tabsViewTabBorderColor;
   cursor: pointer;
   background-color: $tabsViewTabBg;

@@ -1,5 +1,5 @@
 interface LineChartProps {
-  config: EChartsConfig;
+  config?: EChartsConfig;
   width?: string;
   height?: string;
   theme?: string;

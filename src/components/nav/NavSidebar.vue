@@ -27,7 +27,12 @@
         v-else-if="type === 'tree'"
         :active-key="activeKey"
         :items="filteredItems"
+        :show-checkbox="showCheckbox"
+        :default-checked-keys="defaultCheckedKeys"
+        :default-expanded-keys="defaultExpandedKeys"
+        :default-expand-all="defaultExpandAll"
         @select="onSelectTree"
+        @check="onCheckTree"
       />
     </template>
     <Empty
@@ -53,6 +58,10 @@ export const navSidebarContentProps = {
   activeKey: {
     type: String,
   },
+  showCheckbox: {
+    type: Boolean,
+    default: false,
+  },
 };
 
 export default defineComponent({
@@ -74,7 +83,23 @@ export default defineComponent({
       type: Boolean,
     },
     ...navSidebarContentProps,
+    defaultCheckedKeys: {
+      type: Array as PropType<string[]>,
+      default: emptyArrayFunc,
+    },
+    defaultExpandedKeys: {
+      type: Array as PropType<string[]>,
+      default: emptyArrayFunc,
+    },
+    defaultExpandAll: {
+      type: Boolean,
+      default: false,
+    },
   },
+  emits: [
+    'select',
+    'check',
+  ],
   setup(props: NavSidebarProps, {emit}) {
     // i18n
     const {t} = useI18n();
@@ -105,16 +130,8 @@ export default defineComponent({
       emit('select', item);
     };
 
-    const onStar = (index: string) => {
-      emit('star', index);
-    };
-
-    const onDuplicate = (index: string) => {
-      emit('duplicate', index);
-    };
-
-    const onRemove = (index: string) => {
-      emit('remove', index);
+    const onCheckTree = (item: NavItem, checked: boolean, items: NavItem[]) => {
+      emit('check', item, checked, items);
     };
 
     const scroll = (id: string) => {
@@ -138,9 +155,7 @@ export default defineComponent({
       classes,
       onSelectList,
       onSelectTree,
-      onStar,
-      onDuplicate,
-      onRemove,
+      onCheckTree,
       scroll,
       t,
     };

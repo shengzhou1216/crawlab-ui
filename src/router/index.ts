@@ -118,7 +118,6 @@ export const createRouter = (rootRoutes?: Array<RouteRecordRaw>, routes?: Array<
 let _router: Router;
 
 export const getRouter = (rootRoutes?: Array<RouteRecordRaw>, routes?: Array<RouteRecordRaw>): Router => {
-  console.debug('getRouter', rootRoutes, routes)
   if (!_router) {
     _router = createRouter(rootRoutes, routes);
   }

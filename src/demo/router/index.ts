@@ -22,6 +22,14 @@ export const initDemoRoutes = () => {
             {path: '/demo/nav/sidebar/list', title: 'Sidebar List', icon: ['fa', 'list']},
             {path: '/demo/nav/sidebar/tree', title: 'Sidebar Tree', icon: ['fa', 'folder-tree']},
           ]
+        },
+        {
+          title: 'Chart',
+          icon: ['fa', 'chart-bar'],
+          children: [
+            {path: '/demo/chart/line', title: 'Line Chart', icon: ['fa', 'chart-line']},
+            {path: '/demo/chart/dashboard', title: 'Metric Dashboard', icon: ['fa', 'dashboard']},
+          ]
         }
       ],
     }

@@ -1,6 +1,9 @@
 <template>
-  <div class="nav-menu">
+  <div class="nav-menu" :class="[
+    showCheckbox ? 'show-checkbox' : '',
+  ].join(' ')">
     <el-tree
+      ref="treeRef"
       :data="items"
       node-key="id"
       :props="{
@@ -8,7 +11,11 @@
         children: 'children',
         class: getClass,
       }"
+      :show-checkbox="showCheckbox"
+      :default-checked-keys="defaultCheckedKeys"
+      :default-expand-all="defaultExpandAll"
       @node-click="onNodeClick"
+      @check-change="onCheckChange"
     >
       <template #default="{data}">
         <span class="title">
@@ -20,7 +27,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, PropType} from 'vue';
+import {defineComponent, PropType, ref} from 'vue';
 import {emptyArrayFunc} from '@/utils/func';
 
 export default defineComponent({
@@ -32,14 +39,37 @@ export default defineComponent({
     items: {
       type: Array as PropType<NavItem[]>,
       default: emptyArrayFunc,
-    }
+    },
+    showCheckbox: {
+      type: Boolean,
+      default: false,
+    },
+    defaultCheckedKeys: {
+      type: Array as PropType<string[]>,
+      default: emptyArrayFunc,
+    },
+    defaultExpandedKeys: {
+      type: Array as PropType<string[]>,
+      default: emptyArrayFunc,
+    },
+    defaultExpandAll: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: [
     'select',
+    'check',
   ],
   setup(props: NavSidebarTreeProps, {emit}) {
+    const treeRef = ref();
+
     const onNodeClick = (item: NavItem) => {
       emit('select', item);
+    };
+
+    const onCheckChange = (item: NavItem, checked: boolean) => {
+      emit('check', item, checked, treeRef.value?.getCheckedNodes());
     };
 
     const getClass = (item: NavItem): string | undefined => {
@@ -51,7 +81,9 @@ export default defineComponent({
     };
 
     return {
+      treeRef,
       onNodeClick,
+      onCheckChange,
       getClass,
     };
   },
@@ -76,8 +108,8 @@ export default defineComponent({
   background-color: #ecf5ff !important;
 }
 
-.nav-menu >>> .el-tree-node.active > .el-tree-node__content,
-.nav-menu >>> .el-tree-node > .el-tree-node__content:hover {
+.nav-menu:not(.show-checkbox) >>> .el-tree-node.active > .el-tree-node__content,
+.nav-menu:not(.show-checkbox) >>> .el-tree-node > .el-tree-node__content:hover {
   color: #409eff;
 }
 

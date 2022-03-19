@@ -1,1 +1,5 @@
-type NavSidebarTreeProps = NavSidebarContent;
+interface NavSidebarTreeProps extends NavSidebarContent {
+  defaultCheckedKeys?: string[];
+  defaultExpandedKeys?: string[];
+  defaultExpandAll?: boolean;
+}

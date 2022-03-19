@@ -9,7 +9,7 @@ import {getDemoRoutes} from '@/demo/router';
   // demo
   if (process.env.VUE_APP_DEMO) {
     options.initDemo = true;
-    options.rootRoutes = options.rootRoutes?.concat(getDemoRoutes());
+    options.rootRoutes = (options.rootRoutes || [])?.concat(getDemoRoutes());
   }
 
   // create app

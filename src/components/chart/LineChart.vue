@@ -11,36 +11,39 @@ import {useI18n} from 'vue-i18n';
 import {translate} from '@/utils/i18n';
 import {plainClone} from '@/utils/object';
 
+export const lineChartProps = {
+  config: {
+    type: Object as PropType<EChartsConfig>,
+    required: true,
+  },
+  width: {
+    type: String,
+    default: '100%',
+  },
+  height: {
+    type: String,
+    default: '100%',
+  },
+  theme: {
+    type: String,
+    default: 'light',
+  },
+  labelKey: {
+    type: String,
+  },
+  valueKey: {
+    type: String,
+    default: 'value',
+  },
+  isTimeSeries: {
+    type: Boolean,
+    default: true,
+  },
+};
+
 export default defineComponent({
   name: 'LineChart',
-  props: {
-    config: {
-      type: Object as PropType<EChartsConfig>,
-      required: true,
-    },
-    width: {
-      type: String,
-      default: '100%',
-    },
-    height: {
-      type: String,
-      default: '100%',
-    },
-    theme: {
-      type: String,
-      default: 'light',
-    },
-    labelKey: {
-      type: String,
-    },
-    valueKey: {
-      type: String,
-    },
-    isTimeSeries: {
-      type: Boolean,
-      default: true,
-    },
-  },
+  props: lineChartProps,
   setup(props: LineChartProps, {emit}) {
     const {locale} = useI18n();
     const t = translate;
@@ -58,7 +61,7 @@ export default defineComponent({
 
     const isMultiSeries = computed<boolean>(() => {
       const {config} = props;
-      const {dataMetas} = config;
+      const {dataMetas} = config as EChartsConfig;
       return dataMetas ? dataMetas.length > 1 : false;
     });
 
@@ -82,7 +85,7 @@ export default defineComponent({
 
     const getSeries = (): EChartSeries[] => {
       const {config} = props;
-      const {data, dataMetas} = config;
+      const {data, dataMetas} = config as EChartsConfig;
 
       if (!isMultiSeries.value) {
         // single series
@@ -108,7 +111,7 @@ export default defineComponent({
 
     const render = () => {
       const {config, theme, isTimeSeries} = props;
-      const option = plainClone(config.option);
+      const option = plainClone(config?.option);
 
       // dom
       const el = elRef.value;
@@ -160,6 +163,9 @@ export default defineComponent({
       // legend
       option.legend = {};
 
+      // debug
+      console.debug(option);
+
       // render
       if (!chart.value) {
         // init
@@ -168,7 +174,7 @@ export default defineComponent({
       (chart.value as ECharts).setOption(option);
     };
 
-    watch(() => props.config.data, render);
+    watch(() => props.config?.data, render);
     watch(() => props.theme, render);
     watch(() => locale.value, render);
 
