@@ -11,7 +11,12 @@
     </div>
     <div class="content">
       <div class="top">
-        <!--      <div class="filter"/>-->
+        <div class="filters">
+          <DateTimeRangePicker
+            :model-value="dateRange"
+            @change="onDateRangeChange"
+          />
+        </div>
       </div>
       <div class="chart-list">
         <div
@@ -35,10 +40,16 @@ import NavSidebar from '@/components/nav/NavSidebar.vue';
 import {emptyArrayFunc, voidFunc} from '@/utils/func';
 import LineChart from '@/components/chart/LineChart.vue';
 import {cloneArray} from '@/utils/object';
+import dayjs from 'dayjs';
+import DateTimeRangePicker from '@/components/date/DateTimeRangePicker.vue';
 
 export default defineComponent({
   name: 'MetricDashboard',
-  components: {LineChart, NavSidebar},
+  components: {
+    NavSidebar,
+    DateTimeRangePicker,
+    LineChart,
+  },
   props: {
     metrics: {
       type: Array as PropType<NavItem[]>,
@@ -48,10 +59,19 @@ export default defineComponent({
       type: Function as PropType<MetricDataFunc>,
       default: voidFunc,
     },
-    // TODO: implement
-    // dateRange: {
-    // },
+    dateRange: {
+      type: Object as PropType<DateRange>,
+      default: () => {
+        return {
+          end: dayjs(),
+          start: dayjs().subtract(1, 'hour'),
+        } as DateRange;
+      },
+    },
   },
+  emits: [
+    'date-range-change',
+  ],
   setup(props: MetricDashboardProps, {emit}) {
     const navSidebarRef = ref();
 
@@ -115,6 +135,11 @@ export default defineComponent({
     };
 
     watch(() => checkedNormalizedMetrics.value.map(m => m.value), updateAllChartData);
+    watch(() => props.dateRange, updateAllChartData);
+
+    const onDateRangeChange = (value: DateRange) => {
+      emit('date-range-change', value);
+    };
 
     return {
       navSidebarRef,
@@ -124,6 +149,7 @@ export default defineComponent({
       getChartConfig,
       updateAllChartData,
       onCheck,
+      onDateRangeChange,
     };
   }
 });
@@ -146,6 +172,11 @@ export default defineComponent({
     height: 100%;
     flex: 1 0;
     overflow-y: auto;
+
+    .top {
+      .filters {
+      }
+    }
   }
 }
 </style>

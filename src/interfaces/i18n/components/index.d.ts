@@ -1,5 +1,6 @@
 export declare global {
   interface LComponents {
+    // common components
     chart: LComponentsChart;
     table: LComponentsTable;
     dialog: LComponentsDialog;
@@ -11,7 +12,9 @@ export declare global {
     empty: LComponentsEmpty;
     form: LComponentsForm;
     file: LComponentsFile;
+    date: LComponentsDate;
 
+    // model-related components
     node: LComponentsNode;
     project: LComponentsProject;
     spider: LComponentsSpider;

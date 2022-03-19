@@ -10,6 +10,15 @@ export const translate = (path: string): string => {
 };
 window._t = translate;
 
+export const translateC = (c: number, path: string): string => {
+  const {n} = getI18n().global;
+  const res = n(c, path);
+  console.debug(res, c, path);
+  if (typeof res === 'string') return res;
+  return path;
+};
+window._tc = translateC;
+
 export const translatePlugin = (pluginName: string, path: string): string => {
   return translate(`plugins.${pluginName}.${path}`);
 };

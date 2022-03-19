@@ -9,6 +9,7 @@ import git from './git';
 import empty from './empty';
 import form from './form';
 import file from './file';
+import date from './date';
 
 import node from './node';
 import project from './project';
@@ -31,6 +32,7 @@ const components: LComponents = {
   empty,
   form,
   file,
+  date,
 
   node,
   project,
