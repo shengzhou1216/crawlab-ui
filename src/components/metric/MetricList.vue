@@ -1,5 +1,5 @@
 <template>
-  <div class="metric-dashboard">
+  <div class="metric-list">
     <div class="sidebar">
       <NavSidebar
         ref="navSidebarRef"
@@ -11,6 +11,12 @@
     </div>
     <div class="content">
       <div class="top">
+        <FormItem :label="t('components.metric.filters.timeRange')">
+          <DateTimeRangePicker
+            :model-value="dateRange"
+            @change="onDateRangeChange"
+          />
+        </FormItem>
         <FormItem :label="t('components.metric.filters.timeUnit')">
           <el-select :model-value="duration" @change="onDurationChange">
             <el-option
@@ -21,14 +27,13 @@
             />
           </el-select>
         </FormItem>
-        <FormItem :label="t('components.metric.filters.timeRange')">
-          <DateTimeRangePicker
-            :model-value="dateRange"
-            @change="onDateRangeChange"
-          />
-        </FormItem>
       </div>
-      <div class="chart-list">
+
+      <!--Chart List-->
+      <div
+        v-if="checkedNormalizedMetrics.length > 0"
+        class="chart-list"
+      >
         <div
           v-for="(metric, $index) in checkedNormalizedMetrics"
           :key="$index"
@@ -40,6 +45,11 @@
           />
         </div>
       </div>
+      <Empty
+        v-else
+        :description="t('components.metric.empty.noMetricsSelected')"
+      />
+      <!--./Chart List-->
     </div>
   </div>
 </template>
@@ -53,12 +63,14 @@ import {cloneArray} from '@/utils/object';
 import DateTimeRangePicker from '@/components/date/DateTimeRangePicker.vue';
 import FormItem from '@/components/form/FormItem.vue';
 import {translate} from '@/utils/i18n';
+import Empty from '@/components/empty/Empty.vue';
 
 const t = translate;
 
 export default defineComponent({
-  name: 'MetricDashboard',
+  name: 'MetricList',
   components: {
+    Empty,
     FormItem,
     NavSidebar,
     DateTimeRangePicker,
@@ -103,7 +115,7 @@ export default defineComponent({
     'date-range-change',
     'duration-change',
   ],
-  setup(props: MetricDashboardProps, {emit}) {
+  setup(props: MetricListProps, {emit}) {
     const navSidebarRef = ref();
 
     const getNormalizedMetrics = (items?: NavItem[]): NavItem[] => {
@@ -143,6 +155,11 @@ export default defineComponent({
               axisPointer: {
                 type: 'cross',
               }
+            },
+            grid: {
+              top: 50,
+              bottom: 30,
+              right: 20,
             },
             yAxis: {
               scale: true,
@@ -207,7 +224,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import "../../styles/variables";
 
-.metric-dashboard {
+.metric-list {
   display: flex;
   height: 100%;
 
@@ -232,12 +249,19 @@ export default defineComponent({
         margin-right: 10px;
       }
     }
+
+    .chart-list {
+      .metric-chart {
+        padding: 10px;
+        border-bottom: 1px solid $infoLightColor;
+      }
+    }
   }
 }
 </style>
 
 <style scoped>
-.metric-dashboard >>> .content .top .form-item .el-form-item {
+.metric-list >>> .content .top .form-item .el-form-item {
   margin-bottom: 0;
 }
 </style>

@@ -3,4 +3,7 @@ interface LComponentsMetric {
     timeUnit: string;
     timeRange: string;
   };
+  empty: {
+    noMetricsSelected: string;
+  };
 }

@@ -1,4 +1,4 @@
-interface MetricDashboardProps {
+interface MetricListProps {
   metrics?: NavItem[];
   metricDataFunc?: MetricDataFunc;
   dateRange?: RangeItem;
