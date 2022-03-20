@@ -3,7 +3,7 @@
     class-name="date-range-picker"
     type="daterange"
     :model-value="modelValue"
-    :shortcuts="shortcutItems"
+    :options="optionItems"
     @change="value => $emit('change', value)"
   />
 </template>
@@ -12,6 +12,7 @@
 import {computed, defineComponent} from 'vue';
 import RangePicker, {rangePickerProps} from '@/components/date/RangePicker.vue';
 import {useI18n} from 'vue-i18n';
+import dayjs from 'dayjs';
 
 export default defineComponent({
   name: 'DateRangePicker',
@@ -25,56 +26,56 @@ export default defineComponent({
   setup(props: DateRangePickerProps, {emit}) {
     const {t} = useI18n();
 
-    const shortcutItems = computed<RangePickerShortcut[]>(() => [
+    const optionItems = computed<RangeItem[]>(() => [
       {
-        text: t('components.date.dateRangePicker.shortcuts.today'),
+        key: t('components.date.dateRangePicker.options.today'),
         value: () => {
-          const end = new Date();
-          const start = new Date();
-          return [start, end];
+          return {
+            start: dayjs(),
+            end: dayjs(),
+          };
         }
       },
       {
-        text: t('components.date.dateRangePicker.shortcuts.yesterday'),
+        key: t('components.date.dateRangePicker.options.yesterday'),
         value: () => {
-          const end = new Date();
-          end.setTime(end.getTime() - 3600 * 24 * 1e3);
-          const start = new Date();
-          start.setTime(start.getTime() - 3600 * 24 * 1e3);
-          return [start, end];
+          return {
+            start: dayjs().subtract(1, 'day'),
+            end: dayjs().subtract(1, 'day'),
+          };
         }
       },
       {
-        text: t('components.date.dateRangePicker.shortcuts.pastNDays', {n: 7}),
+        key: t('components.date.dateRangePicker.options.pastNDays', {n: 7}),
         value: () => {
-          const end = new Date();
-          const start = new Date();
-          start.setTime(start.getTime() - 7 * 3600 * 24 * 1e3);
-          return [start, end];
+          return {
+            start: dayjs().subtract(7, 'day'),
+            end: dayjs(),
+          };
         }
       },
       {
-        text: t('components.date.dateRangePicker.shortcuts.pastNDays', {n: 7}),
+        key: t('components.date.dateRangePicker.options.pastNDays', {n: 14}),
         value: () => {
-          const end = new Date();
-          const start = new Date();
-          start.setTime(start.getTime() - 14 * 3600 * 24 * 1e3);
-          return [start, end];
+          return {
+            start: dayjs().subtract(14, 'day'),
+            end: dayjs(),
+          };
         }
       },
       {
-        text: t('components.date.dateRangePicker.shortcuts.pastNDays', {n: 30}),
+        key: t('components.date.dateRangePicker.options.pastNDays', {n: 30}),
         value: () => {
-          const end = new Date();
-          const start = new Date();
-          start.setTime(start.getTime() - 30 * 3600 * 24 * 1e3);
-          return [start, end];
+          return {
+            start: dayjs().subtract(30, 'day'),
+            end: dayjs(),
+          };
         }
       },
-    ]);
+    ] as RangeItem[]);
 
     return {
-      shortcutItems,
+      optionItems,
     };
   }
 });

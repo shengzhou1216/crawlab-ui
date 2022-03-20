@@ -1,7 +1,7 @@
 interface MetricDashboardProps {
   metrics?: NavItem[];
   metricDataFunc?: MetricDataFunc;
-  dateRange?: DateRange;
+  dateRange?: RangeItem;
 }
 
 type MetricDataFunc = (metric: string) => Promise<StatsResult[]>;

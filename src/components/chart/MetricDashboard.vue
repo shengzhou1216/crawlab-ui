@@ -11,12 +11,22 @@
     </div>
     <div class="content">
       <div class="top">
-        <div class="filters">
+        <FormItem :label="t('components.metric.filters.timeUnit')">
+          <el-select v-model="duration">
+            <el-option
+              v-for="(op, $index) in durationOptions"
+              :key="$index"
+              :label="op.label"
+              :value="op.value"
+            />
+          </el-select>
+        </FormItem>
+        <FormItem :label="t('components.metric.filters.timeRange')">
           <DateTimeRangePicker
             :model-value="dateRange"
             @change="onDateRangeChange"
           />
-        </div>
+        </FormItem>
       </div>
       <div class="chart-list">
         <div
@@ -40,12 +50,14 @@ import NavSidebar from '@/components/nav/NavSidebar.vue';
 import {emptyArrayFunc, voidFunc} from '@/utils/func';
 import LineChart from '@/components/chart/LineChart.vue';
 import {cloneArray} from '@/utils/object';
-import dayjs from 'dayjs';
 import DateTimeRangePicker from '@/components/date/DateTimeRangePicker.vue';
+import {useI18n} from 'vue-i18n';
+import FormItem from '@/components/form/FormItem.vue';
 
 export default defineComponent({
   name: 'MetricDashboard',
   components: {
+    FormItem,
     NavSidebar,
     DateTimeRangePicker,
     LineChart,
@@ -60,19 +72,15 @@ export default defineComponent({
       default: voidFunc,
     },
     dateRange: {
-      type: Object as PropType<DateRange>,
-      default: () => {
-        return {
-          end: dayjs(),
-          start: dayjs().subtract(1, 'hour'),
-        } as DateRange;
-      },
+      type: Object as PropType<RangeItem>,
     },
   },
   emits: [
     'date-range-change',
   ],
   setup(props: MetricDashboardProps, {emit}) {
+    const {t} = useI18n();
+
     const navSidebarRef = ref();
 
     const getNormalizedMetrics = (items?: NavItem[]): NavItem[] => {
@@ -137,9 +145,21 @@ export default defineComponent({
     watch(() => checkedNormalizedMetrics.value.map(m => m.value), updateAllChartData);
     watch(() => props.dateRange, updateAllChartData);
 
-    const onDateRangeChange = (value: DateRange) => {
+    const onDateRangeChange = (value: RangeItem) => {
       emit('date-range-change', value);
     };
+
+    const duration = ref<string>('1m');
+    const durationOptions = computed<SelectOption[]>(() => {
+      return [
+        {label: t('components.date.units.second', {n: 15}), value: '15s'},
+        {label: t('components.date.units.second', {n: 30}), value: '30s'},
+        {label: t('components.date.units.minute', {n: 1}), value: '1m'},
+        {label: t('components.date.units.minute', {n: 5}), value: '5m'},
+        {label: t('components.date.units.minute', {n: 15}), value: '15m'},
+        {label: t('components.date.units.hour', {n: 1}), value: '1h'},
+      ];
+    });
 
     return {
       navSidebarRef,
@@ -150,6 +170,9 @@ export default defineComponent({
       updateAllChartData,
       onCheck,
       onDateRangeChange,
+      duration,
+      durationOptions,
+      t,
     };
   }
 });
@@ -174,9 +197,21 @@ export default defineComponent({
     overflow-y: auto;
 
     .top {
-      .filters {
+      margin: 0;
+      padding: 4px 20px;
+      display: flex;
+      border-bottom: 1px solid $infoLightColor;
+
+      .form-item {
+        margin-right: 10px;
       }
     }
   }
+}
+</style>
+
+<style scoped>
+.metric-dashboard >>> .content .top .form-item .el-form-item {
+  margin-bottom: 0;
 }
 </style>

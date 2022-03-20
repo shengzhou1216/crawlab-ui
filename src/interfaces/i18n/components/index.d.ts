@@ -13,6 +13,7 @@ export declare global {
     form: LComponentsForm;
     file: LComponentsFile;
     date: LComponentsDate;
+    metric: LComponentsMetric;
 
     // model-related components
     node: LComponentsNode;
