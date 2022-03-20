@@ -12,7 +12,7 @@
     <div class="content">
       <div class="top">
         <FormItem :label="t('components.metric.filters.timeUnit')">
-          <el-select v-model="duration">
+          <el-select :model-value="duration" @change="onDurationChange">
             <el-option
               v-for="(op, $index) in durationOptions"
               :key="$index"
@@ -51,8 +51,10 @@ import {emptyArrayFunc, voidFunc} from '@/utils/func';
 import LineChart from '@/components/chart/LineChart.vue';
 import {cloneArray} from '@/utils/object';
 import DateTimeRangePicker from '@/components/date/DateTimeRangePicker.vue';
-import {useI18n} from 'vue-i18n';
 import FormItem from '@/components/form/FormItem.vue';
+import {translate} from '@/utils/i18n';
+
+const t = translate;
 
 export default defineComponent({
   name: 'MetricDashboard',
@@ -73,14 +75,35 @@ export default defineComponent({
     },
     dateRange: {
       type: Object as PropType<RangeItem>,
+      default: () => {
+        return {
+          key: 'past-1h',
+        } as RangeItem;
+      }
     },
+    duration: {
+      type: String,
+      default: '5m',
+    },
+    durationOptions: {
+      type: Array as PropType<SelectOption[]>,
+      default: () => {
+        return [
+          {label: t('components.date.units.second', {n: 15}), value: '15s'},
+          {label: t('components.date.units.second', {n: 30}), value: '30s'},
+          {label: t('components.date.units.minute', {n: 1}), value: '1m'},
+          {label: t('components.date.units.minute', {n: 5}), value: '5m'},
+          {label: t('components.date.units.minute', {n: 15}), value: '15m'},
+          {label: t('components.date.units.hour', {n: 1}), value: '1h'},
+        ];
+      }
+    }
   },
   emits: [
     'date-range-change',
+    'duration-change',
   ],
   setup(props: MetricDashboardProps, {emit}) {
-    const {t} = useI18n();
-
     const navSidebarRef = ref();
 
     const getNormalizedMetrics = (items?: NavItem[]): NavItem[] => {
@@ -144,22 +167,26 @@ export default defineComponent({
 
     watch(() => checkedNormalizedMetrics.value.map(m => m.value), updateAllChartData);
     watch(() => props.dateRange, updateAllChartData);
+    watch(() => props.duration, updateAllChartData);
 
     const onDateRangeChange = (value: RangeItem) => {
       emit('date-range-change', value);
     };
+    const onDurationChange = (value: string) => {
+      emit('duration-change', value);
+    };
 
-    const duration = ref<string>('1m');
-    const durationOptions = computed<SelectOption[]>(() => {
-      return [
-        {label: t('components.date.units.second', {n: 15}), value: '15s'},
-        {label: t('components.date.units.second', {n: 30}), value: '30s'},
-        {label: t('components.date.units.minute', {n: 1}), value: '1m'},
-        {label: t('components.date.units.minute', {n: 5}), value: '5m'},
-        {label: t('components.date.units.minute', {n: 15}), value: '15m'},
-        {label: t('components.date.units.hour', {n: 1}), value: '1h'},
-      ];
-    });
+    // const duration = ref<string>('1m');
+    // const durationOptions = computed<SelectOption[]>(() => {
+    //   return [
+    //     {label: t('components.date.units.second', {n: 15}), value: '15s'},
+    //     {label: t('components.date.units.second', {n: 30}), value: '30s'},
+    //     {label: t('components.date.units.minute', {n: 1}), value: '1m'},
+    //     {label: t('components.date.units.minute', {n: 5}), value: '5m'},
+    //     {label: t('components.date.units.minute', {n: 15}), value: '15m'},
+    //     {label: t('components.date.units.hour', {n: 1}), value: '1h'},
+    //   ];
+    // });
 
     return {
       navSidebarRef,
@@ -170,8 +197,7 @@ export default defineComponent({
       updateAllChartData,
       onCheck,
       onDateRangeChange,
-      duration,
-      durationOptions,
+      onDurationChange,
       t,
     };
   }

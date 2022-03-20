@@ -2,9 +2,9 @@ import {getI18n} from '@/i18n';
 import {updateTitle} from '@/utils/dom';
 import {LOCAL_STORAGE_KEY_LANG} from '@/constants/localStorage';
 
-export const translate = (path: string): string => {
-  const {tm} = getI18n().global;
-  const res = tm(path);
+export const translate = (path: string, args?: any): string => {
+  const {t} = getI18n().global;
+  const res = t(path, args);
   if (typeof res === 'string') return res;
   return path;
 };
