@@ -1,9 +1,9 @@
 interface MetricListProps {
   metrics?: NavItem[];
-  metricDataFunc?: MetricDataFunc;
+  metricDataFunc?: MetricListDataFunc;
   dateRange?: RangeItem;
   duration?: string;
   durationOptions?: SelectOption[];
 }
 
-type MetricDataFunc = (metric: string) => Promise<StatsResult[]>;
+type MetricListDataFunc = (metric: string) => Promise<StatsResult[]>;

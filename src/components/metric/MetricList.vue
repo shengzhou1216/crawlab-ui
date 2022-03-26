@@ -9,25 +9,30 @@
         @check="onCheck"
       />
     </div>
+
     <div class="content">
+      <!--Top-->
       <div class="top">
-        <FormItem :label="t('components.metric.filters.timeRange')">
-          <DateTimeRangePicker
-            :model-value="dateRange"
-            @change="onDateRangeChange"
-          />
-        </FormItem>
-        <FormItem :label="t('components.metric.filters.timeUnit')">
-          <el-select :model-value="duration" @change="onDurationChange">
-            <el-option
-              v-for="(op, $index) in durationOptions"
-              :key="$index"
-              :label="op.label"
-              :value="op.value"
+        <Form label-width="120px">
+          <FormItem :label="t('components.metric.filters.timeRange')">
+            <DateTimeRangePicker
+              :model-value="dateRange"
+              @change="onDateRangeChange"
             />
-          </el-select>
-        </FormItem>
+          </FormItem>
+          <FormItem :label="t('components.metric.filters.timeUnit')">
+            <el-select :model-value="duration" @change="onDurationChange">
+              <el-option
+                v-for="(op, $index) in durationOptions"
+                :key="$index"
+                :label="op.label"
+                :value="op.value"
+              />
+            </el-select>
+          </FormItem>
+        </Form>
       </div>
+      <!--./Top-->
 
       <!--Chart List-->
       <div
@@ -55,7 +60,7 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, PropType, ref, watch} from 'vue';
+import {computed, defineComponent, onBeforeMount, onBeforeUnmount, PropType, ref, watch} from 'vue';
 import NavSidebar from '@/components/nav/NavSidebar.vue';
 import {emptyArrayFunc, voidFunc} from '@/utils/func';
 import LineChart from '@/components/chart/LineChart.vue';
@@ -64,12 +69,14 @@ import DateTimeRangePicker from '@/components/date/DateTimeRangePicker.vue';
 import FormItem from '@/components/form/FormItem.vue';
 import {translate} from '@/utils/i18n';
 import Empty from '@/components/empty/Empty.vue';
+import Form from '@/components/form/Form.vue';
 
 const t = translate;
 
 export default defineComponent({
   name: 'MetricList',
   components: {
+    Form,
     Empty,
     FormItem,
     NavSidebar,
@@ -82,7 +89,7 @@ export default defineComponent({
       default: emptyArrayFunc,
     },
     metricDataFunc: {
-      type: Function as PropType<MetricDataFunc>,
+      type: Function as PropType<MetricListDataFunc>,
       default: voidFunc,
     },
     dateRange: {
@@ -186,24 +193,22 @@ export default defineComponent({
     watch(() => props.dateRange, updateAllChartData);
     watch(() => props.duration, updateAllChartData);
 
+    // timer
+    let handle: number;
+    onBeforeMount(() => {
+      updateAllChartData();
+      handle = setInterval(updateAllChartData, 60 * 1e3);
+    });
+    onBeforeUnmount(() => {
+      clearInterval(handle);
+    });
+
     const onDateRangeChange = (value: RangeItem) => {
       emit('date-range-change', value);
     };
     const onDurationChange = (value: string) => {
       emit('duration-change', value);
     };
-
-    // const duration = ref<string>('1m');
-    // const durationOptions = computed<SelectOption[]>(() => {
-    //   return [
-    //     {label: t('components.date.units.second', {n: 15}), value: '15s'},
-    //     {label: t('components.date.units.second', {n: 30}), value: '30s'},
-    //     {label: t('components.date.units.minute', {n: 1}), value: '1m'},
-    //     {label: t('components.date.units.minute', {n: 5}), value: '5m'},
-    //     {label: t('components.date.units.minute', {n: 15}), value: '15m'},
-    //     {label: t('components.date.units.hour', {n: 1}), value: '1h'},
-    //   ];
-    // });
 
     return {
       navSidebarRef,
@@ -242,11 +247,14 @@ export default defineComponent({
     .top {
       margin: 0;
       padding: 4px 20px;
-      display: flex;
       border-bottom: 1px solid $infoLightColor;
 
-      .form-item {
-        margin-right: 10px;
+      .form {
+        display: flex;
+
+        .form-item {
+          margin-right: 10px;
+        }
       }
     }
 

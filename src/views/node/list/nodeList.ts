@@ -65,7 +65,7 @@ const useNodeList = () => {
   // table columns
   const tableColumns = computed<TableColumns<Node>>(() => [
     {
-      key: 'n', // name
+      key: 'name', // name
       label: t('views.nodes.table.columns.name'),
       icon: ['fa', 'font'],
       width: '150',
@@ -78,7 +78,7 @@ const useNodeList = () => {
       allowFilterSearch: true,
     },
     {
-      key: 'im', // is_master
+      key: 'is_master', // is_master
       label: t('views.nodes.table.columns.nodeType'),
       icon: ['fa', 'list'],
       width: '150',
@@ -93,7 +93,7 @@ const useNodeList = () => {
       ],
     },
     {
-      key: 's', // status
+      key: 'status', // status
       label: t('views.nodes.table.columns.status'),
       icon: ['fa', 'heartbeat'],
       width: '150',
@@ -144,7 +144,7 @@ const useNodeList = () => {
       },
     },
     {
-      key: 'en', // enabled
+      key: 'enabled', // enabled
       label: t('views.nodes.table.columns.enabled'),
       icon: ['fa', 'toggle-on'],
       width: '120',

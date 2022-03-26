@@ -28,7 +28,7 @@ export const initDemoRoutes = () => {
           icon: ['fa', 'chart-bar'],
           children: [
             {path: '/demo/chart/line', title: 'Line Chart', icon: ['fa', 'chart-line']},
-            {path: '/demo/chart/dashboard', title: 'Dashboard', icon: ['fa', 'dashboard']},
+            {path: '/demo/chart/metric', title: 'Metric', icon: ['fa', 'dashboard']},
           ]
         }
       ],

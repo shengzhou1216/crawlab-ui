@@ -5,7 +5,7 @@ import useStore from '@/components/table/store';
 import {getColumnWidth, getTableWidth} from '@/utils/table';
 import {sendEvent} from '@/admin/umeng';
 
-const useColumns = (props: TableProps, ctx: SetupContext, table: Ref<Table<any> | undefined>, wrapper: Ref) => {
+const useColumns = (props: TableProps, ctx: SetupContext, table: Ref<Table<any> | undefined>, wrapper: Ref<Element>) => {
   const {columns} = props;
 
   const {store} = useStore(props, ctx, table);
@@ -71,7 +71,7 @@ const useColumns = (props: TableProps, ctx: SetupContext, table: Ref<Table<any> 
     const selectionColumnKeys = columnsCtx.value.filter(d => d.type === 'selection').map(d => d.columnKey);
 
     // table width
-    const tableWidth = getTableWidth();
+    const tableWidth = getTableWidth(wrapper.value);
 
     // table width
     let tableFixedTotalWidth = 0;

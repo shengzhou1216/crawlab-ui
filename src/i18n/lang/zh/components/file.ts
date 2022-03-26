@@ -100,7 +100,7 @@ const file: LComponentsFile = {
           highlightSelectionMatches: 'Adds a highlightSelectionMatches option that can be enabled to highlight all instances of a currently selected word. When enabled, it causes the current word to be highlighted when nothing is selected.',
           matchBrackets: 'When set to true or an options object, causes matching brackets to be highlighted whenever the cursor is next to them.',
           matchTags: 'When enabled will cause the tags around the cursor to be highlighted',
-          autoCloseBrackets: 'Will auto-close brackets and quotes when typed. It\'ll auto-close ()[]{}\'\'"".',
+          autoCloseBrackets: 'Will auto-close brackets and quotes when typed. It\'ll auto-close brackets\'\'"".',
           autoCloseTags: 'Will auto-close XML tags when \'>\' or \'/\' is typed.',
           showHint: 'Show Hint',
         },

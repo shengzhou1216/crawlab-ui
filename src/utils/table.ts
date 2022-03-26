@@ -16,8 +16,8 @@ export const getDefaultTableDataWithTotal = (): TableDataWithTotal => {
   };
 };
 
-export const getTableWidth = (): number | undefined => {
-  const elTable = document.querySelector('.list-layout .table');
+export const getTableWidth = (el?: Element): number | undefined => {
+  const elTable = el || document.querySelector('.table');
   if (!elTable) return;
   const style = getComputedStyle(elTable);
   const widthStr = style.width.replace('px', '');

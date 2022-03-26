@@ -1,6 +1,6 @@
 import {RouteRecordRaw} from 'vue-router';
 import DemoLineChart from '@/demo/views/chart/DemoLineChart.vue';
-import DemoChartDashboard from '@/demo/views/chart/DemoChartDashboard.vue';
+import DemoMetric from '@/demo/views/chart/DemoMetric.vue';
 
 const endpoint = '/demo/chart';
 
@@ -10,7 +10,7 @@ export default [
     component: DemoLineChart,
   },
   {
-    path: `${endpoint}/dashboard`,
-    component: DemoChartDashboard,
+    path: `${endpoint}/metric`,
+    component: DemoMetric,
   }
 ] as Array<RouteRecordRaw>;
