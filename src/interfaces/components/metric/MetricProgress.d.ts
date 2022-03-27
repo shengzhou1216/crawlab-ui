@@ -9,7 +9,7 @@ interface MetricProgressProps {
   showText?: boolean;
   strokeLinecap?: MetricProgressStrokeLinecap;
   format?: MetricProgressFormat;
-  label?: string;
+  label?: MetricProgressLabel | string;
   labelIcon?: Icon;
   detailMetrics?: SelectOption[];
   status?: MetricProgressStatus;
@@ -22,7 +22,13 @@ type MetricProgressStatus =
   MetricProgressStatusData
   | ((percentage: number | null) => MetricProgressStatusData | undefined);
 
+interface MetricProgressLabel {
+  key?: string;
+  title?: string;
+}
+
 interface MetricProgressStatusData {
   color?: string;
   icon?: Icon;
+  label?: string;
 }

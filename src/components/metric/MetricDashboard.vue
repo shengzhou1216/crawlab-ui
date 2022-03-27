@@ -16,7 +16,6 @@ import MetricTargetType from '@/components/metric/MetricTargetType.vue';
 import NodeStatus from '@/components/node/NodeStatus.vue';
 import MetricTargetName from '@/components/metric/MetricTargetName.vue';
 import MetricSnapshotComp from '@/components/metric/MetricSnapshot.vue';
-import {voidFunc} from '@/utils/func';
 import {TABLE_COLUMN_NAME_ACTIONS} from '@/constants/table';
 
 export default defineComponent({
@@ -28,11 +27,10 @@ export default defineComponent({
     metricDataFunc: {
       type: Function as PropType<MetricDashboardDataFunc>,
     },
-    onRowClick: {
-      type: Function as PropType<(row: MetricSnapshot) => void>,
-      default: voidFunc,
-    }
   },
+  emits: [
+    'row-click',
+  ],
   setup(props: MetricDashboardProps, {emit}) {
     const {t} = useI18n();
 
@@ -47,7 +45,7 @@ export default defineComponent({
           value: (row: MetricSnapshot) => h(MetricTargetName, {
             name: row.name,
             type: row.type,
-            onClick: () => props.onRowClick?.(row)
+            onClick: () => emit('row-click', row)
           }),
         },
         {
@@ -82,17 +80,7 @@ export default defineComponent({
               type: 'primary',
               icon: ['fa', 'search'],
               tooltip: t('common.actions.view'),
-              onClick: (row: MetricSnapshot) => {
-                // do nothing
-              },
-            },
-            {
-              type: 'danger',
-              icon: ['fa', 'trash-alt'],
-              tooltip: t('common.actions.delete'),
-              onClick: async (row: MetricSnapshot) => {
-                // do nothing
-              },
+              onClick: (row: MetricSnapshot) => emit('row-click', row),
             },
           ],
         }

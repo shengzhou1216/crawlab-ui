@@ -34,6 +34,24 @@ const metric: LComponentsMetric = {
       value: 'Metric Value',
     },
   },
+  snapshot: {
+    node: {
+      cpu: 'CPU Usage',
+      mem: 'Memory Usage',
+      disk: 'Disk Usage',
+      net: 'Network Status',
+    },
+    mongo: {
+      fs: 'MongoDB File System Usage',
+      db: 'MongoDB Storage Percentage',
+    },
+  },
+  status: {
+    danger: 'Dangerous status with high risk of system failure, should take immediate actions',
+    warning: 'Warning status with potentially high risk of system failure, should watch closely and pay attention',
+    healthy: 'Healthy status, no actions needed at this moment',
+    unknown: 'Unknown status',
+  },
   metrics: {
     'performance:node:cpu:percent': 'CPU usage percentage',
     'performance:node:mem:total': 'Total memory in bytes',

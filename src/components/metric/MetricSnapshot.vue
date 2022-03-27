@@ -6,7 +6,7 @@
         :width="80"
         :percentage="snapshot.metrics?.['performance:node:cpu:percent']?.value"
         :format="format"
-        label="cpu"
+        :label="{key: 'cpu', title: t('components.metric.snapshot.node.cpu')}"
         :label-icon="['fa', 'microchip']"
         :status="status.node.cpu"
         :detail-metrics="getChildMetrics(':node:cpu:')"
@@ -16,7 +16,7 @@
         :width="80"
         :percentage="snapshot.metrics?.['performance:node:mem:used_percent']?.value"
         :format="format"
-        label="mem"
+        :label="{key: 'mem', title: t('components.metric.snapshot.node.mem')}"
         :label-icon="['fa', 'memory']"
         :status="status.node.mem"
         :detail-metrics="getChildMetrics(':node:mem:')"
@@ -26,17 +26,18 @@
         :width="80"
         :percentage="snapshot.metrics?.['performance:node:disk:used_percent']?.value"
         :format="format"
-        label="disk"
+        :label="{key: 'disk', title: t('components.metric.snapshot.node.disk')}"
         :label-icon="['fa', 'hard-drive']"
         :status="status.node.disk"
         :detail-metrics="getChildMetrics(':node:disk:')"
       />
       <MetricProgress
+        v-if="false"
         type="dashboard"
         :width="80"
         :percentage="null && snapshot.metrics?.['performance:node:net:io_bytes_recv_rate']?.value"
         :format="format"
-        label="net"
+        :label="{key: 'net', title: t('components.metric.snapshot.node.net')}"
         :label-icon="['fa', 'wifi']"
         :status="status.net"
         :detail-metrics="getChildMetrics(':node:net:')"
@@ -49,7 +50,7 @@
         :width="80"
         :percentage="snapshot.metrics?.['performance:mongo:size:fs_used_size_percent']?.value"
         :format="format"
-        label="fs"
+        :label="{key: 'fs', title: t('components.metric.snapshot.mongo.fs')}"
         :label-icon="['fa', 'hard-drive']"
         :status="status.mongo.size"
         :detail-metrics="getChildMetrics(':mongo:size:fs')"
@@ -59,7 +60,7 @@
         :width="80"
         :percentage="snapshot.metrics?.['performance:mongo:size:total_size_percent']?.value"
         :format="format"
-        label="db"
+        :label="{key: 'db', title: t('components.metric.snapshot.mongo.db')}"
         :label-icon="['fa', 'database']"
         :status="status.mongo.size"
         :detail-metrics="getChildMetrics(':mongo:size:')"
@@ -77,6 +78,7 @@ import {computed, defineComponent, PropType, readonly} from 'vue';
 import {emptyObjectFunc} from '@/utils/func';
 import MetricProgress from '@/components/metric/MetricProgress.vue';
 import variables from '@/styles/variables.scss';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
   name: 'MetricSnapshot',
@@ -88,6 +90,8 @@ export default defineComponent({
     },
   },
   setup(props: MetricSnapshotProps, {emit}) {
+    const {t} = useI18n();
+
     const format = computed(() => {
       return (percentage: number | null): string => {
         if (percentage === null) return 'N/A';
@@ -108,10 +112,26 @@ export default defineComponent({
     };
 
     const statusItems = readonly<{ [key: string]: MetricProgressStatusData }>({
-      danger: {color: variables.dangerColor, icon: ['fa', 'circle-exclamation']},
-      warning: {color: variables.warningColor, icon: ['fa', 'triangle-exclamation']},
-      success: {color: variables.successColor, icon: ['fa', 'circle-check']},
-      unknown: {color: variables.infoMediumColor, icon: ['fa', 'circle-question']},
+      danger: {
+        color: variables.dangerColor,
+        icon: ['fa', 'circle-exclamation'],
+        label: t('components.metric.status.danger')
+      },
+      warning: {
+        color: variables.warningColor,
+        icon: ['fa', 'triangle-exclamation'],
+        label: t('components.metric.status.warning')
+      },
+      healthy: {
+        color: variables.successColor,
+        icon: ['fa', 'circle-check'],
+        label: t('components.metric.status.healthy')
+      },
+      unknown: {
+        color: variables.infoMediumColor,
+        icon: ['fa', 'circle-question'],
+        label: t('components.metric.status.unknown')
+      },
     });
 
     const status = readonly<{ [key: string]: { [key: string]: MetricProgressStatus } }>({
@@ -124,7 +144,7 @@ export default defineComponent({
           } else if (p >= 50) {
             return statusItems.warning as MetricProgressStatusData;
           } else {
-            return statusItems.success as MetricProgressStatusData;
+            return statusItems.healthy as MetricProgressStatusData;
           }
         },
         mem: (p: number | null) => {
@@ -135,7 +155,7 @@ export default defineComponent({
           } else if (p >= 50) {
             return statusItems.warning as MetricProgressStatusData;
           } else {
-            return statusItems.success as MetricProgressStatusData;
+            return statusItems.healthy as MetricProgressStatusData;
           }
         },
         disk: (p: number | null) => {
@@ -146,7 +166,7 @@ export default defineComponent({
           } else if (p >= 50) {
             return statusItems.warning as MetricProgressStatusData;
           } else {
-            return statusItems.success as MetricProgressStatusData;
+            return statusItems.healthy as MetricProgressStatusData;
           }
         },
         net: (p: number | null) => {
@@ -157,7 +177,7 @@ export default defineComponent({
           } else if (p >= 50) {
             return statusItems.warning as MetricProgressStatusData;
           } else {
-            return statusItems.success as MetricProgressStatusData;
+            return statusItems.healthy as MetricProgressStatusData;
           }
         },
       },
@@ -170,7 +190,7 @@ export default defineComponent({
           } else if (p >= 50) {
             return statusItems.warning as MetricProgressStatusData;
           } else {
-            return statusItems.success as MetricProgressStatusData;
+            return statusItems.healthy as MetricProgressStatusData;
           }
         },
       }
@@ -180,6 +200,7 @@ export default defineComponent({
       format,
       getChildMetrics: getDetailMetrics,
       status,
+      t,
     };
   }
 });

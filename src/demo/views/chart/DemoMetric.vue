@@ -3,6 +3,7 @@
     <el-tab-pane name="metric-dashboard" label="Metric Dashboard">
       <MetricDashboard
         :metric-data-func="metricDashboardFunc"
+        @row-click="onMetricDashboardRowClick"
       />
     </el-tab-pane>
     <el-tab-pane name="metric-list" label="Metric List">
@@ -67,8 +68,8 @@ export default defineComponent({
     const getMetrics = async () => {
       const res = await get('/metrics/names', {
         group: true,
-        // query: '^performance:node:.*',
-        query: '^performance:mongo:.*',
+        query: '^performance:node:.*',
+        // query: '^performance:mongo:.*',
       });
       const namespace = res.data.map((d: any) => getNavItemFromMetric(d))[0];
       const subSystem = namespace?.children?.[0];
@@ -107,11 +108,16 @@ export default defineComponent({
       return res.data || [];
     });
 
+    const onMetricDashboardRowClick = (row: MetricSnapshot) => {
+      console.debug(row);
+    };
+
     return {
       metricDashboardFunc,
 
       metrics,
       metricListDataFunc,
+      onMetricDashboardRowClick,
       dateRange,
       onDateRangeChange,
       duration,

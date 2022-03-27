@@ -34,6 +34,24 @@ const metric: LComponentsMetric = {
       value: '指标数值',
     },
   },
+  snapshot: {
+    node: {
+      cpu: 'CPU 使用率',
+      mem: '内存使用率',
+      disk: '磁盘使用率',
+      net: '网络状态',
+    },
+    mongo: {
+      fs: 'MongoDB 文件系统使用率',
+      db: 'MongoDB 储存大小百分比',
+    },
+  },
+  status: {
+    danger: '危险状态，系统崩溃风险很高，需要立即采取措施',
+    warning: '警告状态，潜在系统崩溃风险，需要密切关注',
+    healthy: '健康状态，无需采取措施',
+    unknown: '未知状态',
+  },
   metrics: {
     'performance:node:cpu:percent': 'CPU 使用百分比',
     'performance:node:mem:total': '总内存大小字节数',

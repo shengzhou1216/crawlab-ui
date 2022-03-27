@@ -1,14 +1,14 @@
 <template>
   <Tag
-      v-if="!iconOnly"
-      :key="data"
-      :icon="data.icon"
-      :label="data.label"
-      :size="size"
-      :spinning="data.spinning"
-      :type="data.type"
-      class="schedule-cron"
-      @click="$emit('click')"
+    v-if="!iconOnly"
+    :key="data"
+    :icon="data.icon"
+    :label="data.label"
+    :size="size"
+    :spinning="data.spinning"
+    :type="data.type"
+    class="schedule-cron"
+    @click="$emit('click')"
   >
     <template #tooltip>
       <div v-html="data.tooltip"/>
@@ -91,8 +91,8 @@ export default defineComponent({
     const next = computed<string | undefined>(() => {
       if (!interval.value) return;
       return dayjs(interval.value.next().toDate())
-          .locale(getI18n().global.locale.value === 'zh' ? zh : en)
-          .format('llll');
+        .locale(getI18n().global.locale.value === 'zh' ? zh : en)
+        ?.format('llll');
     });
 
     const description = computed<string | undefined>(() => {

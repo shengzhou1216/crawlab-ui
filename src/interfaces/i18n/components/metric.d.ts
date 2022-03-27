@@ -34,6 +34,24 @@ interface LComponentsMetric {
       value: string;
     };
   };
+  snapshot: {
+    node: {
+      cpu: string;
+      mem: string;
+      disk: string;
+      net: string;
+    };
+    mongo: {
+      fs: string;
+      db: string;
+    };
+  };
+  status: {
+    danger: string;
+    warning: string;
+    healthy: string;
+    unknown: string;
+  };
   metrics: {
     'performance:node:cpu:percent': string;
     'performance:node:mem:total': string;

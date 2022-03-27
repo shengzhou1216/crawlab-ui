@@ -16,13 +16,13 @@
               <span class="label-icon">
                 <Icon :icon="labelIcon"/>
               </span>
-              <span class="label-text">{{ label }}</span>
+              <span class="label-text">{{ label?.key }}</span>
             </div>
             <div class="value" :style="{color}">
               {{ format(percentage) }}
             </div>
             <div class="status" :style="{color}">
-              <el-tooltip>
+              <el-tooltip :content="computedStatus?.label">
                 <Icon :icon="computedStatus?.icon"/>
               </el-tooltip>
             </div>
@@ -30,8 +30,20 @@
         </el-progress>
       </template>
 
-      <div class="child-metrics">
-        <el-table :data="detailMetrics" border max-height="480px">
+      <div class="detail-metrics">
+        <div class="overview">
+          <span class="title">
+            {{ label?.title }}:
+          </span>
+          <el-tooltip :content="computedStatus?.label">
+            <span class="value" :style="{color}">
+              <Icon :icon="computedStatus?.icon"/>
+              {{ format(percentage) }}
+            </span>
+          </el-tooltip>
+        </div>
+
+        <el-table class="list" :data="detailMetrics" border max-height="480px">
           <el-table-column
             index="label"
             key="label"
@@ -61,7 +73,7 @@
 <script lang="ts">
 import {computed, defineComponent, PropType} from 'vue';
 import IconComp from '@/components/icon/Icon.vue';
-import {emptyArrayFunc} from '@/utils/func';
+import {emptyArrayFunc, emptyObjectFunc} from '@/utils/func';
 import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
@@ -99,7 +111,8 @@ export default defineComponent({
       type: Function as PropType<MetricProgressFormat>,
     },
     label: {
-      type: String,
+      type: [Object, String] as PropType<MetricProgressLabel | string>,
+      default: emptyObjectFunc,
     },
     labelIcon: {
       type: [String, Array] as PropType<Icon>,
@@ -126,19 +139,58 @@ export default defineComponent({
 
     const color = computed<string | undefined>(() => computedStatus.value?.color);
 
+    const computedLabel = computed<MetricProgressLabel | undefined>(() => {
+      const {label} = props;
+      if (typeof label === 'string') {
+        return {
+          title: label,
+          key: label,
+        };
+      }
+
+      return label;
+    });
+
     return {
       t,
       computedStatus,
       color,
+      computedLabel,
     };
   }
 });
 </script>
 
 <style lang="scss" scoped>
+@import "../../styles/variables";
+
 .metric-progress {
   display: inline-flex;
   cursor: pointer;
+}
+
+.detail-metrics {
+  .overview {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    color: $infoMediumColor;
+
+    .title {
+      margin-right: 10px;
+    }
+
+    .value {
+      cursor: pointer;
+      font-size: 20px;
+
+      .status {
+        margin-right: 3px;
+      }
+    }
+  }
 }
 </style>
 <style scoped>
