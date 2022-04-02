@@ -4,6 +4,5 @@ interface MetricListProps {
   dateRange?: RangeItem;
   duration?: string;
   durationOptions?: SelectOption[];
+  defaultCheckedAll?: boolean;
 }
-
-type MetricListDataFunc = (metric: string) => Promise<StatsResult[]>;

@@ -19,4 +19,10 @@ export declare global {
   }
 
   type MetricTargetType = 'node' | 'mongo' | 'seaweedfs';
+
+  type MetricDashboardDataFunc = () => Promise<MetricSnapshot[]>;
+
+  type MetricListDataFunc = (metric: string) => Promise<StatsResult[]>;
+
+  type MetricListNavItemFunc = () => Promise<NavItem[]>;
 }

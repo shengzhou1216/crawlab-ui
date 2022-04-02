@@ -1,6 +1,6 @@
 <template>
   <div class="demo-layout">
-    <el-tabs :active-name="activeName">
+    <el-tabs :active-name="activeName" @tab-click="(tab) => $emit('tab-click', tab)">
       <slot/>
     </el-tabs>
   </div>
@@ -16,6 +16,9 @@ export default defineComponent({
       type: String,
     }
   },
+  emits: [
+    'tab-click',
+  ],
   setup(props: DemoLayoutProps) {
     return {};
   }

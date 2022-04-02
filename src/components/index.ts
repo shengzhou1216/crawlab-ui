@@ -4,10 +4,14 @@ import IconButton from './button/IconButton.vue';
 import LabelButton from './button/LabelButton.vue';
 import LineChart from './chart/LineChart.vue';
 import Metric from './chart/Metric.vue';
+import MetricLineChart from './chart/MetricLineChart.vue';
 import PieChart from './chart/PieChart.vue';
 import ColorPicker from './color/ColorPicker.vue';
 import ContextMenu from './context-menu/ContextMenu.vue';
 import ContextMenuList from './context-menu/ContextMenuList.vue';
+import DateRangePicker from './date/DateRangePicker.vue';
+import DateTimeRangePicker from './date/DateTimeRangePicker.vue';
+import RangePicker from './date/RangePicker.vue';
 import ConfirmDialog from './dialog/ConfirmDialog.vue';
 import CreateDialogContentBatch from './dialog/CreateDialogContentBatch.vue';
 import CreateEditDialog from './dialog/CreateEditDialog.vue';
@@ -41,6 +45,12 @@ import MenuItemIcon from './icon/MenuItemIcon.vue';
 import InputWithButton from './input/InputWithButton.vue';
 import TagInput from './input/TagInput.vue';
 import TagInputItem from './input/TagInputItem.vue';
+import MetricDashboard from './metric/MetricDashboard.vue';
+import MetricList from './metric/MetricList.vue';
+import MetricProgress from './metric/MetricProgress.vue';
+import MetricSnapshot from './metric/MetricSnapshot.vue';
+import MetricTargetName from './metric/MetricTargetName.vue';
+import MetricTargetType from './metric/MetricTargetType.vue';
 import NavActionBack from './nav/NavActionBack.vue';
 import NavActionButton from './nav/NavActionButton.vue';
 import NavActionFaIcon from './nav/NavActionFaIcon.vue';
@@ -121,10 +131,14 @@ export {
   LabelButton as ClLabelButton,
   LineChart as ClLineChart,
   Metric as ClMetric,
+  MetricLineChart as ClMetricLineChart,
   PieChart as ClPieChart,
   ColorPicker as ClColorPicker,
   ContextMenu as ClContextMenu,
   ContextMenuList as ClContextMenuList,
+  DateRangePicker as ClDateRangePicker,
+  DateTimeRangePicker as ClDateTimeRangePicker,
+  RangePicker as ClRangePicker,
   ConfirmDialog as ClConfirmDialog,
   CreateDialogContentBatch as ClCreateDialogContentBatch,
   CreateEditDialog as ClCreateEditDialog,
@@ -158,6 +172,12 @@ export {
   InputWithButton as ClInputWithButton,
   TagInput as ClTagInput,
   TagInputItem as ClTagInputItem,
+  MetricDashboard as ClMetricDashboard,
+  MetricList as ClMetricList,
+  MetricProgress as ClMetricProgress,
+  MetricSnapshot as ClMetricSnapshot,
+  MetricTargetName as ClMetricTargetName,
+  MetricTargetType as ClMetricTargetType,
   NavActionBack as ClNavActionBack,
   NavActionButton as ClNavActionButton,
   NavActionFaIcon as ClNavActionFaIcon,

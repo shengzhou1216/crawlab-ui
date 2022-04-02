@@ -1,5 +1,5 @@
 <template>
-  <DemoLayout active-name="metric-dashboard">
+  <DemoLayout :active-name="activeTabName" @tab-click="onTabClick">
     <el-tab-pane name="metric-dashboard" label="Metric Dashboard">
       <MetricDashboard
         :metric-data-func="metricDashboardFunc"
@@ -112,6 +112,12 @@ export default defineComponent({
       console.debug(row);
     };
 
+    // const activeTabName = ref<string>('metric-dashboard');
+    const activeTabName = ref<string>('metric-list');
+    const onTabClick = (tab: { paneName: string }) => {
+      activeTabName.value = tab.paneName;
+    };
+
     return {
       metricDashboardFunc,
 
@@ -122,6 +128,8 @@ export default defineComponent({
       onDateRangeChange,
       duration,
       onDurationChange,
+      activeTabName,
+      onTabClick,
     };
   }
 });

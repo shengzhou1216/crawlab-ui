@@ -111,7 +111,7 @@ export default defineComponent({
 
     const render = () => {
       const {config, theme, isTimeSeries} = props;
-      const option = plainClone(config?.option);
+      const option = {...config?.option};
 
       // dom
       const el = elRef.value;
@@ -147,11 +147,11 @@ export default defineComponent({
       // tooltip
       if (!option.tooltip) {
         option.tooltip = {
-          // trigger: 'axis',
+          trigger: 'axis',
           // position: ['50%', '50%'],
-          // axisPointer: {
-          //   type: 'cross',
-          // },
+          axisPointer: {
+            type: 'cross',
+          },
         };
       }
 

@@ -6,6 +6,7 @@
         type="tree"
         :items="metrics"
         show-checkbox
+        :default-checked-keys="checkedKeys"
         @check="onCheck"
       />
     </div>
@@ -13,6 +14,7 @@
     <div class="content">
       <!--Top-->
       <div class="top">
+        <NavActionBack @click="() => $emit('back')"/>
         <Form label-width="120px">
           <FormItem :label="t('components.metric.filters.timeRange')">
             <DateTimeRangePicker
@@ -70,12 +72,15 @@ import FormItem from '@/components/form/FormItem.vue';
 import {translate} from '@/utils/i18n';
 import Empty from '@/components/empty/Empty.vue';
 import Form from '@/components/form/Form.vue';
+import NavActionBack from '@/components/nav/NavActionBack.vue';
+import dayjs from 'dayjs';
 
 const t = translate;
 
 export default defineComponent({
   name: 'MetricList',
   components: {
+    NavActionBack,
     Form,
     Empty,
     FormItem,
@@ -116,11 +121,16 @@ export default defineComponent({
           {label: t('components.date.units.hour', {n: 1}), value: '1h'},
         ];
       }
-    }
+    },
+    defaultCheckedAll: {
+      type: Boolean,
+      default: true,
+    },
   },
   emits: [
     'date-range-change',
     'duration-change',
+    'back',
   ],
   setup(props: MetricListProps, {emit}) {
     const navSidebarRef = ref();
@@ -159,9 +169,10 @@ export default defineComponent({
               text: metric.id,
             },
             tooltip: {
-              axisPointer: {
-                type: 'cross',
-              }
+              formatter: (params: { marker: string; value: [number, number] }) => {
+                const time = dayjs.unix(params.value[0] / 1e3).format('YYYY-MM-DD HH:mm:ss');
+                return `${time}<br>${params.marker} ${params.value?.[1]?.toLocaleString()}`;
+              },
             },
             grid: {
               top: 50,
@@ -210,6 +221,12 @@ export default defineComponent({
       emit('duration-change', value);
     };
 
+    watch(() => props.metrics, () => {
+      if (props.defaultCheckedAll) {
+        checkedKeys.value = getNormalizedMetrics(props.metrics).map(m => m.id);
+      }
+    });
+
     return {
       navSidebarRef,
       normalizedMetrics,
@@ -220,6 +237,7 @@ export default defineComponent({
       onCheck,
       onDateRangeChange,
       onDurationChange,
+      checkedKeys,
       t,
     };
   }
@@ -232,6 +250,7 @@ export default defineComponent({
 .metric-list {
   display: flex;
   height: 100%;
+  background: $white;
 
   .sidebar {
     height: 100%;
@@ -248,8 +267,15 @@ export default defineComponent({
       margin: 0;
       padding: 4px 20px;
       border-bottom: 1px solid $infoLightColor;
+      display: flex;
+      align-items: center;
+
+      .nav-action-back {
+        flex: 0 0 inherit;
+      }
 
       .form {
+        flex: 1 0;
         display: flex;
 
         .form-item {
