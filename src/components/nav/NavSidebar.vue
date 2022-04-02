@@ -1,6 +1,9 @@
 <template>
   <div class="nav-sidebar" :class="classes">
-    <div class="search">
+    <div
+      v-if="!noSearch"
+      class="search"
+    >
       <el-input
         v-model="searchString"
         class="search-input"
@@ -96,6 +99,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    noSearch: {
+      type: Boolean,
+      default: false,
+    }
   },
   emits: [
     'select',

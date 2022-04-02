@@ -10,6 +10,7 @@
       <MetricList
         :metrics="metrics"
         :metric-data-func="metricListDataFunc"
+        :metric-title-func="metricListTitleFunc"
         :date-range="dateRange"
         :duration="duration"
         @date-range-change="onDateRangeChange"
@@ -26,6 +27,7 @@ import MetricList from '@/components/metric/MetricList.vue';
 import useRequest from '@/services/request';
 import dayjs from 'dayjs';
 import MetricDashboard from '@/components/metric/MetricDashboard.vue';
+import {useI18n} from 'vue-i18n';
 
 const {
   get,
@@ -39,6 +41,8 @@ export default defineComponent({
     MetricList,
   },
   setup() {
+    const {t} = useI18n();
+
     const dateRange = ref<RangeItem>({
       key: 'past-1h',
       value: () => {
@@ -103,6 +107,10 @@ export default defineComponent({
       // return data;
     });
 
+    const metricListTitleFunc = ref<MetricListTitleFunc>((metric: NavItem) => {
+      return t(`components.metric.metrics.${metric.id}`);
+    });
+
     const metricDashboardFunc = ref<MetricDashboardDataFunc>(async () => {
       const res = await get('/metrics/snapshots');
       return res.data || [];
@@ -123,6 +131,7 @@ export default defineComponent({
 
       metrics,
       metricListDataFunc,
+      metricListTitleFunc,
       onMetricDashboardRowClick,
       dateRange,
       onDateRangeChange,

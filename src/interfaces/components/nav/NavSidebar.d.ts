@@ -17,4 +17,5 @@ interface NavSidebarProps extends NavSidebarContent {
   defaultCheckedKeys?: string[];
   defaultExpandedKeys?: string[];
   defaultExpandAll?: boolean;
+  noSearch?: boolean;
 }

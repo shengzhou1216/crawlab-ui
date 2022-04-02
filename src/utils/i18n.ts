@@ -1,6 +1,7 @@
 import {getI18n} from '@/i18n';
 import {updateTitle} from '@/utils/dom';
 import {LOCAL_STORAGE_KEY_LANG} from '@/constants/localStorage';
+import {getStore} from '@/store';
 
 export const translate = (path: string, args?: any): string => {
   const {t} = getI18n().global;
@@ -25,8 +26,13 @@ export const translatePlugin = (pluginName: string, path: string): string => {
 window._tp = translatePlugin;
 
 export const setGlobalLang = (lang: Lang) => {
+  // set local storage
   localStorage.setItem(LOCAL_STORAGE_KEY_LANG, lang);
+
+  // set i18n instance
   getI18n().global.locale.value = lang;
+
+  // update title
   updateTitle(translate('global.title'));
 };
 

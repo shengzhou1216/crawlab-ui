@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, onMounted, PropType, ref, watch} from 'vue';
+import {computed, defineComponent, onMounted, onUnmounted, PropType, ref, watch} from 'vue';
 import {init} from 'echarts';
 import {useI18n} from 'vue-i18n';
 import {translate} from '@/utils/i18n';
@@ -45,7 +45,6 @@ export default defineComponent({
   name: 'LineChart',
   props: lineChartProps,
   setup(props: LineChartProps, {emit}) {
-    const {locale} = useI18n();
     const t = translate;
 
     const style = computed<Partial<CSSStyleDeclaration>>(() => {
@@ -174,12 +173,20 @@ export default defineComponent({
       (chart.value as ECharts).setOption(option);
     };
 
+    const destroy = () => {
+      chart.value?.dispose();
+    };
+
+    watch(() => props.config?.option, render);
     watch(() => props.config?.data, render);
     watch(() => props.theme, render);
-    watch(() => locale.value, render);
 
     onMounted(() => {
       render();
+    });
+
+    onUnmounted(() => {
+      destroy();
     });
 
     return {

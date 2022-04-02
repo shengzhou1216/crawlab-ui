@@ -8,9 +8,13 @@ const {
 export default {
   namespaced: true,
   state: {
+    lang: localStorage.getItem('lang') || 'en',
     systemInfo: undefined,
   },
   mutations: {
+    setLang: (state: CommonStoreState, lang: Lang) => {
+      state.lang = lang;
+    },
     setSystemInfo: (state: CommonStoreState, info: SystemInfo) => {
       state.systemInfo = plainClone(info);
     },

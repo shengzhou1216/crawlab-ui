@@ -24,5 +24,7 @@ export declare global {
 
   type MetricListDataFunc = (metric: string) => Promise<StatsResult[]>;
 
+  type MetricListTitleFunc = (metric: NavItem) => string;
+
   type MetricListNavItemFunc = () => Promise<NavItem[]>;
 }

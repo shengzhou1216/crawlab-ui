@@ -7,6 +7,7 @@
         :items="metrics"
         show-checkbox
         :default-checked-keys="checkedKeys"
+        no-search
         @check="onCheck"
       />
     </div>
@@ -15,6 +16,7 @@
       <!--Top-->
       <div class="top">
         <NavActionBack @click="() => $emit('back')"/>
+        <slot name="top-prefix"/>
         <Form label-width="120px">
           <FormItem :label="t('components.metric.filters.timeRange')">
             <DateTimeRangePicker
@@ -32,6 +34,7 @@
               />
             </el-select>
           </FormItem>
+          <slot name="top-suffix"/>
         </Form>
       </div>
       <!--./Top-->
@@ -74,6 +77,7 @@ import Empty from '@/components/empty/Empty.vue';
 import Form from '@/components/form/Form.vue';
 import NavActionBack from '@/components/nav/NavActionBack.vue';
 import dayjs from 'dayjs';
+import {useStore} from 'vuex';
 
 const t = translate;
 
@@ -96,6 +100,10 @@ export default defineComponent({
     metricDataFunc: {
       type: Function as PropType<MetricListDataFunc>,
       default: voidFunc,
+    },
+    metricTitleFunc: {
+      type: Function as PropType<MetricListTitleFunc>,
+      default: (metric: NavItem) => metric.id,
     },
     dateRange: {
       type: Object as PropType<RangeItem>,
@@ -133,6 +141,11 @@ export default defineComponent({
     'back',
   ],
   setup(props: MetricListProps, {emit}) {
+    const store = useStore();
+    const {
+      common: commonState,
+    } = store.state as RootStoreState;
+
     const navSidebarRef = ref();
 
     const getNormalizedMetrics = (items?: NavItem[]): NavItem[] => {
@@ -166,7 +179,7 @@ export default defineComponent({
         chartConfigMap.value[metric.id] = {
           option: {
             title: {
-              text: metric.id,
+              text: props.metricTitleFunc?.(metric),
             },
             tooltip: {
               formatter: (params: { marker: string; value: [number, number] }) => {
@@ -196,13 +209,30 @@ export default defineComponent({
       chartConfigMap.value[metric.id].data = await props.metricDataFunc?.(metric.id) || [];
     };
 
+    const updateAllChartTitle = async () => {
+      console.debug('updateAllChartTitle');
+      await Promise.all(checkedNormalizedMetrics.value.map(metric => updateChartTitle(metric)));
+    };
+
+    const updateChartTitle = async (metric: NavItem) => {
+      if (chartConfigMap.value[metric.id].option) {
+        chartConfigMap.value[metric.id].option.title = props.metricTitleFunc?.(metric);
+      }
+    };
+
     const onCheck = (item: NavItem, checked: boolean, items: NavItem[]) => {
       checkedKeys.value = items.map(item => item.id);
     };
 
+    const lang = computed<Lang>(() => {
+      console.debug(commonState.lang);
+      return commonState.lang || 'en';
+    });
+
     watch(() => checkedNormalizedMetrics.value.map(m => m.value), updateAllChartData);
     watch(() => props.dateRange, updateAllChartData);
     watch(() => props.duration, updateAllChartData);
+    watch(lang, updateAllChartTitle);
 
     // timer
     let handle: number;

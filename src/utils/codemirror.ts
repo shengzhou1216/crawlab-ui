@@ -95,7 +95,7 @@ class Class1:
   pass
 `;
 
-const optionsDefinitions: FileEditorOptionDefinition[] = [
+const getOptionsDefinitions = (): FileEditorOptionDefinition[] => [
   {
     name: 'theme',
     title: t('components.file.editor.settings.form.title.theme'),
@@ -309,5 +309,5 @@ export const getCodeMirrorTemplate = () => {
 };
 
 export const getOptionDefinition = (name: string): FileEditorOptionDefinition | undefined => {
-  return optionsDefinitions.find(d => d.name === name);
+  return getOptionsDefinitions().find(d => d.name === name);
 };

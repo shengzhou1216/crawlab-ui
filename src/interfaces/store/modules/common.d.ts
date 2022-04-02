@@ -8,12 +8,14 @@ declare global {
   }
 
   interface CommonStoreState {
+    lang?: Lang;
     systemInfo?: SystemInfo;
   }
 
   type CommonStoreGetters = GetterTree<CommonStoreState, RootStoreState>;
 
   interface CommonStoreMutations extends MutationTree<CommonStoreState> {
+    setLang: StoreMutation<CommonStoreState, Lang>;
     setSystemInfo: StoreMutation<CommonStoreState, SystemInfo>;
   }
 

@@ -115,6 +115,7 @@ export default defineComponent({
     // set language
     const setLang = (lang: Lang) => {
       setGlobalLang(lang);
+      store.commit('common/setLang', lang);
     };
 
     // current user's username
