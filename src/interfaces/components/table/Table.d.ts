@@ -8,7 +8,7 @@ import {
 } from '@/constants/table';
 import {FilterMethods, Filters} from 'element-plus/lib/components/table/src/table-column/defaults';
 
-declare global {
+export declare global {
   interface TableProps {
     data: TableData;
     columns: TableColumn[];

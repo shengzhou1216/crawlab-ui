@@ -71,6 +71,12 @@ const common: LCommon = {
     currentlyUnavailable: '暂不可用',
     unauthorized: '未授权',
   },
+  mode: {
+    default: '默认',
+  },
+  placeholder: {
+    empty: '空',
+  },
 };
 
 export default common;

@@ -90,6 +90,7 @@ if (['production'].includes(process.env.NODE_ENV)) {
     'echarts': 'echarts',
     'element-plus': 'element-plus',
     'vue': 'vue',
+    'vuex': 'vuex',
   }
   config.configureWebpack.plugins.push(new CopyWebpackPlugin({
     patterns: [

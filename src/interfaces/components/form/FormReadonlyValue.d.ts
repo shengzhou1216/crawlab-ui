@@ -1,3 +1,5 @@
-interface FormReadonlyValueProps {
-  value: string;
+export declare global {
+  interface FormReadonlyValueProps {
+    value: string;
+  }
 }

@@ -71,6 +71,12 @@ const common: LCommon = {
     currentlyUnavailable: 'Currently unavailable',
     unauthorized: 'Unauthorized',
   },
+  mode: {
+    default: 'Default',
+  },
+  placeholder: {
+    empty: 'Empty',
+  },
 };
 
 export default common;

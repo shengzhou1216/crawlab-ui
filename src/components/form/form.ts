@@ -8,7 +8,7 @@ import {sendEvent} from '@/admin/umeng';
 // i18n
 const t = translate;
 
-const useForm = (ns: ListStoreNamespace, store: Store<RootStoreState>, services: Services<BaseModel>, data: FormComponentData<BaseModel>) => {
+export const useForm = (ns: ListStoreNamespace, store: Store<RootStoreState>, services: Services<BaseModel>, data: FormComponentData<BaseModel>) => {
   const {
     formRef,
     formTableFieldRefsMap,

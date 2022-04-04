@@ -1,4 +1,1 @@
-interface SelectOption {
-  label?: string;
-  value?: any;
-}
+export * from './SelectOption';

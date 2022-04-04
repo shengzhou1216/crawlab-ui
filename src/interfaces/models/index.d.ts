@@ -22,3 +22,4 @@ export * from './token';
 export * from './metric';
 export * from './range';
 export * from './nav';
+export * from './map';

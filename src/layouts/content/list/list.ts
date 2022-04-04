@@ -8,7 +8,7 @@ import {sendEvent} from '@/admin/umeng';
 // i18n
 const t = translate;
 
-const getFilterConditions = (column: TableColumn, filter: TableHeaderDialogFilterData) => {
+export const getFilterConditions = (column: TableColumn, filter: TableHeaderDialogFilterData) => {
   // allow filter search/items
   const {allowFilterSearch, allowFilterItems} = column;
 

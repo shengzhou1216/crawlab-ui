@@ -2,32 +2,32 @@
   <Form v-if="form" ref="formRef" :model="form">
     <!-- Row -->
     <FormItem
-        :span="2"
-        :label="t('components.spider.form.name')"
-        prop="name"
-        required
+      :span="2"
+      :label="t('components.spider.form.name')"
+      prop="name"
+      required
     >
       <el-input
-          v-model="form.name"
-          :disabled="isFormItemDisabled('name')"
-          :placeholder="t('components.spider.form.name')"
+        v-model="form.name"
+        :disabled="isFormItemDisabled('name')"
+        :placeholder="t('components.spider.form.name')"
       />
     </FormItem>
     <FormItem
-        :span="2"
-        :label="t('components.spider.form.project')"
-        prop="project_id"
+      :span="2"
+      :label="t('components.spider.form.project')"
+      prop="project_id"
     >
       <el-select
-          v-model="form.project_id"
-          :disabled="isFormItemDisabled('project_id')"
-          filterable
+        v-model="form.project_id"
+        :disabled="isFormItemDisabled('project_id')"
+        filterable
       >
         <el-option
-            v-for="op in allProjectSelectOptions"
-            :key="op.value"
-            :label="op.label"
-            :value="op.value"
+          v-for="op in allProjectSelectOptions"
+          :key="op.value"
+          :label="op.label"
+          :value="op.value"
         />
       </el-select>
     </FormItem>
@@ -35,107 +35,107 @@
 
     <!-- Row -->
     <FormItem
-        :span="2"
-        :label="t('components.spider.form.command')"
-        prop="cmd"
-        required
+      :span="2"
+      :label="t('components.spider.form.command')"
+      prop="cmd"
+      required
     >
       <InputWithButton
-          v-model="form.cmd"
-          :button-icon="['fa', 'edit']"
-          :button-label="t('common.actions.edit')"
-          :placeholder="t('components.spider.form.command')"
-          :disabled="isFormItemDisabled('cmd')"
+        v-model="form.cmd"
+        :button-icon="['fa', 'edit']"
+        :button-label="t('common.actions.edit')"
+        :placeholder="t('components.spider.form.command')"
+        :disabled="isFormItemDisabled('cmd')"
       />
     </FormItem>
     <FormItem
-        :span="2"
-        :label="t('components.spider.form.param')"
-        prop="param"
+      :span="2"
+      :label="t('components.spider.form.param')"
+      prop="param"
     >
       <InputWithButton
-          v-model="form.param"
-          :button-icon="['fa', 'edit']"
-          :button-label="t('common.actions.edit')"
-          :placeholder="t('components.spider.form.param')"
-          :disabled="isFormItemDisabled('param')"
+        v-model="form.param"
+        :button-icon="['fa', 'edit']"
+        :button-label="t('common.actions.edit')"
+        :placeholder="t('components.spider.form.param')"
+        :disabled="isFormItemDisabled('param')"
       />
     </FormItem>
     <!-- ./Row -->
 
     <!-- Row -->
     <FormItem
-        :span="2"
-        :label="t('components.spider.form.defaultMode')"
-        prop="mode"
-        required
+      :span="2"
+      :label="t('components.spider.form.defaultMode')"
+      prop="mode"
+      required
     >
       <el-select
-          v-model="form.mode"
-          :disabled="isFormItemDisabled('mode')"
+        v-model="form.mode"
+        :disabled="isFormItemDisabled('mode')"
       >
         <el-option
-            v-for="op in modeOptions"
-            :key="op.value"
-            :label="op.label"
-            :value="op.value"
+          v-for="op in modeOptions"
+          :key="op.value"
+          :label="op.label"
+          :value="op.value"
         />
       </el-select>
     </FormItem>
     <FormItem
-        :span="2"
-        :label="t('components.spider.form.resultsCollection')"
-        prop="col_name"
-        required
+      :span="2"
+      :label="t('components.spider.form.resultsCollection')"
+      prop="col_name"
+      required
     >
       <el-autocomplete
-          v-model="form.col_name"
-          :disabled="isFormItemDisabled('col_name')"
-          :placeholder="t('components.spider.form.resultsCollection')"
-          :fetch-suggestions="fetchDataCollectionSuggestions"
-          @input="onDataCollectionInput"
-          @select="onDataCollectionSuggestionSelect"
+        v-model="form.col_name"
+        :disabled="isFormItemDisabled('col_name')"
+        :placeholder="t('components.spider.form.resultsCollection')"
+        :fetch-suggestions="fetchDataCollectionSuggestions"
+        @input="onDataCollectionInput"
+        @select="onDataCollectionSuggestionSelect"
       />
     </FormItem>
     <!-- ./Row -->
 
     <FormItem
-        v-if="form.mode === TASK_MODE_SELECTED_NODE_TAGS"
-        :span="4"
-        :label="t('components.spider.form.selectedTags')"
-        prop="node_tags"
-        required
+      v-if="form.mode === TASK_MODE_SELECTED_NODE_TAGS"
+      :span="4"
+      :label="t('components.spider.form.selectedTags')"
+      prop="node_tags"
+      required
     >
       <CheckTagGroup
-          v-model="form.node_tags"
-          :options="allNodeTags"
-          :disabled="isFormItemDisabled('node_tags')"
+        v-model="form.node_tags"
+        :options="allNodeTags"
+        :disabled="isFormItemDisabled('node_tags')"
       />
     </FormItem>
 
     <FormItem
-        v-if="[TASK_MODE_SELECTED_NODES, TASK_MODE_SELECTED_NODE_TAGS].includes(form.mode)"
-        :span="4"
-        :label="t('components.spider.form.selectedNodes')"
-        required
+      v-if="[TASK_MODE_SELECTED_NODES, TASK_MODE_SELECTED_NODE_TAGS].includes(form.mode)"
+      :span="4"
+      :label="t('components.spider.form.selectedNodes')"
+      required
     >
       <CheckTagGroup
-          v-model="form.node_ids"
-          :options="allNodeSelectOptions"
-          :disabled="form.mode === TASK_MODE_SELECTED_NODE_TAGS && isFormItemDisabled('node_ids')"
+        v-model="form.node_ids"
+        :options="allNodeSelectOptions"
+        :disabled="form.mode === TASK_MODE_SELECTED_NODE_TAGS && isFormItemDisabled('node_ids')"
       />
     </FormItem>
 
     <FormItem
-        :span="4"
-        :label="t('components.spider.form.description')"
-        prop="description"
+      :span="4"
+      :label="t('components.spider.form.description')"
+      prop="description"
     >
       <el-input
-          v-model="form.description"
-          :disabled="isFormItemDisabled('description')"
-          :placeholder="t('components.spider.form.description')"
-          type="textarea"
+        v-model="form.description"
+        :disabled="isFormItemDisabled('description')"
+        :placeholder="t('components.spider.form.description')"
+        type="textarea"
       />
     </FormItem>
   </Form>
@@ -201,8 +201,8 @@ export default defineComponent({
         form.value.col_name = '';
       } else {
         const name = pinyin(form.value.name, {style: STYLE_NORMAL})
-            .map(d => d.join('_'))
-            .join('_');
+          .map(d => d.join('_'))
+          .join('_');
         form.value.col_name = `results_${name}`;
       }
     });

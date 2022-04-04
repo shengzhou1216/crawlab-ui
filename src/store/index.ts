@@ -41,9 +41,16 @@ export const setStore = (store: Store<RootStoreState>) => {
   _store = store;
 };
 
-export const getStore = (): Store<RootStoreState> => {
+export const getStore = <T>(): Store<T | RootStoreState> => {
   if (!_store) {
     _store = createStore();
   }
   return _store;
+};
+
+export const addStoreModule = <M>(path: string, module: M, store?: Store<RootStoreState>) => {
+  if (!store) {
+    store = getStore();
+  }
+  store.registerModule(path, module);
 };

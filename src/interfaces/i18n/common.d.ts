@@ -79,5 +79,11 @@ export declare global {
       currentlyUnavailable: string;
       unauthorized: string;
     };
+    mode: {
+      default: string;
+    };
+    placeholder: {
+      empty: string;
+    };
   }
 }
