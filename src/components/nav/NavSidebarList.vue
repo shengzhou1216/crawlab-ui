@@ -30,8 +30,8 @@ export default defineComponent({
     'select',
   ],
   setup(props: NavSidebarListProps, {emit}) {
-    const onSelect = (index: number) => {
-      emit('select', index - 1);
+    const onSelect = (id: string) => {
+      emit('select', props.items?.findIndex(item => item.id === id));
     };
 
     return {

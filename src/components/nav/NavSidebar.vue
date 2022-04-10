@@ -52,7 +52,6 @@ import NavSidebarTree from '@/components/nav/NavSidebarTree.vue';
 import Empty from '@/components/empty/Empty.vue';
 import {useI18n} from 'vue-i18n';
 import {emptyArrayFunc} from '@/utils/func';
-import {cloneArray} from '@/utils/object';
 
 export const navSidebarContentProps = {
   items: {

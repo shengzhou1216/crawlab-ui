@@ -69,12 +69,12 @@ const useDetail = <T = BaseModel>(ns: ListStoreNamespace) => {
     return await store.dispatch(`${ns}/getById`, activeId.value);
   };
 
-  const onNavSidebarSelect = async (id: string) => {
-    if (!id) {
-      console.error(new Error('id is empty'));
+  const onNavSidebarSelect = async (item: NavItem) => {
+    if (!item) {
+      console.error(new Error('item is empty'));
       return;
     }
-    await router.push(`${primaryRoutePath.value}/${id}`);
+    await router.push(`${primaryRoutePath.value}/${item.id}`);
     await getForm();
 
     sendEvent('click_detail_layout_nav_sidebar_select');
