@@ -1,6 +1,10 @@
 <template>
   <div class="spider-detail-tab-data">
-    <ResultList :id="spider.col_id" no-actions/>
+    <ResultList
+      :id="spider.col_id"
+      :data-source-id="spider.data_source_id"
+      no-actions
+    />
   </div>
 </template>
 <script lang="ts">

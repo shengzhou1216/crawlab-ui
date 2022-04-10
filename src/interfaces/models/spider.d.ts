@@ -7,6 +7,7 @@ export declare global {
     param?: string;
     col_id?: string;
     col_name?: string;
+    data_source_id?: string;
     mode?: TaskMode;
     node_ids?: string[];
     node_tags?: string[];

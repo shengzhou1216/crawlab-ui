@@ -4,6 +4,7 @@
       <SpiderDetailActionsCommon/>
       <SpiderDetailActionsFiles v-if="activeTabName === 'files'"/>
       <SpiderDetailActionsGit v-if="activeTabName === 'git'"/>
+      <slot name="actions-suffix"/>
     </template>
   </DetailLayout>
 </template>

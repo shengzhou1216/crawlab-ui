@@ -125,6 +125,7 @@ export default defineComponent({
 .branch {
   display: flex;
   align-items: center;
+  margin-right: 10px;
 
   .branch-select {
     .el-select {
@@ -136,7 +137,7 @@ export default defineComponent({
 <style scoped>
 .branch >>> .branch-select .action {
   margin-left: 5px;
-  margin-right: 0;
+  margin-right: 10px;
 }
 
 .branch >>> .branch-select .action .button {

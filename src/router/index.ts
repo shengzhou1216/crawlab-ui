@@ -75,6 +75,28 @@ export const getRootRoute = (routes: Array<RouteRecordRaw>): RouteRecordRaw | un
   return routes.find(r => r.name === ROUTER_ROOT_NAME_ROOT);
 };
 
+export const getRouteByName = (routes: Array<RouteRecordRaw>, name: string): RouteRecordRaw | undefined => {
+  for (const route of routes) {
+    if (route.name === name) {
+      return route;
+    }
+    if (route.children) {
+      const subRoute = getRouteByName(route.children, name);
+      if (subRoute) {
+        return subRoute;
+      }
+    }
+  }
+  return;
+};
+
+export const replaceRouteByName = (routes: Array<RouteRecordRaw>, name: string, component: any) => {
+  const route = getRouteByName(routes, name);
+  if (route) {
+    route.component = component;
+  }
+};
+
 export const addRoutes = (route: RouteRecordRaw, routes: Array<RouteRecordRaw>): void => {
   if (!route.children) {
     route.children = [];
@@ -82,13 +104,15 @@ export const addRoutes = (route: RouteRecordRaw, routes: Array<RouteRecordRaw>):
   route.children = route.children.concat(routes);
 };
 
-export const createRouter = (rootRoutes?: Array<RouteRecordRaw>, routes?: Array<RouteRecordRaw>): Router => {
+export const createRouter = (rootRoutes?: Array<RouteRecordRaw>, routes?: Array<RouteRecordRaw>, allRoutes?: Array<RouteRecordRaw>): Router => {
   // all routes
-  let allRoutes = getDefaultRoutes();
+  if (!allRoutes) {
+    allRoutes = getDefaultRoutes();
+  }
 
   // add routes
   if (routes) {
-    allRoutes = allRoutes.concat(routes)
+    allRoutes = allRoutes.concat(routes);
   }
 
   // add root routes

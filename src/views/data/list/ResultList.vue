@@ -28,6 +28,10 @@ export default defineComponent({
       type: String,
       required: true,
     },
+    dataSourceId: {
+      type: String,
+      required: false,
+    },
     noActions: {
       type: Boolean,
       default: false,
@@ -71,7 +75,10 @@ export default defineComponent({
         if (!id) return;
         return store.dispatch(`${ns}/getResultData`, {
           id,
-          params: tablePagination.value,
+          params: {
+            data_source_id: props.dataSourceId,
+            ...tablePagination.value,
+          },
         });
       },
       getAll: async () => {
