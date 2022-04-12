@@ -52,7 +52,6 @@ const alias = {
   'vue$': 'vue/dist/vue.esm-bundler.js',
   'element-plus$': 'element-plus/dist/index.full.min.js',
   'echarts$': 'echarts/dist/echarts.min.js',
-  'codemirror$': 'codemirror/lib/codemirror.js',
 }
 
 const config = {
@@ -85,7 +84,6 @@ if (['production'].includes(process.env.NODE_ENV)) {
     '@fortawesome/free-solid-svg-icons': '@fortawesome/free-solid-svg-icons',
     '@element-plus/icons': '@element-plus/icons',
     'atom-material-icons': 'atom-material-icons',
-    'codemirror': 'codemirror',
     'fontawesome': 'fontawesome',
     'echarts': 'echarts',
     'element-plus': 'element-plus',

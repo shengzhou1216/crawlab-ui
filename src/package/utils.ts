@@ -1,4 +1,6 @@
 import {ComponentOptionsMixin} from 'vue';
+import CodeMirror from 'codemirror';
+import 'codemirror/mode/meta';
 
 export const mapElements = (elements: any) => {
   return Object.keys(elements).map((name) => [name, elements[name]] as [string, ComponentOptionsMixin]);
@@ -13,9 +15,9 @@ export const importStylesheets = () => {
 };
 
 export const importScripts = () => {
-  // require('@/../../public/js/vue3-sfc-loader.js');
+  // TODO: implement
 };
 
 export const initWindowGlobals = () => {
-  // window.CodeMirror = CodeMirror;
+  window.CodeMirror = CodeMirror;
 };

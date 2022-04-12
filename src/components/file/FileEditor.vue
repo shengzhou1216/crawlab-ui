@@ -129,7 +129,7 @@
 
 <script lang="ts">
 import {computed, defineComponent, onMounted, onUnmounted, PropType, ref, watch} from 'vue';
-import CodeMirror, {Editor, EditorConfiguration, KeyMap} from 'codemirror';
+import {Editor, EditorConfiguration, KeyMap} from 'codemirror';
 import {MimeType} from 'codemirror/mode/meta';
 import {useStore} from 'vuex';
 import {getCodemirrorEditor, getCodeMirrorTemplate, initTheme} from '@/utils/codemirror';
@@ -251,7 +251,7 @@ export default defineComponent({
     const language = computed<MimeType | undefined>(() => {
       const fileName = activeFileItem.value?.name;
       if (!fileName) return;
-      return CodeMirror.findModeByFileName(fileName);
+      return window.CodeMirror?.findModeByFileName?.(fileName);
     });
 
     const languageMime = computed<string | undefined>(() => language.value?.mime);
@@ -338,7 +338,7 @@ export default defineComponent({
       await initTheme(options.value.theme);
     };
 
-    const updateMode = async () => {
+    const updateMode = () => {
       const mode = language.value?.mode;
       if (!mode || codeMirrorModeCache.has(mode)) return;
       // @ts-ignore
@@ -641,7 +641,7 @@ export default defineComponent({
       sendEvent('click_file_editor_file_search');
     };
 
-    onMounted(async () => {
+    const initEditor = async () => {
       // init codemirror editor
       const el = codeMirrorEditor.value as HTMLElement;
       editor = getCodemirrorEditor(el, options.value);
@@ -672,7 +672,9 @@ export default defineComponent({
       codeMirrorTemplateEditor = getCodemirrorEditor(elTemplate, options.value);
       codeMirrorTemplateEditor.setValue(codeMirrorTemplateContent.value);
       codeMirrorTemplateEditor.setOption('mode', 'text/x-python');
-    });
+    };
+
+    onMounted(initEditor);
 
     onUnmounted(() => {
       // turnoff listening to keyboard events
