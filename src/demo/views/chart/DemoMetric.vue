@@ -13,8 +13,11 @@
         :metric-title-func="metricListTitleFunc"
         :date-range="dateRange"
         :duration="duration"
+        :metric-snapshots="metricSnapshots"
+        :active-metric-snapshot-key="activeMetricSnapshotKey"
         @date-range-change="onDateRangeChange"
         @duration-change="onDurationChange"
+        @metric-snapshot-change="onMetricSnapshotChange"
       />
     </el-tab-pane>
   </DemoLayout>
@@ -58,6 +61,28 @@ export default defineComponent({
     const duration = ref<string>('1m');
     const onDurationChange = (value: string) => {
       duration.value = value;
+    };
+
+    const metricSnapshots = ref<MetricSnapshot[]>([
+      {
+        key: 'node:master',
+        name: 'Master Node',
+        type: 'node',
+      },
+      {
+        key: 'node:worker-01',
+        name: 'Worker Node 01',
+        type: 'node',
+      },
+      {
+        key: 'mongo',
+        name: 'MongoDB',
+        type: 'mongo',
+      },
+    ]);
+    const activeMetricSnapshotKey = ref<string>('node:master');
+    const onMetricSnapshotChange = (value: string) => {
+      activeMetricSnapshotKey.value = value;
     };
 
     const getNavItemFromMetric = (d: any): NavItem => {
@@ -137,6 +162,9 @@ export default defineComponent({
       onDateRangeChange,
       duration,
       onDurationChange,
+      metricSnapshots,
+      activeMetricSnapshotKey,
+      onMetricSnapshotChange,
       activeTabName,
       onTabClick,
     };

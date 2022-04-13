@@ -1,5 +1,6 @@
 const metric: LComponentsMetric = {
   filters: {
+    metricSource: '指标源',
     timeUnit: '时间单位',
     timeRange: '时间区间',
   },
@@ -115,7 +116,7 @@ const metric: LComponentsMetric = {
     'performance:mongo:count:collections': 'MongoDB 集合数',
     'performance:mongo:count:objects': 'MongoDB 对象数',
     'performance:mongo:count:views': 'MongoDB 视图数',
-    'performance:mongo:count:scale_factor': 'MongoDB 比例因子',
+    'performance:mongo:other:scale_factor': 'MongoDB 比例因子',
   },
 };
 

@@ -18,6 +18,19 @@
         <NavActionBack @click="() => $emit('back')"/>
         <slot name="top-prefix"/>
         <Form label-width="120px">
+          <FormItem :label="t('components.metric.filters.metricSource')">
+            <el-select
+              :model-value="activeMetricSnapshotKey"
+              @change="onMetricSnapshotChange"
+            >
+              <el-option
+                v-for="(op, $index) in metricSnapshots"
+                :key="$index"
+                :label="op.name"
+                :value="op.key"
+              />
+            </el-select>
+          </FormItem>
           <FormItem :label="t('components.metric.filters.timeRange')">
             <DateTimeRangePicker
               :model-value="dateRange"
@@ -67,7 +80,7 @@
 <script lang="ts">
 import {computed, defineComponent, onBeforeMount, onBeforeUnmount, PropType, ref, watch} from 'vue';
 import NavSidebar from '@/components/nav/NavSidebar.vue';
-import {emptyArrayFunc, voidFunc} from '@/utils/func';
+import {emptyArrayFunc, emptyObjectFunc, voidFunc} from '@/utils/func';
 import LineChart from '@/components/chart/LineChart.vue';
 import {cloneArray} from '@/utils/object';
 import DateTimeRangePicker from '@/components/date/DateTimeRangePicker.vue';
@@ -93,6 +106,13 @@ export default defineComponent({
     LineChart,
   },
   props: {
+    metricSnapshots: {
+      type: Array as PropType<MetricSnapshot[]>,
+      default: emptyArrayFunc,
+    },
+    activeMetricSnapshotKey: {
+      type: String,
+    },
     metrics: {
       type: Array as PropType<NavItem[]>,
       default: emptyArrayFunc,
@@ -138,6 +158,7 @@ export default defineComponent({
   emits: [
     'date-range-change',
     'duration-change',
+    'metric-snapshot-change',
     'back',
   ],
   setup(props: MetricListProps, {emit}) {
@@ -257,6 +278,13 @@ export default defineComponent({
       }
     });
 
+    const activeMetricSnapshot = computed<MetricSnapshot | undefined>(() => {
+      return props.metricSnapshots?.find(ms => ms.key === props.activeMetricSnapshotKey);
+    });
+    const onMetricSnapshotChange = (value: string) => {
+      emit('metric-snapshot-change', value);
+    };
+
     return {
       navSidebarRef,
       normalizedMetrics,
@@ -268,6 +296,8 @@ export default defineComponent({
       onDateRangeChange,
       onDurationChange,
       checkedKeys,
+      activeMetricSnapshot,
+      onMetricSnapshotChange,
       t,
     };
   }
@@ -295,7 +325,7 @@ export default defineComponent({
 
     .top {
       margin: 0;
-      padding: 4px 20px;
+      padding: 10px 20px;
       border-bottom: 1px solid $infoLightColor;
       display: flex;
       align-items: center;

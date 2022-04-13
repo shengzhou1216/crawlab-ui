@@ -1,5 +1,6 @@
 const metric: LComponentsMetric = {
   filters: {
+    metricSource: 'Metric Source',
     timeUnit: 'Time Unit',
     timeRange: 'Time Range',
   },
@@ -115,7 +116,7 @@ const metric: LComponentsMetric = {
     'performance:mongo:count:collections': 'Number of collections in MongoDB',
     'performance:mongo:count:objects': 'Number of objects in MongoDB',
     'performance:mongo:count:views': 'Number of views in MongoDB',
-    'performance:mongo:count:scale_factor': 'Scale factor of MongoDB',
+    'performance:mongo:other:scale_factor': 'Scale factor of MongoDB',
   },
 };
 

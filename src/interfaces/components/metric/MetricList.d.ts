@@ -1,4 +1,6 @@
 interface MetricListProps {
+  activeMetricSnapshotKey?: string;
+  metricSnapshots?: MetricSnapshot[];
   metrics?: NavItem[];
   metricDataFunc?: MetricListDataFunc;
   metricTitleFunc?: MetricListTitleFunc;

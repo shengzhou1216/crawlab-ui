@@ -1,5 +1,6 @@
 interface LComponentsMetric {
   filters: {
+    metricSource: string;
     timeUnit: string;
     timeRange: string;
   };
@@ -115,6 +116,6 @@ interface LComponentsMetric {
     'performance:mongo:count:collections': string;
     'performance:mongo:count:objects': string;
     'performance:mongo:count:views': string;
-    'performance:mongo:count:scale_factor': string;
+    'performance:mongo:other:scale_factor': string;
   };
 }
