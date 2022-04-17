@@ -131,7 +131,7 @@ export default defineComponent({
     });
 
     const onMenuItemClick = (index: string, indexPath: string[]) => {
-      if (indexPath) router.push(indexPath?.[0]);
+      if (indexPath) router.push(indexPath?.[indexPath?.length - 1]);
     };
 
     const toggleSidebar = () => {

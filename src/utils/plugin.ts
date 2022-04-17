@@ -49,6 +49,7 @@ const initPluginSidebarMenuItems = (store: Store<RootStoreState>) => {
       }
     });
   });
+  console.debug(menuItems);
 
   // set sidebar menu items
   store.commit(`layout/setMenuItems`, menuItems);
