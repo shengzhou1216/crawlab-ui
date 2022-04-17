@@ -20,6 +20,7 @@ export const getDefaultRoutes = (): Array<RouteRecordRaw> => [
   ...login,
   {
     path: '/',
+    redirect: '/home',
     name: ROUTER_ROOT_NAME_ROOT,
     component: NormalLayout,
     children: [
@@ -40,7 +41,7 @@ export const getDefaultRoutes = (): Array<RouteRecordRaw> => [
 
 export const getDefaultSidebarMenuItems = (): MenuItem[] => {
   return [
-    {path: '/', title: 'router.menuItems.home', icon: ['fa', 'home']},
+    {path: '/home', title: 'router.menuItems.home', icon: ['fa', 'home']},
     {path: '/nodes', title: 'router.menuItems.nodes', icon: ['fa', 'server']},
     {path: '/projects', title: 'router.menuItems.projects', icon: ['fa', 'project-diagram']},
     {path: '/spiders', title: 'router.menuItems.spiders', icon: ['fa', 'spider']},
@@ -141,9 +142,9 @@ export const createRouter = (rootRoutes?: Array<RouteRecordRaw>, routes?: Array<
 
 let _router: Router;
 
-export const getRouter = (rootRoutes?: Array<RouteRecordRaw>, routes?: Array<RouteRecordRaw>): Router => {
+export const getRouter = (rootRoutes?: Array<RouteRecordRaw>, routes?: Array<RouteRecordRaw>, allRoutes?: Array<RouteRecordRaw>): Router => {
   if (!_router) {
-    _router = createRouter(rootRoutes, routes);
+    _router = createRouter(rootRoutes, routes, allRoutes);
   }
   return _router;
 };

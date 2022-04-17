@@ -1,7 +1,7 @@
 import {RouteRecordRaw} from 'vue-router';
 import Home from '@/views/home/Home.vue';
 
-const endpoint = '';
+const endpoint = 'home';
 
 export default [
   {

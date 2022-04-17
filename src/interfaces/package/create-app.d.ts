@@ -19,5 +19,6 @@ export declare global {
     store?: Store;
     rootRoutes?: Array<RouteRecordRaw>;
     routes?: Array<RouteRecordRaw>;
+    allRoutes?: Array<RouteRecordRaw>;
   }
 }

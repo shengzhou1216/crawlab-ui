@@ -33,6 +33,7 @@ export const getDefaultCreateAppOptions = (): CreateAppOptions => {
     store: undefined,
     rootRoutes: undefined,
     routes: undefined,
+    allRoutes: undefined,
   };
 };
 
@@ -64,7 +65,7 @@ const createApp = async (options?: CreateAppOptions): Promise<VueApp> => {
   const store = options.store || getStore();
 
   // router
-  const router = getRouter(options.rootRoutes, options.routes);
+  const router = getRouter(options.rootRoutes, options.routes, options.allRoutes);
 
   // window globals
   initWindowGlobals();
