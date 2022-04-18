@@ -1,10 +1,11 @@
 import {getI18n} from '@/i18n';
 import {updateTitle} from '@/utils/dom';
 import {LOCAL_STORAGE_KEY_LANG} from '@/constants/localStorage';
-import {getStore} from '@/store';
 
 export const translate = (path: string, args?: any): string => {
-  const {t} = getI18n().global;
+  const i18n = getI18n();
+  const global = i18n.global;
+  const {t} = global;
   const res = args !== undefined ? t(path, args) : t(path);
   if (typeof res === 'string') return res;
   return path;
@@ -12,9 +13,10 @@ export const translate = (path: string, args?: any): string => {
 window._t = translate;
 
 export const translateC = (c: number, path: string): string => {
-  const {n} = getI18n().global;
+  const i18n = getI18n();
+  const global = i18n.global;
+  const {n} = global;
   const res = n(c, path);
-  console.debug(res, c, path);
   if (typeof res === 'string') return res;
   return path;
 };
@@ -33,7 +35,9 @@ export const setGlobalLang = (lang: Lang) => {
   getI18n().global.locale.value = lang;
 
   // update title
-  updateTitle(translate('global.title'));
+  const title = translate('global.title');
+  const subTitle = translate('global.subTitle');
+  updateTitle(`${title} | ${subTitle}`);
 };
 
 export const getLanguage = (): string => {

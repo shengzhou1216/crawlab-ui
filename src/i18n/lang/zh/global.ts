@@ -5,7 +5,8 @@ const global: LGlobal = {
     pro: '专业版',
     enterprise: '企业版',
   },
-  title: 'Crawlab | 分布式爬虫管理平台',
+  title: 'Crawlab',
+  subTitle: '分布式爬虫管理平台',
 };
 
 export default global;

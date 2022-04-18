@@ -5,7 +5,8 @@ const global: LGlobal = {
     pro: 'Pro',
     enterprise: 'Enterprise',
   },
-  title: 'Crawlab | Distributed Web Crawler Platform',
+  title: 'Crawlab',
+  subTitle: 'Distributed Web Crawler Platform',
 };
 
 export default global;

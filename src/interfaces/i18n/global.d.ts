@@ -7,5 +7,6 @@ export declare global {
       enterprise: string;
     };
     title: string;
+    subTitle: string;
   }
 }
