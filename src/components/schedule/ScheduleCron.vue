@@ -78,18 +78,36 @@ export default defineComponent({
     // i18n
     const {t} = useI18n();
 
+    const isValid = computed((): boolean => {
+      const {cron} = props;
+      if (!cron) return false;
+      try {
+        parseExpression(cron);
+      } catch (e) {
+        return false;
+      }
+      try {
+        cronstrue.toString(cron);
+      } catch (e) {
+        return false;
+      }
+      return true;
+    });
+
     const interval = computed<CronExpression | undefined>(() => {
       const {cron} = props;
       if (!cron) return;
       try {
         return parseExpression(cron);
       } catch (e) {
-        // do nothing
+        return;
       }
     });
 
     const next = computed<string | undefined>(() => {
-      if (!interval.value) return;
+      if (!interval.value || !isValid.value) {
+        return t('common.status.unknown');
+      }
       return dayjs(interval.value.next().toDate())
         .locale(getI18n().global.locale.value === 'zh' ? zh : en)
         ?.format('llll');
@@ -98,20 +116,22 @@ export default defineComponent({
     const description = computed<string | undefined>(() => {
       const {cron} = props;
       if (!cron) return;
-      return cronstrue.toString(cron, {
-        locale: getI18n().global.locale.value === 'zh' ? 'zh_CN' : 'en',
-      });
+      try {
+        return cronstrue.toString(cron, {
+          locale: getI18n().global.locale.value === 'zh' ? 'zh_CN' : 'en',
+        });
+      } catch (e) {
+        return t('components.schedule.rules.message.invalidCronExpression');
+      }
     });
 
     const tooltip = computed<string>(() => `<span class="title">${t('components.schedule.cron.title.cron')}: </span><span style="color: ${colors.blue}">${props.cron}</span><br>
 <span class="title">${t('components.schedule.cron.title.description')}: </span><span style="color: ${colors.orange}">${description.value}</span><br>
 <span class="title">${t('components.schedule.cron.title.next')}: </span><span style="color: ${colors.green}">${next.value}</span>`);
 
-    const isValid = computed<boolean>(() => !!interval.value);
-
     const data = computed<TagData>(() => {
       const {cron} = props;
-      if (!cron) {
+      if (!isValid.value) {
         return {
           label: t('common.status.unknown'),
           tooltip: t('common.status.unknown'),
