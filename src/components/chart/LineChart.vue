@@ -7,9 +7,7 @@
 <script lang="ts">
 import {computed, defineComponent, onMounted, onUnmounted, PropType, ref, watch} from 'vue';
 import {init} from 'echarts';
-import {useI18n} from 'vue-i18n';
 import {translate} from '@/utils/i18n';
-import {plainClone} from '@/utils/object';
 
 export const lineChartProps = {
   config: {
@@ -146,11 +144,14 @@ export default defineComponent({
       // tooltip
       if (!option.tooltip) {
         option.tooltip = {
-          trigger: 'axis',
+          // trigger: 'axis',
+          // valueFormatter: (value: StatsResult) => {
+          //   console.debug(value);
+          // },
           // position: ['50%', '50%'],
-          axisPointer: {
-            type: 'cross',
-          },
+          // axisPointer: {
+          // type: 'cross',
+          // },
         };
       }
 
@@ -163,7 +164,7 @@ export default defineComponent({
       option.legend = {};
 
       // debug
-      // console.debug(option);
+      console.debug(option);
 
       // render
       if (!chart.value) {
