@@ -88,7 +88,7 @@ export const getActionColumn = (endpoint: string, ns: ListStoreNamespace, action
           tooltip: t('common.actions.clone'),
           onClick: (row: BaseModel) => {
             // TODO: implement
-            console.log('clone', row);
+            // console.log('clone', row);
 
             sendEvent('click_table_row_action_clone');
           }
@@ -139,7 +139,7 @@ export const getActionColumn = (endpoint: string, ns: ListStoreNamespace, action
           tooltip: 'Cancel',
           onClick: async (row: BaseModel) => {
             // TODO: implement
-            console.log('cancel', row);
+            // console.log('cancel', row);
 
             sendEvent('click_table_row_action_cancel');
           },

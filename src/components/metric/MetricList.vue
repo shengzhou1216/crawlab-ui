@@ -231,7 +231,7 @@ export default defineComponent({
     };
 
     const updateAllChartTitle = async () => {
-      console.debug('updateAllChartTitle');
+      // console.debug('updateAllChartTitle');
       await Promise.all(checkedNormalizedMetrics.value.map(metric => updateChartTitle(metric)));
     };
 
@@ -246,7 +246,7 @@ export default defineComponent({
     };
 
     const lang = computed<Lang>(() => {
-      console.debug(commonState.lang);
+      // console.debug(commonState.lang);
       return commonState.lang || 'en';
     });
 

@@ -2,7 +2,7 @@ import {useDropzone} from 'vue3-dropzone';
 
 const useFileEditorDropZone = () => {
   const onDrop = (acceptedFiles: InputFile[], rejectReasons: FileRejectReason[], event: Event) => {
-    console.log(acceptedFiles);
+    // console.log(acceptedFiles);
   };
 
   const {

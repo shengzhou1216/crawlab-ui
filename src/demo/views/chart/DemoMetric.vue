@@ -142,7 +142,7 @@ export default defineComponent({
     });
 
     const onMetricDashboardRowClick = (row: MetricSnapshot) => {
-      console.debug(row);
+      // console.debug(row);
     };
 
     // const activeTabName = ref<string>('metric-dashboard');

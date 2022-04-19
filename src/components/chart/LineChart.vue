@@ -164,7 +164,7 @@ export default defineComponent({
       option.legend = {};
 
       // debug
-      console.debug(option);
+      // console.debug(option);
 
       // render
       if (!chart.value) {
