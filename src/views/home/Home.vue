@@ -2,53 +2,53 @@
   <div class="home">
     <el-row class="row-overview-metrics">
       <el-col
-          v-for="(m, i) in metrics"
-          :key="i"
-          :span="24 / Math.min(metrics.length, 4)"
+        v-for="(m, i) in metrics"
+        :key="i"
+        :span="24 / Math.min(metrics.length, 4)"
       >
         <Metric
-            v-track="{
+          v-track="{
               code: 'click_home',
               params: {
                 metricName: m.name
               }
             }"
-            :icon="m.icon"
-            :title="m.name"
-            :value="m.value"
-            :clickable="!!m.path"
-            :color="getColor(m)"
-            @click="onMetricClick(m)"
+          :icon="m.icon"
+          :title="m.name"
+          :value="m.value"
+          :clickable="!!m.path"
+          :color="getColor(m)"
+          @click="onMetricClick(m)"
         />
       </el-col>
     </el-row>
     <el-row class="row-line-chart">
       <LineChart
-          :config="dailyConfig"
-          is-time-series
-          label-key="date"
+        :config="dailyConfig"
+        is-time-series
+        label-key="date"
       />
     </el-row>
     <el-row class="row-pie-chart">
       <el-col :span="8">
         <PieChart
-            :config="tasksByStatusConfig"
-            label-key="status"
-            value-key="tasks"
+          :config="tasksByStatusConfig"
+          label-key="status"
+          value-key="tasks"
         />
       </el-col>
       <el-col :span="8">
         <PieChart
-            :config="tasksByNodeConfig"
-            label-key="node_name"
-            value-key="tasks"
+          :config="tasksByNodeConfig"
+          label-key="node_name"
+          value-key="tasks"
         />
       </el-col>
       <el-col :span="8">
         <PieChart
-            :config="tasksBySpiderConfig"
-            label-key="spider_name"
-            value-key="tasks"
+          :config="tasksBySpiderConfig"
+          label-key="spider_name"
+          value-key="tasks"
         />
       </el-col>
     </el-row>
