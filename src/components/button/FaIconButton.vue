@@ -8,6 +8,7 @@
     :tooltip="tooltip"
     :type="type"
     is-icon
+    :id="id"
     :class-name="cls"
     @click="() => $emit('click')"
   >

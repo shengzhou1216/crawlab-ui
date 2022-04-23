@@ -8,7 +8,8 @@
     :is-icon="isIcon"
     :tooltip="tooltip"
     :type="type"
-    class-name="label-button"
+    :id="id"
+    :class-name="['label-button', className].join(' ')"
     :loading="loading"
     @click="() => $emit('click')"
   >

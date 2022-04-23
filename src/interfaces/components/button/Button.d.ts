@@ -10,5 +10,6 @@ interface ButtonProps {
   loading?: boolean;
   onClick?: () => void;
   className?: string;
+  id?: string;
   noMargin?: boolean;
 }

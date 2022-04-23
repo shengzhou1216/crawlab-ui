@@ -11,6 +11,8 @@
         v-model="form.name"
         :disabled="isFormItemDisabled('name')"
         :placeholder="t('components.spider.form.name')"
+        id="name"
+        class="name"
       />
     </FormItem>
     <FormItem
@@ -22,6 +24,8 @@
         v-model="form.project_id"
         :disabled="isFormItemDisabled('project_id')"
         filterable
+        id="project"
+        class="project"
       >
         <el-option
           v-for="op in allProjectSelectOptions"
@@ -46,6 +50,8 @@
         :button-label="t('common.actions.edit')"
         :placeholder="t('components.spider.form.command')"
         :disabled="isFormItemDisabled('cmd')"
+        id="cmd"
+        class-name="cmd"
       />
     </FormItem>
     <FormItem
@@ -59,6 +65,8 @@
         :button-label="t('common.actions.edit')"
         :placeholder="t('components.spider.form.param')"
         :disabled="isFormItemDisabled('param')"
+        id="cmd"
+        class-name="param"
       />
     </FormItem>
     <!-- ./Row -->
@@ -73,6 +81,8 @@
       <el-select
         v-model="form.mode"
         :disabled="isFormItemDisabled('mode')"
+        id="mode"
+        class="mode"
       >
         <el-option
           v-for="op in modeOptions"
@@ -93,6 +103,8 @@
         :disabled="isFormItemDisabled('col_name')"
         :placeholder="t('components.spider.form.resultsCollection')"
         :fetch-suggestions="fetchDataCollectionSuggestions"
+        id="col_name"
+        class="col_name"
         @input="onDataCollectionInput"
         @select="onDataCollectionSuggestionSelect"
       />
@@ -110,6 +122,8 @@
         v-model="form.node_tags"
         :options="allNodeTags"
         :disabled="isFormItemDisabled('node_tags')"
+        id="node-tags"
+        class-name="node-tags"
       />
     </FormItem>
 
@@ -117,12 +131,15 @@
       v-if="[TASK_MODE_SELECTED_NODES, TASK_MODE_SELECTED_NODE_TAGS].includes(form.mode)"
       :span="4"
       :label="t('components.spider.form.selectedNodes')"
+      prop="node_ids"
       required
     >
       <CheckTagGroup
         v-model="form.node_ids"
         :options="allNodeSelectOptions"
         :disabled="form.mode === TASK_MODE_SELECTED_NODE_TAGS && isFormItemDisabled('node_ids')"
+        id="node"
+        class-name="nodes"
       />
     </FormItem>
 
@@ -136,6 +153,8 @@
         :disabled="isFormItemDisabled('description')"
         :placeholder="t('components.spider.form.description')"
         type="textarea"
+        id="description"
+        class="description"
       />
     </FormItem>
   </Form>

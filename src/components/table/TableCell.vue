@@ -36,7 +36,7 @@ export default defineComponent({
         }
 
         return _buttons.map(btn => {
-          const {tooltip, type, size, icon, disabled, onClick} = btn;
+          const {tooltip, type, size, icon, disabled, onClick, id, className} = btn;
           const props = {
             key: JSON.stringify({tooltip, type, size, icon}),
             tooltip: typeof tooltip === 'function' ? tooltip(row) : tooltip,
@@ -47,6 +47,8 @@ export default defineComponent({
             onClick: () => {
               onClick?.(row, rowIndex, column);
             },
+            id,
+            className,
           };
           // FIXME: use "as any" to fix type errors temporarily
           return h(FaIconButton, props as any);

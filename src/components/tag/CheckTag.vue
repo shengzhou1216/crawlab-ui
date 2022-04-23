@@ -1,17 +1,17 @@
 <template>
   <Tag
-      :clickable="computedClickable"
-      :label="label"
-      :tooltip="tooltip"
-      :type="computedType"
-      :effect="computedEffect"
-      :icon="computedIcon"
-      :spinning="spinning"
-      :width="width"
-      class="check-tag"
-      @click="onClick"
-      @mouseenter="onMouseEnter"
-      @mouseleave="onMouseLeave"
+    :clickable="computedClickable"
+    :label="label"
+    :tooltip="tooltip"
+    :type="computedType"
+    :effect="computedEffect"
+    :icon="computedIcon"
+    :spinning="spinning"
+    :width="width"
+    :class="['check-tag', className].join(' ')"
+    @click="onClick"
+    @mouseenter="onMouseEnter"
+    @mouseleave="onMouseLeave"
   />
 </template>
 

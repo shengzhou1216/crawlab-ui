@@ -1,11 +1,11 @@
 <template>
   <div ref="formItem" :style="style" class="form-item">
     <el-form-item
-        :prop="prop"
-        :label="label"
-        :required="isRequired"
-        :rules="rules"
-        :size="size || formContext?.size"
+      :prop="prop"
+      :label="label"
+      :required="isRequired"
+      :rules="rules"
+      :size="size || formContext?.size"
     >
       <template #label>
         <el-tooltip :content="labelTooltip" :disabled="!labelTooltip">
@@ -15,10 +15,10 @@
             </span>
             <el-tooltip v-if="isSelectiveForm" :content="editableTooltip">
               <el-checkbox
-                  v-model="internalEditable"
-                  :disabled="notEditable"
-                  class="editable-checkbox"
-                  @change="onEditableChange"
+                v-model="internalEditable"
+                :disabled="notEditable"
+                class="editable-checkbox"
+                @change="onEditableChange"
               />
             </el-tooltip>
           </span>

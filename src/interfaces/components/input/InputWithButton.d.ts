@@ -6,4 +6,6 @@ interface InputWithButtonProps {
   buttonIcon?: Icon;
   buttonType: BasicType;
   disabled?: boolean;
+  id?: string;
+  className?: string;
 }

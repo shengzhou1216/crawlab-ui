@@ -1,31 +1,33 @@
 <template>
   <el-dialog
-      :class="className"
-      :modal-class="modalClass"
-      :before-close="onClose"
-      :model-value="visible"
-      :title="title"
-      :top="top"
-      :width="width"
-      :z-index="zIndex"
+    :custom-class="[className, visible ? 'visible' : 'hidden'].join(' ')"
+    :modal-class="modalClass"
+    :before-close="onClose"
+    :model-value="visible"
+    :title="title"
+    :top="top"
+    :width="width"
+    :z-index="zIndex"
   >
     <slot/>
     <template #footer>
       <slot name="prefix"/>
       <Button
-          class="cancel"
-          plain
-          type="info"
-          @click="onClose"
+        id="cancel-btn"
+        class-name="cancel-btn"
+        plain
+        type="info"
+        @click="onClose"
       >
         {{ t('common.actions.cancel') }}
       </Button>
       <Button
-          class="confirm"
-          :disabled="confirmDisabled"
-          :loading="confirmLoading"
-          type="primary"
-          @click="onConfirm"
+        id="confirm-btn"
+        class-name="confirm-btn"
+        :disabled="confirmDisabled"
+        :loading="confirmLoading"
+        type="primary"
+        @click="onConfirm"
       >
         {{ t('common.actions.confirm') }}
       </Button>

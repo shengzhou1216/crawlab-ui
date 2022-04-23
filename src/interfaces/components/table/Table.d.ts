@@ -128,6 +128,8 @@ export declare global {
     isHtml?: boolean;
     disabled?: TableButtonDisabledFunction;
     onClick?: TableButtonOnClickFunction;
+    id?: string;
+    className?: string;
   }
 
   type TableColumnButtonsFunction<T = any> = (row?: T) => TableColumnButton[];

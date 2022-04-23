@@ -1,10 +1,11 @@
 <template>
-  <div class="input-with-button">
+  <div :class="['input-with-button', className].join(' ')">
     <!-- Input -->
     <el-input
       v-model="internalValue"
       :placeholder="placeholder"
       :size="size"
+      :id="id"
       class="input"
       :disabled="disabled"
       @input="onInput"
@@ -94,7 +95,13 @@ export default defineComponent({
     disabled: {
       type: Boolean,
       default: true,
-    }
+    },
+    id: {
+      type: String,
+    },
+    className: {
+      type: String,
+    },
   },
   emits: [
     'update:model-value',

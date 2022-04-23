@@ -12,6 +12,8 @@
             :key="j"
           >
             <NavActionButton
+              :id="btn.id"
+              :class-name="btn.className"
               :button-type="btn.buttonType"
               :disabled="btn.disabled"
               :icon="btn.icon"

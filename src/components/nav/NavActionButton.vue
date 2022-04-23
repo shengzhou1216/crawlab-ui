@@ -1,23 +1,27 @@
 <template>
   <LabelButton
-      v-if="buttonType === 'label'"
-      :disabled="disabled"
-      :icon="icon"
-      :is-icon="!!icon"
-      :label="label"
-      :size="size"
-      :tooltip="tooltip"
-      :type="type"
-      @click="onClick"
+    v-if="buttonType === 'label'"
+    :disabled="disabled"
+    :icon="icon"
+    :is-icon="!!icon"
+    :label="label"
+    :size="size"
+    :tooltip="tooltip"
+    :type="type"
+    :id="id"
+    :class-name="className"
+    @click="onClick"
   />
   <FaIconButton
-      v-else-if="buttonType === 'fa-icon'"
-      :disabled="disabled"
-      :icon="icon"
-      :size="size"
-      :tooltip="tooltip"
-      :type="type"
-      @click="onClick"
+    v-else-if="buttonType === 'fa-icon'"
+    :disabled="disabled"
+    :icon="icon"
+    :size="size"
+    :tooltip="tooltip"
+    :type="type"
+    :id="id"
+    :class-name="className"
+    @click="onClick"
   />
 </template>
 

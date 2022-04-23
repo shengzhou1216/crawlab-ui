@@ -47,6 +47,8 @@ declare global {
     type?: BasicType;
     disabled?: boolean | ListActionButtonDisabledFunc;
     onClick?: () => void;
+    className?: string;
+    id?: string;
   }
 
   interface ListLayoutActionFunctions {

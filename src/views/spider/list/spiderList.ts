@@ -40,6 +40,8 @@ const useSpiderList = () => {
       name: 'common',
       children: [
         {
+          id: 'add-btn',
+          className: 'add-btn',
           buttonType: 'label',
           label: t('views.spiders.navActions.new.label'),
           tooltip: t('views.spiders.navActions.new.tooltip'),
@@ -49,7 +51,7 @@ const useSpiderList = () => {
             commit(`${ns}/showDialog`, 'create');
 
             sendEvent('click_spider_list_new');
-          }
+          },
         }
       ]
     }
@@ -67,6 +69,7 @@ const useSpiderList = () => {
   const tableColumns = computed<TableColumns<Spider>>(() => [
     {
       key: 'name',
+      className: 'name',
       label: t('views.spiders.table.columns.name'),
       icon: ['fa', 'font'],
       width: '160',
@@ -95,6 +98,7 @@ const useSpiderList = () => {
     // },
     {
       key: 'project_id',
+      className: 'project_id',
       label: t('views.spiders.table.columns.project'),
       icon: ['fa', 'project-diagram'],
       width: '120',
@@ -125,6 +129,7 @@ const useSpiderList = () => {
     // },
     {
       key: 'last_status',
+      className: 'last_status',
       label: t('views.spiders.table.columns.lastStatus'),
       icon: ['fa', 'heartbeat'],
       width: '120',
@@ -136,6 +141,7 @@ const useSpiderList = () => {
     },
     {
       key: 'last_run_ts',
+      className: 'last_run_ts',
       label: t('views.spiders.table.columns.lastRunAt'),
       icon: ['fa', 'clock'],
       width: '160',
@@ -147,6 +153,7 @@ const useSpiderList = () => {
     },
     {
       key: 'stats',
+      className: 'status',
       label: t('views.spiders.table.columns.stats'),
       icon: ['fa', 'chart-pie'],
       width: '240',
@@ -158,6 +165,7 @@ const useSpiderList = () => {
     },
     {
       key: 'create_ts',
+      className: 'create_ts',
       label: t('views.spiders.table.columns.createTs'),
       icon: ['far', 'calendar-plus'],
       width: '160',
@@ -165,6 +173,7 @@ const useSpiderList = () => {
     },
     {
       key: 'update_ts',
+      className: 'update_ts',
       label: t('views.spiders.table.columns.updateTs'),
       icon: ['far', 'calendar-check'],
       width: '160',
@@ -180,12 +189,14 @@ const useSpiderList = () => {
     // },
     {
       key: 'description',
+      className: 'description',
       label: t('views.spiders.table.columns.description'),
       icon: ['fa', 'comment-alt'],
       width: 'auto',
     },
     {
       key: TABLE_COLUMN_NAME_ACTIONS,
+      className: TABLE_COLUMN_NAME_ACTIONS,
       label: t('components.table.columns.actions'),
       icon: ['fa', 'tools'],
       width: '180',
@@ -202,6 +213,7 @@ const useSpiderList = () => {
 
             sendEvent('click_spider_list_actions_run');
           },
+          className: 'run-btn',
         },
         {
           type: 'primary',
@@ -212,7 +224,8 @@ const useSpiderList = () => {
             router.push(`/spiders/${row._id}`);
 
             sendEvent('click_spider_list_actions_view');
-          }
+          },
+          className: 'view-btn',
         },
         // {
         //   type: 'info',
@@ -229,6 +242,7 @@ const useSpiderList = () => {
           icon: ['fa', 'trash-alt'],
           tooltip: t('common.actions.delete'),
           onClick: deleteByIdConfirm,
+          className: 'delete-btn',
         },
       ],
       disableTransfer: true,

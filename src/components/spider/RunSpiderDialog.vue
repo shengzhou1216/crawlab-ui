@@ -1,101 +1,102 @@
 <template>
   <Dialog
-      :title="title"
-      :visible="visible"
-      @close="onClose"
-      @confirm="onConfirm"
+    :title="title"
+    :visible="visible"
+    class-name="run-spider-dialog"
+    @close="onClose"
+    @confirm="onConfirm"
   >
     <Form
-        ref="formRef"
-        :model="options"
+      ref="formRef"
+      :model="options"
     >
       <!-- Row -->
       <FormItem
-          :span="2"
-          :label="t('components.task.form.command')"
-          prop="cmd"
-          required
+        :span="2"
+        :label="t('components.task.form.command')"
+        prop="cmd"
+        required
       >
         <InputWithButton
-            v-model="options.cmd"
-            :button-icon="['fa', 'edit']"
-            :button-label="t('common.actions.edit')"
-            :placeholder="t('components.task.form.command')"
+          v-model="options.cmd"
+          :button-icon="['fa', 'edit']"
+          :button-label="t('common.actions.edit')"
+          :placeholder="t('components.task.form.command')"
         />
       </FormItem>
       <FormItem
-          :span="2"
-          :label="t('components.task.form.param')"
-          prop="param"
+        :span="2"
+        :label="t('components.task.form.param')"
+        prop="param"
       >
         <InputWithButton
-            v-model="options.param"
-            :button-icon="['fa', 'edit']"
-            :button-label="t('common.actions.edit')"
-            :placeholder="t('components.task.form.param')"
+          v-model="options.param"
+          :button-icon="['fa', 'edit']"
+          :button-label="t('common.actions.edit')"
+          :placeholder="t('components.task.form.param')"
         />
       </FormItem>
       <!-- ./Row -->
 
       <!-- Row -->
       <FormItem
-          :span="2"
-          :label="t('components.task.form.mode')"
-          prop="mode"
-          required
+        :span="2"
+        :label="t('components.task.form.mode')"
+        prop="mode"
+        required
       >
         <el-select
-            v-model="options.mode"
+          v-model="options.mode"
         >
           <el-option
-              v-for="op in modeOptions"
-              :key="op.value"
-              :label="op.label"
-              :value="op.value"
+            v-for="op in modeOptions"
+            :key="op.value"
+            :label="op.label"
+            :value="op.value"
           />
         </el-select>
       </FormItem>
       <FormItem
-          :span="2"
-          :label="t('components.task.form.priority')"
-          prop="priority"
-          required
+        :span="2"
+        :label="t('components.task.form.priority')"
+        prop="priority"
+        required
       >
         <el-select
-            v-model="options.priority"
+          v-model="options.priority"
         >
           <el-option
-              v-for="op in priorityOptions"
-              :key="op.value"
-              :label="op.label"
-              :value="op.value"
+            v-for="op in priorityOptions"
+            :key="op.value"
+            :label="op.label"
+            :value="op.value"
           />
         </el-select>
       </FormItem>
       <!-- ./Row -->
 
       <FormItem
-          v-if="options.mode === TASK_MODE_SELECTED_NODE_TAGS"
-          :span="4"
-          :label="t('components.task.form.selectedTags')"
-          prop="node_tags"
-          required
+        v-if="options.mode === TASK_MODE_SELECTED_NODE_TAGS"
+        :span="4"
+        :label="t('components.task.form.selectedTags')"
+        prop="node_tags"
+        required
       >
         <CheckTagGroup
-            v-model="options.node_tags"
-            :options="allNodeTags"
+          v-model="options.node_tags"
+          :options="allNodeTags"
         />
       </FormItem>
 
       <FormItem
-          v-if="[TASK_MODE_SELECTED_NODES, TASK_MODE_SELECTED_NODE_TAGS].includes(options.mode)"
-          :span="4"
-          :label="t('components.task.form.selectedNodes')"
-          required
+        v-if="[TASK_MODE_SELECTED_NODES, TASK_MODE_SELECTED_NODE_TAGS].includes(options.mode)"
+        :span="4"
+        :label="t('components.task.form.selectedNodes')"
+        required
       >
         <CheckTagGroup
-            v-model="options.node_ids"
-            :options="allNodeSelectOptions"
+          v-model="options.node_ids"
+          :options="allNodeSelectOptions"
         />
       </FormItem>
     </Form>

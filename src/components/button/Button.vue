@@ -1,6 +1,7 @@
 <template>
   <el-tooltip :content="tooltip" :disabled="!tooltip">
     <span
+      :id="id"
       :class="cls"
     >
       <el-button
@@ -78,6 +79,10 @@ export const buttonProps = {
     type: String,
     required: false,
     default: '',
+  },
+  id: {
+    type: String,
+    required: false,
   },
 };
 

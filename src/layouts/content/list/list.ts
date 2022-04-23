@@ -64,7 +64,7 @@ const useList = <T = any>(ns: ListStoreNamespace, store: Store<RootStoreState>, 
       sendEvent('click_list_layout_actions_delete', {ns});
       await ElMessageBox.confirm(t('common.messageBox.confirm.delete'), t('common.actions.delete'), {
         type: 'warning',
-        confirmButtonClass: 'el-button--danger'
+        confirmButtonClass: 'el-button--danger delete-confirm-btn'
       });
       sendEvent('click_list_layout_actions_delete_confirm', {ns});
       await store.dispatch(`${ns}/deleteById`, row._id);

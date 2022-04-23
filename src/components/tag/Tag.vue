@@ -1,18 +1,18 @@
 <template>
   <el-tooltip :content="tooltip" :disabled="!tooltip && !$slots.tooltip">
     <el-tag
-        ref="tagRef"
-        :closable="closable"
-        :class="cls"
-        :size="size"
-        :type="type"
-        :color="backgroundColor"
-        :effect="effect"
-        class="tag"
-        @click="onClick($event)"
-        @close="onClose($event)"
-        @mouseenter="$emit('mouseenter')"
-        @mouseleave="$emit('mouseleave')"
+      ref="tagRef"
+      :closable="closable"
+      :class="cls"
+      :size="size"
+      :type="type"
+      :color="backgroundColor"
+      :effect="effect"
+      class="tag"
+      @click="onClick($event)"
+      @close="onClose($event)"
+      @mouseenter="$emit('mouseenter')"
+      @mouseleave="$emit('mouseleave')"
     >
       <Icon :icon="icon" :spinning="spinning"/>
       <span>{{ label || tag?.name }}</span>

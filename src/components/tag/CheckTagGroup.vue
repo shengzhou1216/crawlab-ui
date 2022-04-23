@@ -1,14 +1,15 @@
 <template>
   <div class="check-tag-group">
     <CheckTag
-        v-for="op in options"
-        :key="{v: op.value, c: checkedMap[op.value]}"
-        v-model="checkedMap[op.value]"
-        :disabled="disabled"
-        :label="op.label"
-        clickable
-        style="margin-right: 10px"
-        @change="onChange"
+      v-for="op in options"
+      :key="{v: op.value, c: checkedMap[op.value]}"
+      v-model="checkedMap[op.value]"
+      :disabled="disabled"
+      :label="op.label"
+      clickable
+      :class-name="className"
+      style="margin-right: 10px"
+      @change="onChange"
     />
   </div>
 </template>
@@ -38,6 +39,9 @@ export default defineComponent({
     disabled: {
       type: Boolean,
       default: false,
+    },
+    className: {
+      type: String,
     }
   },
   emits: [
