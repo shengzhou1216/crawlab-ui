@@ -1,14 +1,14 @@
 <template>
   <ListLayout
-      :action-functions="actionFunctions"
-      :nav-actions="navActions"
-      :no-actions="noActions"
-      :pagination="tablePagination"
-      :table-columns="tableColumns"
-      :table-data="tableData"
-      :table-total="tableTotal"
-      :selectable-function="selectableFunction"
-      class="user-list"
+    class="user-list"
+    :action-functions="actionFunctions"
+    :nav-actions="navActions"
+    :table-pagination="tablePagination"
+    :table-columns="tableColumns"
+    :table-data="tableData"
+    :table-total="tableTotal"
+    :no-actions="noActions"
+    :selectable-function="selectableFunction"
   >
     <template #extra>
       <!-- Dialogs (handled by store) -->

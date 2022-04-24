@@ -1,10 +1,10 @@
 <template>
   <Tag
-      v-for="tag in tags"
-      :key="tag._id"
-      :clickable="clickable"
-      :tag="tag"
-      @click="onClick"
+    v-for="tag in tags"
+    :key="tag._id"
+    :clickable="clickable"
+    :tag="tag"
+    @click="onClick"
   />
 </template>
 

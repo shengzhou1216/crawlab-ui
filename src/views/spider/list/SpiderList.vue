@@ -1,14 +1,14 @@
 <template>
   <ListLayout
-      :nav-actions="navActions"
-      :action-functions="actionFunctions"
-      :pagination="tablePagination"
-      :table-columns="tableColumns"
-      :table-data="tableData"
-      :table-total="tableTotal"
-      :table-actions-prefix="tableActionsPrefix"
-      :no-actions="noActions"
-      class="spider-list"
+    class="spider-list"
+    :action-functions="actionFunctions"
+    :nav-actions="navActions"
+    :table-pagination="tablePagination"
+    :table-columns="tableColumns"
+    :table-data="tableData"
+    :table-total="tableTotal"
+    :table-actions-prefix="tableActionsPrefix"
+    :no-actions="noActions"
   >
     <template #extra>
       <!-- Dialogs (handled by store) -->

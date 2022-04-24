@@ -1,12 +1,12 @@
 <template>
   <ListLayout
-      :nav-actions="navActions"
-      :table-columns="tableColumns"
-      :table-data="tableData"
-      :table-total="tableTotal"
-      :pagination="tablePagination"
-      :action-functions="actionFunctions"
-      class="project-list"
+    class="project-list"
+    :action-functions="actionFunctions"
+    :nav-actions="navActions"
+    :table-pagination="tablePagination"
+    :table-columns="tableColumns"
+    :table-data="tableData"
+    :table-total="tableTotal"
   >
     <template #extra>
       <!-- Dialogs (handled by store) -->
