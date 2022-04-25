@@ -14,7 +14,7 @@
         <span class="logo-title">Crawlab</span>
         <span class="logo-sub-title">
           <div class="logo-sub-title-block">
-            {{ t('global.community') }}
+            {{ t('global.edition.community') }}
           </div>
           <div class="logo-sub-title-block">
             v0.6.0
