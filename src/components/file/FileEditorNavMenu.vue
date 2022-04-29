@@ -1,52 +1,52 @@
 <template>
   <div
-      :style="{
+    :style="{
         backgroundColor: style.backgroundColorGutters,
         borderRight: `1px solid ${style.backgroundColor}`
       }"
-      ref="fileEditorNavMenu"
-      class="file-editor-nav-menu"
+    ref="fileEditorNavMenu"
+    class="file-editor-nav-menu"
   >
     <el-tree
-        ref="tree"
-        :render-after-expand="defaultExpandAll"
-        :data="items"
-        :expand-on-click-node="false"
-        :highlight-current="false"
-        :allow-drop="allowDrop"
-        empty-text="No files available"
-        icon-class="fa fa-angle-right"
-        :style="{
+      ref="tree"
+      :render-after-expand="defaultExpandAll"
+      :data="items"
+      :expand-on-click-node="false"
+      :highlight-current="false"
+      :allow-drop="allowDrop"
+      empty-text="No files available"
+      icon-class="fa fa-angle-right"
+      :style="{
           backgroundColor: style.backgroundColorGutters,
           color: style.color,
         }"
-        node-key="path"
-        :default-expanded-keys="computedDefaultExpandedKeys"
-        draggable
-        @node-drag-enter="onNodeDragEnter"
-        @node-drag-leave="onNodeDragLeave"
-        @node-drag-end="onNodeDragEnd"
-        @node-drop="onNodeDrop"
-        @node-click="onNodeClick"
-        @node-contextmenu="onNodeContextMenuShow"
-        @node-expand="onNodeExpand"
-        @node-collapse="onNodeCollapse"
+      node-key="path"
+      :default-expanded-keys="computedDefaultExpandedKeys"
+      draggable
+      @node-drag-enter="onNodeDragEnter"
+      @node-drag-leave="onNodeDragLeave"
+      @node-drag-end="onNodeDragEnd"
+      @node-drop="onNodeDrop"
+      @node-click="onNodeClick"
+      @node-contextmenu="onNodeContextMenuShow"
+      @node-expand="onNodeExpand"
+      @node-collapse="onNodeCollapse"
     >
       <template #default="{ data }">
         <FileEditorNavMenuContextMenu
-            :clicking="contextMenuClicking"
-            :visible="isShowContextMenu(data)"
-            @hide="onNodeContextMenuHide"
-            @clone="onNodeContextMenuClone(data)"
-            @delete="onNodeContextMenuDelete(data)"
-            @rename="onNodeContextMenuRename(data)"
-            @new-file="onNodeContextMenuNewFile(data)"
-            @new-directory="onNodeContextMenuNewDirectory(data)"
+          :clicking="contextMenuClicking"
+          :visible="isShowContextMenu(data)"
+          @hide="onNodeContextMenuHide"
+          @clone="onNodeContextMenuClone(data)"
+          @delete="onNodeContextMenuDelete(data)"
+          @rename="onNodeContextMenuRename(data)"
+          @new-file="onNodeContextMenuNewFile(data)"
+          @new-directory="onNodeContextMenuNewDirectory(data)"
         >
           <div
-              v-bind="getBindDir(data)"
-              :class="getItemClass(data)"
-              class="nav-item-wrapper"
+            v-bind="getBindDir(data)"
+            :class="getItemClass(data)"
+            class="nav-item-wrapper"
           >
             <div class="background"/>
             <div class="nav-item">
@@ -228,62 +228,66 @@ export default defineComponent({
 
     const onNodeContextMenuNewFile = async (item: FileNavItem) => {
       const res = await ElMessageBox.prompt(
-          t('components.file.editor.messageBox.prompt.newFile'),
-          t('components.file.editor.navMenu.newFile'),
-          {
-            inputPlaceholder: t('components.file.editor.messageBox.prompt.newFile'),
-          }
+        t('components.file.editor.messageBox.prompt.newFile'),
+        t('components.file.editor.navMenu.newFile'),
+        {
+          inputPlaceholder: t('components.file.editor.messageBox.prompt.newFile'),
+          confirmButtonClass: 'confirm-btn',
+        }
       );
       emit('ctx-menu-new-file', item, res.value);
     };
 
     const onNodeContextMenuNewDirectory = async (item: FileNavItem) => {
       const res = await ElMessageBox.prompt(
-          t('components.file.editor.messageBox.prompt.newDirectory'),
-          t('components.file.editor.navMenu.newDirectory'),
-          {
-            inputPlaceholder: t('components.file.editor.messageBox.prompt.newDirectory'),
-          }
+        t('components.file.editor.messageBox.prompt.newDirectory'),
+        t('components.file.editor.navMenu.newDirectory'),
+        {
+          inputPlaceholder: t('components.file.editor.messageBox.prompt.newDirectory'),
+          confirmButtonClass: 'confirm-btn',
+        }
       );
       emit('ctx-menu-new-directory', item, res.value);
     };
 
     const onNodeContextMenuRename = async (item: FileNavItem) => {
       const res = await ElMessageBox.prompt(
-          t('components.file.editor.messageBox.prompt.rename'),
-          t('components.file.editor.navMenu.rename'),
-          {
-            inputValue: item.name,
-            inputPlaceholder: t('components.file.editor.messageBox.prompt.rename'),
-            inputValidator: (value: string) => value !== item.name,
-            inputErrorMessage: t('components.file.editor.messageBox.validator.errorMessage.newNameNotSameAsOldName'),
-          }
+        t('components.file.editor.messageBox.prompt.rename'),
+        t('components.file.editor.navMenu.rename'),
+        {
+          inputValue: item.name,
+          inputPlaceholder: t('components.file.editor.messageBox.prompt.rename'),
+          inputValidator: (value: string) => value !== item.name,
+          inputErrorMessage: t('components.file.editor.messageBox.validator.errorMessage.newNameNotSameAsOldName'),
+          confirmButtonClass: 'confirm-btn',
+        }
       );
       emit('ctx-menu-rename', item, res.value);
     };
 
     const onNodeContextMenuClone = async (item: FileNavItem) => {
       const res = await ElMessageBox.prompt(
-          t('components.file.editor.messageBox.prompt.duplicate'),
-          t('components.file.editor.navMenu.duplicate'),
-          {
-            inputValue: `${item.name}`,
-            inputPlaceholder: t('components.file.editor.messageBox.prompt.newFile'),
-            inputValidator: (value: string) => value !== item.name,
-            inputErrorMessage: t('components.file.editor.messageBox.validator.errorMessage.newNameNotSameAsOldName'),
-          }
+        t('components.file.editor.messageBox.prompt.duplicate'),
+        t('components.file.editor.navMenu.duplicate'),
+        {
+          inputValue: `${item.name}`,
+          inputPlaceholder: t('components.file.editor.messageBox.prompt.newFile'),
+          inputValidator: (value: string) => value !== item.name,
+          inputErrorMessage: t('components.file.editor.messageBox.validator.errorMessage.newNameNotSameAsOldName'),
+          confirmButtonClass: 'confirm-btn',
+        }
       );
       emit('ctx-menu-clone', item, res.value);
     };
 
     const onNodeContextMenuDelete = async (item: FileNavItem) => {
       await ElMessageBox.confirm(
-          t('common.messageBox.confirm.delete'),
-          t('common.actions.delete'),
-          {
-            type: 'warning',
-            confirmButtonClass: 'el-button--danger',
-          }
+        t('common.messageBox.confirm.delete'),
+        t('common.actions.delete'),
+        {
+          type: 'warning',
+          confirmButtonClass: 'el-button--danger confirm-btn',
+        }
       );
       emit('ctx-menu-delete', item);
     };

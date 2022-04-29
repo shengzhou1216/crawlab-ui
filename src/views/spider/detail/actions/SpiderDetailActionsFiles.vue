@@ -1,40 +1,44 @@
 <template>
   <NavActionGroup>
     <NavActionFaIcon
-        :icon="['fa', 'laptop-code']"
-        :tooltip="t('components.spider.actions.files.tooltip.fileEditorActions')"
+      :icon="['fa', 'laptop-code']"
+      :tooltip="t('components.spider.actions.files.tooltip.fileEditorActions')"
     />
     <NavActionItem>
       <FaIconButton
-          :icon="['fa', 'upload']"
-          :tooltip="t('components.spider.actions.files.tooltip.uploadFiles')"
-          type="primary"
-          @click="onClickUpload"
+        :icon="['fa', 'upload']"
+        :tooltip="t('components.spider.actions.files.tooltip.uploadFiles')"
+        type="primary"
+        id="upload-btn"
+        class-name="upload-btn"
+        @click="onClickUpload"
       />
       <FaIconButton
-          :icon="['fa', 'cog']"
-          :tooltip="t('components.spider.actions.files.tooltip.fileEditorSettings')"
-          type="info"
-          @click="onOpenFilesSettings"
+        :icon="['fa', 'cog']"
+        :tooltip="t('components.spider.actions.files.tooltip.fileEditorSettings')"
+        type="info"
+        id="open-settings-btn"
+        class-name="open-settings-btn"
+        @click="onOpenFilesSettings"
       />
     </NavActionItem>
   </NavActionGroup>
 
   <Dialog
-      :visible="fileUploadVisible"
-      :title="t('components.file.upload.title')"
-      :confirm-loading="confirmLoading"
-      :confirm-disabled="confirmDisabled"
-      @close="onUploadClose"
-      @confirm="onUploadConfirm"
+    :visible="fileUploadVisible"
+    :title="t('components.file.upload.title')"
+    :confirm-loading="confirmLoading"
+    :confirm-disabled="confirmDisabled"
+    @close="onUploadClose"
+    @confirm="onUploadConfirm"
   >
     <FileUpload
-        ref="fileUploadRef"
-        :mode="mode"
-        :get-input-props="getInputProps"
-        :open="open"
-        @mode-change="onModeChange"
-        @files-change="onFilesChange"
+      ref="fileUploadRef"
+      :mode="mode"
+      :get-input-props="getInputProps"
+      :open="open"
+      @mode-change="onModeChange"
+      @files-change="onFilesChange"
     />
   </Dialog>
 </template>

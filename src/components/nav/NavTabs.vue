@@ -1,24 +1,24 @@
 <template>
   <div class="nav-tabs">
     <el-tooltip
-        v-if="toggle"
-        :content="collapsed ? t('components.nav.tabs.toggle.expand') : t('components.nav.tabs.toggle.collapse')"
+      v-if="toggle"
+      :content="collapsed ? t('components.nav.tabs.toggle.expand') : t('components.nav.tabs.toggle.collapse')"
     >
       <div class="toggle" @click="onToggle">
         <font-awesome-icon :icon="collapsed ? ['fa', 'indent'] : ['fa', 'outdent']"/>
       </div>
     </el-tooltip>
     <el-menu
-        :default-active="activeKey"
-        mode="horizontal"
-        @select="onSelect"
+      :default-active="activeKey"
+      mode="horizontal"
+      @select="onSelect"
     >
       <el-menu-item
-          v-for="item in items"
-          :key="item.id"
-          :class="item.emphasis ? 'emphasis' : ''"
-          :index="item.id"
-          :style="item.style"
+        v-for="item in items"
+        :key="item.id"
+        :class="getClassName(item)"
+        :index="item.id"
+        :style="item.style"
       >
         <el-tooltip :content="item.tooltip" :disabled="!item.tooltip">
           <template v-if="!!item.icon">
@@ -37,7 +37,7 @@
   </div>
 </template>
 <script lang="ts">
-import {defineComponent, PropType} from 'vue';
+import {computed, defineComponent, PropType} from 'vue';
 import {useI18n} from 'vue-i18n';
 import {emptyArrayFunc} from '@/utils/func';
 
@@ -76,9 +76,17 @@ export default defineComponent({
       emit('toggle');
     };
 
+    const getClassName = (item: NavItem): string => {
+      const cls = [];
+      if (item.emphasis) cls.push('emphasis');
+      if (item.id) cls.push(item.id);
+      return cls.join(' ');
+    };
+
     return {
       onSelect,
       onToggle,
+      getClassName,
       t,
     };
   },

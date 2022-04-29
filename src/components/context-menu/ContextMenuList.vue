@@ -1,10 +1,10 @@
 <template>
   <ul class="context-menu-list">
     <li
-        v-for="(item, $index) in items"
-        :key="$index"
-        class="context-menu-item"
-        @click="onClick(item)"
+      v-for="(item, $index) in items"
+      :key="$index"
+      :class="['context-menu-item', item.className].join(' ')"
+      @click="onClick(item)"
     >
       <span class="prefix">
         <template v-if="item.icon">
@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent} from 'vue';
+import {defineComponent, PropType} from 'vue';
 import AtomMaterialIcon from '@/components/icon/AtomMaterialIcon.vue';
 
 export default defineComponent({
@@ -28,7 +28,7 @@ export default defineComponent({
   components: {AtomMaterialIcon},
   props: {
     items: {
-      type: [Array, String],
+      type: Array as PropType<ContextMenuItem[]>,
       default: () => {
         return [];
       },

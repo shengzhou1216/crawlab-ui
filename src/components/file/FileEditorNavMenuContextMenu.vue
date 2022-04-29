@@ -34,26 +34,31 @@ export default defineComponent({
       {
         title: t('components.file.editor.navMenu.newFile'),
         icon: ['fa', 'file-alt'],
+        className: 'new-file',
         action: () => emit('new-file'),
       },
       {
         title: t('components.file.editor.navMenu.newDirectory'),
         icon: ['fa', 'folder-plus'],
-        action: () => emit('new-directory')
+        className: 'new-directory',
+        action: () => emit('new-directory'),
       },
       {
         title: t('components.file.editor.navMenu.rename'),
         icon: ['fa', 'edit'],
+        className: 'rename',
         action: () => emit('rename'),
       },
       {
         title: t('components.file.editor.navMenu.duplicate'),
         icon: ['fa', 'clone'],
+        className: 'clone',
         action: () => emit('clone'),
       },
       {
         title: t('components.file.editor.navMenu.delete'),
         icon: ['fa', 'trash'],
+        className: 'delete',
         action: () => emit('delete'),
       },
     ]);

@@ -1,20 +1,24 @@
 <template>
   <NavActionGroup>
     <NavActionButton
-        :disabled="disabled"
-        :icon="['fa', 'undo']"
-        button-type="label"
-        :label="t('components.nav.actions.back')"
-        type="primary"
-        @click="() => $emit('back')"
+      :disabled="disabled"
+      :icon="['fa', 'undo']"
+      button-type="label"
+      :label="t('components.nav.actions.back')"
+      type="primary"
+      id="back-btn"
+      class-name="back-btn"
+      @click="() => $emit('back')"
     />
     <NavActionButton
-        :disabled="disabled"
-        :icon="['fa', 'save']"
-        button-type="label"
-        :label="t('components.nav.actions.save')"
-        type="success"
-        @click="() => $emit('save')"
+      :disabled="disabled"
+      :icon="['fa', 'save']"
+      button-type="label"
+      :label="t('components.nav.actions.save')"
+      type="success"
+      id="save-btn"
+      class-name="save-btn"
+      @click="() => $emit('save')"
     />
   </NavActionGroup>
 </template>

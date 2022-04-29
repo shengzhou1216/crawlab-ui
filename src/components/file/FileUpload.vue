@@ -3,9 +3,10 @@
     <div class="mode-select">
       <el-radio-group v-model="internalMode" @change="onModeChange">
         <el-radio
-            v-for="{value, label} in modeOptions"
-            :key="value"
-            :label="value"
+          v-for="{value, label} in modeOptions"
+          :key="value"
+          :label="value"
+          :class="value"
         >
           {{ label }}
         </el-radio>
@@ -14,12 +15,12 @@
 
     <template v-if="mode === FILE_UPLOAD_MODE_FILES">
       <el-upload
-          ref="uploadRef"
-          :on-change="onFileChange"
-          :http-request="() => {}"
-          drag
-          multiple
-          :show-file-list="false"
+        ref="uploadRef"
+        :on-change="onFileChange"
+        :http-request="() => {}"
+        drag
+        multiple
+        :show-file-list="false"
       >
         <el-icon class="el-icon--upload">
           <upload-filled/>
@@ -38,18 +39,18 @@
         </Button>
         <template v-if="!!dirInfo?.dirName && dirInfo?.fileCount">
           <Tag
-              type="primary"
-              class="info-tag"
-              :label="dirInfo?.dirName"
-              :icon="['fa', 'folder']"
-              :tooltip="t('components.file.upload.tooltip.fileName')"
+            type="primary"
+            class="info-tag"
+            :label="dirInfo?.dirName"
+            :icon="['fa', 'folder']"
+            :tooltip="t('components.file.upload.tooltip.fileName')"
           />
           <Tag
-              type="success"
-              class="info-tag"
-              :label="dirInfo?.fileCount"
-              :icon="['fa', 'hashtag']"
-              :tooltip="t('components.file.upload.tooltip.filesCount')"
+            type="success"
+            class="info-tag"
+            :label="dirInfo?.fileCount"
+            :icon="['fa', 'hashtag']"
+            :tooltip="t('components.file.upload.tooltip.filesCount')"
           />
         </template>
       </div>

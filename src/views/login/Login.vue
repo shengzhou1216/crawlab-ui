@@ -84,7 +84,8 @@
       </div>
       <div class="tips">
         <span>{{ t('views.login.initial.title') }}: admin/admin</span>
-        <a href="https://github.com/crawlab-team/crawlab" style="float:right" target="_blank">
+        <!--TODO: implement github stars-->
+        <a v-if="false" href="https://github.com/crawlab-team/crawlab" style="float:right" target="_blank">
           <img alt="github-stars" src="https://img.shields.io/github/stars/crawlab-team/crawlab?logo=github">
         </a>
       </div>
