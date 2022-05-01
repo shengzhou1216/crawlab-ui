@@ -28,6 +28,7 @@
           auto-complete="on"
           name="username"
           type="text"
+          size="large"
           @keyup.enter="onLogin"
         />
       </el-form-item>
@@ -38,6 +39,7 @@
           auto-complete="on"
           name="password"
           type="password"
+          size="large"
           @keyup.enter="onLogin"
         />
       </el-form-item>
@@ -47,6 +49,7 @@
           :placeholder="t('views.login.loginForm.confirmPassword')"
           auto-complete="on"
           name="confirm-password"
+          size="large"
         />
       </el-form-item>
       <el-form-item v-if="isSignup" prop="email" style="margin-bottom: 28px;">
@@ -54,6 +57,7 @@
           v-model="loginForm.email"
           :placeholder="t('views.login.loginForm.email')"
           name="email"
+          size="large"
         />
       </el-form-item>
       <el-form-item style="border: none">
@@ -62,6 +66,7 @@
           :loading="loading"
           style="width:100%;"
           type="primary"
+          size="large"
         >
           {{ t('views.login.loginForm.signUp') }}
         </el-button>
@@ -70,6 +75,7 @@
           :loading="loading"
           style="width:100%;"
           type="primary"
+          size="large"
           @click="onLogin"
         >
           {{ t('views.login.loginForm.signIn') }}
