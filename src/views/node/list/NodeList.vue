@@ -7,6 +7,7 @@
     :table-columns="tableColumns"
     :table-data="tableData"
     :table-total="tableTotal"
+    :visible-buttons="visibleButtons"
   >
     <template #extra>
       <!-- Dialogs (handled by store) -->

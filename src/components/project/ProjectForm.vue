@@ -1,41 +1,43 @@
 <template>
   <Form
-      v-if="form"
-      ref="formRef"
-      :model="form"
-      :rules="formRules"
-      :selective="isSelectiveForm"
+    v-if="form"
+    ref="formRef"
+    :model="form"
+    :rules="formRules"
+    :selective="isSelectiveForm"
   >
     <FormItem
-        :span="2"
-        :label="t('components.project.form.name')"
-        not-editable
-        prop="name"
-        required
+      :span="2"
+      :label="t('components.project.form.name')"
+      not-editable
+      prop="name"
+      required
     >
       <el-input
-          v-model="form.name"
-          :disabled="isFormItemDisabled('name')"
-          :placeholder="t('components.project.form.name')"
+        v-locate="'name'"
+        v-model="form.name"
+        :disabled="isFormItemDisabled('name')"
+        :placeholder="t('components.project.form.name')"
       />
     </FormItem>
     <FormItem
-        :span="2"
-        :label="t('components.project.form.tags')"
-        prop="tags"
+      :span="2"
+      :label="t('components.project.form.tags')"
+      prop="tags"
     >
       <TagInput v-model="form.tags" :disabled="isFormItemDisabled('tags')"/>
     </FormItem>
     <FormItem
-        :span="4"
-        :label="t('components.project.form.description')"
-        prop="description"
+      :span="4"
+      :label="t('components.project.form.description')"
+      prop="description"
     >
       <el-input
-          v-model="form.description"
-          :disabled="isFormItemDisabled('description')"
-          :placeholder="t('components.project.form.description')"
-          type="textarea"
+        v-locate="'description'"
+        v-model="form.description"
+        :disabled="isFormItemDisabled('description')"
+        :placeholder="t('components.project.form.description')"
+        type="textarea"
       />
     </FormItem>
   </Form>

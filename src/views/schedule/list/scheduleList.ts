@@ -1,9 +1,8 @@
 import {computed, h} from 'vue';
 import {TABLE_COLUMN_NAME_ACTIONS} from '@/constants/table';
 import {useStore} from 'vuex';
-import {ElMessage, ElMessageBox} from 'element-plus';
+import {ElMessage} from 'element-plus';
 import useList from '@/layouts/content/list/list';
-import useScheduleService from '@/services/schedule/scheduleService';
 import NavLink from '@/components/nav/NavLink.vue';
 import {useRouter} from 'vue-router';
 import {setupListComponent} from '@/utils/list';
@@ -27,11 +26,15 @@ const useScheduleList = () => {
   const store = useStore<RootStoreState>();
   const {commit} = store;
 
-  // services
+  // use list
   const {
-    deleteById,
-    getList,
-  } = useScheduleService(store);
+    actionFunctions,
+  } = useList<Schedule>(ns, store);
+
+  // action functions
+  const {
+    deleteByIdConfirm,
+  } = actionFunctions;
 
   // all spider dict
   const allSpiderDict = computed<Map<string, Spider>>(() => store.getters['spider/allDict']);
@@ -50,6 +53,8 @@ const useScheduleList = () => {
       name: 'common',
       children: [
         {
+          id: 'add-btn',
+          className: 'add-btn',
           buttonType: 'label',
           label: t('views.schedules.navActions.new.label'),
           tooltip: t('views.schedules.navActions.new.tooltip'),
@@ -173,6 +178,7 @@ const useScheduleList = () => {
       width: '200',
       buttons: [
         {
+          className: 'view-btn',
           type: 'primary',
           icon: ['fa', 'search'],
           tooltip: t('common.actions.view'),
@@ -193,29 +199,12 @@ const useScheduleList = () => {
         //   }
         // },
         {
+          className: 'delete-btn',
           type: 'danger',
           size: 'small',
           icon: ['fa', 'trash-alt'],
           tooltip: t('common.actions.delete'),
-          onClick: async (row: Schedule) => {
-            sendEvent('click_schedule_list_actions_delete');
-
-            const res = await ElMessageBox.confirm(
-              t('common.messageBox.confirm.delete'),
-              t('common.actions.delete'),
-              {
-                type: 'warning',
-                confirmButtonClass: 'el-button--danger'
-              }
-            );
-
-            sendEvent('click_schedule_list_actions_delete_confirm');
-
-            if (res) {
-              await deleteById(row._id as string);
-            }
-            await getList();
-          },
+          onClick: deleteByIdConfirm,
         },
       ],
       disableTransfer: true,

@@ -1,6 +1,6 @@
 const node: LComponentsNode = {
   form: {
-    key: '键',
+    key: '唯一标识',
     name: '名称',
     tags: '标签',
     type: '类别',

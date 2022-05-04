@@ -15,6 +15,7 @@
       required
     >
       <el-input
+        v-locate="'name'"
         v-model="form.name"
         :disabled="isFormItemDisabled('name')"
         :placeholder="t('components.schedule.form.name')"
@@ -27,6 +28,7 @@
       required
     >
       <el-select
+        v-locate="'spider_id'"
         v-model="form.spider_id"
         :disabled="isFormItemDisabled('spider_id')"
       >
@@ -48,6 +50,7 @@
       required
     >
       <el-input
+        v-locate="'cron'"
         v-model="form.cron"
         :disabled="isFormItemDisabled('cron')"
         :placeholder="t('components.schedule.form.cron')"
@@ -71,6 +74,7 @@
       prop="cmd"
     >
       <InputWithButton
+        v-locate="'cmd'"
         v-model="form.cmd"
         :button-icon="['fa', 'edit']"
         :disabled="isFormItemDisabled('cmd')"
@@ -84,6 +88,7 @@
       prop="param"
     >
       <InputWithButton
+        v-locate="'param'"
         v-model="form.param"
         :button-icon="['fa', 'edit']"
         :disabled="isFormItemDisabled('param')"
@@ -100,6 +105,7 @@
       prop="mode"
     >
       <el-select
+        v-locate="'mode'"
         v-model="form.mode"
         :disabled="isFormItemDisabled('mode')"
       >
@@ -117,7 +123,10 @@
       prop="enabled"
       required
     >
-      <Switch v-model="form.enabled" @change="onEnabledChange"/>
+      <Switch
+        v-locate="'enabled'"
+        v-model="form.enabled" @change="onEnabledChange"
+      />
     </FormItem>
     <!-- ./Row -->
 
@@ -129,6 +138,7 @@
       required
     >
       <CheckTagGroup
+        v-locate="'node_tags'"
         v-model="form.node_tags"
         :disabled="isFormItemDisabled('node_tags')"
         :options="allNodeTags"
@@ -142,6 +152,7 @@
       required
     >
       <CheckTagGroup
+        v-locate="'node_ids'"
         v-model="form.node_ids"
         :disabled="form.mode === TASK_MODE_SELECTED_NODE_TAGS && isFormItemDisabled('node_ids')"
         :options="allNodeSelectOptions"
@@ -155,6 +166,7 @@
       prop="description"
     >
       <el-input
+        v-locate="'description'"
         v-model="form.description"
         :disabled="isFormItemDisabled('description')"
         :placeholder="t('components.schedule.form.description')"

@@ -1,6 +1,6 @@
 const node: LComponentsNode = {
   form: {
-    key: 'Key',
+    key: 'Unique Identity Key',
     name: 'Name',
     tags: 'Tags',
     type: 'Type',

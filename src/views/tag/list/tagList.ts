@@ -24,6 +24,8 @@ const useTagList = () => {
       name: 'common',
       children: [
         {
+          id: 'add-btn',
+          className: 'add-btn',
           buttonType: 'label',
           label: t('views.tags.navActions.new.label'),
           tooltip: t('views.tags.navActions.new.tooltip'),

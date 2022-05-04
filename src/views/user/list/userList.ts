@@ -1,9 +1,7 @@
 import {computed, h} from 'vue';
 import {TABLE_COLUMN_NAME_ACTIONS} from '@/constants/table';
 import {useStore} from 'vuex';
-import {ElMessageBox} from 'element-plus';
 import useList from '@/layouts/content/list/list';
-import useUserService from '@/services/user/userService';
 import NavLink from '@/components/nav/NavLink.vue';
 import {useRouter} from 'vue-router';
 import UserRole from '@/components/user/UserRole.vue';
@@ -23,11 +21,15 @@ const useUserList = () => {
   const store = useStore<RootStoreState>();
   const {commit} = store;
 
-  // services
+  // use list
   const {
-    deleteById,
-    getList,
-  } = useUserService(store);
+    actionFunctions,
+  } = useList<User>(ns, store);
+
+  // action functions
+  const {
+    deleteByIdConfirm,
+  } = actionFunctions;
 
   // nav actions
   const navActions = computed<ListActionGroup[]>(() => [
@@ -35,6 +37,8 @@ const useUserList = () => {
       name: 'common',
       children: [
         {
+          id: 'add-btn',
+          className: 'add-btn',
           buttonType: 'label',
           label: t('views.users.navActions.new.label'),
           tooltip: t('views.users.navActions.new.tooltip'),
@@ -109,25 +113,7 @@ const useUserList = () => {
           icon: ['fa', 'trash-alt'],
           tooltip: (row: User) => row.username === USERNAME_ADMIN ? t('components.user.delete.tooltip.adminUserNonDeletable') : t('common.actions.delete'),
           disabled: (row: User) => row.username === USERNAME_ADMIN,
-          onClick: async (row: User) => {
-            sendEvent('click_user_list_actions_delete');
-
-            const res = await ElMessageBox.confirm(
-              t('common.messageBox.confirm.delete'),
-              t('common.actions.delete'),
-              {
-                type: 'warning',
-                confirmButtonClass: 'el-button--danger',
-              }
-            );
-
-            sendEvent('click_user_list_actions_delete_confirm');
-
-            if (res) {
-              await deleteById(row._id as string);
-            }
-            await getList();
-          },
+          onClick: deleteByIdConfirm,
         },
       ],
       disableTransfer: true,

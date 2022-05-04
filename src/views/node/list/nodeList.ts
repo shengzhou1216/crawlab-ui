@@ -3,7 +3,7 @@ import {useStore} from 'vuex';
 import {getDefaultUseListOptions, setupListComponent} from '@/utils/list';
 import {computed, h} from 'vue';
 import NodeType from '@/components/node/NodeType.vue';
-import {TABLE_COLUMN_NAME_ACTIONS} from '@/constants/table';
+import {TABLE_COLUMN_NAME_ACTIONS, TABLE_ACTION_EDIT, TABLE_ACTION_CUSTOMIZE_COLUMNS} from '@/constants/table';
 import {ElMessageBox} from 'element-plus';
 import useNodeService from '@/services/node/nodeService';
 import NavLink from '@/components/nav/NavLink.vue';
@@ -47,13 +47,40 @@ const useNodeList = () => {
       name: 'common',
       children: [
         {
+          id: 'add-btn',
+          className: 'add-btn',
           buttonType: 'label',
           label: t('views.nodes.navActions.new.label'),
           tooltip: t('views.nodes.navActions.new.tooltip'),
           icon: ['fa', 'plus'],
           type: 'success',
-          onClick: () => {
-            commit(`${ns}/showDialog`, 'create');
+          onClick: async () => {
+            const message = h('div', [
+              h('div', {
+                style: {
+                  fontSize: '16px',
+                  marginBottom: '10px',
+                  lineHeight: '1.5',
+                },
+              }, [t('views.nodes.notice.create.content')]),
+              h('a', {
+                href: t('views.nodes.notice.create.link.url'),
+                style: {
+                  color: '#409eff',
+                  fontSize: '16px',
+                  fontWeight: '600',
+                },
+                target: '_blank',
+              }, [t('views.nodes.notice.create.link.label')]),
+            ]);
+            const title = t('views.nodes.notice.create.title');
+            await ElMessageBox({
+              title,
+              message,
+            });
+
+            // TODO: implement active nodes creation later
+            // commit(`${ns}/showDialog`, 'create');
 
             sendEvent('click_node_list_new');
           }
@@ -66,6 +93,7 @@ const useNodeList = () => {
   const tableColumns = computed<TableColumns<Node>>(() => [
     {
       key: 'name', // name
+      className: 'name',
       label: t('views.nodes.table.columns.name'),
       icon: ['fa', 'font'],
       width: '150',
@@ -79,6 +107,7 @@ const useNodeList = () => {
     },
     {
       key: 'is_master', // is_master
+      className: 'is_master',
       label: t('views.nodes.table.columns.nodeType'),
       icon: ['fa', 'list'],
       width: '150',
@@ -94,6 +123,7 @@ const useNodeList = () => {
     },
     {
       key: 'status', // status
+      className: 'status',
       label: t('views.nodes.table.columns.status'),
       icon: ['fa', 'heartbeat'],
       width: '150',
@@ -111,6 +141,7 @@ const useNodeList = () => {
     },
     {
       key: 'ip',
+      className: 'ip',
       label: t('views.nodes.table.columns.ip'),
       icon: ['fa', 'map-marker-alt'],
       width: '150',
@@ -118,6 +149,7 @@ const useNodeList = () => {
     },
     {
       key: 'mac',
+      className: 'mac',
       label: t('views.nodes.table.columns.mac'),
       icon: ['fa', 'map-marker-alt'],
       width: '150',
@@ -125,6 +157,7 @@ const useNodeList = () => {
     },
     {
       key: 'hostname',
+      className: 'hostname',
       label: t('views.nodes.table.columns.hostname'),
       icon: ['fa', 'map-marker-alt'],
       width: '150',
@@ -132,6 +165,7 @@ const useNodeList = () => {
     },
     {
       key: 'runners',
+      className: 'runners',
       label: t('views.nodes.table.columns.runners'),
       icon: ['fa', 'play'],
       width: '160',
@@ -145,6 +179,7 @@ const useNodeList = () => {
     },
     {
       key: 'enabled', // enabled
+      className: 'enabled',
       label: t('views.nodes.table.columns.enabled'),
       icon: ['fa', 'toggle-on'],
       width: '120',
@@ -168,6 +203,7 @@ const useNodeList = () => {
     },
     {
       key: 'tags',
+      className: 'tags',
       label: t('views.nodes.table.columns.tags'),
       icon: ['fa', 'hashtag'],
       value: ({tags}: Node) => {
@@ -177,6 +213,7 @@ const useNodeList = () => {
     },
     {
       key: 'description',
+      className: 'description',
       label: t('views.nodes.table.columns.description'),
       icon: ['fa', 'comment-alt'],
       width: 'auto',
@@ -185,6 +222,7 @@ const useNodeList = () => {
     },
     {
       key: TABLE_COLUMN_NAME_ACTIONS,
+      className: TABLE_COLUMN_NAME_ACTIONS,
       label: t('components.table.columns.actions'),
       fixed: 'right',
       width: '200',
@@ -245,8 +283,15 @@ const useNodeList = () => {
   // init
   setupListComponent(ns, store, []);
 
+  // visible table actions buttons
+  const visibleButtons: BuiltInTableActionButtonName[] = [
+    TABLE_ACTION_EDIT,
+    TABLE_ACTION_CUSTOMIZE_COLUMNS,
+  ];
+
   return {
-    ...useList<Node>(ns, store, opts)
+    ...useList<Node>(ns, store, opts),
+    visibleButtons,
   };
 };
 

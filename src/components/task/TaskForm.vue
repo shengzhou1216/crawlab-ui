@@ -8,6 +8,7 @@
       prop="spider_id"
     >
       <el-select
+        v-locate="'spider_id'"
         v-model="form.spider_id"
         :disabled="isFormItemDisabled('spider_id') || readonly"
       >
@@ -42,6 +43,7 @@
         :placeholder="t('common.status.unassigned')"
       />
       <el-select
+        v-locate="'node_id'"
         v-else
         v-model="form.node_id"
         disabled
@@ -103,6 +105,7 @@
       required
     >
       <InputWithButton
+        v-locate="'cmd'"
         v-model="form.cmd"
         :button-icon="['fa', 'edit']"
         :disabled="isFormItemDisabled('cmd') || readonly"
@@ -116,6 +119,7 @@
       prop="param"
     >
       <InputWithButton
+        v-locate="'param'"
         v-model="form.param"
         :button-icon="['fa', 'edit']"
         :disabled="isFormItemDisabled('param') || readonly"
@@ -133,6 +137,7 @@
       required
     >
       <el-select
+        v-locate="'mode'"
         v-model="form.mode"
         :disabled="isFormItemDisabled('mode') || readonly"
       >
@@ -151,6 +156,7 @@
       required
     >
       <el-select
+        v-locate="'priority'"
         v-model="form.priority"
         :disabled="isFormItemDisabled('priority') || readonly"
       >
@@ -172,6 +178,7 @@
       required
     >
       <CheckTagGroup
+        v-locate="'node_tags'"
         v-model="form.node_tags"
         :disabled="isFormItemDisabled('node_tags') || readonly"
         :options="allNodeTags"
@@ -185,6 +192,7 @@
       required
     >
       <CheckTagGroup
+        v-locate="'node_ids'"
         v-model="form.node_ids"
         :disabled="(form.mode === TASK_MODE_SELECTED_NODE_TAGS && isFormItemDisabled('node_ids')) || readonly"
         :options="allNodeSelectOptions"

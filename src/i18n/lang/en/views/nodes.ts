@@ -19,6 +19,16 @@ const nodes: LViewsNodes = {
       tooltip: 'Create a new node'
     }
   },
+  notice: {
+    create: {
+      title: 'Create Node',
+      content: 'Nodes can only be created via manual installation at this moment. You can refer to the link below for more details.',
+      link: {
+        label: 'Node Installation',
+        url: 'https://docs-next.crawlab.cn/en/guide/installation/',
+      },
+    },
+  },
 };
 
 export default nodes;

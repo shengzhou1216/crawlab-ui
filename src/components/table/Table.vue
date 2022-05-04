@@ -48,7 +48,7 @@
         :sortable="c.sortable"
         :index="c.index"
         :resizable="c.resizable === undefined ? true : c.resizable"
-        :class-name="c.className"
+        :class-name="c.className || c.key"
       >
         <template #header="scope">
           <TableHeader :column="c" :index="scope.$index" @change="onHeaderChange"/>

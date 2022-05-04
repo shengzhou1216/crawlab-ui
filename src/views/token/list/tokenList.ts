@@ -33,6 +33,8 @@ const useTokenList = () => {
       name: 'common',
       children: [
         {
+          id: 'add-btn',
+          className: 'add-btn',
           buttonType: 'label',
           label: t('views.tokens.navActions.new.label'),
           tooltip: t('views.tokens.navActions.new.tooltip'),

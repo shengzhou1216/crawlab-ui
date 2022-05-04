@@ -1,27 +1,27 @@
 <template>
   <Dialog
-      class-name="create-edit-dialog"
-      :title="computedTitle"
-      :visible="visible"
-      :width="width"
-      :confirm-loading="confirmLoading"
-      :confirm-disabled="confirmDisabled"
-      @close="onClose"
-      @confirm="onConfirm"
+    class-name="create-edit-dialog"
+    :title="computedTitle"
+    :visible="visible"
+    :width="width"
+    :confirm-loading="confirmLoading"
+    :confirm-disabled="confirmDisabled"
+    @close="onClose"
+    @confirm="onConfirm"
   >
     <el-tabs
-        v-model="internalTabName"
-        :class="[type, visible ? 'visible' : '']"
-        class="create-edit-dialog-tabs"
-        @tab-click="onTabChange"
+      v-model="internalTabName"
+      :class="[type, visible ? 'visible' : '']"
+      class="create-edit-dialog-tabs"
+      @tab-click="onTabChange"
     >
       <el-tab-pane :label="t('components.dialog.type.single')" name="single">
         <slot/>
       </el-tab-pane>
       <el-tab-pane v-if="!noBatch" :label="t('components.dialog.type.batch')" name="batch">
         <CreateDialogContentBatch
-            :data="batchFormData"
-            :fields="batchFormFields"
+          :data="batchFormData"
+          :fields="batchFormFields"
         />
       </el-tab-pane>
     </el-tabs>

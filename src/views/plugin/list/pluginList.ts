@@ -43,11 +43,15 @@ const usePluginList = () => {
     plugin: state,
   } = store.state;
 
-  // services
+  // use list
   const {
-    getList,
-    deleteById,
-  } = usePluginService(store);
+    actionFunctions,
+  } = useList<Plugin>(ns, store);
+
+  // action functions
+  const {
+    deleteByIdConfirm,
+  } = actionFunctions;
 
   // nav actions
   const navActions = computed<ListActionGroup[]>(() => [
@@ -244,28 +248,7 @@ const usePluginList = () => {
             icon: ['fa', 'trash-alt'],
             tooltip: t('common.actions.delete'),
             disabled: (row: Plugin) => !!row.active,
-            onClick: async (row: Plugin) => {
-              sendEvent('click_plugin_list_actions_delete');
-
-              const res = await ElMessageBox.confirm(
-                t('common.messageBox.confirm.delete'),
-                t('common.actions.delete'),
-                {
-                  type: 'warning',
-                  confirmButtonClass: 'el-button--danger'
-                },
-              );
-
-              sendEvent('click_plugin_list_actions_delete_confirm');
-
-              if (res) {
-                await deleteById(row._id as string);
-              }
-              await Promise.all([
-                getList(),
-                store.dispatch(`${ns}/getAllList`),
-              ]);
-            },
+            onClick: deleteByIdConfirm,
           },
         ]);
         return buttons;

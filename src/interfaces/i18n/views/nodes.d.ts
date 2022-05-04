@@ -14,4 +14,14 @@ interface LViewsNodes {
     };
   };
   navActions: LNavActions;
+  notice: {
+    create: {
+      title: string;
+      content: string;
+      link: {
+        label: string;
+        url: string;
+      };
+    };
+  };
 }

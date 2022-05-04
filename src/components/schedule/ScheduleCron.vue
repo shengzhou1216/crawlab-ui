@@ -108,9 +108,11 @@ export default defineComponent({
       if (!interval.value || !isValid.value) {
         return t('common.status.unknown');
       }
-      return dayjs(interval.value.next().toDate())
-        .locale(getI18n().global.locale.value === 'zh' ? zh : en)
-        ?.format('llll');
+      if (getI18n().global.locale.value === 'zh') {
+        return dayjs(interval.value.next().getTime()).locale(zh)?.format('llll');
+      } else {
+        return dayjs(interval.value.next().getTime())?.format('llll');
+      }
     });
 
     const description = computed<string | undefined>(() => {

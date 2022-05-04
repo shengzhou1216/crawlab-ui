@@ -65,6 +65,8 @@ const useTaskList = () => {
       name: 'common',
       children: [
         {
+          id: 'add-btn',
+          className: 'add-btn',
           buttonType: 'label',
           label: t('views.tasks.navActions.new.label'),
           tooltip: t('views.tasks.navActions.new.tooltip'),

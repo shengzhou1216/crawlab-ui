@@ -1,9 +1,7 @@
 import {computed, h} from 'vue';
 import {TABLE_COLUMN_NAME_ACTIONS} from '@/constants/table';
 import {useStore} from 'vuex';
-import {ElMessageBox} from 'element-plus';
 import useList from '@/layouts/content/list/list';
-import useProjectService from '@/services/project/projectService';
 import NavLink from '@/components/nav/NavLink.vue';
 import {useRouter} from 'vue-router';
 import TagList from '@/components/tag/TagList.vue';
@@ -23,11 +21,15 @@ const useProjectList = () => {
   // i18n
   const t = translate;
 
-  // services
+  // use list
   const {
-    deleteById,
-    getList,
-  } = useProjectService(store);
+    actionFunctions,
+  } = useList<Project>(ns, store);
+
+  // action functions
+  const {
+    deleteByIdConfirm,
+  } = actionFunctions;
 
   // nav actions
   const navActions = computed<ListActionGroup[]>(() => [
@@ -35,6 +37,8 @@ const useProjectList = () => {
       name: 'common',
       children: [
         {
+          id: 'add-btn',
+          className: 'add-btn',
           buttonType: 'label',
           label: t('views.projects.navActions.new.label'),
           tooltip: t('views.projects.navActions.new.tooltip'),
@@ -51,6 +55,7 @@ const useProjectList = () => {
   // table columns
   const tableColumns = computed<TableColumns<Project>>(() => [
     {
+      className: 'name',
       key: 'name',
       label: t('views.projects.table.columns.name'),
       icon: ['fa', 'font'],
@@ -64,6 +69,7 @@ const useProjectList = () => {
       allowFilterSearch: true,
     },
     {
+      className: 'spiders',
       key: 'spiders',
       label: t('views.projects.table.columns.spiders'),
       icon: ['fa', 'spider'],
@@ -97,6 +103,7 @@ const useProjectList = () => {
       width: '200',
       buttons: [
         {
+          className: 'view-btn',
           type: 'primary',
           icon: ['fa', 'search'],
           tooltip: t('common.actions.view'),
@@ -125,29 +132,12 @@ const useProjectList = () => {
         //   }
         // },
         {
+          className: 'delete-btn',
           type: 'danger',
           size: 'small',
           icon: ['fa', 'trash-alt'],
           tooltip: t('common.actions.delete'),
-          onClick: async (row: Project) => {
-            sendEvent('click_project_list_actions_delete');
-
-            const res = await ElMessageBox.confirm(
-              t('common.messageBox.confirm.delete'),
-              t('common.actions.delete'),
-              {
-                type: 'warning',
-                confirmButtonClass: 'el-button--danger'
-              }
-            );
-
-            sendEvent('click_project_list_actions_delete_confirm');
-
-            if (res) {
-              await deleteById(row._id as string);
-            }
-            await getList();
-          },
+          onClick: deleteByIdConfirm,
         },
       ],
       disableTransfer: true,

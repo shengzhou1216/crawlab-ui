@@ -12,7 +12,7 @@ import {initPlugins} from '@/utils/plugin';
 import {initRequest} from '@/services/request';
 import {initUmeng} from '@/admin/umeng';
 import {setGlobalLang} from '@/utils/i18n';
-import track from '@/directives/track/track';
+import {track, locate} from '@/directives';
 import {initDemo} from '@/demo';
 
 export const getDefaultCreateAppOptions = (): CreateAppOptions => {
@@ -29,6 +29,7 @@ export const getDefaultCreateAppOptions = (): CreateAppOptions => {
     loadI18n: true,
     loadFontAwesome: true,
     loadTrack: true,
+    loadLocate: true,
     mount: true,
     store: undefined,
     rootRoutes: undefined,
@@ -94,6 +95,7 @@ const createApp = async (options?: CreateAppOptions): Promise<VueApp> => {
   }
   if (options.loadFontAwesome) app.component('font-awesome-icon', FontAwesomeIcon);
   if (options.loadTrack) app.directive('track', track);
+  if (options.loadLocate) app.directive('locate', locate);
 
   // mount
   if (options.mount) app.mount(typeof options.mount === 'string' ? options.mount : '#app');
