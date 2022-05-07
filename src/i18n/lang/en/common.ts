@@ -23,6 +23,8 @@ const common: LCommon = {
     apply: 'Apply',
     search: 'Search',
     install: 'Install',
+    viewLogs: 'View Logs',
+    viewData: 'View Data',
   },
   messageBox: {
     confirm: {

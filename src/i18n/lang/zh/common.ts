@@ -23,6 +23,8 @@ const common: LCommon = {
     apply: '应用',
     search: '搜索',
     install: '安装',
+    viewLogs: '查看日志',
+    viewData: '查看数据',
   },
   messageBox: {
     confirm: {

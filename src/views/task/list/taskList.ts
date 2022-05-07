@@ -183,7 +183,7 @@ const useTaskList = () => {
       filterItems: priorityOptions,
     },
     {
-      key: 'stat.create_ts',
+      key: 'stat_create_ts',
       label: t('views.tasks.table.columns.stat.create_ts'),
       icon: ['fa', 'clock'],
       width: '120',
@@ -194,7 +194,7 @@ const useTaskList = () => {
       defaultHidden: true,
     },
     {
-      key: 'stat.start_ts',
+      key: 'stat_start_ts',
       label: t('views.tasks.table.columns.stat.start_ts'),
       icon: ['fa', 'clock'],
       width: '120',
@@ -204,7 +204,7 @@ const useTaskList = () => {
       },
     },
     {
-      key: 'stat.end_ts',
+      key: 'stat_end_ts',
       label: t('views.tasks.table.columns.stat.end_ts'),
       icon: ['fa', 'clock'],
       width: '120',
@@ -214,7 +214,7 @@ const useTaskList = () => {
       },
     },
     {
-      key: 'stat.wait_duration',
+      key: 'stat_wait_duration',
       label: t('views.tasks.table.columns.stat.wait_duration'),
       icon: ['fa', 'stopwatch'],
       width: '160',
@@ -225,7 +225,7 @@ const useTaskList = () => {
       defaultHidden: true,
     },
     {
-      key: 'stat.runtime_duration',
+      key: 'stat_runtime_duration',
       label: t('views.tasks.table.columns.stat.runtime_duration'),
       icon: ['fa', 'stopwatch'],
       width: '160',
@@ -236,7 +236,7 @@ const useTaskList = () => {
       defaultHidden: true,
     },
     {
-      key: 'stat.total_duration',
+      key: 'stat_total_duration',
       label: t('views.tasks.table.columns.stat.total_duration'),
       icon: ['fa', 'stopwatch'],
       width: '160',
@@ -246,23 +246,32 @@ const useTaskList = () => {
       },
     },
     {
-      key: 'stat.result_count',
+      key: 'stat_result_count',
       label: t('views.tasks.table.columns.stat.results'),
       icon: ['fa', 'table'],
       width: '150',
       value: (row: Task) => {
         if (row.stat?.result_count === undefined) return;
-        return h(TaskResults, {results: row.stat.result_count, status: row.status} as TaskResultsProps);
+        return h(TaskResults, {
+          results: row.stat.result_count,
+          status: row.status,
+          clickable: true,
+          onClick: () => {
+            router.push(`/tasks/${row._id}/data`);
+            sendEvent('click_task_list_actions_view_data');
+          },
+        } as TaskResultsProps);
       },
     },
     {
       key: TABLE_COLUMN_NAME_ACTIONS,
       label: t('components.table.columns.actions'),
       icon: ['fa', 'tools'],
-      width: '180',
+      width: '200',
       fixed: 'right',
       buttons: (row) => [
         {
+          className: 'view-btn',
           type: 'primary',
           size: 'small',
           icon: ['fa', 'search'],
@@ -274,6 +283,19 @@ const useTaskList = () => {
           }
         },
         {
+          className: 'view-logs-btn',
+          type: 'info',
+          size: 'small',
+          icon: ['fa', 'file-alt'],
+          tooltip: t('common.actions.viewLogs'),
+          onClick: (row) => {
+            router.push(`/tasks/${row._id}/logs`);
+
+            sendEvent('click_task_list_actions_view_logs');
+          }
+        },
+        {
+          className: 'restart-btn',
           type: 'warning',
           size: 'small',
           icon: ['fa', 'redo'],
@@ -284,7 +306,7 @@ const useTaskList = () => {
             await ElMessageBox.confirm(
               t('common.messageBox.confirm.restart'),
               t('common.actions.restart'),
-              {type: 'warning'},
+              {type: 'warning', confirmButtonClass: 'restart-confirm-btn'},
             );
 
             sendEvent('click_task_list_actions_restart_confirm');
@@ -296,6 +318,7 @@ const useTaskList = () => {
         },
         isCancellable(row.status) ?
           {
+            className: 'cancel-btn',
             type: 'info',
             size: 'small',
             icon: ['fa', 'stop'],
@@ -306,7 +329,7 @@ const useTaskList = () => {
               await ElMessageBox.confirm(
                 t('common.messageBox.confirm.cancel'),
                 t('common.actions.cancel'),
-                {type: 'warning'},
+                {type: 'warning', confirmButtonClass: 'cancel-confirm-btn'},
               );
 
               sendEvent('click_task_list_actions_cancel_confirm');
@@ -318,6 +341,7 @@ const useTaskList = () => {
           }
           :
           {
+            className: 'delete-btn',
             type: 'danger',
             size: 'small',
             icon: ['fa', 'trash-alt'],

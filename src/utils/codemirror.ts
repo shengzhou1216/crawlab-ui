@@ -88,12 +88,7 @@ const themes = [
   'zenburn',
 ];
 
-const template = `import os
-def func(a):
-  pass
-class Class1:
-  pass
-`;
+const template = ``;
 
 const getOptionsDefinitions = (): FileEditorOptionDefinition[] => [
   {

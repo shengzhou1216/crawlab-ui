@@ -31,6 +31,8 @@ export declare global {
       apply: string;
       search: string;
       install: string;
+      viewLogs: string;
+      viewData: string;
     };
     messageBox: {
       confirm: {

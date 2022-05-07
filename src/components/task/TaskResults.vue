@@ -1,13 +1,14 @@
 <template>
   <Tag
-      :key="data"
-      :icon="data.icon"
-      :label="data.label"
-      :size="size"
-      :spinning="data.spinning"
-      :type="data.type"
-      class="task-status"
-      @click="$emit('click')"
+    :key="data"
+    :icon="data.icon"
+    :label="data.label"
+    :size="size"
+    :spinning="data.spinning"
+    :type="data.type"
+    class-name="task-results"
+    :clickable="clickable"
+    @click="onClick"
   >
     <template #tooltip>
       <div v-html="data.tooltip"/>
@@ -21,6 +22,7 @@ import Tag from '@/components/tag/Tag.vue';
 import {isCancellable} from '@/utils/task';
 import {TASK_STATUS_PENDING} from '@/constants/task';
 import {useI18n} from 'vue-i18n';
+import {voidFunc} from '@/utils';
 
 export default defineComponent({
   name: 'TaskResults',
@@ -41,6 +43,13 @@ export default defineComponent({
       required: false,
       default: 'default',
     },
+    clickable: {
+      type: Boolean,
+    },
+    onClick: {
+      type: Function,
+      default: voidFunc,
+    }
   },
   setup(props: TaskResultsProps, {emit}) {
     const {t} = useI18n();
@@ -92,5 +101,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-
+.task-results {
+  &.clickable {
+    cursor: pointer;
+  }
+}
 </style>
