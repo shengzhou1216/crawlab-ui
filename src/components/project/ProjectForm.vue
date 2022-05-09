@@ -8,6 +8,7 @@
   >
     <FormItem
       :span="2"
+      :offset="2"
       :label="t('components.project.form.name')"
       not-editable
       prop="name"
@@ -21,6 +22,7 @@
       />
     </FormItem>
     <FormItem
+      v-if="false"
       :span="2"
       :label="t('components.project.form.tags')"
       prop="tags"

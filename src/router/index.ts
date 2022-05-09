@@ -48,7 +48,7 @@ export const getDefaultSidebarMenuItems = (): MenuItem[] => {
     {path: '/schedules', title: 'router.menuItems.schedules', icon: ['fa', 'clock']},
     {path: '/tasks', title: 'router.menuItems.tasks', icon: ['fa', 'tasks']},
     {path: '/users', title: 'router.menuItems.users', icon: ['fa', 'users']},
-    {path: '/tags', title: 'router.menuItems.tags', icon: ['fa', 'tag']},
+    // {path: '/tags', title: 'router.menuItems.tags', icon: ['fa', 'tag']},
     {path: '/tokens', title: 'router.menuItems.tokens', icon: ['fa', 'key']},
     {path: '/plugins', title: 'router.menuItems.plugins', icon: ['fa', 'plug']},
   ];

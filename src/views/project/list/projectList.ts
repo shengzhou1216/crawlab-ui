@@ -79,15 +79,15 @@ const useProjectList = () => {
       }),
       width: '120',
     },
-    {
-      key: 'tags',
-      label: t('views.projects.table.columns.tags'),
-      icon: ['fa', 'hashtag'],
-      value: ({tags}: Project) => {
-        return h(TagList, {tags});
-      },
-      width: '200',
-    },
+    // {
+    //   key: 'tags',
+    //   label: t('views.projects.table.columns.tags'),
+    //   icon: ['fa', 'hashtag'],
+    //   value: ({tags}: Project) => {
+    //     return h(TagList, {tags});
+    //   },
+    //   width: '200',
+    // },
     {
       key: 'description',
       label: t('views.projects.table.columns.description'),

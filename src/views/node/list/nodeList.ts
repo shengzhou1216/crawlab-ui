@@ -201,16 +201,16 @@ const useNodeList = () => {
         {label: t('common.control.disabled'), value: false},
       ]
     },
-    {
-      key: 'tags',
-      className: 'tags',
-      label: t('views.nodes.table.columns.tags'),
-      icon: ['fa', 'hashtag'],
-      value: ({tags}: Node) => {
-        return h(TagList, {tags});
-      },
-      width: '150',
-    },
+    // {
+    //   key: 'tags',
+    //   className: 'tags',
+    //   label: t('views.nodes.table.columns.tags'),
+    //   icon: ['fa', 'hashtag'],
+    //   value: ({tags}: Node) => {
+    //     return h(TagList, {tags});
+    //   },
+    //   width: '150',
+    // },
     {
       key: 'description',
       className: 'description',

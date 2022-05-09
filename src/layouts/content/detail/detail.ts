@@ -139,6 +139,7 @@ const useDetail = <T = BaseModel>(ns: ListStoreNamespace) => {
     await store.dispatch(`${ns}/updateById`, {id: activeId.value, form: state.form});
     await ElMessage.success(t('common.message.success.save'));
     await Promise.all([
+      store.dispatch(`${ns}/getAllList`),
       store.dispatch(`${ns}/getById`, activeId.value),
     ]);
 
