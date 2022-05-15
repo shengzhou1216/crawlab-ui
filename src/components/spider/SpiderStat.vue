@@ -1,21 +1,27 @@
 <template>
   <div class="spider-stat">
     <Tag
-        :icon="['fa', 'tasks']"
-        :label="labels.tasks"
-        :tooltip="tooltips.tasks"
-        type=""
+      :icon="['fa', 'tasks']"
+      :label="labels.tasks"
+      :tooltip="tooltips.tasks"
+      type="primary"
+      clickable
+      @click="() => $emit('tasks-click')"
     />
     <Tag
-        :icon="['fa', 'database']"
-        :label="labels.results"
-        :tooltip="tooltips.results"
-        type="success"
+      :icon="['fa', 'database']"
+      :label="labels.results"
+      :tooltip="tooltips.results"
+      type="success"
+      clickable
+      @click="() => $emit('results-click')"
     />
     <Tag
-        :icon="['fa', 'stopwatch']"
-        :label="labels.duration"
-        type="warning"
+      :icon="['fa', 'stopwatch']"
+      :label="labels.duration"
+      type="warning"
+      clickable
+      @click="() => $emit('duration-click')"
     >
       <template #tooltip>
         <div v-html="tooltips.duration"/>
@@ -43,6 +49,11 @@ export default defineComponent({
       required: false,
     },
   },
+  emits: [
+    'tasks-click',
+    'results-click',
+    'duration-click',
+  ],
   setup(props: SpiderStatProps, {emit}) {
     // i18n
     const {t} = useI18n();
@@ -81,11 +92,20 @@ export default defineComponent({
         results: `${t('components.spider.stat.totalResults')}: ${results}`,
         duration: `
 <span class="label">${t('components.spider.stat.averageWaitDuration')}:</span>
-<span class="value" style="color: ${colors.blue}">${humanizeDuration(average_wait_duration * 1000, {spacer: ' ', language})}</span><br>
+<span class="value" style="color: ${colors.blue}">${humanizeDuration(average_wait_duration * 1000, {
+          spacer: ' ',
+          language
+        })}</span><br>
 <span class="label">${t('components.spider.stat.averageRuntimeDuration')}:</span>
-<span class="value" style="color: ${colors.orange}">${humanizeDuration(average_runtime_duration * 1000, {spacer: ' ', language})}</span><br>
+<span class="value" style="color: ${colors.orange}">${humanizeDuration(average_runtime_duration * 1000, {
+          spacer: ' ',
+          language
+        })}</span><br>
 <span class="label">${t('components.spider.stat.averageRuntimeDuration')}:</span>
-<span class="value" style="color: ${colors.white}">${humanizeDuration(average_total_duration * 1000, {spacer: ' ', language})}</span><br>
+<span class="value" style="color: ${colors.white}">${humanizeDuration(average_total_duration * 1000, {
+          spacer: ' ',
+          language
+        })}</span><br>
 `,
       };
     });

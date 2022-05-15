@@ -98,6 +98,7 @@ const useUserList = () => {
       width: '200',
       buttons: [
         {
+          className: 'view-btn',
           type: 'primary',
           icon: ['fa', 'search'],
           tooltip: t('common.actions.view'),
@@ -108,6 +109,7 @@ const useUserList = () => {
           },
         },
         {
+          className: 'delete-btn',
           type: 'danger',
           size: 'small',
           icon: ['fa', 'trash-alt'],

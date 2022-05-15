@@ -1,13 +1,13 @@
 <template>
   <CreateEditDialog
-      :type="activeDialogKey"
-      :tab-name="createEditDialogTabName"
-      :visible="createEditDialogVisible"
-      :action-functions="actionFunctions"
-      :batch-form-data="formList"
-      :confirm-disabled="confirmDisabled"
-      :confirm-loading="confirmLoading"
-      :batch-form-fields="batchFormFields"
+    :type="activeDialogKey"
+    :tab-name="createEditDialogTabName"
+    :visible="createEditDialogVisible"
+    :action-functions="actionFunctions"
+    :batch-form-data="formList"
+    :confirm-disabled="confirmDisabled"
+    :confirm-loading="confirmLoading"
+    :batch-form-fields="batchFormFields"
   >
     <template #default>
       <SpiderForm/>

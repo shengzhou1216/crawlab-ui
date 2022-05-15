@@ -40,6 +40,7 @@ export default defineComponent({
       activeId,
     } = useSpiderDetail();
 
+    // set table list filter before mount
     onBeforeMount(() => {
       // set filter
       store.commit(`task/setTableListFilter`, [{
@@ -48,6 +49,8 @@ export default defineComponent({
         value: id.value,
       }]);
     });
+
+    // get form data before mount
     onBeforeMount(async () => {
       if (!spider.value.col_id) {
         await store.dispatch(`${ns}/getById`, activeId.value);

@@ -25,6 +25,8 @@ const common: LCommon = {
     install: '安装',
     viewLogs: '查看日志',
     viewData: '查看数据',
+    viewFiles: '查看文件',
+    uploadFiles: '上传文件',
   },
   messageBox: {
     confirm: {

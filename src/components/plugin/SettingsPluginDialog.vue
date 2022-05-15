@@ -13,6 +13,7 @@
         prop="plugin_base_url"
       >
         <el-select
+          v-locate="'install-source'"
           v-model="settings.value.plugin_base_url"
           :placeholder="t('components.plugin.settings.label.installSource')"
         >
@@ -36,9 +37,10 @@
         :span="2"
         :offset="2"
         :label="t('components.plugin.settings.label.goProxy')"
-        prop="plugin_base_url"
+        prop="go_proxy"
       >
         <el-select
+          v-locate="'go-proxy'"
           v-model="settings.value.go_proxy"
           :placeholder="t('components.plugin.settings.label.goProxy')"
           clearable

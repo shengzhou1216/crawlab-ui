@@ -3,8 +3,10 @@ const tasks: LViewsTasks = {
     columns: {
       node: '节点',
       spider: '爬虫',
+      schedule: '定时任务',
       priority: '优先级',
       status: '状态',
+      cmd: '执行命令',
       stat: {
         create_ts: '创建时间',
         start_ts: '开始时间',

@@ -17,10 +17,8 @@
         prop="cmd"
         required
       >
-        <InputWithButton
+        <el-input
           v-model="options.cmd"
-          :button-icon="['fa', 'edit']"
-          :button-label="t('common.actions.edit')"
           :placeholder="t('components.task.form.command')"
         />
       </FormItem>
@@ -29,10 +27,8 @@
         :label="t('components.task.form.param')"
         prop="param"
       >
-        <InputWithButton
+        <el-input
           v-model="options.param"
-          :button-icon="['fa', 'edit']"
-          :button-label="t('common.actions.edit')"
           :placeholder="t('components.task.form.param')"
         />
       </FormItem>
@@ -104,7 +100,7 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, ref} from 'vue';
+import {computed, defineComponent, onBeforeMount, ref, watch} from 'vue';
 import {useStore} from 'vuex';
 import Dialog from '@/components/dialog/Dialog.vue';
 import Form from '@/components/form/Form.vue';
@@ -113,7 +109,6 @@ import useNode from '@/components/node/node';
 import {TASK_MODE_RANDOM, TASK_MODE_SELECTED_NODE_TAGS, TASK_MODE_SELECTED_NODES} from '@/constants/task';
 import useTask from '@/components/task/task';
 import FormItem from '@/components/form/FormItem.vue';
-import InputWithButton from '@/components/input/InputWithButton.vue';
 import CheckTagGroup from '@/components/tag/CheckTagGroup.vue';
 import {ElMessage} from 'element-plus';
 import {useI18n} from 'vue-i18n';
@@ -125,7 +120,6 @@ export default defineComponent({
     Dialog,
     Form,
     FormItem,
-    InputWithButton,
     CheckTagGroup,
   },
   setup() {
@@ -159,13 +153,18 @@ export default defineComponent({
     // form ref
     const formRef = ref<typeof Form>();
 
+    // get run options
+    const getOptions = (): SpiderRunOptions => {
+      return {
+        mode: TASK_MODE_RANDOM,
+        cmd: spider.value.cmd,
+        param: spider.value.param,
+        priority: 5,
+      };
+    };
+
     // run options
-    const options = ref<SpiderRunOptions>({
-      mode: TASK_MODE_RANDOM,
-      cmd: spider.value.cmd,
-      param: spider.value.param,
-      priority: 5,
-    });
+    const options = ref<SpiderRunOptions>();
 
     // dialog visible
     const visible = computed<boolean>(() => state.activeDialogKey === 'run');
@@ -190,10 +189,17 @@ export default defineComponent({
       await store.dispatch(`${ns}/getList`);
 
       sendEvent('click_run_spider_dialog_confirm', {
-        mode: options.value.mode,
-        priority: options.value.priority,
+        mode: options.value?.mode,
+        priority: options.value?.priority,
       });
     };
+
+    const updateOptions = () => {
+      options.value = getOptions();
+    };
+
+    watch(() => spider.value, updateOptions);
+    onBeforeMount(updateOptions);
 
     return {
       TASK_MODE_SELECTED_NODES,

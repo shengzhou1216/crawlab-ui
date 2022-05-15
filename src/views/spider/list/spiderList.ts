@@ -160,7 +160,12 @@ const useSpiderList = () => {
       value: (row: Spider) => {
         const stat = row.stat;
         if (!stat || !stat.tasks) return;
-        return h(SpiderStat, {stat} as SpiderStatProps);
+        return h(SpiderStat, {
+          stat,
+          onTasksClick: () => router.push(`/spiders/${row._id}/tasks`),
+          onResultsClick: () => router.push(`/spiders/${row._id}/data`),
+          onDurationClick: () => router.push(`/spiders/${row._id}/tasks`),
+        } as SpiderStatProps);
       }
     },
     {
@@ -199,7 +204,7 @@ const useSpiderList = () => {
       className: TABLE_COLUMN_NAME_ACTIONS,
       label: t('components.table.columns.actions'),
       icon: ['fa', 'tools'],
-      width: '180',
+      width: '240',
       fixed: 'right',
       buttons: [
         {
@@ -226,6 +231,19 @@ const useSpiderList = () => {
             sendEvent('click_spider_list_actions_view');
           },
           className: 'view-btn',
+        },
+        {
+          type: 'info',
+          size: 'small',
+          icon: ['fa', 'upload'],
+          tooltip: t('common.actions.uploadFiles'),
+          onClick: (row) => {
+            store.commit(`${ns}/setForm`, row);
+            store.commit(`${ns}/showDialog`, 'uploadFiles');
+
+            sendEvent('click_spider_list_actions_upload_files');
+          },
+          className: 'upload-files-btn',
         },
         // {
         //   type: 'info',

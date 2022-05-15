@@ -162,6 +162,7 @@ export default defineComponent({
       gitCheckoutForm,
       gitLoading,
       gitActions,
+      activeId,
     } = useSpiderDetail();
 
     // git changes
@@ -230,7 +231,7 @@ export default defineComponent({
       sendEvent('click_spider_detail_git_reftype_change', {refType});
     };
 
-    onBeforeMount(async () => {
+    const getData = async () => {
       // get git
       await Promise.all([
         store.dispatch(`${ns}/getGit`, {id: id.value})
@@ -249,7 +250,13 @@ export default defineComponent({
       if (git?.url && git?.auth_type) {
         await store.dispatch(`${ns}/getGitRemoteRefs`, {id: id.value});
       }
-    });
+    };
+
+    // get data before mount
+    onBeforeMount(getData);
+
+    // get data when active id changes
+    watch(() => activeId.value, getData);
 
     onBeforeUnmount(() => store.commit(`${ns}/resetGitRefType`));
 

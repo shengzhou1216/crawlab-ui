@@ -26,6 +26,8 @@ import {
 import useTask from '@/components/task/task';
 import {translate} from '@/utils/i18n';
 import {sendEvent} from '@/admin/umeng';
+import useSchedule from '@/components/schedule/schedule';
+import TaskCommand from '@/components/task/TaskCommand.vue';
 
 const {
   post,
@@ -59,6 +61,9 @@ const useTaskList = () => {
   // all spider dict
   const allSpiderDict = computed<Map<string, Spider>>(() => store.getters['spider/allDict']);
 
+  // all schedule dict
+  const allScheduleDict = computed<Map<string, Schedule>>(() => store.getters['schedule/allDict']);
+
   // nav actions
   const navActions = computed<ListActionGroup[]>(() => [
     {
@@ -89,6 +94,10 @@ const useTaskList = () => {
   const {
     allListSelectOptions: allSpiderListSelectOptions,
   } = useSpider(store);
+
+  const {
+    allListSelectOptions: allScheduleListSelectOptions,
+  } = useSchedule(store);
 
   const {
     priorityOptions,
@@ -139,6 +148,24 @@ const useTaskList = () => {
       filterItems: allSpiderListSelectOptions.value,
     },
     {
+      key: 'schedule_id',
+      label: t('views.tasks.table.columns.schedule'),
+      icon: ['fa', 'clock'],
+      width: '160',
+      value: (row: Task) => {
+        if (!row.schedule_id) return;
+        const schedule = allScheduleDict.value.get(row.schedule_id);
+        return h(NavLink, {
+          label: schedule?.name,
+          path: `/schedules/${schedule?._id}`,
+        });
+      },
+      hasFilter: true,
+      allowFilterSearch: true,
+      allowFilterItems: true,
+      filterItems: allScheduleListSelectOptions.value,
+    },
+    {
       key: 'priority',
       label: t('views.tasks.table.columns.priority'),
       icon: ['fa', 'sort-numeric-down'],
@@ -150,6 +177,19 @@ const useTaskList = () => {
       hasFilter: true,
       allowFilterItems: true,
       filterItems: priorityOptions,
+    },
+    {
+      key: 'config',
+      label: t('views.tasks.table.columns.cmd'),
+      icon: ['fa', 'terminal'],
+      width: '160',
+      value: (row: Task) => {
+        return h(TaskCommand, {
+          task: row,
+          spider: allSpiderDict.value?.get(row.spider_id as string),
+          size: 'small'
+        } as TaskConfigProps);
+      },
     },
     {
       key: 'status',
@@ -168,19 +208,6 @@ const useTaskList = () => {
         {label: t('components.task.status.label.error'), value: TASK_STATUS_ERROR},
         {label: t('components.task.status.label.cancelled'), value: TASK_STATUS_CANCELLED},
       ],
-    },
-    {
-      key: 'priority',
-      label: t('views.tasks.table.columns.priority'),
-      icon: ['fa', 'sort-numeric-down'],
-      width: '120',
-      value: (row: Task) => {
-        return h(TaskPriority, {priority: row.priority} as TaskPriorityProps);
-      },
-      hasSort: true,
-      hasFilter: true,
-      allowFilterItems: true,
-      filterItems: priorityOptions,
     },
     {
       key: 'stat_create_ts',
@@ -360,7 +387,7 @@ const useTaskList = () => {
   } as UseListOptions<Task>;
 
   // init
-  setupListComponent(ns, store, ['node', 'project', 'spider']);
+  setupListComponent(ns, store, ['node', 'project', 'spider', 'schedule']);
 
   return {
     ...useList<Task>(ns, store, opts),

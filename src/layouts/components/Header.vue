@@ -37,8 +37,11 @@
             </el-dropdown-menu>
           </template>
         </el-dropdown>
-        <el-dropdown class="me">
-          <span class="el-dropdown-link item action ">
+        <el-dropdown
+          v-locate="'me'"
+          class="me"
+        >
+          <span class="el-dropdown-link item action">
             <font-awesome-icon class="icon" :icon="['far', 'user']"/>
             {{ username }}
             <el-icon class="el-icon--right">
@@ -63,7 +66,7 @@
                 v-track="{code: 'click_header_logout'}"
                 @click="onLogout"
               >
-                {{ t('layouts.components.header.logout') }}
+                <span v-locate="'logout'">{{ t('layouts.components.header.logout') }}</span>
               </el-dropdown-item>
             </el-dropdown-menu>
           </template>

@@ -1,13 +1,13 @@
 <template>
   <Tag
-      class-name="task-status"
-      :key="data"
-      :icon="data.icon"
-      :label="data.label"
-      :spinning="data.spinning"
-      :type="data.type"
-      :size="size"
-      @click="$emit('click')"
+    class-name="task-status"
+    :key="data"
+    :icon="data.icon"
+    :label="data.label"
+    :spinning="data.spinning"
+    :type="data.type"
+    :size="size"
+    @click="$emit('click')"
   >
     <template #tooltip>
       <div v-html="data.tooltip"/>

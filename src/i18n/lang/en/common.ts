@@ -25,6 +25,8 @@ const common: LCommon = {
     install: 'Install',
     viewLogs: 'View Logs',
     viewData: 'View Data',
+    viewFiles: 'View Files',
+    uploadFiles: 'Upload Files',
   },
   messageBox: {
     confirm: {

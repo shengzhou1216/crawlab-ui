@@ -1,15 +1,15 @@
 <template>
   <Tag
-      :key="data"
-      :color="data.color"
-      :icon="data.icon"
-      :label="data.label"
-      :size="size"
-      :spinning="data.spinning"
-      :tooltip="data.tooltip"
-      :type="data.type"
-      effect="plain"
-      @click="$emit('click')"
+    :key="data"
+    :color="data.color"
+    :icon="data.icon"
+    :label="data.label"
+    :size="size"
+    :spinning="data.spinning"
+    :tooltip="data.tooltip"
+    :type="data.type"
+    effect="plain"
+    @click="$emit('click')"
   />
 </template>
 

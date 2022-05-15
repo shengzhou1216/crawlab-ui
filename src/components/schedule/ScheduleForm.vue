@@ -31,6 +31,7 @@
         v-locate="'spider_id'"
         v-model="form.spider_id"
         :disabled="isFormItemDisabled('spider_id')"
+        filterable
       >
         <el-option
           v-for="op in allSpiderSelectOptions"

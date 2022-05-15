@@ -14,6 +14,7 @@ interface LComponentsTask {
       goToNode: string;
       taskErrorMessage: string;
       cancelTask: string;
+      customized: string;
     };
   };
   status: {

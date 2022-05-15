@@ -3,8 +3,8 @@ const task: LComponentsTask = {
     spider: '爬虫',
     node: '节点',
     status: '状态',
-    command: '命令',
-    param: '参数',
+    command: '执行命令',
+    param: '执行参数',
     mode: '模式',
     priority: '优先级',
     selectedTags: '指定标签',
@@ -14,6 +14,7 @@ const task: LComponentsTask = {
       goToNode: '导航至节点',
       taskErrorMessage: '任务错误信息',
       cancelTask: '取消任务',
+      customized: '自定义',
     },
   },
   status: {

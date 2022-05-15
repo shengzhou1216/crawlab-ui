@@ -1,16 +1,22 @@
-interface FileUploadProps {
-  mode?: string;
-  getInputProps?: () => any;
-  open?: () => void;
-}
+import {FILE_UPLOAD_MODE_DIR, FILE_UPLOAD_MODE_FILES} from '@/constants';
 
-interface FileUploadModeOption {
-  label: string;
-  value: string;
-}
+declare global {
+  interface FileUploadProps {
+    mode?: FileUploadMode;
+    getInputProps?: () => any;
+    open?: () => void;
+  }
 
-interface FileUploadInfo {
-  dirName?: string;
-  fileCount?: number;
-  filePaths?: string[];
+  interface FileUploadModeOption {
+    label: string;
+    value: string;
+  }
+
+  interface FileUploadInfo {
+    dirName?: string;
+    fileCount?: number;
+    filePaths?: string[];
+  }
+
+  type FileUploadMode = FILE_UPLOAD_MODE_DIR | FILE_UPLOAD_MODE_FILES;
 }

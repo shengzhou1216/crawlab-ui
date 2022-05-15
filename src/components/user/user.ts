@@ -95,7 +95,9 @@ const useUser = (store: Store<RootStoreState>) => {
         inputPlaceholder: t('components.user.form.newPassword'),
         inputValidator: (value: string) => {
           return value?.length < 5 ? t('components.user.rules.invalidPassword') : true;
-        }
+        },
+        confirmButtonClass: 'edit-user-password-confirm-btn',
+        cancelButtonClass: 'edit-user-password-cancel-btn',
       });
 
     sendEvent('click_user_form_change_password');

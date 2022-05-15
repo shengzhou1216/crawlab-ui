@@ -2,25 +2,25 @@
   <div class="container">
     <div v-loading="loadingPublicPlugins" class="sidebar">
       <PublicPluginItem
-          v-for="(p, $index) in publicPlugins"
-          :key="$index"
-          :plugin="p"
-          :active="p?.full_name === activePublicPlugin?.full_name"
-          clickable
-          :status="getPluginStatus(p)"
-          :installed="isInstalled(p)"
-          @click="onClickPlugin(p)"
-          @install="onInstallPlugin(p)"
+        v-for="(p, $index) in publicPlugins"
+        :key="$index"
+        :plugin="p"
+        :active="p?.full_name === activePublicPlugin?.full_name"
+        clickable
+        :status="getPluginStatus(p)"
+        :installed="isInstalled(p)"
+        @click="onClickPlugin(p)"
+        @install="onInstallPlugin(p)"
       />
     </div>
     <div v-loading="loadingActivePublicPluginInfo" class="content">
       <PublicPluginContent
-          v-if="!!activePublicPlugin && !!activePublicPluginInfo"
-          :plugin="activePublicPlugin"
-          :info="activePublicPluginInfo"
-          :status="getPluginStatus(activePublicPlugin)"
-          :installed="isInstalled(activePublicPlugin)"
-          @install="onInstallPlugin(activePublicPlugin)"
+        v-if="!!activePublicPlugin && !!activePublicPluginInfo"
+        :plugin="activePublicPlugin"
+        :info="activePublicPluginInfo"
+        :status="getPluginStatus(activePublicPlugin)"
+        :installed="isInstalled(activePublicPlugin)"
+        @install="onInstallPlugin(activePublicPlugin)"
       />
     </div>
   </div>
@@ -81,9 +81,13 @@ export default defineComponent({
       setTimeout(() => isClickingInstall.value = false, 100);
 
       await ElMessageBox.confirm(
-          t('common.messageBox.confirm.install'),
-          t('common.actions.install'),
-          {type: 'warning'}
+        t('common.messageBox.confirm.install'),
+        t('common.actions.install'),
+        {
+          type: 'warning',
+          cancelButtonClass: 'install-plugin-cancel-btn',
+          confirmButtonClass: 'install-plugin-confirm-btn',
+        }
       );
       await store.dispatch(`${ns}/create`, {
         full_name: p.full_name,

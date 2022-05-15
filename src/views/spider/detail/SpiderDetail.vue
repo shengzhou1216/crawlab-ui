@@ -7,6 +7,10 @@
       <slot name="actions-suffix"/>
     </template>
   </DetailLayout>
+
+  <!-- Dialogs (handled by store) -->
+  <UploadSpiderFilesDialog/>
+  <!-- ./Dialogs -->
 </template>
 <script lang="ts">
 import {defineComponent} from 'vue';
@@ -15,6 +19,7 @@ import SpiderDetailActionsCommon from '@/views/spider/detail/actions/SpiderDetai
 import DetailLayout from '@/layouts/content/detail/DetailLayout.vue';
 import useSpiderDetail from '@/views/spider/detail/spiderDetail';
 import SpiderDetailActionsGit from '@/views/spider/detail/actions/SpiderDetailActionsGit.vue';
+import UploadSpiderFilesDialog from '@/components/spider/UploadSpiderFilesDialog.vue';
 
 export default defineComponent({
   name: 'SpiderDetail',
@@ -23,6 +28,7 @@ export default defineComponent({
     DetailLayout,
     SpiderDetailActionsCommon,
     SpiderDetailActionsFiles,
+    UploadSpiderFilesDialog,
   },
   setup() {
     return {

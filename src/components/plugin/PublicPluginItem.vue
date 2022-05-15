@@ -19,6 +19,7 @@
       </div>
       <div class="actions-wrapper">
         <LabelButton
+          class-name="install-btn"
           :type="type"
           :icon="icon"
           :loading="loading"

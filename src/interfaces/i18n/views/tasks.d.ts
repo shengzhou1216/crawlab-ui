@@ -3,8 +3,10 @@ interface LViewsTasks {
     columns: {
       node: string;
       spider: string;
+      schedule: string;
       priority: string;
       status: string;
+      cmd: string;
       stat: {
         create_ts: string;
         start_ts: string;

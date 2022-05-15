@@ -15,6 +15,7 @@
       required
     >
       <el-input
+        v-locate="'username'"
         v-model="form.username"
         :disabled="isFormItemDisabled('username')"
         :placeholder="t('components.user.form.username')"
@@ -28,6 +29,7 @@
     >
       <el-input
         v-if="(isSelectiveForm || !isDetail) && !isMySettings"
+        v-locate="'password'"
         v-model="form.password"
         :disabled="isFormItemDisabled('password')"
         :placeholder="t('components.user.form.password')"
@@ -35,6 +37,8 @@
       />
       <LabelButton
         v-else
+        id="password"
+        class-name="password"
         :icon="['fa','lock']"
         :label="t('components.user.form.changePassword')"
         type="danger"
@@ -50,6 +54,7 @@
       prop="email"
     >
       <el-input
+        v-locate="'email'"
         v-model="form.email"
         :disabled="isFormItemDisabled('email')"
         :placeholder="t('components.user.form.email')"
@@ -62,9 +67,13 @@
       prop="role"
       required
     >
-      <el-select v-model="form.role" :disabled="isFormItemDisabled('role')">
-        <el-option :value="ROLE_ADMIN" :label="t('components.user.role.admin')"/>
-        <el-option :value="ROLE_NORMAL" :label="t('components.user.role.normal')"/>
+      <el-select
+        v-locate="'role'"
+        v-model="form.role"
+        :disabled="isFormItemDisabled('role')"
+      >
+        <el-option v-locate="ROLE_ADMIN" :value="ROLE_ADMIN" :label="t('components.user.role.admin')"/>
+        <el-option v-locate="ROLE_NORMAL" :value="ROLE_NORMAL" :label="t('components.user.role.normal')"/>
       </el-select>
     </FormItem>
     <!-- ./Row -->
@@ -79,10 +88,8 @@ import Form from '@/components/form/Form.vue';
 import FormItem from '@/components/form/FormItem.vue';
 import {ROLE_ADMIN, ROLE_NORMAL} from '@/constants/user';
 import LabelButton from '@/components/button/LabelButton.vue';
-import {ElMessageBox} from 'element-plus';
 import useUserDetail from '@/views/user/detail/userDetail';
 import {useI18n} from 'vue-i18n';
-import {sendEvent} from '@/admin/umeng';
 
 export default defineComponent({
   name: 'UserForm',

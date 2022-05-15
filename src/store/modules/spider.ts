@@ -7,15 +7,16 @@ import {
 import useRequest from '@/services/request';
 import {
   TAB_NAME_DATA,
-  TAB_NAME_FILES, TAB_NAME_GIT,
+  TAB_NAME_FILES,
+  TAB_NAME_GIT,
   TAB_NAME_OVERVIEW,
   TAB_NAME_SCHEDULES,
-  TAB_NAME_SETTINGS,
   TAB_NAME_TASKS
 } from '@/constants/tab';
 import {GIT_REF_TYPE_BRANCH} from '@/constants/git';
 import {TASK_MODE_RANDOM} from '@/constants/task';
 import {translate} from '@/utils/i18n';
+import {FILE_UPLOAD_MODE_DIR} from '@/constants';
 
 // i18n
 const t = translate;
@@ -47,6 +48,8 @@ const state = {
   ],
   fileNavItems: [],
   activeNavItem: undefined,
+  fileMode: FILE_UPLOAD_MODE_DIR,
+  files: [],
   fileContent: '',
   defaultFilePaths: [],
   currentGitBranch: '',
@@ -79,6 +82,18 @@ const mutations = {
   },
   resetActiveFileNavItem: (state: SpiderStoreState) => {
     state.activeNavItem = undefined;
+  },
+  setFileMode: (state: SpiderStoreState, mode: FileUploadMode) => {
+    state.fileMode = mode;
+  },
+  resetFileMode: (state: SpiderStoreState) => {
+    state.fileMode = FILE_UPLOAD_MODE_DIR;
+  },
+  setFiles: (state: SpiderStoreState, files) => {
+    state.files = files;
+  },
+  resetFiles: (state: SpiderStoreState) => {
+    state.files = [];
   },
   setFileContent: (state: SpiderStoreState, content: string) => {
     state.fileContent = content;

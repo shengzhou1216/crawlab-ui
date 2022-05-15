@@ -51,7 +51,7 @@ export const tagProps = {
     type: [String, Array] as PropType<string | string[]>,
   },
   size: {
-    type: String,
+    type: String as PropType<BasicSize>,
     default: 'default',
   },
   spinning: {

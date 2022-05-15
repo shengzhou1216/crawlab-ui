@@ -3,8 +3,10 @@ const tasks: LViewsTasks = {
     columns: {
       node: 'Node',
       spider: 'Spider',
+      schedule: 'Schedule',
       priority: 'Priority',
       status: 'Status',
+      cmd: 'Execute Command',
       stat: {
         create_ts: 'Created At',
         start_ts: 'Started At',

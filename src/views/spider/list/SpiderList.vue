@@ -13,7 +13,8 @@
     <template #extra>
       <!-- Dialogs (handled by store) -->
       <CreateSpiderDialog/>
-      <RunSpiderDialog v-if="activeDialogKey === 'run'"/>
+      <RunSpiderDialog/>
+      <UploadSpiderFilesDialog/>
       <!-- ./Dialogs -->
     </template>
   </ListLayout>
@@ -25,6 +26,7 @@ import CreateSpiderDialog from '@/components/spider/CreateEditSpiderDialog.vue';
 import ListLayout from '@/layouts/content/list/ListLayout.vue';
 import useSpiderList from '@/views/spider/list/spiderList';
 import RunSpiderDialog from '@/components/spider/RunSpiderDialog.vue';
+import UploadSpiderFilesDialog from '@/components/spider/UploadSpiderFilesDialog.vue';
 
 export default defineComponent({
   name: 'SpiderList',
@@ -34,6 +36,7 @@ export default defineComponent({
     }
   },
   components: {
+    UploadSpiderFilesDialog,
     RunSpiderDialog,
     ListLayout,
     CreateSpiderDialog,

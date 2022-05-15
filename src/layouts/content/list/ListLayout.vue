@@ -94,6 +94,7 @@ import NavActionButton from '@/components/nav/NavActionButton.vue';
 import NavActions from '@/components/nav/NavActions.vue';
 import {emptyObjectFunc} from '@/utils/func';
 import {getMd5} from '@/utils/hash';
+import {useRoute} from 'vue-router';
 
 export default defineComponent({
   name: 'ListLayout',
@@ -186,6 +187,9 @@ export default defineComponent({
     'delete',
   ],
   setup(props: ListLayoutProps, {emit}: SetupContext) {
+    // route
+    const route = useRoute();
+
     const {
       actionFunctions,
     } = toRefs(props);
@@ -216,8 +220,10 @@ export default defineComponent({
       setPagination(value);
     };
 
+    // get list when table pagination changes
     watch(() => props.tablePagination, getList);
 
+    // get list before mount
     onBeforeMount(() => {
       getList();
     });

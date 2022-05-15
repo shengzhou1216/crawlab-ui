@@ -4,7 +4,6 @@ import {getDefaultUseListOptions, setupListComponent} from '@/utils/list';
 import {computed, h, onBeforeMount} from 'vue';
 import {TABLE_COLUMN_NAME_ACTIONS} from '@/constants/table';
 import {ElMessage, ElMessageBox} from 'element-plus';
-import usePluginService from '@/services/plugin/pluginService';
 import NavLink from '@/components/nav/NavLink.vue';
 import {useRouter} from 'vue-router';
 import useRequest from '@/services/request';
@@ -59,6 +58,8 @@ const usePluginList = () => {
       name: 'common',
       children: [
         {
+          id: 'add-btn',
+          className: 'add-btn',
           buttonType: 'label',
           label: t('views.plugins.navActions.install.label'),
           tooltip: t('views.plugins.navActions.install.tooltip'),
@@ -76,6 +77,8 @@ const usePluginList = () => {
       name: 'settings',
       children: [
         {
+          id: 'settings-btn',
+          className: 'settings-btn',
           buttonType: 'label',
           label: t('views.plugins.navActions.settings.label'),
           tooltip: t('views.plugins.navActions.settings.tooltip'),
@@ -147,6 +150,7 @@ const usePluginList = () => {
 
         buttons = [
           {
+            className: 'start-btn',
             type: 'success',
             icon: ['fa', 'play'],
             tooltip: t('common.actions.start'),
@@ -156,7 +160,11 @@ const usePluginList = () => {
               await ElMessageBox.confirm(
                 t('common.messageBox.confirm.start'),
                 t('common.actions.start'),
-                {type: 'warning'},
+                {
+                  type: 'warning',
+                  confirmButtonClass: 'start-plugin-confirm-btn',
+                  cancelButtonClass: 'start-plugin-cancel-btn',
+                },
               );
 
               sendEvent('click_plugin_list_actions_start_confirm');
@@ -188,6 +196,7 @@ const usePluginList = () => {
             },
           },
           {
+            className: 'stop-btn',
             type: 'info',
             size: 'small',
             icon: ['fa', 'stop'],
@@ -198,7 +207,11 @@ const usePluginList = () => {
               await ElMessageBox.confirm(
                 t('common.messageBox.confirm.stop'),
                 t('common.actions.stop'),
-                {type: 'warning'},
+                {
+                  type: 'warning',
+                  confirmButtonClass: 'stop-plugin-confirm-btn',
+                  cancelButtonClass: 'stop-plugin-cancel-btn',
+                },
               );
 
               sendEvent('click_plugin_list_actions_stop_confirm');
@@ -233,6 +246,7 @@ const usePluginList = () => {
         // default
         buttons = buttons.concat([
           {
+            className: 'view-btn',
             type: 'primary',
             icon: ['fa', 'search'],
             tooltip: t('common.actions.view'),
@@ -243,6 +257,7 @@ const usePluginList = () => {
             },
           },
           {
+            className: 'delete-btn',
             type: 'danger',
             size: 'small',
             icon: ['fa', 'trash-alt'],

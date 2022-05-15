@@ -33,6 +33,8 @@ export declare global {
       install: string;
       viewLogs: string;
       viewData: string;
+      viewFiles: string;
+      uploadFiles: string;
     };
     messageBox: {
       confirm: {

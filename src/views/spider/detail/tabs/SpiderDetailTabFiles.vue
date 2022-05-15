@@ -1,32 +1,33 @@
 <template>
   <FileEditor
-      ref="fileEditor"
-      :nav-items="navItems"
-      :active-nav-item="activeNavItem"
-      :default-expanded-keys="defaultExpandedKeys"
-      :content="content"
-      @content-change="onContentChange"
-      @save-file="onSaveFile"
-      @node-db-click="onNavItemDbClick"
-      @node-drop="onNavItemDrop"
-      @ctx-menu-new-file="onContextMenuNewFile"
-      @ctx-menu-new-directory="onContextMenuNewDirectory"
-      @ctx-menu-rename="onContextMenuRename"
-      @ctx-menu-clone="onContextMenuClone"
-      @ctx-menu-delete="onContextMenuDelete"
-      @drop-files="onDropFiles"
-      @tab-click="onTabClick"
+    ref="fileEditor"
+    :nav-items="navItems"
+    :active-nav-item="activeNavItem"
+    :default-expanded-keys="defaultExpandedKeys"
+    :content="content"
+    @content-change="onContentChange"
+    @save-file="onSaveFile"
+    @node-db-click="onNavItemDbClick"
+    @node-drop="onNavItemDrop"
+    @ctx-menu-new-file="onContextMenuNewFile"
+    @ctx-menu-new-directory="onContextMenuNewDirectory"
+    @ctx-menu-rename="onContextMenuRename"
+    @ctx-menu-clone="onContextMenuClone"
+    @ctx-menu-delete="onContextMenuDelete"
+    @drop-files="onDropFiles"
+    @tab-click="onTabClick"
   />
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, onBeforeMount, onBeforeUnmount, ref} from 'vue';
+import {computed, defineComponent, onBeforeMount, onBeforeUnmount, ref, watch} from 'vue';
 import {useRoute} from 'vue-router';
 import FileEditor from '@/components/file/FileEditor.vue';
 import {useStore} from 'vuex';
 import useSpiderService from '@/services/spider/spiderService';
 import {ElMessage} from 'element-plus';
 import {useI18n} from 'vue-i18n';
+import useSpiderDetail from '@/views/spider/detail/spiderDetail';
 
 export default defineComponent({
   name: 'SpiderDetailTabFiles',
@@ -34,9 +35,6 @@ export default defineComponent({
   setup() {
     // i18n
     const {t} = useI18n();
-
-    // route
-    const route = useRoute();
 
     // store
     const ns = 'spider';
@@ -56,8 +54,12 @@ export default defineComponent({
       copyFile,
     } = useSpiderService(store);
 
+    const {
+      activeId,
+    } = useSpiderDetail();
+
     // spider id
-    const id = computed<string>(() => route.params.id as string);
+    const id = computed<string>(() => activeId.value);
 
     // file editor
     const fileEditor = ref<typeof FileEditor>();
@@ -177,15 +179,21 @@ export default defineComponent({
       await getFile(id.value, tab.path as string);
     };
 
-    const defaultExpandedKeys = ref<string[]>([]);
-
-    onBeforeMount(async () => {
+    const getData = async () => {
       await listRootDir(id.value);
 
       if (state.defaultFilePaths.length > 0) {
         defaultExpandedKeys.value = state.defaultFilePaths as string[];
       }
-    });
+    };
+
+    const defaultExpandedKeys = ref<string[]>([]);
+
+    // get data before mount
+    onBeforeMount(getData);
+
+    // get data when id changes
+    watch(() => id.value, getData);
 
     onBeforeUnmount(() => {
       store.commit(`${ns}/resetFileContent`);

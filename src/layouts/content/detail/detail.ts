@@ -1,6 +1,6 @@
 import {useRoute, useRouter} from 'vue-router';
 import {useStore} from 'vuex';
-import {computed, onBeforeMount, onBeforeUnmount, onMounted, provide, ref} from 'vue';
+import {computed, onBeforeMount, onBeforeUnmount, onMounted, watch, provide, ref} from 'vue';
 import variables from '@/styles/variables.scss';
 import {plainClone} from '@/utils/object';
 import {getRoutePathByDepth, getTabName} from '@/utils/route';
@@ -74,7 +74,7 @@ const useDetail = <T = BaseModel>(ns: ListStoreNamespace) => {
       console.error(new Error('item is empty'));
       return;
     }
-    await router.push(`${primaryRoutePath.value}/${item.id}`);
+    await router.push(`${primaryRoutePath.value}/${item.id}/${activeTabName.value}`);
     await getForm();
 
     sendEvent('click_detail_layout_nav_sidebar_select');
@@ -157,6 +157,9 @@ const useDetail = <T = BaseModel>(ns: ListStoreNamespace) => {
     if (IGNORE_GET_ALL_NS.includes(ns)) return;
     await store.dispatch(`${ns}/getAllList`);
   });
+
+  // get form when active id changes
+  watch(() => activeId.value, getForm);
 
   // scroll nav sidebar after mounted
   onMounted(() => {

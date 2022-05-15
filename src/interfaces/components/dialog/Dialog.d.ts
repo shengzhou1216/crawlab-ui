@@ -9,7 +9,7 @@ interface DialogProps {
   className?: string;
 }
 
-type DialogKey = 'create' | 'edit' | 'run';
+type DialogKey = 'create' | 'edit' | 'run' | 'uploadFiles';
 
 interface DialogVisible {
   createEdit: boolean;

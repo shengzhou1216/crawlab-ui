@@ -3,8 +3,8 @@ const task: LComponentsTask = {
     spider: 'Spider',
     node: 'Node',
     status: 'Status',
-    command: 'Command',
-    param: 'Param',
+    command: 'Execute Command',
+    param: 'Execute Param',
     mode: 'Mode',
     priority: 'Priority',
     selectedTags: 'Selected Tags',
@@ -14,6 +14,7 @@ const task: LComponentsTask = {
       goToNode: 'Go to Node',
       taskErrorMessage: 'Task error message',
       cancelTask: 'Cancel task',
+      customized: 'Customized',
     },
   },
   status: {

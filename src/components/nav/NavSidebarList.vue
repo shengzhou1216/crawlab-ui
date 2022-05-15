@@ -5,7 +5,11 @@
     :default-active="activeKey"
     @select="onSelect"
   >
-    <el-menu-item v-for="item in items" :key="item.id" :index="item.id" class="nav-menu-item">
+    <el-menu-item
+      v-for="item in items"
+      :key="item.id"
+      :index="item.id"
+    >
       <span class="title">{{ item.title }}</span>
     </el-menu-item>
   </el-menu>

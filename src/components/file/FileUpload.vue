@@ -16,6 +16,7 @@
     <template v-if="mode === FILE_UPLOAD_MODE_FILES">
       <el-upload
         ref="uploadRef"
+        class="file-upload-action"
         :on-change="onFileChange"
         :http-request="() => {}"
         drag
@@ -32,8 +33,12 @@
       <input v-bind="getInputProps()" multiple>
     </template>
     <template v-else-if="mode === FILE_UPLOAD_MODE_DIR">
-      <div class="folder-upload">
-        <Button size="large" @click="open">
+      <div class="folder-upload-action-wrapper">
+        <Button
+          size="large"
+          class-name="file-upload-action"
+          @click="open"
+        >
           <i class="fa fa-folder"></i>
           {{ t('components.file.upload.buttons.folder.clickToSelectFolderToUpload') }}
         </Button>
@@ -89,7 +94,7 @@ export default defineComponent({
   },
   props: {
     mode: {
-      type: String,
+      type: String as PropType<FileUploadMode>,
     },
     getInputProps: {
       type: Function as PropType<() => void>,

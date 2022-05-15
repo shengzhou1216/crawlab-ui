@@ -1,10 +1,10 @@
 <template>
-  <el-tooltip :content="tooltip">
-    <el-tag :type="type" class="task-mode">
-      <font-awesome-icon :icon="icon" class="icon"/>
-      <span>{{ label }}</span>
-    </el-tag>
-  </el-tooltip>
+  <Tag
+    :type="type"
+    :icon="icon"
+    :label="label"
+    :tooltip="tooltip"
+  />
 </template>
 
 <script lang="ts">
@@ -16,9 +16,13 @@ import {
   TASK_MODE_SELECTED_NODES
 } from '@/constants/task';
 import {useI18n} from 'vue-i18n';
+import Tag from '@/components/tag/Tag.vue';
 
 export default defineComponent({
   name: 'TaskMode',
+  components: {
+    Tag,
+  },
   props: {
     mode: {
       type: String,
@@ -105,7 +109,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .task-mode {
-  width: 80px;
+  min-width: 80px;
   cursor: default;
 
   .icon {

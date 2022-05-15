@@ -4,7 +4,7 @@
   </div>
 </template>
 <script lang="ts">
-import {computed, defineComponent, onBeforeMount, onBeforeUnmount} from 'vue';
+import {computed, defineComponent, onBeforeMount, onBeforeUnmount, watch} from 'vue';
 import TaskList from '@/views/task/list/TaskList.vue';
 import {useStore} from 'vuex';
 import {useRoute} from 'vue-router';
@@ -25,6 +25,23 @@ export default defineComponent({
     // id
     const id = computed<string>(() => route.params.id as string);
 
+    const setTableListFilter = () => {
+      // set filter
+      store.commit(`task/setTableListFilter`, [{
+        key: 'schedule_id',
+        op: FILTER_OP_EQUAL,
+        value: id.value,
+      }]);
+    };
+
+    const getData = async () => {
+      setTableListFilter();
+      await store.dispatch('task/getList');
+    };
+
+    onBeforeMount(getData);
+
+    watch(() => id.value, getData);
     onBeforeMount(() => {
       // set filter
       store.commit(`task/setTableListFilter`, [{

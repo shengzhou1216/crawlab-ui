@@ -6,11 +6,13 @@
       :span="2"
       :label="t('components.task.form.spider')"
       prop="spider_id"
+      :required="!readonly"
     >
       <el-select
+        v-if="!isFormItemDisabled('spider_id') && !readonly"
         v-locate="'spider_id'"
         v-model="form.spider_id"
-        :disabled="isFormItemDisabled('spider_id') || readonly"
+        filterable
       >
         <el-option
           v-for="op in allSpiderSelectOptions"
@@ -19,12 +21,10 @@
           :value="op.value"
         />
       </el-select>
-      <FaIconButton
-        v-if="readonly"
-        :icon="['fa', 'external-link-alt']"
-        class-name="nav-btn"
-        :tooltip="t('components.task.form.tooltip.goToSpider')"
-        @click="onGoToSpider"
+      <NavLink
+        v-else
+        :label="getSpiderName(form.spider_id)"
+        :path="`/spiders/${form.spider_id}`"
       />
     </FormItem>
     <!-- ./Row -->
@@ -42,26 +42,10 @@
         disabled
         :placeholder="t('common.status.unassigned')"
       />
-      <el-select
-        v-locate="'node_id'"
+      <NavLink
         v-else
-        v-model="form.node_id"
-        disabled
-      >
-        <el-option
-          v-for="op in allNodeSelectOptions"
-          :key="op.value"
-          :label="op.label"
-          :value="op.value"
-        />
-      </el-select>
-      <FaIconButton
-        v-if="readonly"
-        :icon="['fa', 'external-link-alt']"
-        class-name="nav-btn"
-        :tooltip="t('components.task.form.tooltip.goToNode')"
-        :disabled="noNodeId"
-        @click="onGoToNode"
+        :label="getNodeName(form.node_id)"
+        :path="`/nodes/${form.node_id}`"
       />
     </FormItem>
     <!-- ./Row -->
@@ -73,23 +57,21 @@
       :label="t('components.task.form.status')"
       prop="status"
     >
-      <TaskStatus :status="form.status"/>
+      <TaskStatus :status="form.status" :error="form.error"/>
       <Tag
         v-if="form.status === 'error'"
         :icon="['fa', 'exclamation']"
         :label="form.error"
-        class="error-message"
-        size="small"
+        class-name="error-message"
         :tooltip="t('components.task.form.tooltip.taskErrorMessage')"
         type="danger"
       />
       <Tag
         v-else-if="cancellable"
         :icon="['fa', 'pause']"
-        class="cancel-btn"
+        class-name="cancel-btn"
         clickable
         :label="t('common.actions.cancel')"
-        size="small"
         :tooltip="t('components.task.form.tooltip.cancelTask')"
         type="info"
         @click="onCancel"
@@ -102,15 +84,19 @@
       :span="2"
       :label="t('components.task.form.command')"
       prop="cmd"
-      required
+      :required="!readonly"
     >
-      <InputWithButton
+      <el-input
+        v-if="!isFormItemDisabled('cmd') && !readonly"
         v-locate="'cmd'"
         v-model="form.cmd"
-        :button-icon="['fa', 'edit']"
-        :disabled="isFormItemDisabled('cmd') || readonly"
-        :button-label="t('common.actions.edit')"
         :placeholder="t('components.task.form.command')"
+      />
+      <Tag
+        v-else
+        type="plain"
+        size="large"
+        :label="form.cmd || '-'"
       />
     </FormItem>
     <FormItem
@@ -118,13 +104,17 @@
       :label="t('components.task.form.param')"
       prop="param"
     >
-      <InputWithButton
+      <el-input
+        v-if="!isFormItemDisabled('param') && !readonly"
         v-locate="'param'"
         v-model="form.param"
-        :button-icon="['fa', 'edit']"
-        :disabled="isFormItemDisabled('param') || readonly"
-        :button-label="t('common.actions.edit')"
         :placeholder="t('components.task.form.param')"
+      />
+      <Tag
+        v-else
+        type="plain"
+        size="large"
+        :label="form.param || '-'"
       />
     </FormItem>
     <!-- ./Row -->
@@ -134,12 +124,12 @@
       :span="2"
       :label="t('components.task.form.mode')"
       prop="mode"
-      required
+      :required="!readonly"
     >
       <el-select
+        v-if="!isFormItemDisabled('mode') && !readonly"
         v-locate="'mode'"
         v-model="form.mode"
-        :disabled="isFormItemDisabled('mode') || readonly"
       >
         <el-option
           v-for="op in modeOptions"
@@ -148,17 +138,23 @@
           :value="op.value"
         />
       </el-select>
+      <Tag
+        v-else
+        type="plain"
+        size="large"
+        :label="getModeName(form.mode) || '-'"
+      />
     </FormItem>
     <FormItem
       :span="2"
       :label="t('components.task.form.priority')"
       prop="priority"
-      required
+      :required="!readonly"
     >
       <el-select
+        v-if="!isFormItemDisabled('priority') && !readonly"
         v-locate="'priority'"
         v-model="form.priority"
-        :disabled="isFormItemDisabled('priority') || readonly"
       >
         <el-option
           v-for="op in priorityOptions"
@@ -167,6 +163,11 @@
           :value="op.value"
         />
       </el-select>
+      <TaskPriority
+        v-else
+        :priority="form.priority"
+        size="large"
+      />
     </FormItem>
     <!-- ./Row -->
 
@@ -175,7 +176,7 @@
       :span="4"
       :label="t('components.task.form.selectedTags')"
       prop="node_tags"
-      required
+      :required="!readonly"
     >
       <CheckTagGroup
         v-locate="'node_tags'"
@@ -208,20 +209,20 @@ import useSpider from '@/components/spider/spider';
 import useNode from '@/components/node/node';
 import Form from '@/components/form/Form.vue';
 import FormItem from '@/components/form/FormItem.vue';
-import InputWithButton from '@/components/input/InputWithButton.vue';
 import CheckTagGroup from '@/components/tag/CheckTagGroup.vue';
 import {TASK_MODE_SELECTED_NODE_TAGS, TASK_MODE_SELECTED_NODES} from '@/constants/task';
 import useRequest from '@/services/request';
 import useTask from '@/components/task/task';
 import TaskStatus from '@/components/task/TaskStatus.vue';
 import Tag from '@/components/tag/Tag.vue';
-import FaIconButton from '@/components/button/FaIconButton.vue';
 import {useRouter} from 'vue-router';
 import {isCancellable} from '@/utils/task';
 import {ElMessage, ElMessageBox} from 'element-plus';
 import {isZeroObjectId} from '@/utils/mongo';
 import useTaskDetail from '@/views/task/detail/taskDetail';
 import {useI18n} from 'vue-i18n';
+import NavLink from '@/components/nav/NavLink.vue';
+import TaskPriority from '@/components/task/TaskPriority.vue';
 
 const {
   post,
@@ -230,12 +231,12 @@ const {
 export default defineComponent({
   name: 'TaskForm',
   components: {
-    FaIconButton,
+    TaskPriority,
+    NavLink,
     Tag,
     TaskStatus,
     Form,
     FormItem,
-    InputWithButton,
     CheckTagGroup,
   },
   props: {
@@ -301,17 +302,14 @@ export default defineComponent({
       return spider?.name;
     };
 
+    const getNodeName = (id: string) => {
+      const node = allNodeDict.value.get(id) as CNode;
+      return node?.name;
+    };
+
     const getModeName = (id: string) => {
       const op = modeOptionsDict.value.get(id) as SelectOption;
       return op?.label;
-    };
-
-    const onGoToSpider = () => {
-      router.push(`/spiders/${form.value.spider_id}`);
-    };
-
-    const onGoToNode = () => {
-      router.push(`/nodes/${form.value.node_id}`);
     };
 
     const cancellable = computed<boolean>(() => isCancellable(form.value.status));
@@ -338,10 +336,9 @@ export default defineComponent({
       allNodeTags,
       allNodeDict,
       allSpiderSelectOptions,
+      getNodeName,
       getSpiderName,
       getModeName,
-      onGoToSpider,
-      onGoToNode,
       cancellable,
       onCancel,
       noNodeId,
