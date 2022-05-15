@@ -91,6 +91,7 @@ import SpiderForm from './spider/SpiderForm.vue';
 import SpiderStat from './spider/SpiderStat.vue';
 import SpiderTag from './spider/SpiderTag.vue';
 import SpiderType from './spider/SpiderType.vue';
+import UploadSpiderFilesDialog from './spider/UploadSpiderFilesDialog.vue';
 import Switch from './switch/Switch.vue';
 import ActionTab from './tab/ActionTab.vue';
 import Tab from './tab/Tab.vue';
@@ -111,6 +112,7 @@ import Tag from './tag/Tag.vue';
 import TagForm from './tag/TagForm.vue';
 import TagList from './tag/TagList.vue';
 import CreateTaskDialog from './task/CreateTaskDialog.vue';
+import TaskCommand from './task/TaskCommand.vue';
 import TaskForm from './task/TaskForm.vue';
 import TaskMode from './task/TaskMode.vue';
 import TaskPriority from './task/TaskPriority.vue';
@@ -218,6 +220,7 @@ export {
   SpiderStat as ClSpiderStat,
   SpiderTag as ClSpiderTag,
   SpiderType as ClSpiderType,
+  UploadSpiderFilesDialog as ClUploadSpiderFilesDialog,
   Switch as ClSwitch,
   ActionTab as ClActionTab,
   Tab as ClTab,
@@ -238,6 +241,7 @@ export {
   TagForm as ClTagForm,
   TagList as ClTagList,
   CreateTaskDialog as ClCreateTaskDialog,
+  TaskCommand as ClTaskCommand,
   TaskForm as ClTaskForm,
   TaskMode as ClTaskMode,
   TaskPriority as ClTaskPriority,

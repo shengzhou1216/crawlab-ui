@@ -1,7 +1,7 @@
-import track from './track/track';
 import locate from './locate/locate';
+import track from './track/track';
 
 export {
-  track as track,
   locate as locate,
+  track as track,
 };
