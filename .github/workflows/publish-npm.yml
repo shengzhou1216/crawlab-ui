@@ -8,7 +8,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: ./.github/workflows/build-npm.yml
+      - uses: crawlab-team/crawlab-ui/.github/workflows/build-npm.yml
       - name: Publish npm
         run: npm publish --registry ${REGISTRY}
         env:
