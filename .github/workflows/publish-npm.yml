@@ -1,6 +1,10 @@
 name: Publish to NPM registry
 
 on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
   release:
     types: [ created ]
 
@@ -8,8 +12,25 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: crawlab-team/crawlab-ui/.github/workflows/build-npm.yml
-      - name: Publish npm
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '12.22.7'
+          registry-url: https://registry.npmjs.com/
+      - name: Get version
+        run: echo "TAG_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - name: Initial setup
+        run: |
+          rm .npmrc | true
+          rm yarn.lock | true
+      - name: Install dependencies
+        run: yarn install
+      - name: Build
+        run: yarn run build
+        env:
+          TAG_VERSION: ${{env.TAG_VERSION}}
+      - if: ${{ github.event_name == 'release' }}
+        name: Publish npm
         run: npm publish --registry ${REGISTRY}
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_PUBLISH_TOKEN}}
