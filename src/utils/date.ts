@@ -1,6 +1,6 @@
-import dayjs from 'dayjs';
+import dayjs, {ManipulateType} from 'dayjs';
 
-export const getPastNDateRangeItem = (key: string, n: number, unit: string): RangeItem => {
+export const getPastNDateRangeItem = (key: string, n: number, unit: ManipulateType): RangeItem => {
   return {
     key,
     value: () => {
