@@ -4,7 +4,7 @@ export const sendPv = (page: any) => {
     window._hmt?.push(['_trackPageview', page]);
 
     // umeng
-    window.aplus_queue.push({
+    window.aplus_queue?.push({
       action: 'aplus.sendPV',
       arguments: [{is_auto: true}, {}]
     });
