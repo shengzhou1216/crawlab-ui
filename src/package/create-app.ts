@@ -38,11 +38,21 @@ export const getDefaultCreateAppOptions = (): CreateAppOptions => {
   };
 };
 
+export const normalizeOptions = (options: CreateAppOptions): CreateAppOptions => {
+  if (process.env.VUE_APP_INIT_UMENG === 'false' || window.VUE_APP_INIT_UMENG === 'false') options.initUmeng = false;
+  if (process.env.VUE_APP_INIT_BAIDU_TONGJI === 'false' || window.VUE_APP_INIT_BAIDU_TONGJI === 'false') options.initBaiduTongji = false;
+  return options;
+};
+
 const createApp = async (options?: CreateAppOptions): Promise<VueApp> => {
+  // merge options
   options = {
     ...getDefaultCreateAppOptions(),
     ...options,
   };
+
+  // normalize options
+  options = normalizeOptions(options);
 
   // import stylesheets
   if (options.initStylesheet) importStylesheets();
@@ -54,6 +64,7 @@ const createApp = async (options?: CreateAppOptions): Promise<VueApp> => {
   if (options.initBaiduTongji) initBaiduTonji();
 
   // umeng
+  console.debug(options);
   if (options.initUmeng) initUmeng();
 
   // demo

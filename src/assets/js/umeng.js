@@ -8,11 +8,8 @@
 })(window, document, 'script', 'aplus_queue', '203467608');
 
 (async function () {
-  //集成应用的appKey
   window.aplus_queue.push({
     action: 'aplus.setMetaInfo',
     arguments: ['appKey', '617b5871e014255fcb618f6f']
   })
-
-
 })()

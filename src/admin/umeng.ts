@@ -4,25 +4,24 @@ const {
   get,
 } = useRequest();
 
-export const initUmeng = () => {
+export const initUmeng = async () => {
+  await import('@/assets/js/umeng.js');
   if (localStorage.getItem('useStats') !== '0') {
-    get('/version')
-      .then(res => {
-        const version = res.data;
-        const {aplus_queue} = window;
+    const res = await get('/version');
+    const version = res.data;
+    const {aplus_queue} = window;
 
-        // set meta info
-        aplus_queue.push({
-          action: 'aplus.setMetaInfo',
-          arguments: ['globalproperty', {version}, 'OVERWRITE'],
-        });
+    // set meta info
+    aplus_queue.push({
+      action: 'aplus.setMetaInfo',
+      arguments: ['globalproperty', {version}, 'OVERWRITE'],
+    });
 
-        // send pv
-        window.aplus_queue.push({
-          action: 'aplus.sendPV',
-          arguments: [{is_auto: true}, {}]
-        });
-      });
+    // send pv
+    window.aplus_queue.push({
+      action: 'aplus.sendPV',
+      arguments: [{is_auto: true}, {}]
+    });
   }
 };
 
