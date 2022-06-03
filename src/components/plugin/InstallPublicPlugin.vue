@@ -90,6 +90,8 @@ export default defineComponent({
         }
       );
       await store.dispatch(`${ns}/create`, {
+        name: p.name,
+        short_name: p.name,
         full_name: p.full_name,
         install_type: PLUGIN_INSTALL_TYPE_PUBLIC,
       });
