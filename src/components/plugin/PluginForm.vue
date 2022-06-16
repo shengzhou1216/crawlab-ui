@@ -1,15 +1,15 @@
 <template>
   <Form
-      v-if="form"
-      ref="formRef"
-      :model="form"
-      :selective="isSelectiveForm"
+    v-if="form"
+    ref="formRef"
+    :model="form"
+    :selective="isSelectiveForm"
   >
     <template v-if="isDialog">
       <!--Row-->
       <FormItem
-          :span="2"
-          :label="t('components.plugin.form.autoStart')"
+        :span="2"
+        :label="t('components.plugin.form.autoStart')"
       >
         <Switch v-model="form.auto_start"/>
       </FormItem>
@@ -18,27 +18,27 @@
       <!--Row-->
       <template v-if="installType === PLUGIN_INSTALL_TYPE_GIT">
         <FormItem
-            :span="4"
-            :label="t('components.plugin.form.installUrl')"
-            prop="install_url"
-            required
+          :span="4"
+          :label="t('components.plugin.form.installUrl')"
+          prop="install_url"
+          required
         >
           <el-input
-              v-model="form.install_url"
-              :placeholder="t('components.plugin.form.installUrl')"
+            v-model="form.install_url"
+            :placeholder="t('components.plugin.form.installUrl')"
           />
         </FormItem>
       </template>
       <template v-else-if="installType === PLUGIN_INSTALL_TYPE_LOCAL">
         <FormItem
-            :span="4"
-            :label="t('components.plugin.form.installPath')"
-            prop="install_url"
-            required
+          :span="4"
+          :label="t('components.plugin.form.installPath')"
+          prop="install_url"
+          required
         >
           <el-input
-              v-model="form.install_url"
-              :placeholder="t('components.plugin.form.installPath')"
+            v-model="form.install_url"
+            :placeholder="t('components.plugin.form.installPath')"
           />
         </FormItem>
       </template>
@@ -48,46 +48,46 @@
     <template v-else>
       <!--Row-->
       <FormItem
-          :span="2"
-          :offset="2"
-          :label="t('components.plugin.form.name')"
-          not-editable
-          prop="name"
-          required
+        :span="2"
+        :offset="2"
+        :label="t('components.plugin.form.name')"
+        not-editable
+        prop="name"
+        required
       >
         <el-input
-            v-model="form.name"
-            disabled
-            :placeholder="t('components.plugin.form.name')"
+          v-model="form.name"
+          disabled
+          :placeholder="t('components.plugin.form.name')"
         />
       </FormItem>
       <!--./Row-->
 
       <!--Row-->
       <FormItem
-          :span="2"
-          :label="t('components.plugin.form.command')"
-          prop="cmd"
+        :span="2"
+        :label="t('components.plugin.form.command')"
+        prop="cmd"
       >
         <el-input
-            v-model="form.cmd"
-            disabled
-            :placeholder="t('components.plugin.form.command')"
+          v-model="form.cmd"
+          disabled
+          :placeholder="t('components.plugin.form.command')"
         />
       </FormItem>
       <!--./Row-->
 
       <!--Row-->
       <FormItem
-          :span="4"
-          :label="t('components.plugin.form.description')"
-          prop="description"
+        :span="4"
+        :label="t('components.plugin.form.description')"
+        prop="description"
       >
         <el-input
-            v-model="form.description"
-            disabled
-            :placeholder="t('components.plugin.form.description')"
-            type="textarea"
+          v-model="form.description"
+          disabled
+          :placeholder="t('components.plugin.form.description')"
+          type="textarea"
         />
       </FormItem>
     </template>

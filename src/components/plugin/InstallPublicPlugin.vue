@@ -133,7 +133,6 @@ export default defineComponent({
     });
 
     onBeforeUnmount(() => {
-      store.commit(`${ns}/getPublicPluginList`);
       store.commit(`${ns}/resetActivePublicPlugin`);
 
       clearInterval(handle);

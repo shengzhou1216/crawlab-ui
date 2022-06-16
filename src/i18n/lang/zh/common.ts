@@ -37,7 +37,6 @@ const common: LCommon = {
       install: '您是否确定安装?',
       start: '您是否确定启动?',
       deleteSelected: '您是否确定删除已选项?',
-      loginAgain: '您似乎已被登出, 是否尝试重新登陆?',
     }
   },
   message: {
@@ -56,6 +55,9 @@ const common: LCommon = {
     error: {
       login: '登陆失败',
     },
+  },
+  notification: {
+    loggedOut: '您已退出登陆，请重新登陆'
   },
   tabs: {
     overview: '概览',

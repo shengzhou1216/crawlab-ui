@@ -45,7 +45,6 @@ export declare global {
         install: string;
         start: string;
         deleteSelected: string;
-        loginAgain: string;
       };
     };
     message: {
@@ -65,6 +64,9 @@ export declare global {
         login: string;
       };
     };
+    notification: {
+      loggedOut: string;
+    },
     tabs: {
       overview: string;
       spiders: string;

@@ -1,5 +1,5 @@
 import axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
-import {ElMessageBox} from 'element-plus';
+import {ElMessageBox, ElNotification} from 'element-plus';
 import {getEmptyResponseWithListData, getRequestBaseUrl} from '@/utils/request';
 import {Router} from 'vue-router';
 import {translate} from '@/utils/i18n';
@@ -14,7 +14,7 @@ export const initRequest = (router?: Router) => {
   let msgBoxVisible = false;
   axios.interceptors.response.use(res => {
     return res;
-  }, err => {
+  }, async err => {
     // status code
     const status = err?.response?.status;
 
@@ -24,15 +24,13 @@ export const initRequest = (router?: Router) => {
         // token expired, popup logout warning
         if (msgBoxVisible) return;
         msgBoxVisible = true;
-        ElMessageBox.confirm(
-          t('common.messageBox.confirm.loginAgain'),
-          t('common.status.unauthorized'),
-          {type: 'warning'},
-        )
-          .then(_ => router?.push('/login'))
-          .finally(() => {
-            msgBoxVisible = false;
-          });
+        setTimeout(() => msgBoxVisible = false, 5000);
+        router?.push('/login');
+        await ElNotification({
+          title: t('common.status.unauthorized'),
+          message: t('common.notification.loggedOut'),
+          type: 'warning',
+        });
       } else {
         // token not exists, redirect to login page
         router?.push('/login');

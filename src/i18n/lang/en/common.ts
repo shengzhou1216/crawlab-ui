@@ -37,7 +37,6 @@ const common: LCommon = {
       install: 'Are you sure to install?',
       start: 'Are you sure to start?',
       deleteSelected: 'Are you sure to delete selected items?',
-      loginAgain: 'You seem to have been logged-out, try to login again?',
     }
   },
   message: {
@@ -56,6 +55,9 @@ const common: LCommon = {
     error: {
       login: 'Login failed',
     },
+  },
+  notification: {
+    loggedOut: 'You have been logged-out, please login again.'
   },
   tabs: {
     overview: 'Overview',
