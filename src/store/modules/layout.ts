@@ -16,6 +16,9 @@ export default {
     draggingTab: undefined,
     targetTab: undefined,
     isTabsDragging: false,
+
+    // detail
+    detailTabVisibleFn: (ns: StoreNamespace, tab: NavItem) => true,
   },
   getters: {
     tabs: state => {
@@ -89,7 +92,10 @@ export default {
     },
     setIsTabsDragging(state: LayoutStoreState, value: boolean) {
       state.isTabsDragging = value;
-    }
+    },
+    setDetailTabVisibleFn(state: LayoutStoreState, fn: (ns: StoreNamespace, tab: NavItem) => boolean) {
+      state.detailTabVisibleFn = fn;
+    },
   },
   actions: {}
 } as LayoutStoreModule;

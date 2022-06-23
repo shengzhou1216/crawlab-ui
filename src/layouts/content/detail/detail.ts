@@ -51,7 +51,7 @@ const useDetail = <T = BaseModel>(ns: ListStoreNamespace) => {
   const actionsCollapsed = computed<boolean>(() => state.actionsCollapsed);
 
   const tabs = computed(() => {
-    return plainClone(state.tabs) as NavItem[];
+    return plainClone(store.getters[`${ns}/tabs`]) as NavItem[];
   });
 
   const contentContainerStyle = computed(() => {

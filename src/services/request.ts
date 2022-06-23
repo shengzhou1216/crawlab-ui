@@ -1,5 +1,5 @@
 import axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
-import {ElMessageBox, ElNotification} from 'element-plus';
+import {ElNotification} from 'element-plus';
 import {getEmptyResponseWithListData, getRequestBaseUrl} from '@/utils/request';
 import {Router} from 'vue-router';
 import {translate} from '@/utils/i18n';

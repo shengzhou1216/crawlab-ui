@@ -77,7 +77,7 @@ const createApp = async (options?: CreateAppOptions): Promise<VueApp> => {
   const store = options.store || getStore();
 
   // router
-  const router = getRouter(options.rootRoutes, options.routes, options.allRoutes);
+  const router = getRouter(options.rootRoutes, options.routes, options.allRoutes, options.createRouterOptions);
 
   // window globals
   initWindowGlobals();

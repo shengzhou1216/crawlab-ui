@@ -105,7 +105,7 @@ export const addRoutes = (route: RouteRecordRaw, routes: Array<RouteRecordRaw>):
   route.children = route.children.concat(routes);
 };
 
-export const createRouter = (rootRoutes?: Array<RouteRecordRaw>, routes?: Array<RouteRecordRaw>, allRoutes?: Array<RouteRecordRaw>): Router => {
+export const createRouter = (rootRoutes?: Array<RouteRecordRaw>, routes?: Array<RouteRecordRaw>, allRoutes?: Array<RouteRecordRaw>, options?: CreateRouterOptions): Router => {
   // all routes
   if (!allRoutes) {
     allRoutes = getDefaultRoutes();
@@ -134,17 +134,17 @@ export const createRouter = (rootRoutes?: Array<RouteRecordRaw>, routes?: Array<
   });
 
   // initialize
-  initRouterAuth(router);
-  initRouterStats(router);
+  initRouterAuth(router, options?.routerAuth);
+  initRouterStats(router, options?.routerStats);
 
   return router;
 };
 
 let _router: Router;
 
-export const getRouter = (rootRoutes?: Array<RouteRecordRaw>, routes?: Array<RouteRecordRaw>, allRoutes?: Array<RouteRecordRaw>): Router => {
+export const getRouter = (rootRoutes?: Array<RouteRecordRaw>, routes?: Array<RouteRecordRaw>, allRoutes?: Array<RouteRecordRaw>, options?: CreateRouterOptions): Router => {
   if (!_router) {
-    _router = createRouter(rootRoutes, routes, allRoutes);
+    _router = createRouter(rootRoutes, routes, allRoutes, options);
   }
   return _router;
 };

@@ -22,6 +22,7 @@ export * from './element';
 export * from './i18n';
 export * from './layout';
 export * from './models';
+export * from './router';
 export * from './package';
 export * from './services';
 export * from './store';

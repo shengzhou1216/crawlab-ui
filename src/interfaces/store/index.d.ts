@@ -18,11 +18,11 @@ export declare global {
     git: GitStoreState;
   }
 
-  type StoreGetter<S, T> = (state: S, getters: StoreGetter<S, T>, rootState: RootStoreState, rootGetters: any) => T;
+  type StoreGetter<S, T, R = RootStoreState> = (state: S, getters: GetterTree<S, R>, rootState: R, rootGetters: any) => T;
 
   type StoreMutation<S, P> = (state: S, payload: P) => void;
 
-  type StoreActionHandler<S, P, T> = (this: Store<RootStoreState>, ctx: ActionContext<S, RootStoreState>, payload?: P) => T;
+  type StoreActionHandler<S, P, T, R = RootStoreState> = (this: Store<R>, ctx: ActionContext<S, R>, payload?: P) => T;
 
   interface StoreActionObject<S, P, T> {
     root?: boolean;
@@ -33,7 +33,7 @@ export declare global {
     StoreActionHandler<S, P, T>
     | StoreActionObject<S, P, T>;
 
-  interface BaseModule<S, G = any, M = any, A = any> extends Module<S, RootStoreState> {
+  interface BaseModule<S, G = any, M = any, A = any, R = RootStoreState> extends Module<S, R> {
     getters: G;
     mutations: M;
     actions: A;
@@ -63,7 +63,7 @@ export declare global {
     afterSave: (() => Promise)[];
   }
 
-  interface BaseStoreGetters<S = BaseStoreState> extends GetterTree<S, RootStoreState> {
+  interface BaseStoreGetters<S = BaseStoreState, R = RootStoreState> extends GetterTree<S, R> {
     dialogVisible: StoreGetter<BaseStoreState, boolean>;
     isBatchForm: StoreGetter<BaseStoreState, boolean>;
     formListIds: StoreGetter<BaseStoreState, string[]>;
@@ -71,6 +71,7 @@ export declare global {
     allDict: StoreGetter<BaseStoreState, Map<string, T>>;
     tabName: StoreGetter<BaseStoreState, string>;
     allTags: StoreGetter<BaseStoreState, Tag[]>;
+    tabs: StoreGetter<BaseStoreState, NavItem[]>;
   }
 
   interface BaseStoreMutations<T = any> extends MutationTree<BaseStoreState<T>> {
@@ -110,7 +111,7 @@ export declare global {
     setAfterSave: StoreMutation<BaseStoreState<T>, (() => Promise)[]>;
   }
 
-  interface BaseStoreActions<T = any> extends ActionTree<BaseStoreState<T>, RootStoreState> {
+  interface BaseStoreActions<T = any, R = RootStoreState> extends ActionTree<BaseStoreState<T>, R> {
     getById: StoreAction<BaseStoreState<T>, string>;
     create: StoreAction<BaseStoreState<T>, T>;
     updateById: StoreAction<BaseStoreState<T>, { id: string; form: T }>;
@@ -123,7 +124,7 @@ export declare global {
     deleteList: StoreAction<BaseStoreState<T>, BatchRequestPayload>;
   }
 
-  type StoreActionContext<S = BaseStoreState> = ActionContext<S, RootStoreState>;
+  type StoreActionContext<S = BaseStoreState, R = RootStoreState> = ActionContext<S, R>;
 
   type StoreNamespace =
     'layout'
@@ -152,15 +153,15 @@ export declare global {
     | 'plugin'
     | 'git';
 
-  interface StoreContext<T> {
+  interface StoreContext<T, R = RootStoreState> {
     namespace: StoreNamespace;
-    store: Store<RootStoreState>;
+    store: Store<R>;
     state: BaseStoreState<T>;
   }
 
-  interface ListStoreContext<T> extends StoreContext<T> {
+  interface ListStoreContext<T, R = RootStoreState> extends StoreContext<T> {
     namespace: ListStoreNamespace;
-    state: RootStoreState[ListStoreNamespace];
+    state: R[ListStoreNamespace];
   }
 
   type DetailStoreContext<T> = ListStoreContext<T>;

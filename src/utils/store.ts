@@ -72,6 +72,9 @@ export const getDefaultStoreGetters = <T = any>(opts?: GetDefaultStoreGettersOpt
     allTags: (state: BaseStoreState<T>, getters, rootState) => {
       return rootState.tag.allList.filter(d => d.col === `${state.ns}s`);
     },
+    tabs: (state: BaseStoreState<T>, getters, rootState) => {
+      return state.tabs.filter(t => rootState.layout.detailTabVisibleFn(state.ns, t));
+    },
   };
 };
 

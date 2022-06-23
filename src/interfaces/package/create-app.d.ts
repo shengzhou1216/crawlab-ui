@@ -21,5 +21,6 @@ export declare global {
     rootRoutes?: Array<RouteRecordRaw>;
     routes?: Array<RouteRecordRaw>;
     allRoutes?: Array<RouteRecordRaw>;
+    createRouterOptions?: CreateRouterOptions;
   }
 }
