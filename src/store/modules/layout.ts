@@ -19,6 +19,9 @@ export default {
 
     // detail
     detailTabVisibleFn: (ns: StoreNamespace, tab: NavItem) => true,
+
+    // action
+    actionVisibleFn: (ns: StoreNamespace, action: string) => true,
   },
   getters: {
     tabs: state => {
@@ -95,6 +98,9 @@ export default {
     },
     setDetailTabVisibleFn(state: LayoutStoreState, fn: (ns: StoreNamespace, tab: NavItem) => boolean) {
       state.detailTabVisibleFn = fn;
+    },
+    setActionVisibleFn(state: LayoutStoreState, fn: (ns: StoreNamespace, action: string) => boolean) {
+      state.actionVisibleFn = fn;
     },
   },
   actions: {}

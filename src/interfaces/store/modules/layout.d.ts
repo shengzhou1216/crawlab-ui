@@ -21,6 +21,9 @@ declare global {
 
     // detail
     detailTabVisibleFn: (ns: StoreNamespace, item: NavItem) => boolean;
+
+    // action
+    actionVisibleFn: (ns: StoreNamespace, action: string) => boolean;
   }
 
   interface LayoutStoreGetters extends GetterTree<LayoutStoreState, RootStoreState> {
@@ -45,5 +48,6 @@ declare global {
     resetTargetTab: StoreMutation<LayoutStoreState>;
     setIsTabsDragging: StoreMutation<LayoutStoreState, boolean>;
     setDetailTabVisibleFn: StoreMutation<LayoutStoreState, (ns: StoreNamespace, tab: NavItem) => boolean>;
+    setActionVisibleFn: StoreMutation<LayoutStoreState, (ns: StoreNamespace, action: string) => boolean>;
   }
 }
