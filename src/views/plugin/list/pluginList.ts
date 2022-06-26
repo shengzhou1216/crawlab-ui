@@ -20,6 +20,7 @@ import PluginStatusMultiNode from '@/components/plugin/PluginStatusMultiNode.vue
 import PluginPid from '@/components/plugin/PluginPid.vue';
 import {translate} from '@/utils/i18n';
 import {sendEvent} from '@/admin/umeng';
+import {ACTION_ADD, ACTION_DELETE, ACTION_START, ACTION_STOP, ACTION_VIEW} from '@/constants';
 
 type Plugin = CPlugin;
 
@@ -58,6 +59,7 @@ const usePluginList = () => {
       name: 'common',
       children: [
         {
+          action: ACTION_ADD,
           id: 'add-btn',
           className: 'add-btn',
           buttonType: 'label',
@@ -194,6 +196,7 @@ const usePluginList = () => {
                 return true;
               }
             },
+            action: ACTION_START,
           },
           {
             className: 'stop-btn',
@@ -240,6 +243,7 @@ const usePluginList = () => {
                 return true;
               }
             },
+            action: ACTION_STOP,
           },
         ];
 
@@ -255,6 +259,7 @@ const usePluginList = () => {
 
               sendEvent('click_plugin_list_actions_view');
             },
+            action: ACTION_VIEW,
           },
           {
             className: 'delete-btn',
@@ -264,6 +269,7 @@ const usePluginList = () => {
             tooltip: t('common.actions.delete'),
             disabled: (row: Plugin) => !!row.active,
             onClick: deleteByIdConfirm,
+            action: ACTION_DELETE,
           },
         ]);
         return buttons;

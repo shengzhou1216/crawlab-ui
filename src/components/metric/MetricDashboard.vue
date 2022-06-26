@@ -92,7 +92,7 @@ export default defineComponent({
     };
 
     // timer
-    let handle: number;
+    let handle: any;
     onBeforeMount(() => {
       getData();
       handle = setInterval(getData, 15 * 1e3);

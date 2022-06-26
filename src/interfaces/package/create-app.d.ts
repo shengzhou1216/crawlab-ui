@@ -16,6 +16,7 @@ export declare global {
     loadFontAwesome?: boolean;
     loadTrack?: boolean;
     loadLocate?: boolean;
+    loadAuth?: boolean;
     mount?: boolean | string;
     store?: Store;
     rootRoutes?: Array<RouteRecordRaw>;

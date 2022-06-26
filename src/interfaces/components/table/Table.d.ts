@@ -130,6 +130,7 @@ export declare global {
     onClick?: TableButtonOnClickFunction;
     id?: string;
     className?: string;
+    action?: GenericAction;
   }
 
   type TableColumnButtonsFunction<T = any> = (row?: T) => TableColumnButton[];

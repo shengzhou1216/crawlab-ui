@@ -39,7 +39,6 @@
         @select="onMenuItemClick"
       >
         <template v-for="(item, $index) in menuItems" :key="$index">
-          <!--          <SidebarItem :item="item" @click="onMenuItemClick"/>-->
           <SidebarItem :item="item"/>
         </template>
         <div class="plugin-anchor"/>

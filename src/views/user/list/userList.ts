@@ -8,6 +8,7 @@ import UserRole from '@/components/user/UserRole.vue';
 import {ROLE_ADMIN, ROLE_NORMAL, USERNAME_ADMIN} from '@/constants/user';
 import {translate} from '@/utils/i18n';
 import {sendEvent} from '@/admin/umeng';
+import {ACTION_ADD, ACTION_DELETE, ACTION_VIEW} from '@/constants';
 
 // i18n
 const t = translate;
@@ -37,6 +38,7 @@ const useUserList = () => {
       name: 'common',
       children: [
         {
+          action: ACTION_ADD,
           id: 'add-btn',
           className: 'add-btn',
           buttonType: 'label',
@@ -107,6 +109,7 @@ const useUserList = () => {
 
             sendEvent('click_user_list_actions_view');
           },
+          action: ACTION_VIEW,
         },
         {
           className: 'delete-btn',
@@ -116,6 +119,7 @@ const useUserList = () => {
           tooltip: (row: User) => row.username === USERNAME_ADMIN ? t('components.user.delete.tooltip.adminUserNonDeletable') : t('common.actions.delete'),
           disabled: (row: User) => row.username === USERNAME_ADMIN,
           onClick: deleteByIdConfirm,
+          action: ACTION_DELETE,
         },
       ],
       disableTransfer: true,

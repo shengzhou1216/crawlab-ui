@@ -1,28 +1,30 @@
 <template>
-  <LabelButton
-    v-if="buttonType === 'label'"
-    :disabled="disabled"
-    :icon="icon"
-    :is-icon="!!icon"
-    :label="label"
-    :size="size"
-    :tooltip="tooltip"
-    :type="type"
-    :id="id"
-    :class-name="className"
-    @click="onClick"
-  />
-  <FaIconButton
-    v-else-if="buttonType === 'fa-icon'"
-    :disabled="disabled"
-    :icon="icon"
-    :size="size"
-    :tooltip="tooltip"
-    :type="type"
-    :id="id"
-    :class-name="className"
-    @click="onClick"
-  />
+  <div class="nav-action-button">
+    <LabelButton
+      v-if="buttonType === 'label'"
+      :disabled="disabled"
+      :icon="icon"
+      :is-icon="!!icon"
+      :label="label"
+      :size="size"
+      :tooltip="tooltip"
+      :type="type"
+      :id="id"
+      :class-name="className"
+      @click="onClick"
+    />
+    <FaIconButton
+      v-else-if="buttonType === 'fa-icon'"
+      :disabled="disabled"
+      :icon="icon"
+      :size="size"
+      :tooltip="tooltip"
+      :type="type"
+      :id="id"
+      :class-name="className"
+      @click="onClick"
+    />
+  </div>
 </template>
 
 <script lang="ts">

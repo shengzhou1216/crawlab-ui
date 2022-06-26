@@ -2,7 +2,6 @@ import {Directive} from 'vue';
 
 const locate: Directive<HTMLElement, Locate> = {
   mounted(el, binding) {
-    console.debug(binding.value);
     let name: string;
     if (typeof binding.value === 'string') {
       name = binding.value;

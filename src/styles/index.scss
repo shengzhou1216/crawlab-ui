@@ -89,5 +89,9 @@ a:hover {
 }
 
 .invisible {
-  visibility: hidden;
+  visibility: hidden !important;
+}
+
+.hidden {
+  display: none !important;
 }

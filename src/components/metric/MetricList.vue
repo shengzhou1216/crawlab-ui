@@ -256,7 +256,7 @@ export default defineComponent({
     watch(lang, updateAllChartTitle);
 
     // timer
-    let handle: number;
+    let handle: any;
     onBeforeMount(() => {
       updateAllChartData();
       handle = setInterval(updateAllChartData, 60 * 1e3);

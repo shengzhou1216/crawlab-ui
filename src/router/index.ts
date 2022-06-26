@@ -16,30 +16,32 @@ import {initRouterStats} from '@/router/hooks/stats';
 import NormalLayout from '@/layouts/NormalLayout.vue';
 import {ROUTER_ROOT_NAME_ROOT} from '@/constants/router';
 
-export const getDefaultRoutes = (): Array<RouteRecordRaw> => [
-  ...login,
-  {
-    path: '/',
-    redirect: '/home',
-    name: ROUTER_ROOT_NAME_ROOT,
-    component: NormalLayout,
-    children: [
-      ...home,
-      ...node,
-      ...project,
-      ...spider,
-      ...task,
-      ...schedule,
-      ...user,
-      ...tag,
-      ...token,
-      ...plugin,
-      ...misc,
-    ],
-  },
-];
+export function getDefaultRoutes(): Array<RouteRecordRaw> {
+  return [
+    ...login,
+    {
+      path: '/',
+      redirect: '/home',
+      name: ROUTER_ROOT_NAME_ROOT,
+      component: NormalLayout,
+      children: [
+        ...home,
+        ...node,
+        ...project,
+        ...spider,
+        ...task,
+        ...schedule,
+        ...user,
+        ...tag,
+        ...token,
+        ...plugin,
+        ...misc,
+      ],
+    },
+  ];
+}
 
-export const getDefaultSidebarMenuItems = (): MenuItem[] => {
+export function getDefaultSidebarMenuItems(): MenuItem[] {
   return [
     {path: '/home', title: 'router.menuItems.home', icon: ['fa', 'home']},
     {path: '/nodes', title: 'router.menuItems.nodes', icon: ['fa', 'server']},
@@ -52,9 +54,9 @@ export const getDefaultSidebarMenuItems = (): MenuItem[] => {
     {path: '/tokens', title: 'router.menuItems.tokens', icon: ['fa', 'key']},
     {path: '/plugins', title: 'router.menuItems.plugins', icon: ['fa', 'plug']},
   ];
-};
+}
 
-export const getDefaultHiddenMenuItems = (): MenuItem[] => {
+export function getDefaultHiddenMenuItems(): MenuItem[] {
   const items = [
     {path: '/misc/disclaimer', title: 'router.menuItems.misc.disclaimer', icon: ['fa', 'file-signature']},
     {path: '/misc/my-settings', title: 'router.menuItems.misc.mySettings', icon: ['fa', 'user-cog']},
@@ -63,20 +65,20 @@ export const getDefaultHiddenMenuItems = (): MenuItem[] => {
     d.hidden = true;
     return d;
   });
-};
+}
 
-export const getDefaultMenuItems = (): MenuItem[] => {
+export function getDefaultMenuItems(): MenuItem[] {
   return [
     ...getDefaultSidebarMenuItems(),
     ...getDefaultHiddenMenuItems(),
   ];
-};
+}
 
-export const getRootRoute = (routes: Array<RouteRecordRaw>): RouteRecordRaw | undefined => {
+export function getRootRoute(routes: Array<RouteRecordRaw>): RouteRecordRaw | undefined {
   return routes.find(r => r.name === ROUTER_ROOT_NAME_ROOT);
-};
+}
 
-export const getRouteByName = (routes: Array<RouteRecordRaw>, name: string): RouteRecordRaw | undefined => {
+export function getRouteByName(routes: Array<RouteRecordRaw>, name: string): RouteRecordRaw | undefined {
   for (const route of routes) {
     if (route.name === name) {
       return route;
@@ -89,23 +91,23 @@ export const getRouteByName = (routes: Array<RouteRecordRaw>, name: string): Rou
     }
   }
   return;
-};
+}
 
-export const replaceRouteByName = (routes: Array<RouteRecordRaw>, name: string, component: any) => {
+export function replaceRouteByName(routes: Array<RouteRecordRaw>, name: string, component: any) {
   const route = getRouteByName(routes, name);
   if (route) {
     route.component = component;
   }
-};
+}
 
-export const addRoutes = (route: RouteRecordRaw, routes: Array<RouteRecordRaw>): void => {
+export function addRoutes(route: RouteRecordRaw, routes: Array<RouteRecordRaw>): void {
   if (!route.children) {
     route.children = [];
   }
   route.children = route.children.concat(routes);
-};
+}
 
-export const createRouter = (rootRoutes?: Array<RouteRecordRaw>, routes?: Array<RouteRecordRaw>, allRoutes?: Array<RouteRecordRaw>, options?: CreateRouterOptions): Router => {
+export function createRouter(rootRoutes?: Array<RouteRecordRaw>, routes?: Array<RouteRecordRaw>, allRoutes?: Array<RouteRecordRaw>, options?: CreateRouterOptions): Router {
   // all routes
   if (!allRoutes) {
     allRoutes = getDefaultRoutes();
@@ -138,13 +140,13 @@ export const createRouter = (rootRoutes?: Array<RouteRecordRaw>, routes?: Array<
   initRouterStats(router, options?.routerStats);
 
   return router;
-};
+}
 
 let _router: Router;
 
-export const getRouter = (rootRoutes?: Array<RouteRecordRaw>, routes?: Array<RouteRecordRaw>, allRoutes?: Array<RouteRecordRaw>, options?: CreateRouterOptions): Router => {
+export function getRouter(rootRoutes?: Array<RouteRecordRaw>, routes?: Array<RouteRecordRaw>, allRoutes?: Array<RouteRecordRaw>, options?: CreateRouterOptions): Router {
   if (!_router) {
     _router = createRouter(rootRoutes, routes, allRoutes, options);
   }
   return _router;
-};
+}

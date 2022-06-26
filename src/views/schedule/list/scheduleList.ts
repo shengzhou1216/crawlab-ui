@@ -13,6 +13,8 @@ import useSpider from '@/components/spider/spider';
 import useTask from '@/components/task/task';
 import {translate} from '@/utils/i18n';
 import {sendEvent} from '@/admin/umeng';
+import {ACTION_ADD, ACTION_DELETE, ACTION_ENABLE, ACTION_VIEW} from '@/constants';
+import {isAllowedAction} from '@/utils';
 
 // i18n
 const t = translate;
@@ -53,6 +55,7 @@ const useScheduleList = () => {
       name: 'common',
       children: [
         {
+          action: ACTION_ADD,
           id: 'add-btn',
           className: 'add-btn',
           buttonType: 'label',
@@ -134,6 +137,7 @@ const useScheduleList = () => {
       value: (row: Schedule) => {
         return h(Switch, {
           modelValue: row.enabled,
+          disabled: !isAllowedAction(router.currentRoute.value.path, ACTION_ENABLE),
           'onUpdate:modelValue': async (value: boolean) => {
             if (value) {
               await store.dispatch(`${ns}/enable`, row._id);
@@ -187,6 +191,7 @@ const useScheduleList = () => {
 
             sendEvent('click_schedule_list_actions_view');
           },
+          action: ACTION_VIEW,
         },
         // {
         //   type: 'info',
@@ -205,6 +210,7 @@ const useScheduleList = () => {
           icon: ['fa', 'trash-alt'],
           tooltip: t('common.actions.delete'),
           onClick: deleteByIdConfirm,
+          action: ACTION_DELETE,
         },
       ],
       disableTransfer: true,

@@ -12,7 +12,7 @@ export const ANOMALOUS_ROUTES = [
 export const initRouterAuth = (router: Router, options?: RouterAuthOptions) => {
   router.beforeEach((to, from, next) => {
     // before each
-    options?.beforeEachFn?.();
+    options?.beforeEachFn?.(to, from);
 
     // allow anomalous routes
     if (ANOMALOUS_ROUTES.includes(to.path)) {
@@ -31,7 +31,7 @@ export const initRouterAuth = (router: Router, options?: RouterAuthOptions) => {
     }
 
     // after each
-    options?.afterEachFn?.();
+    options?.afterEachFn?.(to, from);
 
     return next();
   });

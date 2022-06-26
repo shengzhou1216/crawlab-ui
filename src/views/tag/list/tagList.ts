@@ -4,7 +4,7 @@ import useList from '@/layouts/content/list/list';
 import NavLink from '@/components/nav/NavLink.vue';
 import ColorPicker from '@/components/color/ColorPicker.vue';
 import {getActionColumn} from '@/utils/table';
-import {ACTION_DELETE, ACTION_VIEW} from '@/constants/action';
+import {ACTION_ADD, ACTION_DELETE, ACTION_VIEW} from '@/constants/action';
 import Tag from '@/components/tag/Tag.vue';
 import {translate} from '@/utils/i18n';
 import {sendEvent} from '@/admin/umeng';
@@ -24,6 +24,7 @@ const useTagList = () => {
       name: 'common',
       children: [
         {
+          action: ACTION_ADD,
           id: 'add-btn',
           className: 'add-btn',
           buttonType: 'label',

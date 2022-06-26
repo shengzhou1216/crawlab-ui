@@ -7,7 +7,6 @@ import {TABLE_COLUMN_NAME_ACTIONS, TABLE_ACTION_EDIT, TABLE_ACTION_CUSTOMIZE_COL
 import {ElMessageBox} from 'element-plus';
 import useNodeService from '@/services/node/nodeService';
 import NavLink from '@/components/nav/NavLink.vue';
-import TagList from '@/components/tag/TagList.vue';
 import {useRouter} from 'vue-router';
 import NodeRunners from '@/components/node/NodeRunners.vue';
 import Switch from '@/components/switch/Switch.vue';
@@ -20,6 +19,8 @@ import {
 } from '@/constants/node';
 import {translate} from '@/utils/i18n';
 import {sendEvent} from '@/admin/umeng';
+import {ACTION_ADD, ACTION_DELETE, ACTION_ENABLE, ACTION_VIEW} from '@/constants';
+import {isAllowedAction} from '@/utils';
 
 type Node = CNode;
 
@@ -30,7 +31,6 @@ const useNodeList = () => {
   // store
   const ns = 'node';
   const store = useStore<RootStoreState>();
-  const {commit} = store;
 
   // i18n
   const t = translate;
@@ -47,6 +47,7 @@ const useNodeList = () => {
       name: 'common',
       children: [
         {
+          action: ACTION_ADD,
           id: 'add-btn',
           className: 'add-btn',
           buttonType: 'label',
@@ -186,6 +187,7 @@ const useNodeList = () => {
       value: (row: Node) => {
         return h(Switch, {
           modelValue: row.enabled,
+          disabled: !isAllowedAction(router.currentRoute.value.path, ACTION_ENABLE),
           'onUpdate:modelValue': async (value: boolean) => {
             row.enabled = value;
             await store.dispatch(`${ns}/updateById`, {id: row._id, form: row});
@@ -236,6 +238,7 @@ const useNodeList = () => {
 
             sendEvent('click_node_list_actions_view');
           },
+          action: ACTION_VIEW,
         },
         // {
         //   type: 'info',
@@ -271,6 +274,7 @@ const useNodeList = () => {
             }
             await getList();
           },
+          action: ACTION_DELETE,
         },
       ],
       disableTransfer: true,

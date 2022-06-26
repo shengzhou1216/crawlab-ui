@@ -17,11 +17,14 @@ export default {
     targetTab: undefined,
     isTabsDragging: false,
 
+    // nav
+    navVisibleFn: (path: string) => true,
+
     // detail
     detailTabVisibleFn: (ns: StoreNamespace, tab: NavItem) => true,
 
     // action
-    actionVisibleFn: (ns: StoreNamespace, action: string) => true,
+    actionVisibleFn: (target: string, action: string) => true,
   },
   getters: {
     tabs: state => {
@@ -40,7 +43,15 @@ export default {
       if (activeTabId === undefined) return;
       return tabs.find(d => d.id === activeTabId);
     },
-    sidebarMenuItems: state => state.menuItems.filter(d => !d.hidden),
+    sidebarMenuItems: state => {
+      return state.menuItems
+        .filter(d => !d.hidden)
+        .filter(d => {
+          if (!state.navVisibleFn) return true;
+          if (!d.path) return true;
+          return state.navVisibleFn(d.path);
+        });
+    },
     normalizedMenuItems: state => normalizeTree<MenuItem>(state.menuItems),
   },
   mutations: {
@@ -96,10 +107,13 @@ export default {
     setIsTabsDragging(state: LayoutStoreState, value: boolean) {
       state.isTabsDragging = value;
     },
+    setNavVisibleFn(state: LayoutStoreState, fn: (path: string) => boolean) {
+      state.navVisibleFn = fn;
+    },
     setDetailTabVisibleFn(state: LayoutStoreState, fn: (ns: StoreNamespace, tab: NavItem) => boolean) {
       state.detailTabVisibleFn = fn;
     },
-    setActionVisibleFn(state: LayoutStoreState, fn: (ns: StoreNamespace, action: string) => boolean) {
+    setActionVisibleFn(state: LayoutStoreState, fn: (target: string, action: string) => boolean) {
       state.actionVisibleFn = fn;
     },
   },

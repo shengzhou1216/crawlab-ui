@@ -12,6 +12,7 @@
             :key="j"
           >
             <NavActionButton
+              v-auth="ACTION_ADD"
               :id="btn.id"
               :class-name="btn.className"
               :button-type="btn.buttonType"
@@ -30,7 +31,7 @@
       <!-- ./Nav Actions -->
 
       <!-- Table -->
-      <Table
+      <ClTable
         ref="tableRef"
         :key="tableColumnsHash"
         :columns="tableColumns"
@@ -77,7 +78,7 @@
             @click="btn.onClick"
           />
         </template>
-      </Table>
+      </ClTable>
       <!-- ./Table -->
     </div>
 
@@ -94,6 +95,7 @@ import NavActionButton from '@/components/nav/NavActionButton.vue';
 import NavActions from '@/components/nav/NavActions.vue';
 import {emptyObjectFunc} from '@/utils/func';
 import {getMd5} from '@/utils/hash';
+import {ACTION_ADD} from '@/constants/action';
 import {useRoute} from 'vue-router';
 
 export default defineComponent({
@@ -103,7 +105,7 @@ export default defineComponent({
     NavActionGroup,
     NavActionItem,
     NavActionButton,
-    Table,
+    ClTable: Table,
   },
   props: {
     navActions: {
@@ -254,6 +256,7 @@ export default defineComponent({
       onEdit,
       onDelete,
       getNavActionButtonDisabled,
+      ACTION_ADD,
     };
   },
 });

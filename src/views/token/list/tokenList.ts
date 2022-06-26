@@ -6,6 +6,7 @@ import {ElMessage, ElMessageBox} from 'element-plus';
 import useClipboard from 'vue-clipboard3';
 import {translate} from '@/utils/i18n';
 import {sendEvent} from '@/admin/umeng';
+import {ACTION_ADD, ACTION_COPY, ACTION_DELETE, ACTION_VIEW} from '@/constants';
 
 // i18n
 const t = translate;
@@ -33,6 +34,7 @@ const useTokenList = () => {
       name: 'common',
       children: [
         {
+          action: ACTION_ADD,
           id: 'add-btn',
           className: 'add-btn',
           buttonType: 'label',
@@ -108,6 +110,7 @@ const useTokenList = () => {
 
             row._visible ? sendEvent('click_token_list_actions_hide') : sendEvent('click_token_list_actions_show');
           },
+          action: ACTION_VIEW,
         },
         {
           type: 'info',
@@ -121,6 +124,7 @@ const useTokenList = () => {
 
             sendEvent('click_token_list_actions_copy');
           },
+          action: ACTION_COPY,
         },
         {
           type: 'danger',
@@ -128,6 +132,7 @@ const useTokenList = () => {
           icon: ['fa', 'trash-alt'],
           tooltip: t('common.actions.edit'),
           onClick: deleteByIdConfirm,
+          action: ACTION_DELETE,
         },
       ],
       disableTransfer: true,

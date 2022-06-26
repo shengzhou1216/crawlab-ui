@@ -8,6 +8,7 @@ import TagList from '@/components/tag/TagList.vue';
 import {TAB_NAME_SPIDERS} from '@/constants/tab';
 import {translate} from '@/utils/i18n';
 import {sendEvent} from '@/admin/umeng';
+import {ACTION_ADD, ACTION_DELETE, ACTION_VIEW} from '@/constants';
 
 const useProjectList = () => {
   // router
@@ -37,6 +38,7 @@ const useProjectList = () => {
       name: 'common',
       children: [
         {
+          action: ACTION_ADD,
           id: 'add-btn',
           className: 'add-btn',
           buttonType: 'label',
@@ -112,6 +114,7 @@ const useProjectList = () => {
 
             sendEvent('click_project_list_actions_view');
           },
+          action: ACTION_VIEW,
         },
         // {
         //   type: 'warning',
@@ -138,6 +141,7 @@ const useProjectList = () => {
           icon: ['fa', 'trash-alt'],
           tooltip: t('common.actions.delete'),
           onClick: deleteByIdConfirm,
+          action: ACTION_DELETE,
         },
       ],
       disableTransfer: true,

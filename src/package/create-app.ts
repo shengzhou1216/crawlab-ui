@@ -12,7 +12,7 @@ import {initPlugins} from '@/utils/plugin';
 import {initRequest} from '@/services/request';
 import {initUmeng} from '@/admin/umeng';
 import {setGlobalLang} from '@/utils/i18n';
-import {track, locate} from '@/directives';
+import {track, locate, auth} from '@/directives';
 import {initDemo} from '@/demo';
 
 export const getDefaultCreateAppOptions = (): CreateAppOptions => {
@@ -30,6 +30,7 @@ export const getDefaultCreateAppOptions = (): CreateAppOptions => {
     loadFontAwesome: true,
     loadTrack: true,
     loadLocate: true,
+    loadAuth: true,
     mount: true,
     store: undefined,
     rootRoutes: undefined,
@@ -64,8 +65,13 @@ const createApp = async (options?: CreateAppOptions): Promise<VueApp> => {
   if (options.initBaiduTongji) initBaiduTonji();
 
   // umeng
-  console.debug(options);
-  if (options.initUmeng) initUmeng();
+  if (options.initUmeng) {
+    try {
+      await initUmeng();
+    } finally {
+      console.info('initialized umeng');
+    }
+  }
 
   // demo
   if (options.initDemo) initDemo();
@@ -107,6 +113,7 @@ const createApp = async (options?: CreateAppOptions): Promise<VueApp> => {
   if (options.loadFontAwesome) app.component('font-awesome-icon', FontAwesomeIcon);
   if (options.loadTrack) app.directive('track', track);
   if (options.loadLocate) app.directive('locate', locate);
+  if (options.loadAuth) app.directive('auth', auth);
 
   // mount
   if (options.mount) app.mount(typeof options.mount === 'string' ? options.mount : '#app');

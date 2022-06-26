@@ -19,11 +19,14 @@ declare global {
     targetTab?: Tab;
     isTabsDragging: boolean;
 
+    // nav
+    navVisibleFn: (path: string) => boolean;
+
     // detail
     detailTabVisibleFn: (ns: StoreNamespace, item: NavItem) => boolean;
 
     // action
-    actionVisibleFn: (ns: StoreNamespace, action: string) => boolean;
+    actionVisibleFn: (target: string, action: string) => boolean;
   }
 
   interface LayoutStoreGetters extends GetterTree<LayoutStoreState, RootStoreState> {
@@ -47,7 +50,8 @@ declare global {
     setTargetTab: StoreMutation<LayoutStoreState, Tab>;
     resetTargetTab: StoreMutation<LayoutStoreState>;
     setIsTabsDragging: StoreMutation<LayoutStoreState, boolean>;
+    setNavVisibleFn: StoreMutation<LayoutStoreState, (path: string) => boolean>;
     setDetailTabVisibleFn: StoreMutation<LayoutStoreState, (ns: StoreNamespace, tab: NavItem) => boolean>;
-    setActionVisibleFn: StoreMutation<LayoutStoreState, (ns: StoreNamespace, action: string) => boolean>;
+    setActionVisibleFn: StoreMutation<LayoutStoreState, (target: string, action: string) => boolean>;
   }
 }

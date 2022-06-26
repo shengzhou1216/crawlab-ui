@@ -11,6 +11,7 @@ import {setupListComponent} from '@/utils/list';
 import useProject from '@/components/project/project';
 import {translate} from '@/utils/i18n';
 import {sendEvent} from '@/admin/umeng';
+import {ACTION_ADD, ACTION_DELETE, ACTION_RUN, ACTION_UPLOAD, ACTION_VIEW} from '@/constants';
 
 const useSpiderList = () => {
   // i18n
@@ -37,9 +38,11 @@ const useSpiderList = () => {
   // nav actions
   const navActions = computed<ListActionGroup[]>(() => [
     {
+      action: ACTION_ADD,
       name: 'common',
       children: [
         {
+          action: ACTION_ADD,
           id: 'add-btn',
           className: 'add-btn',
           buttonType: 'label',
@@ -219,6 +222,7 @@ const useSpiderList = () => {
             sendEvent('click_spider_list_actions_run');
           },
           className: 'run-btn',
+          action: ACTION_RUN,
         },
         {
           type: 'primary',
@@ -231,6 +235,7 @@ const useSpiderList = () => {
             sendEvent('click_spider_list_actions_view');
           },
           className: 'view-btn',
+          action: ACTION_VIEW,
         },
         {
           type: 'info',
@@ -244,6 +249,7 @@ const useSpiderList = () => {
             sendEvent('click_spider_list_actions_upload_files');
           },
           className: 'upload-files-btn',
+          action: ACTION_UPLOAD,
         },
         // {
         //   type: 'info',
@@ -261,6 +267,7 @@ const useSpiderList = () => {
           tooltip: t('common.actions.delete'),
           onClick: deleteByIdConfirm,
           className: 'delete-btn',
+          action: ACTION_DELETE,
         },
       ],
       disableTransfer: true,

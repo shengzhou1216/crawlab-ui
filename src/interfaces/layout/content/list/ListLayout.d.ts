@@ -49,6 +49,7 @@ declare global {
     onClick?: () => void;
     className?: string;
     id?: string;
+    action?: GenericAction;
   }
 
   interface ListLayoutActionFunctions {

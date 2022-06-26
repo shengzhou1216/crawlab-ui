@@ -63,6 +63,8 @@ import FaIconButton from '@/components/button/FaIconButton.vue';
 import {ACTION_ADD, ACTION_DELETE, ACTION_EDIT,} from '@/constants/action';
 import {TABLE_ACTION_CUSTOMIZE_COLUMNS, TABLE_ACTION_EXPORT,} from '@/constants/table';
 import {useI18n} from 'vue-i18n';
+import {useStore} from 'vuex';
+import {useRoute} from 'vue-router';
 
 export default defineComponent({
   name: 'TableActions',
@@ -95,6 +97,12 @@ export default defineComponent({
     // i18n
     const {t} = useI18n();
 
+    // store
+    const store = useStore();
+
+    // route
+    const route = useRoute();
+
     // const onAdd = () => {
     //   emit('click-add');
     // };
@@ -117,8 +125,13 @@ export default defineComponent({
 
     const showButton = (name: string): boolean => {
       const {visibleButtons} = props;
-      if (visibleButtons.length === 0) return true;
-      return visibleButtons.includes(name);
+      if (visibleButtons && visibleButtons.length > 0 && !visibleButtons.includes(name)) {
+        return false;
+      }
+      const currentRoutePath = route.path;
+      const {actionVisibleFn} = (store.state as RootStoreState).layout;
+      if (!actionVisibleFn) return true;
+      return actionVisibleFn(currentRoutePath, name);
     };
 
     return {

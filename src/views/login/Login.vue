@@ -274,7 +274,7 @@ export default defineComponent({
       // initialize canvas
       if (window.innerWidth >= 1024) {
         if (!window.initCanvas) {
-          require('../../assets/js/loginCanvas.js');
+          require('@/assets/js/loginCanvas.js');
         } else {
           window.initCanvas();
         }

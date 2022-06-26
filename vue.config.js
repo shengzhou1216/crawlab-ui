@@ -54,6 +54,17 @@ const alias = {
   'echarts$': 'echarts/dist/echarts.min.js',
 }
 
+const rules = [
+  {
+    test: [
+      /\.(js)$/,
+    ],
+    exclude: [
+      path.resolve(__dirname, 'src/assets/js/**/*.js'),
+    ]
+  }
+]
+
 const config = {
   outputDir: './dist',
   configureWebpack: {
@@ -61,7 +72,10 @@ const config = {
     resolve: {
       alias,
     },
-  }
+    module: {
+      rules,
+    },
+  },
 }
 
 if (process.env.ENTRY) {

@@ -28,6 +28,7 @@ import {translate} from '@/utils/i18n';
 import {sendEvent} from '@/admin/umeng';
 import useSchedule from '@/components/schedule/schedule';
 import TaskCommand from '@/components/task/TaskCommand.vue';
+import {ACTION_ADD, ACTION_CANCEL, ACTION_DELETE, ACTION_RESTART, ACTION_VIEW, ACTION_VIEW_LOGS} from '@/constants';
 
 const {
   post,
@@ -70,6 +71,7 @@ const useTaskList = () => {
       name: 'common',
       children: [
         {
+          action: ACTION_ADD,
           id: 'add-btn',
           className: 'add-btn',
           buttonType: 'label',
@@ -307,7 +309,8 @@ const useTaskList = () => {
             router.push(`/tasks/${row._id}`);
 
             sendEvent('click_task_list_actions_view');
-          }
+          },
+          action: ACTION_VIEW,
         },
         {
           className: 'view-logs-btn',
@@ -319,7 +322,8 @@ const useTaskList = () => {
             router.push(`/tasks/${row._id}/logs`);
 
             sendEvent('click_task_list_actions_view_logs');
-          }
+          },
+          action: ACTION_VIEW_LOGS,
         },
         {
           className: 'restart-btn',
@@ -341,7 +345,8 @@ const useTaskList = () => {
             await post(`/tasks/${row._id}/restart`);
             await ElMessage.success(t('common.message.success.restart'));
             await store.dispatch(`task/getList`);
-          }
+          },
+          action: ACTION_RESTART,
         },
         isCancellable(row.status) ?
           {
@@ -365,6 +370,7 @@ const useTaskList = () => {
               await post(`/tasks/${row._id}/cancel`);
               await store.dispatch(`${ns}/getList`);
             },
+            action: ACTION_CANCEL,
           }
           :
           {
@@ -374,6 +380,7 @@ const useTaskList = () => {
             icon: ['fa', 'trash-alt'],
             tooltip: t('common.actions.delete'),
             onClick: deleteByIdConfirm,
+            action: ACTION_DELETE,
           },
       ],
       disableTransfer: true,
