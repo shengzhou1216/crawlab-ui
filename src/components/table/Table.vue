@@ -1,5 +1,5 @@
 <template>
-  <div v-loading="loading" ref="tableWrapperRef" class="table">
+  <div v-loading="loading" ref="tableWrapperRef" :class="['table', embedded ? 'embedded': ''].join(' ')">
     <!-- Table Header -->
     <div class="table-header">
       <el-pagination
@@ -202,6 +202,10 @@ export default defineComponent({
     maxHeight: {
       type: [String, Number],
     },
+    embedded: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: [
     'edit',
@@ -308,5 +312,19 @@ export default defineComponent({
 .el-table >>> th > .cell {
   line-height: 1.5;
   word-break: normal;
+}
+
+.table.embedded >>> .el-table--border .el-table__inner-wrapper:after {
+  height: 0;
+}
+
+.table.embedded >>> .el-table__border-left-patch,
+.table.embedded >>> .el-table--border:before {
+  width: 0;
+}
+
+.table.embedded >>> .el-table.is-scrolling-left.el-table--border tr:first-child td:first-child,
+.table.embedded >>> .el-table--border .el-table__inner-wrapper tr:first-child th:first-child {
+  border-left: none;
 }
 </style>

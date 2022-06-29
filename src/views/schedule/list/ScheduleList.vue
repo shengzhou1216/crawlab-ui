@@ -8,6 +8,7 @@
     :table-data="tableData"
     :table-total="tableTotal"
     :no-actions="noActions"
+    :embedded="embedded"
   >
     <template #extra>
       <!-- Dialogs (handled by store) -->
@@ -31,6 +32,10 @@ export default defineComponent({
   },
   props: {
     noActions: {
+      type: Boolean,
+      default: false,
+    },
+    embedded: {
       type: Boolean,
       default: false,
     }

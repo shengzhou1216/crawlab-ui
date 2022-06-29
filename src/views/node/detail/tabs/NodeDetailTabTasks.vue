@@ -1,6 +1,6 @@
 <template>
   <div class="node-detail-tab-tasks">
-    <TaskList no-actions/>
+    <TaskList no-actions embedded/>
   </div>
 </template>
 <script lang="ts">

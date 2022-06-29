@@ -6,6 +6,7 @@
     :table-columns="tableColumns"
     :table-data="tableData"
     :table-total="tableTotal"
+    :embedded="embedded"
     class="result-list"
   >
     <template #extra>
@@ -33,6 +34,10 @@ export default defineComponent({
       required: false,
     },
     noActions: {
+      type: Boolean,
+      default: false,
+    },
+    embedded: {
       type: Boolean,
       default: false,
     },

@@ -12,6 +12,11 @@ import {
 } from '@/constants/task';
 
 declare global {
+  interface TaskListProps {
+    noActions?: boolean;
+    embedded?: boolean;
+  }
+
   interface Task extends BaseModel {
     spider_id?: string;
     spider_name?: string;

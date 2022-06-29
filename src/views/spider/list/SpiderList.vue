@@ -9,6 +9,7 @@
     :table-total="tableTotal"
     :table-actions-prefix="tableActionsPrefix"
     :no-actions="noActions"
+    :embedded="embedded"
   >
     <template #extra>
       <!-- Dialogs (handled by store) -->
@@ -33,6 +34,11 @@ export default defineComponent({
   props: {
     noActions: {
       type: Boolean,
+      required: false
+    },
+    embedded: {
+      type: Boolean,
+      required: false
     }
   },
   components: {

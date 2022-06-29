@@ -16,6 +16,7 @@ declare global {
     tablePaginationLayout?: string;
     tableLoading?: boolean;
     tablePaginationPosition?: TablePaginationPosition;
+    embedded?: boolean;
   }
 
   interface ListLayoutComponentData<T = any> {

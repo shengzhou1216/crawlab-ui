@@ -4,6 +4,7 @@
       :id="spider.col_id"
       :data-source-id="spider.data_source_id"
       no-actions
+      embedded
     />
   </div>
 </template>

@@ -153,5 +153,11 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.table-actions {
+  display: inline-flex;
 
+  .nav-action-button {
+    display: inline-flex;
+  }
+}
 </style>

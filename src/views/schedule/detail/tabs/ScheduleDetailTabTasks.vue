@@ -1,6 +1,6 @@
 <template>
   <div class="schedule-detail-tab-tasks">
-    <TaskList no-actions/>
+    <TaskList no-actions embedded/>
   </div>
 </template>
 <script lang="ts">

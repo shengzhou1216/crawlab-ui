@@ -26,6 +26,7 @@ export declare global {
     paginationPosition: TablePaginationPosition;
     height?: string | number;
     maxHeight?: string | number;
+    embedded?: boolean;
   }
 
   interface TableColumn<T = any> {

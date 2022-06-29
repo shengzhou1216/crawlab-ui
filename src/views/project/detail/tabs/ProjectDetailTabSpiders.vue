@@ -1,6 +1,6 @@
 <template>
   <div class="project-detail-tab-spiders">
-    <SpiderList no-actions/>
+    <SpiderList no-actions embedded/>
   </div>
 </template>
 <script lang="ts">

@@ -8,6 +8,7 @@
     :table-data="tableData"
     :table-total="tableTotal"
     :no-actions="noActions"
+    :embedded="embedded"
   >
     <template #extra>
       <!-- Dialogs (handled by store) -->
@@ -29,13 +30,17 @@ export default defineComponent({
     noActions: {
       type: Boolean,
       default: false,
-    }
+    },
+    embedded: {
+      type: Boolean,
+      default: false,
+    },
   },
   components: {
     ListLayout,
     CreateTaskDialog,
   },
-  setup(props, {emit}) {
+  setup(props: TaskListProps, {emit}) {
     return {
       ...useTaskList(),
     };

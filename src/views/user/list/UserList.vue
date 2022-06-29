@@ -8,6 +8,7 @@
     :table-data="tableData"
     :table-total="tableTotal"
     :no-actions="noActions"
+    :embedded="embedded"
     :selectable-function="selectableFunction"
   >
     <template #extra>
@@ -32,6 +33,10 @@ export default defineComponent({
   },
   props: {
     noActions: {
+      type: Boolean,
+      default: false,
+    },
+    embedded: {
       type: Boolean,
       default: false,
     }

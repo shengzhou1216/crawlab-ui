@@ -44,6 +44,7 @@
         :visible-buttons="visibleButtons"
         :pagination-layout="tablePaginationLayout"
         :loading="tableLoading"
+        :embedded="embedded"
         @selection-change="onSelect"
         @delete="onDelete"
         @edit="onEdit"
@@ -180,6 +181,10 @@ export default defineComponent({
     },
     tablePaginationPosition: {
       type: String as PropType<TablePaginationPosition>,
+      required: false,
+    },
+    embedded: {
+      type: Boolean,
       required: false,
     },
   },

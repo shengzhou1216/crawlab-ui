@@ -1,6 +1,6 @@
 <template>
   <div class="spider-detail-tab-schedules">
-    <ScheduleList no-actions/>
+    <ScheduleList no-actions embedded/>
   </div>
 </template>
 <script lang="ts">
