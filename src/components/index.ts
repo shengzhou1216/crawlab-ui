@@ -42,6 +42,7 @@ import GitForm from './git/GitForm.vue';
 import AtomMaterialIcon from './icon/AtomMaterialIcon.vue';
 import Icon from './icon/Icon.vue';
 import MenuItemIcon from './icon/MenuItemIcon.vue';
+import InputList from './input/InputList.vue';
 import InputWithButton from './input/InputWithButton.vue';
 import TagInput from './input/TagInput.vue';
 import TagInputItem from './input/TagInputItem.vue';
@@ -171,6 +172,7 @@ export {
   AtomMaterialIcon as ClAtomMaterialIcon,
   Icon as ClIcon,
   MenuItemIcon as ClMenuItemIcon,
+  InputList as ClInputList,
   InputWithButton as ClInputWithButton,
   TagInput as ClTagInput,
   TagInputItem as ClTagInputItem,

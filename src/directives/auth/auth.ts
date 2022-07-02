@@ -4,7 +4,6 @@ import {getStore} from '@/store';
 
 const auth: Directive<HTMLElement, Auth> = {
   mounted(el, binding) {
-    console.debug(el);
     // router
     const router = getRouter();
 

@@ -30,6 +30,13 @@ export const initDemoRoutes = () => {
             {path: '/demo/chart/line', title: 'Line Chart', icon: ['fa', 'chart-line']},
             {path: '/demo/chart/metric', title: 'Metric', icon: ['fa', 'dashboard']},
           ]
+        },
+        {
+          title: 'Input',
+          icon: ['fa', 'square-check'],
+          children: [
+            {path: '/demo/input/list', title: 'Input List', icon: ['fa', 'list']},
+          ]
         }
       ],
     }

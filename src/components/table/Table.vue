@@ -323,6 +323,7 @@ export default defineComponent({
   width: 0;
 }
 
+.table.embedded >>> .el-table--border .el-table__inner-wrapper tr:first-child td:first-child,
 .table.embedded >>> .el-table.is-scrolling-left.el-table--border tr:first-child td:first-child,
 .table.embedded >>> .el-table--border .el-table__inner-wrapper tr:first-child th:first-child {
   border-left: none;
