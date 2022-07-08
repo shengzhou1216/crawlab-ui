@@ -201,7 +201,7 @@ const actions = {
     return await post(`${endpoint}/${id}/files/rename`, {path, new_path});
   },
   deleteFile: async ({commit}: StoreActionContext<BaseStoreState<Spider>>, {id, path}: FileRequestPayload) => {
-    return await del(`${endpoint}/${id}/files/delete`, {path});
+    return await post(`${endpoint}/${id}/files/delete`, {path});
   },
   copyFile: async ({commit}: StoreActionContext<BaseStoreState<Spider>>, {id, path, new_path}: FileRequestPayload) => {
     return await post(`${endpoint}/${id}/files/copy`, {path, new_path});
