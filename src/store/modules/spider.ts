@@ -26,7 +26,6 @@ const endpoint = '/spiders';
 const {
   get,
   post,
-  del,
   getList,
 } = useRequest();
 

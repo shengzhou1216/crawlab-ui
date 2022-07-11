@@ -4,6 +4,7 @@
       <SpiderDetailActionsCommon/>
       <SpiderDetailActionsFiles v-if="activeTabName === 'files'"/>
       <SpiderDetailActionsGit v-if="activeTabName === 'git'"/>
+      <SpiderDetailActionsData v-if="activeTabName === 'data'"/>
       <slot name="actions-suffix"/>
     </template>
   </DetailLayout>
@@ -20,14 +21,16 @@ import DetailLayout from '@/layouts/content/detail/DetailLayout.vue';
 import useSpiderDetail from '@/views/spider/detail/spiderDetail';
 import SpiderDetailActionsGit from '@/views/spider/detail/actions/SpiderDetailActionsGit.vue';
 import UploadSpiderFilesDialog from '@/components/spider/UploadSpiderFilesDialog.vue';
+import SpiderDetailActionsData from '@/views/spider/detail/actions/SpiderDetailActionsData.vue';
 
 export default defineComponent({
   name: 'SpiderDetail',
   components: {
-    SpiderDetailActionsGit,
     DetailLayout,
     SpiderDetailActionsCommon,
     SpiderDetailActionsFiles,
+    SpiderDetailActionsGit,
+    SpiderDetailActionsData,
     UploadSpiderFilesDialog,
   },
   setup() {

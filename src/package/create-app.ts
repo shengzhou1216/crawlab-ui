@@ -12,7 +12,7 @@ import {initPlugins} from '@/utils/plugin';
 import {initRequest} from '@/services/request';
 import {initUmeng} from '@/admin/umeng';
 import {setGlobalLang} from '@/utils/i18n';
-import {track, locate, auth} from '@/directives';
+import {track, locate, auth, export as export_} from '@/directives';
 import {initDemo} from '@/demo';
 
 export const getDefaultCreateAppOptions = (): CreateAppOptions => {
@@ -31,6 +31,7 @@ export const getDefaultCreateAppOptions = (): CreateAppOptions => {
     loadTrack: true,
     loadLocate: true,
     loadAuth: true,
+    loadExport: true,
     mount: true,
     store: undefined,
     rootRoutes: undefined,
@@ -114,6 +115,7 @@ const createApp = async (options?: CreateAppOptions): Promise<VueApp> => {
   if (options.loadTrack) app.directive('track', track);
   if (options.loadLocate) app.directive('locate', locate);
   if (options.loadAuth) app.directive('auth', auth);
+  if (options.loadExport) app.directive('export', export_);
 
   // mount
   if (options.mount) app.mount(typeof options.mount === 'string' ? options.mount : '#app');

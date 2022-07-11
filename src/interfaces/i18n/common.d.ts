@@ -35,6 +35,7 @@ export declare global {
       viewData: string;
       viewFiles: string;
       uploadFiles: string;
+      export: string;
     };
     messageBox: {
       confirm: {

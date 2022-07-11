@@ -18,6 +18,12 @@ interface LComponentsSpider {
         fileEditorSettings: string;
       };
     };
+    data: {
+      tooltip: {
+        dataActions: string;
+        export: string;
+      };
+    };
   };
   stat: {
     totalTasks: string;

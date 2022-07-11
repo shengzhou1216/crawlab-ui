@@ -14,6 +14,7 @@ export declare global {
     file: LComponentsFile;
     date: LComponentsDate;
     metric: LComponentsMetric;
+    export: LComponentsExport;
 
     // model-related components
     node: LComponentsNode;

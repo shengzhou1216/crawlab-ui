@@ -27,6 +27,7 @@ const common: LCommon = {
     viewData: '查看数据',
     viewFiles: '查看文件',
     uploadFiles: '上传文件',
+    export: '导出',
   },
   messageBox: {
     confirm: {

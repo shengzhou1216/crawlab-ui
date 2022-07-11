@@ -18,6 +18,12 @@ const spider: LComponentsSpider = {
         fileEditorSettings: 'File Editor Settings',
       }
     },
+    data: {
+      tooltip: {
+        dataActions: 'Data Actions',
+        export: 'Export',
+      },
+    }
   },
   stat: {
     totalTasks: 'Total Tasks',

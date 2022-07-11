@@ -17,6 +17,7 @@ export declare global {
     loadTrack?: boolean;
     loadLocate?: boolean;
     loadAuth?: boolean;
+    loadExport?: boolean;
     mount?: boolean | string;
     store?: Store;
     rootRoutes?: Array<RouteRecordRaw>;

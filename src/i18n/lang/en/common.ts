@@ -27,6 +27,7 @@ const common: LCommon = {
     viewData: 'View Data',
     viewFiles: 'View Files',
     uploadFiles: 'Upload Files',
+    export: 'Export',
   },
   messageBox: {
     confirm: {

@@ -22,43 +22,43 @@ declare global {
   }
 
   interface SpiderStoreMutations extends BaseStoreMutations<Spider> {
-    setFileNavItems: StoreMutation<BaseStoreState<Spider>, FileNavItem[]>;
-    setActiveFileNavItem: StoreMutation<BaseStoreState<Spider>, FileNavItem>;
-    resetActiveFileNavItem: StoreMutation<BaseStoreState<Spider>>;
-    setFileMode: StoreMutation<BaseStoreState<Spider>, string>;
-    resetFileMode: StoreMutation<BaseStoreState<Spider>>;
-    setFiles: StoreMutation<BaseStoreState<Spider>, FileWithPath[]>;
-    resetFiles: StoreMutation<BaseStoreState<Spider>>;
-    setFileContent: StoreMutation<BaseStoreState<Spider>, string>;
-    resetFileContent: StoreMutation<BaseStoreState<Spider>>;
-    setDefaultFilePaths: StoreMutation<BaseStoreState<Spider>, string[]>;
-    resetDefaultFilePaths: StoreMutation<BaseStoreState<Spider>>;
-    setCurrentGitBranch: StoreMutation<BaseStoreState<Spider>, string>;
-    resetCurrentGitBranch: StoreMutation<BaseStoreState<Spider>>;
-    setGitData: StoreMutation<BaseStoreState<Spider>, GitData>;
-    resetGitData: StoreMutation<BaseStoreState<Spider>>;
-    setGitChangeSelection: StoreMutation<BaseStoreState<Spider>, GitChange[]>;
-    resetGitChangeSelection: StoreMutation<BaseStoreState<Spider>>;
-    setGitRemoteRefs: StoreMutation<BaseStoreState<Spider>, GitRef[]>;
-    resetGitRemoteRefs: StoreMutation<BaseStoreState<Spider>>;
-    setGitRefType: StoreMutation<BaseStoreState<Spider>, string>;
-    resetGitRefType: StoreMutation<BaseStoreState<Spider>>;
+    setFileNavItems: StoreMutation<SpiderStoreState, FileNavItem[]>;
+    setActiveFileNavItem: StoreMutation<SpiderStoreState, FileNavItem>;
+    resetActiveFileNavItem: StoreMutation<SpiderStoreState>;
+    setFileMode: StoreMutation<SpiderStoreState, string>;
+    resetFileMode: StoreMutation<SpiderStoreState>;
+    setFiles: StoreMutation<SpiderStoreState, FileWithPath[]>;
+    resetFiles: StoreMutation<SpiderStoreState>;
+    setFileContent: StoreMutation<SpiderStoreState, string>;
+    resetFileContent: StoreMutation<SpiderStoreState>;
+    setDefaultFilePaths: StoreMutation<SpiderStoreState, string[]>;
+    resetDefaultFilePaths: StoreMutation<SpiderStoreState>;
+    setCurrentGitBranch: StoreMutation<SpiderStoreState, string>;
+    resetCurrentGitBranch: StoreMutation<SpiderStoreState>;
+    setGitData: StoreMutation<SpiderStoreState, GitData>;
+    resetGitData: StoreMutation<SpiderStoreState>;
+    setGitChangeSelection: StoreMutation<SpiderStoreState, GitChange[]>;
+    resetGitChangeSelection: StoreMutation<SpiderStoreState>;
+    setGitRemoteRefs: StoreMutation<SpiderStoreState, GitRef[]>;
+    resetGitRemoteRefs: StoreMutation<SpiderStoreState>;
+    setGitRefType: StoreMutation<SpiderStoreState, string>;
+    resetGitRefType: StoreMutation<SpiderStoreState>;
   }
 
   interface SpiderStoreActions extends BaseStoreActions<Spider> {
-    runById: StoreAction<BaseStoreState, { id: string; options: SpiderRunOptions }>;
-    listDir: StoreAction<BaseStoreState, FileRequestPayload>;
-    getFile: StoreAction<BaseStoreState, FileRequestPayload>;
-    getFileInfo: StoreAction<BaseStoreState, FileRequestPayload>;
-    saveFile: StoreAction<BaseStoreState, FileRequestPayload>;
-    saveFileBinary: StoreAction<BaseStoreState, FileRequestPayload>;
-    saveDir: StoreAction<BaseStoreState, FileRequestPayload>;
-    renameFile: StoreAction<BaseStoreState, FileRequestPayload>;
-    deleteFile: StoreAction<BaseStoreState, FileRequestPayload>;
-    copyFile: StoreAction<BaseStoreState, FileRequestPayload>;
-    getGit: StoreAction<BaseStoreState, { id: string }>;
-    getGitRemoteRefs: StoreAction<BaseStoreState, { id: string }>;
-    gitPull: StoreAction<BaseStoreState, { id: string; branch: string }>;
-    gitCommit: StoreAction<BaseStoreState, { id: string; commit_message: string }>;
+    runById: StoreAction<SpiderStoreState, { id: string; options: SpiderRunOptions }>;
+    listDir: StoreAction<SpiderStoreState, FileRequestPayload>;
+    getFile: StoreAction<SpiderStoreState, FileRequestPayload>;
+    getFileInfo: StoreAction<SpiderStoreState, FileRequestPayload>;
+    saveFile: StoreAction<SpiderStoreState, FileRequestPayload>;
+    saveFileBinary: StoreAction<SpiderStoreState, FileRequestPayload>;
+    saveDir: StoreAction<SpiderStoreState, FileRequestPayload>;
+    renameFile: StoreAction<SpiderStoreState, FileRequestPayload>;
+    deleteFile: StoreAction<SpiderStoreState, FileRequestPayload>;
+    copyFile: StoreAction<SpiderStoreState, FileRequestPayload>;
+    getGit: StoreAction<SpiderStoreState, { id: string }>;
+    getGitRemoteRefs: StoreAction<SpiderStoreState, { id: string }>;
+    gitPull: StoreAction<SpiderStoreState, { id: string; branch: string }>;
+    gitCommit: StoreAction<SpiderStoreState, { id: string; commit_message: string }>;
   }
 }

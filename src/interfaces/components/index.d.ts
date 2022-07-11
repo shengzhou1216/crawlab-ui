@@ -3,3 +3,4 @@ export * from './form';
 export * from './tag';
 export * from './select';
 export * from './input';
+export * from './export';

@@ -11,6 +11,7 @@ import form from './form';
 import file from './file';
 import date from './date';
 import metric from './metric';
+import export_ from './export';
 
 import node from './node';
 import project from './project';
@@ -35,6 +36,7 @@ const components: LComponents = {
   file,
   date,
   metric,
+  export: export_,
 
   node,
   project,

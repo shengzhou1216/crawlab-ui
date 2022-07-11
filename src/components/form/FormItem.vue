@@ -155,7 +155,7 @@ export default defineComponent({
       if (formItem.value) {
         const {labelWidth} = formContext;
         const el = formItem.value?.querySelector('.el-form-item__content') as HTMLDivElement;
-        if (labelWidth && el.style) {
+        if (labelWidth && el?.style) {
           el.style.width = `calc(100% - ${labelWidth})`;
         }
       }
