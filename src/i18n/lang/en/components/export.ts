@@ -6,9 +6,12 @@ const export_: LComponentsExport = {
     xlsx: 'Excel',
   },
   exporting: {
-    csv: 'Currently exporting CSV file',
-    json: 'Currently exporting JSON file',
-    xlsx: 'Currently exporting Excel file',
+    csv: 'Currently exporting CSV file, please wait...',
+    json: 'Currently exporting JSON file, please wait...',
+    xlsx: 'Currently exporting Excel file, please wait...',
+  },
+  status: {
+    exporting: 'Exporting...',
   },
 };
 export default export_;

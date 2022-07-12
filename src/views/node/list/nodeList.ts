@@ -3,7 +3,12 @@ import {useStore} from 'vuex';
 import {getDefaultUseListOptions, setupListComponent} from '@/utils/list';
 import {computed, h} from 'vue';
 import NodeType from '@/components/node/NodeType.vue';
-import {TABLE_COLUMN_NAME_ACTIONS, TABLE_ACTION_EDIT, TABLE_ACTION_CUSTOMIZE_COLUMNS} from '@/constants/table';
+import {
+  TABLE_COLUMN_NAME_ACTIONS,
+  TABLE_ACTION_EDIT,
+  TABLE_ACTION_CUSTOMIZE_COLUMNS,
+  TABLE_ACTION_EXPORT
+} from '@/constants/table';
 import {ElMessageBox} from 'element-plus';
 import useNodeService from '@/services/node/nodeService';
 import NavLink from '@/components/nav/NavLink.vue';
@@ -290,6 +295,7 @@ const useNodeList = () => {
   // visible table actions buttons
   const visibleButtons: BuiltInTableActionButtonName[] = [
     TABLE_ACTION_EDIT,
+    TABLE_ACTION_EXPORT,
     TABLE_ACTION_CUSTOMIZE_COLUMNS,
   ];
 

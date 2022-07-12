@@ -10,4 +10,7 @@ interface LComponentsExport {
     json: string;
     xlsx: string;
   };
+  status: {
+    exporting: string;
+  };
 }

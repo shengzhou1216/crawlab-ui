@@ -194,9 +194,6 @@ export default defineComponent({
     'delete',
   ],
   setup(props: ListLayoutProps, {emit}: SetupContext) {
-    // route
-    const route = useRoute();
-
     const {
       actionFunctions,
     } = toRefs(props);

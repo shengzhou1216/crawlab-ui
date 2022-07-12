@@ -5,6 +5,7 @@ import {sendEvent} from '@/admin/umeng';
 import {downloadData, translate} from '@/utils';
 import {ElMessageBox, ElNotification, NotificationHandle} from 'element-plus';
 import useExportService from '@/services/export/exportService';
+import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
 
 // i18n
 const t = translate;
@@ -126,8 +127,28 @@ const export_: Directive<HTMLElement, ExportDirective> = {
 
       // notification
       const notification = ElNotification({
-        title: t('common.actions.export'),
-        message: t(`components.export.exporting.${exportType.value}`),
+        title: t('components.export.status.exporting'),
+        message: h('div',
+          {
+            style: {
+              display: 'flex',
+              alignItems: 'center',
+            },
+          },
+          [
+            h(FontAwesomeIcon, {
+              class: 'fa-spin',
+              icon: ['fa', 'spinner'],
+              spinning: true,
+              style: {
+                width: '14px',
+                height: '14px',
+                marginRight: '8px',
+              }
+            }),
+            t('span', t(`components.export.exporting.${exportType.value}`)),
+          ],
+        ),
         duration: 0,
         showClose: false,
       });

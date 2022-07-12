@@ -32,17 +32,23 @@
       type="danger"
       @click="onDelete"
     />
-    <FaIconButton
-      v-if="showButton(TABLE_ACTION_EXPORT)"
-      :icon="['fa', 'file-export']"
-      id="export-btn"
-      class="action-btn export-btn"
-      size="small"
-      :tooltip="`${t('components.table.actions.export')} (${t('common.status.currentlyUnavailable')})`"
-      type="primary"
-      disabled
-      @click="onExport"
-    />
+    <div
+      v-export="{
+        target,
+        conditions,
+      }"
+    >
+      <FaIconButton
+        v-if="showButton(TABLE_ACTION_EXPORT)"
+        :icon="['fa', 'file-export']"
+        id="export-btn"
+        class="action-btn export-btn"
+        size="small"
+        :tooltip="`${t('components.table.actions.export')}`"
+        type="primary"
+        @click="onExport"
+      />
+    </div>
     <FaIconButton
       v-if="showButton(TABLE_ACTION_CUSTOMIZE_COLUMNS)"
       :icon="['fa', 'arrows-alt']"
@@ -58,13 +64,14 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, PropType} from 'vue';
+import {defineComponent, inject, PropType} from 'vue';
 import FaIconButton from '@/components/button/FaIconButton.vue';
 import {ACTION_ADD, ACTION_DELETE, ACTION_EDIT,} from '@/constants/action';
 import {TABLE_ACTION_CUSTOMIZE_COLUMNS, TABLE_ACTION_EXPORT,} from '@/constants/table';
 import {useI18n} from 'vue-i18n';
 import {useStore} from 'vuex';
 import {useRoute} from 'vue-router';
+import {getPrimaryPath} from '@/utils';
 
 export default defineComponent({
   name: 'TableActions',
@@ -134,6 +141,21 @@ export default defineComponent({
       return actionVisibleFn(currentRoutePath, name);
     };
 
+    // export target
+    const target = () => {
+      const primaryPath = getPrimaryPath(route.path);
+      return primaryPath.replace(/^\//, '');
+    };
+
+    // store context
+    const storeContext = inject<ListStoreContext<BaseModel>>('store-context');
+
+    // export conditions
+    const conditions = () => {
+      const state = storeContext?.state;
+      return state?.tableListFilter || [];
+    };
+
     return {
       ACTION_ADD,
       ACTION_EDIT,
@@ -146,6 +168,8 @@ export default defineComponent({
       onExport,
       onCustomizeColumns,
       showButton,
+      target,
+      conditions,
       t,
     };
   },
