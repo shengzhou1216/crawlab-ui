@@ -3,4 +3,5 @@ interface ResultListProps {
   dataSourceId?: string;
   noActions?: boolean;
   embedded?: boolean;
+  visibleButtons?: BuiltInTableActionButtonName[];
 }

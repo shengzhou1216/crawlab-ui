@@ -6,6 +6,7 @@
     :table-columns="tableColumns"
     :table-data="tableData"
     :table-total="tableTotal"
+    :visible-buttons="visibleButtons"
     :embedded="embedded"
     class="result-list"
   >
@@ -15,9 +16,10 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, watch} from 'vue';
+import {computed, defineComponent, PropType, watch} from 'vue';
 import ListLayout from '@/layouts/content/list/ListLayout.vue';
 import {useStore} from 'vuex';
+import {TABLE_ACTION_CUSTOMIZE_COLUMNS} from '@/constants';
 
 export default defineComponent({
   name: 'ResultList',
@@ -41,6 +43,14 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    visibleButtons: {
+      type: Array as PropType<BuiltInTableActionButtonName[]>,
+      default: () => {
+        return [
+          TABLE_ACTION_CUSTOMIZE_COLUMNS,
+        ];
+      }
+    }
   },
   setup(props: ResultListProps) {
     // store
