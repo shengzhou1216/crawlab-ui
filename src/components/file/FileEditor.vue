@@ -884,4 +884,7 @@ export default defineComponent({
   color: inherit;
   outline: none;
 }
+
+.file-editor .file-editor-content .code-mirror-editor >>> .CodeMirror-line {
+}
 </style>

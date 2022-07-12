@@ -13,7 +13,7 @@ const getDefaultEditorOptions = (): FileEditorConfiguration => {
     electricChars: true,
     keyMap: 'default',
     lineWrapping: false,
-    lineNumbers: true,
+    lineNumbers: false,
     showCursorWhenSelecting: false,
     lineWiseCopyCut: true,
     pasteLinesPerSelection: true,
