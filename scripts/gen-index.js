@@ -76,10 +76,15 @@ const genIndex = (moduleName) => {
       ].includes(moduleName)) return;
 
       // component name
-      const compName = fileName.replace('.ts', '')
+      let compName = fileName.replace('.ts', '')
 
       // skip index
       if (compName === INDEX_COMP_NAME) return
+
+      // add suffix to component name
+      if (compName === 'export') {
+        compName += '_';
+      }
 
       // relative component name
       const relCompName = relPath.replace('.ts', '')

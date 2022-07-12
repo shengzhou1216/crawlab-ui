@@ -21,6 +21,7 @@ import DraggableItemContent from './drag/DraggableItemContent.vue';
 import DraggableList from './drag/DraggableList.vue';
 import Empty from './empty/Empty.vue';
 import ImgEmpty from './empty/ImgEmpty.vue';
+import ExportForm from './export/ExportForm.vue';
 import FileEditor from './file/FileEditor.vue';
 import FileEditorNavMenu from './file/FileEditorNavMenu.vue';
 import FileEditorNavMenuContextMenu from './file/FileEditorNavMenuContextMenu.vue';
@@ -151,6 +152,7 @@ export {
   DraggableList as ClDraggableList,
   Empty as ClEmpty,
   ImgEmpty as ClImgEmpty,
+  ExportForm as ClExportForm,
   FileEditor as ClFileEditor,
   FileEditorNavMenu as ClFileEditorNavMenu,
   FileEditorNavMenuContextMenu as ClFileEditorNavMenuContextMenu,

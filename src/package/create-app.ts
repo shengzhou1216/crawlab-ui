@@ -12,7 +12,7 @@ import {initPlugins} from '@/utils/plugin';
 import {initRequest} from '@/services/request';
 import {initUmeng} from '@/admin/umeng';
 import {setGlobalLang} from '@/utils/i18n';
-import {track, locate, auth, export as export_} from '@/directives';
+import {track, locate, auth, export_} from '@/directives';
 import {initDemo} from '@/demo';
 
 export const getDefaultCreateAppOptions = (): CreateAppOptions => {
