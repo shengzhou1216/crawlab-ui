@@ -46,7 +46,7 @@ export default defineComponent({
       spider: spiderState,
     } = store.state as RootStoreState;
 
-    // spider
+    // spider col name
     const colName = () => spiderState.form.col_name as string;
 
     // export type

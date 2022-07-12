@@ -16,23 +16,53 @@ const {
   getExportDownload,
 } = useExportService();
 
+const getTargetFromBinding = (value: string | Function): string => {
+  let target: string;
+  if (typeof value === 'string') {
+    target = value;
+  } else if (typeof value === 'function') {
+    target = value();
+  } else {
+    return '';
+  }
+  return target;
+};
+
+const getConditionsFromBinding = (value?: FilterConditionData[] | Function): FilterConditionData[] => {
+  let conditions: FilterConditionData[];
+  if (Array.isArray(value)) {
+    conditions = value;
+  } else if (typeof value === 'function') {
+    conditions = value();
+  } else {
+    return [];
+  }
+  return conditions;
+};
+
 const export_: Directive<HTMLElement, ExportDirective> = {
   mounted(el, binding) {
     const getTarget = (): string => {
       let target: string;
-      if (typeof binding.value === 'string') {
-        console.debug('string', binding, binding.value);
-        target = binding.value;
-      } else if (typeof binding.value === 'function') {
-        console.debug('function', binding, binding.value);
-        target = binding.value();
+      if (typeof binding.value === 'string' || typeof binding.value === 'function') {
+        target = getTargetFromBinding(binding.value);
+      } else if (typeof binding.value === 'object') {
+        target = getTargetFromBinding(binding.value.target);
       } else {
         return '';
       }
-      console.debug(target);
       return target;
     };
 
+    const getConditions = (): FilterConditionData[] => {
+      let conditions: FilterConditionData[] = [];
+      if (typeof binding.value === 'object') {
+        conditions = getConditionsFromBinding(binding.value.conditions);
+      } else {
+        return [];
+      }
+      return conditions;
+    };
 
     // export cache
     const exportCache = new Map<string, Export>();
@@ -85,7 +115,7 @@ const export_: Directive<HTMLElement, ExportDirective> = {
       });
 
       // perform export
-      const res = await postExport(exportType.value, getTarget());
+      const res = await postExport(exportType.value, getTarget(), getConditions());
       const exportId = res.data;
       if (!exportId) return;
       exportCache.set(exportId, {

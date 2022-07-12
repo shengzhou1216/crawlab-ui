@@ -6,8 +6,11 @@ const {
 } = useRequest();
 
 const useExportService = () => {
-  const postExport = async (type: ExportType, target: string) => {
-    return await post<string>(`/export/${type}`, undefined, {target});
+  const postExport = async (type: ExportType, target: string, conditions?: FilterConditionData[]) => {
+    return await post<string>(`/export/${type}`, undefined, {
+      target,
+      conditions: JSON.stringify(conditions || ''),
+    });
   };
 
   const getExport = async (type: ExportType, id: string) => {
