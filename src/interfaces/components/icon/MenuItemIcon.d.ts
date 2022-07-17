@@ -1,4 +1,6 @@
-interface MenuItemIconProps {
-  item?: MenuItem;
-  size: IconSize;
+export declare global {
+  interface MenuItemIconProps {
+    item?: MenuItem;
+    size: IconSize;
+  }
 }
