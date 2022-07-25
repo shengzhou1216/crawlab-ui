@@ -623,10 +623,8 @@ export default defineComponent({
     };
 
     watch(options, async () => {
-      await Promise.all([
-        updateMode(),
-        updateTheme(),
-      ]);
+      updateMode();
+      await updateTheme();
       updateEditorOptions();
       updateStyle();
     });
@@ -666,6 +664,12 @@ export default defineComponent({
 
       // listen to keyboard events key
       listenToKeyboardEvents();
+
+      // by default show line numbers (this is a hack to make line numbers visible)
+      store.commit(`file/setEditorOptions`, {
+        ...options.value,
+        lineNumbers: true,
+      });
 
       // init codemirror template
       const elTemplate = codeMirrorTemplate.value as HTMLElement;
@@ -885,6 +889,6 @@ export default defineComponent({
   outline: none;
 }
 
-.file-editor .file-editor-content .code-mirror-editor >>> .CodeMirror-line {
+.file-editor .file-editor-content .code-mirror-editor >>> .CodeMirror-linenumber {
 }
 </style>
