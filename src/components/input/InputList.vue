@@ -40,9 +40,11 @@
 
 <script lang="ts">
 import {defineComponent, PropType, ref, watch} from 'vue';
-import {cloneArray} from '@/utils';
+import {cloneArray, translate} from '@/utils';
 import Tag from '@/components/tag/Tag.vue';
-import {useI18n} from 'vue-i18n';
+
+// i18n
+const t = translate;
 
 export default defineComponent({
   name: 'InputList',
@@ -74,8 +76,6 @@ export default defineComponent({
     'update:model-value'
   ],
   setup(props: InputListProps, {emit}) {
-    const {t} = useI18n();
-
     const internalModelValue = ref(props.modelValue);
 
     const getOnChangeFn = (index: number) => {
