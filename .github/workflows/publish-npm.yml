@@ -19,10 +19,10 @@ jobs:
           registry-url: https://registry.npmjs.com/
       - name: Get version
         run: echo "TAG_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-      - name: Initial setup
-        run: |
-          rm .npmrc | true
-          rm yarn.lock | true
+#      - name: Initial setup
+#        run: |
+#          rm .npmrc | true
+#          rm yarn.lock | true
       - name: Install dependencies
         run: yarn install
       - name: Build
