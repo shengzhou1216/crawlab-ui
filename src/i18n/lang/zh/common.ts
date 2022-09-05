@@ -77,6 +77,7 @@ const common: LCommon = {
     invalid: '无效',
     currentlyUnavailable: '暂不可用',
     unauthorized: '未授权',
+    loading: '加载中',
   },
   mode: {
     default: '默认',

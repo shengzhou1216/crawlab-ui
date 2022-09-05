@@ -9,29 +9,42 @@
         :icon="['fa', 'download']"
         :tooltip="t('components.git.actions.tooltip.pull')"
         type="primary"
+        :disabled="!gitForm.url || !gitForm.auth_type"
         @click="onClickPull"
       />
       <FaIconButton
         :icon="['fa', 'upload']"
         :tooltip="t('components.git.actions.tooltip.commit')"
         type="success"
+        :disabled="!gitForm.url || !gitForm.auth_type"
         @click="onClickCommit"
       />
-      <div class="branch">
+      <div v-if="gitCurrentBranch || gitCurrentBranchLoading" class="branch">
         <Tag
-          class="branch-label"
-          :label="currentBranch"
+          v-if="gitCurrentBranchLoading"
+          class-name="current-branch-loading"
+          type="warning"
+          :label="t('components.git.common.status.loading.label')"
+          :tooltip="t('components.git.common.status.loading.tooltip')"
+          :icon="['fa','spinner']"
+          spinning
+          size="large"
+        />
+        <Tag
+          v-else
+          class-name="current-branch"
+          type="primary"
           :icon="['fa','code-branch']"
           size="large"
+          :label="gitCurrentBranch"
           @click="onBranchClick"
         >
           <template #tooltip>
             <span>{{ t('components.git.common.currentBranch') }}:</span>
             <span
-              class="current-branch"
               style="color: #409eff; margin-left: 5px; font-weight: bolder"
             >
-              {{ currentBranch }}
+              {{ gitCurrentBranch }}
             </span>
           </template>
         </Tag>
@@ -49,7 +62,7 @@ import NavActionFaIcon from '@/components/nav/NavActionFaIcon.vue';
 import Tag from '@/components/tag/Tag.vue';
 import {useStore} from 'vuex';
 import {useI18n} from 'vue-i18n';
-import useSpiderDetail from '@/views/spider/detail/spiderDetail';
+import useSpiderDetail from '@/views/spider/detail/useSpiderDetail';
 
 export default defineComponent({
   name: 'SpiderDetailActionsGit',
@@ -69,17 +82,19 @@ export default defineComponent({
     const store = useStore();
     const {
       spider: state,
+      git: gitState,
     } = store.state as RootStoreState;
 
     const {
-      gitActions,
+      gitCurrentBranch,
     } = useSpiderDetail();
 
-    const currentBranch = computed<string>(() => state.currentGitBranch);
+    // git form
+    const gitForm = computed<Git>(() => gitState.form);
 
     const internalBranch = ref<string>('');
 
-    watch(() => currentBranch.value, () => internalBranch.value = currentBranch.value);
+    watch(() => gitCurrentBranch.value, () => internalBranch.value = gitCurrentBranch.value || '');
 
     const branches = computed<SelectOption[]>(() => {
       return state.gitData.branches?.map(branch => {
@@ -105,14 +120,15 @@ export default defineComponent({
     };
 
     return {
-      currentBranch,
+      ...useSpiderDetail(),
+      gitForm,
+      gitCurrentBranch,
       internalBranch,
       branches,
       isBranchClicked,
       onBranchClick,
       onBranchCancel,
       onBranchCheckout,
-      ...gitActions,
       t,
     };
   },

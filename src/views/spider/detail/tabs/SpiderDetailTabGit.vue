@@ -26,6 +26,8 @@
           </el-radio-button>
         </el-radio-group>
         <LabelButton
+          id="checkout-btn"
+          class-name="checkout-btn"
           :type="!loading.checkout ? 'primary' : 'warning'"
           :icon="!loading.checkout ? ['fa', 'code-branch'] : null"
           :label="t('components.git.actions.label.checkout')"
@@ -35,6 +37,8 @@
           @click="onClickCheckout"
         />
         <LabelButton
+          id="pull-btn"
+          class-name="pull-btn"
           :type="!loading.pull ? 'primary' : 'warning'"
           :icon="!loading.pull ? ['fa', 'download'] : null"
           :label="t('components.git.actions.label.pull')"
@@ -44,6 +48,8 @@
           @click="onClickPull"
         />
         <LabelButton
+          id="commit-btn"
+          class-name="commit-btn"
           :type="!loading.commit ? 'success' : 'warning'"
           :icon="!loading.commit ? ['fa', 'paper-plane'] : null"
           :label="t('components.git.actions.label.commit')"
@@ -62,6 +68,8 @@
     <SpiderDetailTabGitChanges v-else-if="activeTabKey === 'changes'"/>
     <SpiderDetailTabGitIgnore v-else-if="activeTabKey === 'ignore'"/>
   </div>
+
+  <!--Checkout Dialog-->
   <Dialog
     :visible="dialogVisible.checkout"
     title="Checkout"
@@ -69,10 +77,16 @@
     @close="onDialogCheckoutClose"
   >
     <Form ref="checkoutFormRef" :model="checkoutForm">
-      <FormItem :span="4" :label="t('components.git.checkout.type')" prop="type" required>
+      <FormItem
+        id="checkout-form-item-ref-type"
+        class="checkout-form-item-ref-type"
+        :span="4"
+        :label="t('components.git.checkout.type')"
+        prop="type"
+        required
+      >
         <el-radio-group
           v-model="checkoutForm.type"
-          class="ref-type-select"
         >
           <el-radio-button :label="GIT_REF_TYPE_BRANCH">
             <font-awesome-icon :icon="['fa', 'code-branch']"/>
@@ -84,8 +98,17 @@
           </el-radio-button>
         </el-radio-group>
       </FormItem>
-      <FormItem :span="4" :label="t('components.git.checkout.reference')" prop="name" required>
-        <el-select v-model="checkoutForm.name">
+      <FormItem
+        id="checkout-form-item-name"
+        class="checkout-form-item-name"
+        :span="4"
+        :label="t('components.git.checkout.reference')"
+        prop="name"
+        required
+      >
+        <el-select
+          v-model="checkoutForm.name"
+        >
           <el-option
             v-for="(op, $index) in gitRemoteRefs"
             :key="$index"
@@ -96,6 +119,7 @@
       </FormItem>
     </Form>
   </Dialog>
+  <!--./Checkout Dialog-->
 </template>
 
 <script lang="ts">
@@ -104,7 +128,7 @@ import {useStore} from 'vuex';
 import {useRoute} from 'vue-router';
 import LabelButton from '@/components/button/LabelButton.vue';
 import NavTabs from '@/components/nav/NavTabs.vue';
-import useSpiderDetail from '@/views/spider/detail/spiderDetail';
+import useSpiderDetail from '@/views/spider/detail/useSpiderDetail';
 import SpiderDetailTabGitChanges from '@/views/spider/detail/tabs/git/SpiderDetailTabGitChanges.vue';
 import SpiderDetailTabGitLogs from '@/views/spider/detail/tabs/git/SpiderDetailTabGitLogs.vue';
 import SpiderDetailTabGitIgnore from '@/views/spider/detail/tabs/git/SpiderDetailTabGitIgnore.vue';
@@ -161,7 +185,6 @@ export default defineComponent({
       gitCheckoutFormRef,
       gitCheckoutForm,
       gitLoading,
-      gitActions,
       activeId,
     } = useSpiderDetail();
 
@@ -169,16 +192,19 @@ export default defineComponent({
     const gitChanges = computed<GitChange[]>(() => state.gitData?.changes || []);
 
     // tab items
-    const tabItems = computed<NavItem[]>(() => [
-      {id: 'remote', title: t('components.git.tabs.remote')},
-      {id: 'references', title: t('components.git.tabs.references')},
-      {id: 'logs', title: t('components.git.tabs.logs')},
-      {
-        id: 'changes',
-        title: gitChanges.value?.length > 0 ? `${t('components.git.tabs.changes')} (${gitChanges.value.length})` : t('components.git.tabs.changes')
-      },
-      {id: 'ignore', title: t('components.git.tabs.ignore')},
-    ]);
+    const tabItems = computed<NavItem[]>(() => {
+      return [
+        {id: 'remote', title: t('components.git.tabs.remote')},
+        {id: 'references', title: t('components.git.tabs.references'), disabled: !gitCurrentBranch.value},
+        {id: 'logs', title: t('components.git.tabs.logs'), disabled: !gitCurrentBranch.value},
+        {
+          id: 'changes',
+          title: gitChanges.value?.length > 0 ? `${t('components.git.tabs.changes')} (${gitChanges.value.length})` : t('components.git.tabs.changes'),
+          disabled: !gitCurrentBranch.value
+        },
+        {id: 'ignore', title: t('components.git.tabs.ignore'), disabled: !gitCurrentBranch.value},
+      ] as NavItem[];
+    });
 
     const onTabSelect = (key: string) => {
       activeTabKey.value = key;
@@ -186,14 +212,16 @@ export default defineComponent({
       sendEvent('click_spider_detail_git_tab_select', {tabKey: key});
     };
 
+    const {
+      gitCurrentBranch,
+    } = useSpiderDetail();
+
     const gitChangeSelection = computed<TableData<GitChange>>(() => state.gitChangeSelection);
 
-
     watch(() => gitDialogVisible.value.checkout, async () => {
-      if (state.currentGitBranch) {
-        gitCheckoutForm.value.name = state.currentGitBranch;
+      if (gitCurrentBranch.value) {
+        gitCheckoutForm.value.name = gitCurrentBranch.value;
       }
-      await store.dispatch(`${ns}/getGitRemoteRefs`, {id: id.value});
     });
 
     const internalGitRefType = ref<string>(GIT_REF_TYPE_BRANCH);
@@ -232,21 +260,16 @@ export default defineComponent({
     };
 
     const getData = async () => {
+      await store.dispatch(`${gitNs}/getById`, id.value);
+
       // get git
-      await Promise.all([
-        store.dispatch(`${ns}/getGit`, {id: id.value})
-      ]);
+      await store.dispatch(`${ns}/getGit`, {id: id.value});
 
       // git
       const git = state.gitData?.git;
       if (!git) return;
 
-      // set git form if git data exists
-      if (git?._id) {
-        store.commit(`${gitNs}/setForm`, git);
-      }
-
-      // request remote references if url and auth type are set
+      // get remote refs and git form if url is set
       if (git?.url && git?.auth_type) {
         await store.dispatch(`${ns}/getGitRemoteRefs`, {id: id.value});
       }
@@ -261,6 +284,7 @@ export default defineComponent({
     onBeforeUnmount(() => store.commit(`${ns}/resetGitRefType`));
 
     return {
+      ...useSpiderDetail(),
       dialogVisible: gitDialogVisible,
       gitForm,
       activeTabKey,
@@ -277,7 +301,6 @@ export default defineComponent({
       onDialogCheckoutClose,
       onRefTypeChange,
       loading: gitLoading,
-      ...gitActions,
       t,
     };
   },

@@ -1,19 +1,19 @@
 <template>
   <div class="git-logs">
-    <Table
-        :data="tableData"
-        :columns="tableColumns"
-        :page="tablePagination.page"
-        :page-size="tablePagination.size"
-        :total="allTableData.length"
-        :visible-buttons="[TABLE_ACTION_CUSTOMIZE_COLUMNS]"
-        @pagination-change="onPaginationChange"
+    <ClTable
+      :data="tableData"
+      :columns="tableColumns"
+      :page="tablePagination.page"
+      :page-size="tablePagination.size"
+      :total="allTableData.length"
+      :visible-buttons="[TABLE_ACTION_CUSTOMIZE_COLUMNS]"
+      @pagination-change="onPaginationChange"
     />
   </div>
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, h, ref} from 'vue';
+import {computed, defineComponent, h, onBeforeMount, ref} from 'vue';
 import {useStore} from 'vuex';
 import Table from '@/components/table/Table.vue';
 import Time from '@/components/time/Time.vue';
@@ -21,11 +21,12 @@ import Tag from '@/components/tag/Tag.vue';
 import {GIT_REF_TYPE_BRANCH} from '@/constants/git';
 import {TABLE_ACTION_CUSTOMIZE_COLUMNS} from '@/constants/table';
 import {useI18n} from 'vue-i18n';
+import useSpiderDetail from '../../useSpiderDetail';
 
 export default defineComponent({
   name: 'SpiderDetailTabGitLogs',
   components: {
-    Table,
+    ClTable: Table,
   },
   setup() {
     // i18n
@@ -37,6 +38,10 @@ export default defineComponent({
     const {
       spider: state,
     } = store.state as RootStoreState;
+
+    const {
+      activeId,
+    } = useSpiderDetail();
 
     // table pagination
     const tablePagination = ref<TablePagination>({
@@ -78,13 +83,13 @@ export default defineComponent({
         {
           key: 'msg',
           label: t('components.git.logs.table.columns.commitMessage'),
-          width: '680',
+          width: '650',
           icon: ['fa', 'comment-alt'],
         },
         {
           key: 'author',
           label: t('components.git.logs.table.columns.author'),
-          width: '200',
+          width: '250',
           icon: ['fa', 'user'],
           value: (row: GitLog) => {
             return `${row.author_name}${row.author_email ? (' (' + row.author_email + ')') : ''}`;
@@ -93,7 +98,7 @@ export default defineComponent({
         {
           key: 'timestamp',
           label: t('components.git.logs.table.columns.timestamp'),
-          width: '180',
+          width: '200',
           icon: ['fa', 'clock'],
           fixed: 'right',
           value: (row: GitLog) => {
@@ -101,6 +106,10 @@ export default defineComponent({
           }
         }
       ] as TableColumns<GitLog>;
+    });
+
+    onBeforeMount(async () => {
+      store.dispatch(`${ns}/getGit`, {id: activeId.value});
     });
 
     return {

@@ -51,11 +51,11 @@ const state = {
   files: [],
   fileContent: '',
   defaultFilePaths: [],
-  currentGitBranch: '',
   gitData: {},
   gitChangeSelection: [],
   gitRemoteRefs: [],
   gitRefType: GIT_REF_TYPE_BRANCH,
+  gitCurrentBranchLoading: false,
 } as SpiderStoreState;
 
 const getters = {
@@ -68,6 +68,14 @@ const getters = {
       }
     });
     return m;
+  },
+  gitBranchSelectOptions: (state: SpiderStoreState) => {
+    return state.gitRemoteRefs
+      .filter(r => r.type === GIT_REF_TYPE_BRANCH)
+      .map(r => ({
+        label: r.name,
+        value: r.name,
+      }));
   },
 } as SpiderStoreGetters;
 
@@ -106,12 +114,6 @@ const mutations = {
   resetDefaultFilePaths: (state: SpiderStoreState) => {
     state.defaultFilePaths = [];
   },
-  setCurrentGitBranch: (state: SpiderStoreState, branch: string) => {
-    state.currentGitBranch = branch;
-  },
-  resetCurrentGitBranch: (state: SpiderStoreState) => {
-    state.currentGitBranch = '';
-  },
   setGitData: (state: SpiderStoreState, data: GitData) => {
     state.gitData = data;
   },
@@ -119,6 +121,7 @@ const mutations = {
     state.gitData = {};
   },
   setGitChangeSelection: (state: SpiderStoreState, selection: GitChange[]) => {
+    debugger
     state.gitChangeSelection = selection;
   },
   resetGitChangeSelection: (state: SpiderStoreState) => {
@@ -135,6 +138,9 @@ const mutations = {
   },
   resetGitRefType: (state: SpiderStoreState) => {
     state.gitRefType = GIT_REF_TYPE_BRANCH;
+  },
+  setGitCurrentBranchLoading: (state: SpiderStoreState, loading: boolean) => {
+    state.gitCurrentBranchLoading = loading;
   },
 } as SpiderStoreMutations;
 
@@ -206,18 +212,26 @@ const actions = {
     return await post(`${endpoint}/${id}/files/copy`, {path, new_path});
   },
   getGit: async ({commit}: StoreActionContext<BaseStoreState<Spider>>, {id}: { id: string }) => {
-    const res = await get(`${endpoint}/${id}/git`);
-    commit('setCurrentGitBranch', res?.data?.current_branch || '');
-    commit('setGitData', res?.data || {});
-    return res;
+    try {
+      commit('setGitCurrentBranchLoading', true);
+      const res = await get(`${endpoint}/${id}/git`);
+      commit('setGitData', res?.data || {});
+      return res;
+    } finally {
+      commit('setGitCurrentBranchLoading', false);
+    }
   },
   getGitRemoteRefs: async ({commit}: StoreActionContext<BaseStoreState<Spider>>, {id}: { id: string }) => {
     const res = await get(`${endpoint}/${id}/git/remote-refs`);
     commit('setGitRemoteRefs', res?.data || []);
     return res;
   },
-  gitPull: async ({state}: StoreActionContext<SpiderStoreState>, {id, branch}: { id: string; branch: string }) => {
-    const res = await post(`${endpoint}/${id}/git/pull`, {branch});
+  gitCheckout: async ({state}: StoreActionContext<SpiderStoreState>, {id, branch}: { id: string; branch: string }) => {
+    const res = await post(`${endpoint}/${id}/git/checkout`, {branch});
+    return res;
+  },
+  gitPull: async ({state}: StoreActionContext<SpiderStoreState>, {id}: { id: string }) => {
+    const res = await post(`${endpoint}/${id}/git/pull`);
     return res;
   },
   gitCommit: async ({state}: StoreActionContext<SpiderStoreState>, {
@@ -225,6 +239,7 @@ const actions = {
     commit_message
   }: { id: string; commit_message: string }) => {
     const paths = state.gitChangeSelection.map(d => d.path);
+    console.debug(paths);
     const res = await post(`${endpoint}/${id}/git/commit`, {paths, commit_message});
     return res;
   },

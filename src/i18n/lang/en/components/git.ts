@@ -1,6 +1,7 @@
 const git: LComponentsGit = {
   form: {
     remoteUrl: 'Remote URL',
+    currentBranch: 'Current Branch',
     authType: 'Auth Type',
     username: 'Username',
     password: 'Password',
@@ -29,7 +30,13 @@ const git: LComponentsGit = {
     actions: {
       pull: 'Git Pull',
       commit: 'Git Commit',
-    }
+    },
+    status: {
+      loading: {
+        label: 'Loading',
+        tooltip: 'Loading Git data from remote, please wait...',
+      },
+    },
   },
   actions: {
     title: 'Git Actions',

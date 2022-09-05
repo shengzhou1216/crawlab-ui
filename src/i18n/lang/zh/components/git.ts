@@ -1,6 +1,7 @@
 const git: LComponentsGit = {
   form: {
     remoteUrl: '远程 URL',
+    currentBranch: '当前分支',
     authType: '验证类型',
     username: '用户名',
     password: '密码',
@@ -29,7 +30,13 @@ const git: LComponentsGit = {
     actions: {
       pull: '拉取代码',
       commit: '提交代码',
-    }
+    },
+    status: {
+      loading: {
+        label: '加载中',
+        tooltip: '正在加载远程 Git 数据, 请稍后...',
+      },
+    },
   },
   actions: {
     title: 'Git 操作',

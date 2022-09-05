@@ -10,15 +10,16 @@ declare global {
     files: FileWithPath[];
     fileContent: string;
     defaultFilePaths: string[];
-    currentGitBranch: string;
     gitData: GitData;
     gitChangeSelection: TableData<GitChange>;
     gitRemoteRefs: GitRef[];
     gitRefType: string;
+    gitCurrentBranchLoading: boolean;
   }
 
   interface SpiderStoreGetters extends BaseStoreGetters<SpiderStoreState> {
     gitLogsMap: StoreGetter<SpiderStoreState, Map<string, GitLog>>;
+    gitBranchSelectOptions: StoreGetter<SpiderStoreState, SelectOption[]>;
   }
 
   interface SpiderStoreMutations extends BaseStoreMutations<Spider> {
@@ -33,8 +34,6 @@ declare global {
     resetFileContent: StoreMutation<SpiderStoreState>;
     setDefaultFilePaths: StoreMutation<SpiderStoreState, string[]>;
     resetDefaultFilePaths: StoreMutation<SpiderStoreState>;
-    setCurrentGitBranch: StoreMutation<SpiderStoreState, string>;
-    resetCurrentGitBranch: StoreMutation<SpiderStoreState>;
     setGitData: StoreMutation<SpiderStoreState, GitData>;
     resetGitData: StoreMutation<SpiderStoreState>;
     setGitChangeSelection: StoreMutation<SpiderStoreState, GitChange[]>;
@@ -43,6 +42,7 @@ declare global {
     resetGitRemoteRefs: StoreMutation<SpiderStoreState>;
     setGitRefType: StoreMutation<SpiderStoreState, string>;
     resetGitRefType: StoreMutation<SpiderStoreState>;
+    setGitCurrentBranchLoading: StoreMutation<SpiderStoreState, boolean>;
   }
 
   interface SpiderStoreActions extends BaseStoreActions<Spider> {
@@ -58,7 +58,8 @@ declare global {
     copyFile: StoreAction<SpiderStoreState, FileRequestPayload>;
     getGit: StoreAction<SpiderStoreState, { id: string }>;
     getGitRemoteRefs: StoreAction<SpiderStoreState, { id: string }>;
-    gitPull: StoreAction<SpiderStoreState, { id: string; branch: string }>;
+    gitCheckout: StoreAction<SpiderStoreState, { id: string; branch: string }>;
+    gitPull: StoreAction<SpiderStoreState, { id: string }>;
     gitCommit: StoreAction<SpiderStoreState, { id: string; commit_message: string }>;
   }
 }

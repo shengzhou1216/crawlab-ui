@@ -1,4 +1,4 @@
-import useDetail from '@/layouts/content/detail/detail';
+import useDetail from '@/layouts/content/detail/useDetail';
 
 const useUserDetail = () => {
   return {

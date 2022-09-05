@@ -1,6 +1,7 @@
 interface LComponentsGit {
   form: {
     remoteUrl: string;
+    currentBranch: string;
     authType: string;
     username: string;
     password: string;
@@ -29,6 +30,12 @@ interface LComponentsGit {
     actions: {
       pull: string;
       commit: string;
+    };
+    status: {
+      loading: {
+        label: string;
+        tooltip: string;
+      };
     };
   };
   actions: {

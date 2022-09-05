@@ -8,5 +8,6 @@ export declare global {
     tooltip?: string;
     emphasis?: boolean;
     style?: any;
+    disabled?: boolean;
   }
 }

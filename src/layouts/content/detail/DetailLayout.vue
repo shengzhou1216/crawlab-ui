@@ -47,14 +47,18 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, PropType} from 'vue';
-import useDetail from '@/layouts/content/detail/detail';
+import {computed, defineComponent, onBeforeMount, onBeforeUnmount, onMounted, PropType} from 'vue';
+import useDetail from '@/layouts/content/detail/useDetail';
 import NavSidebar from '@/components/nav/NavSidebar.vue';
 import NavTabs from '@/components/nav/NavTabs.vue';
 import NavActions from '@/components/nav/NavActions.vue';
 import NavActionGroupDetailCommon from '@/components/nav/NavActionGroupDetailCommon.vue';
 import {useStore} from 'vuex';
 import {useI18n} from 'vue-i18n';
+
+const IGNORE_GET_ALL_NS = [
+  'task',
+];
 
 export default defineComponent({
   name: 'DetailLayout',
@@ -91,6 +95,35 @@ export default defineComponent({
         title: d[navItemNameKey],
       } as NavItem;
     }));
+
+    const {
+      activeId,
+      activeTabName,
+      navSidebar,
+      getForm,
+    } = useDetail(ns.value);
+
+    // get form before mount
+    onBeforeMount(getForm);
+
+    // get all list before mount
+    onBeforeMount(async () => {
+      if (IGNORE_GET_ALL_NS.includes(ns.value)) return;
+      await store.dispatch(`${ns.value}/getAllList`);
+    });
+
+    // scroll nav sidebar after mounted
+    onMounted(() => {
+      if (!navSidebar.value) return;
+      navSidebar.value.scroll(activeId.value);
+    });
+
+    // reset form before unmount
+    onBeforeUnmount(() => {
+      if (!activeTabName.value) {
+        store.commit(`${ns.value}/resetForm`);
+      }
+    });
 
     return {
       ...useDetail(ns.value),

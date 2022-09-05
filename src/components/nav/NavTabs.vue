@@ -19,6 +19,7 @@
         :class="getClassName(item)"
         :index="item.id"
         :style="item.style"
+        :disabled="item.disabled"
       >
         <el-tooltip :content="item.tooltip" :disabled="!item.tooltip">
           <template v-if="!!item.icon">
@@ -37,7 +38,7 @@
   </div>
 </template>
 <script lang="ts">
-import {computed, defineComponent, PropType} from 'vue';
+import {defineComponent, PropType} from 'vue';
 import {useI18n} from 'vue-i18n';
 import {emptyArrayFunc} from '@/utils/func';
 

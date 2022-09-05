@@ -27,7 +27,7 @@ import SpiderDetail from './spider/detail/SpiderDetail.vue';
 import SpiderDetailActionsCommon from './spider/detail/actions/SpiderDetailActionsCommon.vue';
 import SpiderDetailActionsFiles from './spider/detail/actions/SpiderDetailActionsFiles.vue';
 import SpiderDetailActionsGit from './spider/detail/actions/SpiderDetailActionsGit.vue';
-import spiderDetail from './spider/detail/spiderDetail';
+import useSpiderDetail from './spider/detail/useSpiderDetail';
 import SpiderDetailTabData from './spider/detail/tabs/SpiderDetailTabData.vue';
 import SpiderDetailTabFiles from './spider/detail/tabs/SpiderDetailTabFiles.vue';
 import SpiderDetailTabGit from './spider/detail/tabs/SpiderDetailTabGit.vue';
@@ -93,7 +93,7 @@ export {
   SpiderDetailActionsCommon as ClSpiderDetailActionsCommon,
   SpiderDetailActionsFiles as ClSpiderDetailActionsFiles,
   SpiderDetailActionsGit as ClSpiderDetailActionsGit,
-  spiderDetail as spiderDetail,
+  useSpiderDetail as useSpiderDetail,
   SpiderDetailTabData as ClSpiderDetailTabData,
   SpiderDetailTabFiles as ClSpiderDetailTabFiles,
   SpiderDetailTabGit as ClSpiderDetailTabGit,

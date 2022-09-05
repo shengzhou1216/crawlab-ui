@@ -85,6 +85,7 @@ export declare global {
       invalid: string;
       currentlyUnavailable: string;
       unauthorized: string;
+      loading: string;
     };
     mode: {
       default: string;

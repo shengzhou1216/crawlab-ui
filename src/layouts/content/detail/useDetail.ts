@@ -1,6 +1,6 @@
 import {useRoute, useRouter} from 'vue-router';
 import {useStore} from 'vuex';
-import {computed, onBeforeMount, onBeforeUnmount, onMounted, watch, provide, ref} from 'vue';
+import {computed, watch, provide, ref} from 'vue';
 import variables from '@/styles/variables.scss';
 import {plainClone} from '@/utils/object';
 import {getRoutePathByDepth, getTabName} from '@/utils/route';
@@ -10,10 +10,6 @@ import {translate} from '@/utils/i18n';
 
 // i18n
 const t = translate;
-
-const IGNORE_GET_ALL_NS = [
-  'task',
-];
 
 const useDetail = <T = BaseModel>(ns: ListStoreNamespace) => {
   const router = useRouter();
@@ -149,30 +145,8 @@ const useDetail = <T = BaseModel>(ns: ListStoreNamespace) => {
     sendEvent('click_detail_layout_on_save');
   };
 
-  // get form before mount
-  onBeforeMount(getForm);
-
-  // get all list before mount
-  onBeforeMount(async () => {
-    if (IGNORE_GET_ALL_NS.includes(ns)) return;
-    await store.dispatch(`${ns}/getAllList`);
-  });
-
   // get form when active id changes
   watch(() => activeId.value, getForm);
-
-  // scroll nav sidebar after mounted
-  onMounted(() => {
-    if (!navSidebar.value) return;
-    navSidebar.value.scroll(activeId.value);
-  });
-
-  // reset form before unmount
-  onBeforeUnmount(() => {
-    if (!activeTabName.value) {
-      store.commit(`${ns}/resetForm`);
-    }
-  });
 
   // store context
   provide<DetailStoreContext<T>>('store-context', {
@@ -192,6 +166,7 @@ const useDetail = <T = BaseModel>(ns: ListStoreNamespace) => {
     sidebarCollapsed,
     actionsCollapsed,
     contentContainerStyle,
+    getForm,
     onNavSidebarSelect,
     onNavSidebarToggle,
     onActionsToggle,

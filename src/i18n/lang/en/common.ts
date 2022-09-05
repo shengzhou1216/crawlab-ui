@@ -77,6 +77,7 @@ const common: LCommon = {
     invalid: 'Invalid',
     currentlyUnavailable: 'Currently unavailable',
     unauthorized: 'Unauthorized',
+    loading: 'Loading',
   },
   mode: {
     default: 'Default',

@@ -26,6 +26,7 @@ export declare global {
   }
 
   interface GitData {
+    current_branch?: string;
     branches?: GitRef[];
     changes?: GitChange[];
     logs?: GitLog[];
@@ -39,5 +40,6 @@ export declare global {
     auth_type?: string;
     username?: string;
     password?: string;
+    current_branch?: string;
   }
 }

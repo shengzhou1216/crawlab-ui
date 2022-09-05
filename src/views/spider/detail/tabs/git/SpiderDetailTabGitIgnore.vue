@@ -1,24 +1,25 @@
 <template>
   <div class="git-ignore">
-    <Table
-        :columns="tableColumns"
-        :data="tableData"
-        height="calc(100% - 1px)"
-        hide-footer
+    <ClTable
+      :columns="tableColumns"
+      :data="tableData"
+      height="calc(100% - 1px)"
+      hide-footer
     />
   </div>
 </template>
 
 <script lang="ts">
-import {computed, defineComponent} from 'vue';
+import {computed, defineComponent, onBeforeMount} from 'vue';
 import {useStore} from 'vuex';
 import Table from '@/components/table/Table.vue';
 import {useI18n} from 'vue-i18n';
+import useSpiderDetail from '../../useSpiderDetail';
 
 export default defineComponent({
   name: 'SpiderDetailTabGitIgnore',
   components: {
-    Table,
+    ClTable: Table,
   },
   setup() {
     // i18n
@@ -31,15 +32,19 @@ export default defineComponent({
       spider: state,
     } = store.state as RootStoreState;
 
+    const {
+      activeId,
+    } = useSpiderDetail();
+
     // table data
     const tableData = computed<TableData<{ name: string; index: number }>>(() => state.gitData.ignore
-        ?.filter(d => !!d.trim() && !d.trim().startsWith('#'))
-        ?.map((d, i) => {
-          return {
-            name: d,
-            index: i,
-          };
-        }) || []);
+      ?.filter(d => !!d.trim() && !d.trim().startsWith('#'))
+      ?.map((d, i) => {
+        return {
+          name: d,
+          index: i,
+        };
+      }) || []);
 
     // table columns
     const tableColumns = computed<TableColumns<string>>(() => {
@@ -50,6 +55,10 @@ export default defineComponent({
           width: '1100',
         },
       ] as TableColumns<string>;
+    });
+
+    onBeforeMount(async () => {
+      store.dispatch(`${ns}/getGit`, {id: activeId.value});
     });
 
     return {

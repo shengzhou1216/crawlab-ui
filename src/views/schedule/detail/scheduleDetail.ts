@@ -1,5 +1,5 @@
 import {useStore} from 'vuex';
-import useDetail from '@/layouts/content/detail/detail';
+import useDetail from '@/layouts/content/detail/useDetail';
 import {setupGetAllList} from '@/utils/list';
 
 const useScheduleDetail = () => {

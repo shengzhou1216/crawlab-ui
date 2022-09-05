@@ -32,7 +32,7 @@ import {getOSPathSeparator} from '@/utils';
 import {useRoute} from 'vue-router';
 import {FILE_UPLOAD_MODE_DIR} from '@/constants';
 import {useDropzone} from 'vue3-dropzone';
-import useSpiderDetail from '@/views/spider/detail/spiderDetail';
+import useSpiderDetail from '@/views/spider/detail/useSpiderDetail';
 
 export default defineComponent({
   name: 'UploadSpiderFilesDialog',

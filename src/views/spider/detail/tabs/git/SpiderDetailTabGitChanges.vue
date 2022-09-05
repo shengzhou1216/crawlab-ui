@@ -1,29 +1,30 @@
 <template>
   <div class="git-changes">
-    <Table
-        ref="tableRef"
-        :data="tableData"
-        :columns="tableColumns"
-        height="100%"
-        selectable
-        hide-footer
-        @selection-change="onSelectionChange"
+    <ClTable
+      ref="tableRef"
+      :data="tableData"
+      :columns="tableColumns"
+      height="100%"
+      selectable
+      hide-footer
+      @selection-change="onSelectionChange"
     />
   </div>
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, h, ref, watch} from 'vue';
+import {computed, defineComponent, h, onBeforeMount, ref, watch} from 'vue';
 import {useStore} from 'vuex';
 import Table from '@/components/table/Table.vue';
 import GitFileStatus from '@/components/git/GitFileStatus.vue';
 import Tag from '@/components/tag/Tag.vue';
 import {useI18n} from 'vue-i18n';
+import useSpiderDetail from '../../useSpiderDetail';
 
 export default defineComponent({
   name: 'SpiderDetailTabGitChanges',
   components: {
-    Table,
+    ClTable: Table,
   },
   setup() {
     // i18n
@@ -35,6 +36,10 @@ export default defineComponent({
     const {
       spider: state,
     } = store.state as RootStoreState;
+
+    const {
+      activeId,
+    } = useSpiderDetail();
 
     const getStatusTagProps = (status?: string): TagProps => {
       const label = status;
@@ -94,6 +99,10 @@ export default defineComponent({
     };
 
     watch(() => tableData.value, () => tableRef.value?.clearSelection());
+
+    onBeforeMount(async () => {
+      store.dispatch(`${ns}/getGit`, {id: activeId.value});
+    });
 
     return {
       tableRef,

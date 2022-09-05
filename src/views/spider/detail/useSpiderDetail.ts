@@ -1,5 +1,5 @@
-import useDetail from '@/layouts/content/detail/detail';
-import {computed, onBeforeMount, onBeforeUnmount, ref} from 'vue';
+import useDetail from '@/layouts/content/detail/useDetail';
+import {computed, ref} from 'vue';
 import {useStore} from 'vuex';
 import useSpiderService from '@/services/spider/spiderService';
 import {useRoute, useRouter} from 'vue-router';
@@ -13,6 +13,23 @@ import {GIT_REF_TYPE_BRANCH} from '@/constants/git';
 
 // i18n
 const t = translate;
+
+const gitCheckoutFormRef = ref<typeof Form>();
+
+const gitCheckoutForm = ref({
+  type: GIT_REF_TYPE_BRANCH,
+  name: '',
+});
+
+const gitDialogVisible = ref({
+  checkout: false,
+});
+
+const gitLoading = ref({
+  checkout: false,
+  pull: false,
+  commit: false,
+});
 
 const useSpiderDetail = () => {
   const ns = 'spider';
@@ -53,30 +70,15 @@ const useSpiderDetail = () => {
     if (gitState.form._id) {
       await updateGitFormById(gitState.form._id, gitState.form);
     } else {
-      await createGitForm({
+      const res = await createGitForm({
         _id: state.form._id,
         ...gitState.form,
       });
+      await store.dispatch(`git/getById`, res.data?._id);
     }
     await store.dispatch(`${ns}/getGit`, {id: id.value});
+    await store.dispatch(`${ns}/getGitRemoteRefs`, {id: id.value});
   };
-
-  const gitCheckoutFormRef = ref<typeof Form>();
-
-  const gitCheckoutForm = ref({
-    type: GIT_REF_TYPE_BRANCH,
-    name: '',
-  });
-
-  const gitDialogVisible = ref({
-    checkout: false,
-  });
-
-  const gitLoading = ref({
-    checkout: false,
-    pull: false,
-    commit: false,
-  });
 
   const gitActions = {
     onClickPull: async () => {
@@ -112,7 +114,7 @@ const useSpiderDetail = () => {
       );
       const commitMessage = res.value;
       gitLoading.value.commit = true;
-      await saveGit();
+      // await saveGit();
       try {
         const res = await store.dispatch(`${ns}/gitCommit`, {id: id.value, commit_message: commitMessage});
         store.commit(`${ns}/resetGitChangeSelection`);
@@ -131,7 +133,7 @@ const useSpiderDetail = () => {
       gitDialogVisible.value.checkout = false;
       gitLoading.value.checkout = true;
       try {
-        await store.dispatch(`${ns}/gitPull`, {id: id.value, branch: gitCheckoutForm.value.name});
+        await store.dispatch(`${ns}/gitCheckout`, {id: id.value, branch: gitCheckoutForm.value.name});
         await ElMessage.success(t('components.git.common.message.success.checkout'));
         await store.dispatch(`${ns}/getGit`, {id: id.value});
       } finally {
@@ -142,20 +144,9 @@ const useSpiderDetail = () => {
     },
   };
 
-  onBeforeMount(async () => {
-    await Promise.all([
-      store.dispatch(`project/getAllList`),
-    ]);
+  const gitCurrentBranch = computed<string | undefined>(() => state.gitData?.current_branch);
 
-    store.commit(`${ns}/setAfterSave`, [
-      saveFile,
-      saveGit,
-    ]);
-  });
-
-  onBeforeUnmount(() => {
-    store.commit(`git/resetForm`);
-  });
+  const gitCurrentBranchLoading = computed<boolean>(() => state.gitCurrentBranchLoading);
 
   return {
     ...useDetail('spider'),
@@ -165,7 +156,9 @@ const useSpiderDetail = () => {
     gitCheckoutForm,
     gitDialogVisible,
     gitLoading,
-    gitActions,
+    ...gitActions,
+    gitCurrentBranch,
+    gitCurrentBranchLoading,
   };
 };
 

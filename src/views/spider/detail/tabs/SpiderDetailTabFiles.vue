@@ -27,7 +27,7 @@ import {useStore} from 'vuex';
 import useSpiderService from '@/services/spider/spiderService';
 import {ElMessage} from 'element-plus';
 import {useI18n} from 'vue-i18n';
-import useSpiderDetail from '@/views/spider/detail/spiderDetail';
+import useSpiderDetail from '@/views/spider/detail/useSpiderDetail';
 
 export default defineComponent({
   name: 'SpiderDetailTabFiles',

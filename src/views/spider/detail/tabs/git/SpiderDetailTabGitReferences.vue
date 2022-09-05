@@ -1,31 +1,32 @@
 <template>
   <div class="git-references">
-    <Table
-        :key="gitRefType"
-        :columns="tableColumns"
-        :data="tableData"
-        :page="tablePagination.page"
-        :page-size="tablePagination.size"
-        :total="allTableData.length"
-        :visible-buttons="[TABLE_ACTION_CUSTOMIZE_COLUMNS]"
-        @pagination-change="onPaginationChange"
+    <ClTable
+      :key="gitRefType"
+      :columns="tableColumns"
+      :data="tableData"
+      :page="tablePagination.page"
+      :page-size="tablePagination.size"
+      :total="allTableData.length"
+      :visible-buttons="[TABLE_ACTION_CUSTOMIZE_COLUMNS]"
+      @pagination-change="onPaginationChange"
     />
   </div>
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, h, ref} from 'vue';
+import {computed, defineComponent, h, onBeforeMount, ref} from 'vue';
 import {useStore} from 'vuex';
 import Time from '@/components/time/Time.vue';
 import Table from '@/components/table/Table.vue';
 import {GIT_REF_TYPE_BRANCH} from '@/constants/git';
 import {TABLE_ACTION_CUSTOMIZE_COLUMNS} from '@/constants/table';
 import {useI18n} from 'vue-i18n';
+import useSpiderDetail from '@/views/spider/detail/useSpiderDetail';
 
 export default defineComponent({
   name: 'SpiderDetailTabGitReferences',
   components: {
-    Table,
+    ClTable: Table,
   },
   setup() {
     // i18n
@@ -37,6 +38,10 @@ export default defineComponent({
     const {
       spider: state,
     } = store.state as RootStoreState;
+
+    const {
+      activeId,
+    } = useSpiderDetail();
 
     // git logs map
     const gitLogsMap = computed<Map<string, GitLog>>(() => store.getters[`${ns}/gitLogsMap`] as Map<string, GitLog>);
@@ -56,7 +61,7 @@ export default defineComponent({
 
     // all table data
     const allTableData = computed<TableData<GitRef>>(() => state.gitRemoteRefs
-        .filter(r => r.type === gitRefType.value));
+      .filter(r => r.type === gitRefType.value));
 
     // table data
     const tableData = computed<TableData<GitRef>>(() => {
@@ -70,15 +75,15 @@ export default defineComponent({
         {
           key: 'name',
           label: gitRefType.value === GIT_REF_TYPE_BRANCH ?
-              t('components.git.references.type.branch') :
-              t('components.git.references.type.tag'),
+            t('components.git.references.type.branch') :
+            t('components.git.references.type.tag'),
           width: '1000',
           icon: gitRefType.value === GIT_REF_TYPE_BRANCH ? ['fa', 'code-branch'] : ['fa', 'tag']
         },
         {
           key: 'timestamp',
           label: t('components.git.references.table.columns.timestamp'),
-          width: '180',
+          width: '200',
           icon: ['fa', 'clock'],
           fixed: 'right',
           value: (row: GitLog) => {
@@ -89,6 +94,10 @@ export default defineComponent({
           }
         }
       ] as TableColumns<GitLog>;
+    });
+
+    onBeforeMount(async () => {
+      store.dispatch(`${ns}/getGitRemoteRefs`, {id: activeId.value});
     });
 
     return {
@@ -119,5 +128,9 @@ export default defineComponent({
   border-top: none;
   border-left: none;
   border-right: none;
+}
+
+.git-references >>> .el-table:before,
+.git-references >>> .el-table .el-table__inner-wrapper:before {
 }
 </style>

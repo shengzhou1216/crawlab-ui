@@ -1,12 +1,17 @@
 <template>
   <div class="git-remote">
-    <GitForm/>
+    <GitForm
+      :branch-select-options="gitBranchSelectOptions"
+      @change="onChange"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import {defineComponent} from 'vue';
+import {computed, defineComponent} from 'vue';
 import GitForm from '@/components/git/GitForm.vue';
+import useSpiderDetail from '@/views/spider/detail/useSpiderDetail';
+import {useStore} from 'vuex';
 
 export default defineComponent({
   name: 'SpiderDetailTabGitRemote',
@@ -14,7 +19,26 @@ export default defineComponent({
     GitForm,
   },
   setup() {
-    return {};
+    // store
+    const ns = 'spider';
+    const store = useStore();
+
+    const {
+      activeId,
+    } = useSpiderDetail();
+
+    const gitBranchSelectOptions = computed<SelectOption[]>(() => store.getters[`${ns}/gitBranchSelectOptions`]);
+
+    const onChange = async () => {
+      console.debug('onChange');
+      // await store.dispatch(`${ns}/getGitRemoteRefs`, {id: activeId.value});
+    };
+
+    return {
+      ...useSpiderDetail(),
+      gitBranchSelectOptions,
+      onChange,
+    };
   },
 });
 </script>
