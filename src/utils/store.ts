@@ -47,16 +47,17 @@ export const getDefaultStoreGetters = <T = any>(opts?: GetDefaultStoreGettersOpt
     isBatchForm: (state: BaseStoreState<T>) => {
       return state.isSelectiveForm || state.createEditDialogTabName === 'batch';
     },
-    formListIds: (state: BaseStoreState<BaseModel>) => state.formList.map(d => d._id as string),
-    allListSelectOptions: (state: BaseStoreState<BaseModel>) => state.allList.map(d => {
+    formListIds: (state: BaseStoreState<T>) => state.formList.map(d => (d as BaseModel)._id as string),
+    allListSelectOptions: (state: BaseStoreState<T>) => state.allList.map(d => {
+      const _d = d as BaseModel;
       return {
-        value: d[opts?.selectOptionValueKey as string],
-        label: d[opts?.selectOptionLabelKey as string],
+        value: _d[opts?.selectOptionValueKey as string],
+        label: _d[opts?.selectOptionLabelKey as string],
       };
     }),
-    allDict: (state: BaseStoreState<BaseModel>) => {
+    allDict: (state: BaseStoreState<T>) => {
       const dict = new Map<string, T>();
-      state.allList.forEach(d => dict.set(d._id as string, d as any));
+      state.allList.forEach(d => dict.set((d as BaseModel)._id as string, d as any));
       return dict;
     },
     /**

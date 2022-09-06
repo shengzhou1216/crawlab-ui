@@ -52,5 +52,5 @@ export const addStoreModule = <M>(path: string, module: M, store?: Store<RootSto
   if (!store) {
     store = getStore();
   }
-  store.registerModule(path, module);
+  store.registerModule(path, module as any);
 };
