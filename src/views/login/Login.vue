@@ -14,10 +14,10 @@
         <span class="logo-title">Crawlab</span>
         <span class="logo-sub-title">
           <div class="logo-sub-title-block">
-            {{ t('global.edition.community') }}
+            {{ t(systemInfo.edition || '') }}
           </div>
           <div class="logo-sub-title-block">
-            v0.6.0
+            {{ systemInfo.version }}
           </div>
         </span>
       </h3>
@@ -136,6 +136,9 @@ export default defineComponent({
   setup() {
     // store
     const store = useStore();
+    const {
+      common: commonState,
+    } = store.state as RootStoreState;
 
     // current route
     const route = useRoute();
@@ -270,6 +273,8 @@ export default defineComponent({
       await store.dispatch('user/getMe');
     };
 
+    const systemInfo = computed<SystemInfo>(() => commonState.systemInfo || {});
+
     onMounted(() => {
       // initialize canvas
       if (window.innerWidth >= 1024) {
@@ -301,6 +306,7 @@ export default defineComponent({
       logo,
       setLang,
       onLogin,
+      systemInfo,
       t,
     };
   },
