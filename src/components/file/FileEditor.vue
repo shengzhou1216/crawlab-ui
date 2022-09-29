@@ -259,8 +259,8 @@ export default defineComponent({
     const options = computed<FileEditorConfiguration>(() => {
       const {editorOptions} = file as FileStoreState;
       return {
-        mode: languageMime.value || 'text',
         ...editorOptions,
+        mode: languageMime.value || 'text',
       };
     });
 
@@ -622,12 +622,15 @@ export default defineComponent({
       document.onkeydown = null;
     };
 
-    watch(options, async () => {
+    const update = async () => {
       updateMode();
       await updateTheme();
       updateEditorOptions();
       updateStyle();
-    });
+    };
+
+    watch(() => JSON.stringify(options.value), update);
+    watch(() => JSON.stringify(activeFileItem.value), update);
 
     const onDropFiles = (files: InputFile[]) => {
       emit('drop-files', files);
