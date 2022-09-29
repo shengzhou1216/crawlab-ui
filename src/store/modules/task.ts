@@ -16,7 +16,7 @@ import {translate} from '@/utils/i18n';
 const t = translate;
 
 const {
-  put,
+  post,
   getList,
 } = useRequest();
 
@@ -116,7 +116,7 @@ const actions = {
     return res;
   },
   create: async ({state, commit}: StoreActionContext<TaskStoreState>, form: Task) => {
-    return await put(`/tasks/run`, form);
+    return await post(`/tasks/run`, form);
   },
   getLogs: async ({state, commit}: StoreActionContext<TaskStoreState>, id: string) => {
     const {page, size} = state.logPagination;
