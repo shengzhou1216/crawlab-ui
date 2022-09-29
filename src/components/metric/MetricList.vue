@@ -195,7 +195,7 @@ export default defineComponent({
 
     const chartConfigMap = ref<{ [key: string]: EChartsConfig }>({});
 
-    const getChartConfig = (metric: NavItem): EChartsConfig | undefined => {
+    const initChartConfig = (metric: NavItem) => {
       if (!chartConfigMap.value[metric.id]) {
         chartConfigMap.value[metric.id] = {
           option: {
@@ -219,6 +219,10 @@ export default defineComponent({
           },
         } as EChartsConfig;
       }
+    };
+
+    const getChartConfig = (metric: NavItem): EChartsConfig | undefined => {
+      initChartConfig(metric);
       return chartConfigMap.value[metric.id];
     };
 
@@ -227,15 +231,16 @@ export default defineComponent({
     };
 
     const updateChartData = async (metric: NavItem) => {
+      initChartConfig(metric);
       chartConfigMap.value[metric.id].data = await props.metricDataFunc?.(metric.id) || [];
     };
 
     const updateAllChartTitle = async () => {
-      // console.debug('updateAllChartTitle');
       await Promise.all(checkedNormalizedMetrics.value.map(metric => updateChartTitle(metric)));
     };
 
     const updateChartTitle = async (metric: NavItem) => {
+      initChartConfig(metric);
       if (chartConfigMap.value[metric.id].option) {
         chartConfigMap.value[metric.id].option.title = props.metricTitleFunc?.(metric);
       }
