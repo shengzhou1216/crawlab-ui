@@ -10,6 +10,7 @@ export declare global {
     users: LViewsUsers;
     tags: LViewsTags;
     tokens: LViewsTokens;
+    env: LViewsEnv;
     plugins: LViewsPlugins;
     misc: LViewsMisc;
   }

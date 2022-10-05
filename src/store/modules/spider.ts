@@ -6,7 +6,7 @@ import {
 } from '@/utils/store';
 import useRequest from '@/services/request';
 import {
-  TAB_NAME_DATA,
+  TAB_NAME_DATA, TAB_NAME_DEPENDENCIES,
   TAB_NAME_FILES,
   TAB_NAME_GIT,
   TAB_NAME_OVERVIEW,
@@ -43,6 +43,7 @@ const state = {
     {id: TAB_NAME_TASKS, title: t('common.tabs.tasks')},
     {id: TAB_NAME_SCHEDULES, title: t('common.tabs.schedules')},
     {id: TAB_NAME_DATA, title: t('common.tabs.data')},
+    {id: TAB_NAME_DEPENDENCIES, title: t('common.tabs.dependencies')},
     // {id: TAB_NAME_SETTINGS, title: t('common.tabs.settings')},
   ],
   fileNavItems: [],

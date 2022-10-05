@@ -8,8 +8,9 @@ import tasks from './tasks';
 import users from './users';
 import tags from './tags';
 import tokens from './tokens';
+import env from './env';
 import plugins from './plugins';
-import misc from "./misc";
+import misc from './misc';
 
 const views: LViews = {
   login,
@@ -22,6 +23,7 @@ const views: LViews = {
   users,
   tags,
   tokens,
+  env,
   plugins,
   misc,
 };

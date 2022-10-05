@@ -1,0 +1,123 @@
+<template>
+  <Dialog
+    :title="t('common.actions.install')"
+    :visible="visible"
+    width="640px"
+    :confirm-loading="loading"
+    @confirm="onConfirm"
+    @close="onClose"
+  >
+    <Form>
+      <FormItem :span="4" :label="t('views.env.deps.dependency.form.name')">
+        <Tag
+          v-for="n in names"
+          :key="n"
+          class="dep-name"
+          type="primary"
+          :label="n"
+          size="small"
+        />
+      </FormItem>
+      <FormItem :span="4" :label="t('views.env.deps.dependency.form.mode')">
+        <el-select v-model="mode">
+          <el-option value="all" :label="t('views.env.deps.dependency.form.allNodes')"/>
+          <el-option value="selected-nodes" :label="t('views.env.deps.dependency.form.selectedNodes')"/>
+        </el-select>
+      </FormItem>
+      <FormItem :label="t('views.env.deps.dependency.form.upgrade')">
+        <Switch v-model="upgrade"/>
+      </FormItem>
+      <FormItem v-if="mode === 'selected-nodes'" :span="4" :label="t('views.env.deps.dependency.form.selectedNodes')">
+        <el-select v-model="nodeIds" multiple :placeholder="t('views.env.deps.dependency.form.selectedNodes')">
+          <el-option v-for="n in nodes" :key="n.key" :value="n._id" :label="n.name"/>
+        </el-select>
+      </FormItem>
+    </Form>
+  </Dialog>
+</template>
+
+<script lang="ts">
+import {defineComponent, ref} from 'vue';
+import {translate} from '@/utils';
+import Form from '@/components/form/Form.vue';
+import FormItem from '@/components/form/FormItem.vue';
+import Switch from '@/components/switch/Switch.vue';
+import Dialog from '@/components/dialog/Dialog.vue';
+import Tag from '@/components/tag/Tag.vue';
+
+const t = translate;
+
+export default defineComponent({
+  name: 'InstallForm',
+  components: {
+    Form,
+    FormItem,
+    Switch,
+    Dialog,
+    Tag,
+  },
+  props: {
+    visible: {
+      type: Boolean,
+    },
+    names: {
+      type: Array,
+      default: () => {
+        return [];
+      },
+    },
+    nodes: {
+      type: Array,
+      default: () => {
+        return [];
+      }
+    },
+    loading: {
+      type: Boolean,
+    },
+  },
+  emits: [
+    'confirm',
+    'close',
+  ],
+  setup(props, {emit}) {
+    const mode = ref('all');
+    const upgrade = ref(true);
+    const nodeIds = ref([]);
+
+    const reset = () => {
+      mode.value = 'all';
+      nodeIds.value = [];
+    };
+
+    const onConfirm = () => {
+      emit('confirm', {
+        mode: mode.value,
+        upgrade: upgrade.value,
+        nodeIds: nodeIds.value,
+      });
+      reset();
+    };
+
+    const onClose = () => {
+      emit('close');
+      reset();
+    };
+
+    return {
+      mode,
+      upgrade,
+      nodeIds,
+      onConfirm,
+      onClose,
+      t,
+    };
+  },
+});
+</script>
+
+<style scoped>
+.dep-name {
+  margin-right: 10px;
+}
+</style>

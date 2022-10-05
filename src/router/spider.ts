@@ -1,6 +1,6 @@
 import {RouteRecordRaw} from 'vue-router';
 import {
-  TAB_NAME_DATA,
+  TAB_NAME_DATA, TAB_NAME_DEPENDENCIES,
   TAB_NAME_FILES, TAB_NAME_GIT,
   TAB_NAME_OVERVIEW,
   TAB_NAME_SCHEDULES,
@@ -16,6 +16,7 @@ import SpiderDetailTabTasks from '@/views/spider/detail/tabs/SpiderDetailTabTask
 import SpiderDetailTabSchedules from '@/views/spider/detail/tabs/SpiderDetailTabSchedules.vue';
 import SpiderDetailTabData from '@/views/spider/detail/tabs/SpiderDetailTabData.vue';
 import SpiderDetailTabSettings from '@/views/spider/detail/tabs/SpiderDetailTabSettings.vue';
+import DependencySpiderTab from '@/views/env/deps/spider/DependencySpiderTab.vue';
 
 export default [
   {
@@ -58,6 +59,10 @@ export default [
       {
         path: TAB_NAME_SETTINGS,
         component: SpiderDetailTabSettings
+      },
+      {
+        path: TAB_NAME_DEPENDENCIES,
+        component: DependencySpiderTab,
       },
     ]
   },

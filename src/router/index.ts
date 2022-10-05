@@ -9,6 +9,7 @@ import schedule from '@/router/schedule';
 import user from '@/router/user';
 import tag from '@/router/tag';
 import token from '@/router/token';
+import env from '@/router/env';
 import plugin from '@/router/plugin';
 import misc from '@/router/misc';
 import {initRouterAuth} from '@/router/hooks/auth';
@@ -34,6 +35,7 @@ export function getDefaultRoutes(): Array<RouteRecordRaw> {
         ...user,
         ...tag,
         ...token,
+        ...env,
         ...plugin,
         ...misc,
       ],
@@ -52,6 +54,16 @@ export function getDefaultSidebarMenuItems(): MenuItem[] {
     {path: '/users', title: 'router.menuItems.users', icon: ['fa', 'users']},
     // {path: '/tags', title: 'router.menuItems.tags', icon: ['fa', 'tag']},
     {path: '/tokens', title: 'router.menuItems.tokens', icon: ['fa', 'key']},
+    {
+      path: '/env/deps',
+      title: 'router.menuItems.env.deps.title',
+      icon: ['fa', 'puzzle-piece'],
+      children: [
+        {path: '/env/deps/settings', title: 'router.menuItems.env.deps.settings', icon: ['fa', 'cog']},
+        {path: '/env/deps/python', title: 'router.menuItems.env.deps.python', icon: ['fab', 'python']},
+        {path: '/env/deps/node', title: 'router.menuItems.env.deps.node', icon: ['fab', 'node']},
+      ]
+    },
     {path: '/plugins', title: 'router.menuItems.plugins', icon: ['fa', 'plug']},
   ];
 }

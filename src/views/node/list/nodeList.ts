@@ -264,7 +264,7 @@ const useNodeList = () => {
             sendEvent('click_node_list_actions_delete');
 
             const res = await ElMessageBox.confirm(
-              t('common.messageBox.message'),
+              t('common.messageBox.confirm.delete'),
               t('common.actions.delete'),
               {
                 type: 'warning',

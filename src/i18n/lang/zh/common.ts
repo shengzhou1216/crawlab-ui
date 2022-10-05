@@ -23,11 +23,14 @@ const common: LCommon = {
     apply: '应用',
     search: '搜索',
     install: '安装',
+    uninstall: '卸载',
     viewLogs: '查看日志',
     viewData: '查看数据',
     viewFiles: '查看文件',
     uploadFiles: '上传文件',
     export: '导出',
+    configure: '配置',
+    update: '更新',
   },
   messageBox: {
     confirm: {
@@ -48,6 +51,10 @@ const common: LCommon = {
       start: '启动成功',
       save: '保存成功',
       upload: '上传成功',
+      install: '安装成功',
+      uninstall: '卸载成功',
+      startInstall: '开始安装',
+      startUninstall: '开始卸载',
     },
     info: {
       cancel: '尝试取消',
@@ -70,6 +77,7 @@ const common: LCommon = {
     data: '数据',
     settings: '设置',
     logs: '日志',
+    dependencies: '依赖',
   },
   status: {
     unassigned: '未指定',
@@ -81,6 +89,7 @@ const common: LCommon = {
   },
   mode: {
     default: '默认',
+    other: '其他',
   },
   placeholder: {
     empty: '空',

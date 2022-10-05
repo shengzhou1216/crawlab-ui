@@ -10,6 +10,14 @@ const router: LRouter = {
     tags: 'Tags',
     tokens: 'Tokens',
     plugins: 'Plugins',
+    env: {
+      deps: {
+        title: 'Dependencies',
+        settings: 'Settings',
+        python: 'Python',
+        node: 'Node.js',
+      },
+    },
     misc: {
       disclaimer: 'Disclaimer',
       mySettings: 'My Settings',

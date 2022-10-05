@@ -31,11 +31,14 @@ export declare global {
       apply: string;
       search: string;
       install: string;
+      uninstall: string;
       viewLogs: string;
       viewData: string;
       viewFiles: string;
       uploadFiles: string;
       export: string;
+      configure: string;
+      update: string;
     };
     messageBox: {
       confirm: {
@@ -56,6 +59,10 @@ export declare global {
         start: string;
         save: string;
         upload: string;
+        install: string;
+        uninstall: string;
+        startInstall: string;
+        startUninstall: string;
       };
       info: {
         cancel: string;
@@ -78,6 +85,7 @@ export declare global {
       data: string;
       settings: string;
       logs: string;
+      dependencies: string;
     };
     status: {
       unassigned: string;
@@ -89,6 +97,7 @@ export declare global {
     };
     mode: {
       default: string;
+      other: string;
     };
     placeholder: {
       empty: string;

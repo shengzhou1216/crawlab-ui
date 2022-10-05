@@ -23,11 +23,14 @@ const common: LCommon = {
     apply: 'Apply',
     search: 'Search',
     install: 'Install',
+    uninstall: 'Uninstall',
     viewLogs: 'View Logs',
     viewData: 'View Data',
     viewFiles: 'View Files',
     uploadFiles: 'Upload Files',
     export: 'Export',
+    configure: 'Configure',
+    update: 'Update',
   },
   messageBox: {
     confirm: {
@@ -48,6 +51,10 @@ const common: LCommon = {
       start: 'Started successfully',
       save: 'Saved successfully',
       upload: 'Uploaded successfully',
+      install: 'Installed successfully',
+      uninstall: 'Uninstalled successfully',
+      startInstall: 'Started installation successfully',
+      startUninstall: 'Started uninstallation successfully',
     },
     info: {
       cancel: 'Attempt to cancel',
@@ -70,6 +77,7 @@ const common: LCommon = {
     data: 'Data',
     settings: 'Settings',
     logs: 'Logs',
+    dependencies: 'Dependencies',
   },
   status: {
     unassigned: 'Unassigned',
@@ -81,6 +89,7 @@ const common: LCommon = {
   },
   mode: {
     default: 'Default',
+    other: 'Other',
   },
   placeholder: {
     empty: 'Empty',

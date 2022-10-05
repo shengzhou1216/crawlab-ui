@@ -10,6 +10,14 @@ const router: LRouter = {
     tags: '标签',
     tokens: '令牌',
     plugins: '插件',
+    env: {
+      deps: {
+        title: '环境依赖',
+        settings: '设置',
+        python: 'Python',
+        node: 'Node.js',
+      },
+    },
     misc: {
       disclaimer: '免责声明',
       mySettings: '我的设置',

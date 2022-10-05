@@ -11,6 +11,14 @@ export declare global {
       tags: string;
       tokens: string;
       plugins: string;
+      env: {
+        deps: {
+          title: string;
+          settings: string;
+          python: string;
+          node: string;
+        };
+      };
       misc: {
         disclaimer: string;
         mySettings: string;
