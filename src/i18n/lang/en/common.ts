@@ -31,6 +31,8 @@ const common: LCommon = {
     export: 'Export',
     configure: 'Configure',
     update: 'Update',
+    save: 'Save',
+    change: 'Change',
   },
   messageBox: {
     confirm: {

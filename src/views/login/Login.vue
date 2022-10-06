@@ -241,9 +241,9 @@ export default defineComponent({
         localStorage.setItem(LOCAL_STORAGE_KEY_TOKEN, res.data);
 
         // initialize plugins
-        initPlugins(router, store)
-          .then(() => console.info('[Crawlab] plugins initialized'))
-          .catch(e => console.warn('[Crawlab] initializing plugins with error', e));
+        // initPlugins(router, store)
+        //   .then(() => console.info('[Crawlab] plugins initialized'))
+        //   .catch(e => console.warn('[Crawlab] initializing plugins with error', e));
 
         // redirect to home page
         await router.push('/');

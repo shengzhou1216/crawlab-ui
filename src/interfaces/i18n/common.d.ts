@@ -39,6 +39,8 @@ export declare global {
       export: string;
       configure: string;
       update: string;
+      save: string;
+      change: string;
     };
     messageBox: {
       confirm: {

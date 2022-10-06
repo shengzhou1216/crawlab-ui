@@ -18,6 +18,7 @@ const router: LRouter = {
         node: 'Node.js',
       },
     },
+    notification: '消息通知',
     misc: {
       disclaimer: '免责声明',
       mySettings: '我的设置',

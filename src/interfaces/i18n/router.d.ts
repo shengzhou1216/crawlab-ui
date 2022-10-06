@@ -19,6 +19,7 @@ export declare global {
           node: string;
         };
       };
+      notification: string;
       misc: {
         disclaimer: string;
         mySettings: string;

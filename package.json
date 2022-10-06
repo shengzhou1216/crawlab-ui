@@ -1,6 +1,6 @@
 {
   "name": "crawlab-ui",
-  "version": "0.6.0-13",
+  "version": "0.6.0-14",
   "private": false,
   "author": {
     "name": "Marvin Zhang",
@@ -52,6 +52,7 @@
     "@types/md5": "^2.2.1",
     "@types/pinyin": "^2.8.2",
     "@types/showdown": "^1.9.4",
+    "@types/simplemde": "^1.11.8",
     "@types/url-join": "^4.0.1",
     "atom-material-icons": "^3.0.0",
     "axios": "^0.21.1",
@@ -72,6 +73,7 @@
     "pinyin": "^2.10.2",
     "point-cluster": "^3.1.8",
     "showdown": "^1.9.1",
+    "simplemde": "^1.11.2",
     "url-join": "^4.0.1",
     "vue": "^3.2",
     "vue-clipboard3": "^1.0.1",

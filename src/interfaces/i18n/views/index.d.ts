@@ -11,6 +11,7 @@ export declare global {
     tags: LViewsTags;
     tokens: LViewsTokens;
     env: LViewsEnv;
+    notification: LViewsNotification;
     plugins: LViewsPlugins;
     misc: LViewsMisc;
   }

@@ -18,6 +18,7 @@ const router: LRouter = {
         node: 'Node.js',
       },
     },
+    notification: 'Notification',
     misc: {
       disclaimer: 'Disclaimer',
       mySettings: 'My Settings',

@@ -8,7 +8,7 @@ import {getI18n} from '@/i18n';
 import {initBaiduTonji} from '@/admin/baidu';
 import {importScripts, importStylesheets, initWindowGlobals} from '@/package/utils';
 import {getRouter} from '@/router';
-import {initPlugins} from '@/utils/plugin';
+// import {initPlugins} from '@/utils/plugin';
 import {initRequest} from '@/services/request';
 import {initUmeng} from '@/admin/umeng';
 import {setGlobalLang} from '@/utils/i18n';
@@ -93,11 +93,11 @@ const createApp = async (options?: CreateAppOptions): Promise<VueApp> => {
   const app = createVueApp(App);
 
   // initialize plugins
-  try {
-    await initPlugins(router, store);
-  } catch (e) {
-    console.warn(e);
-  }
+  // try {
+  //   await initPlugins(router, store);
+  // } catch (e) {
+  //   console.warn(e);
+  // }
 
   // initialize request
   initRequest(router);

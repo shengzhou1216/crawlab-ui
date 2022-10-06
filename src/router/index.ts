@@ -10,6 +10,7 @@ import user from '@/router/user';
 import tag from '@/router/tag';
 import token from '@/router/token';
 import env from '@/router/env';
+import notification from '@/router/notification';
 import plugin from '@/router/plugin';
 import misc from '@/router/misc';
 import {initRouterAuth} from '@/router/hooks/auth';
@@ -36,6 +37,7 @@ export function getDefaultRoutes(): Array<RouteRecordRaw> {
         ...tag,
         ...token,
         ...env,
+        ...notification,
         ...plugin,
         ...misc,
       ],
@@ -64,6 +66,7 @@ export function getDefaultSidebarMenuItems(): MenuItem[] {
         {path: '/env/deps/node', title: 'router.menuItems.env.deps.node', icon: ['fab', 'node']},
       ]
     },
+    {path: '/notifications', title: 'router.menuItems.notification', icon: ['fa', 'envelope']},
     {path: '/plugins', title: 'router.menuItems.plugins', icon: ['fa', 'plug']},
   ];
 }
