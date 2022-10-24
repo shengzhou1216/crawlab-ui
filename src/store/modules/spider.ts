@@ -232,7 +232,7 @@ const actions = {
     return res;
   },
   gitPull: async ({state}: StoreActionContext<SpiderStoreState>, {id}: { id: string }) => {
-    const res = await post(`${endpoint}/${id}/git/pull`);
+    const res = await post(`${endpoint}/${id}/git/pull`, {});
     return res;
   },
   gitCommit: async ({state}: StoreActionContext<SpiderStoreState>, {
