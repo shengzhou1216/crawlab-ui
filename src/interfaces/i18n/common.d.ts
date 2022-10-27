@@ -65,6 +65,8 @@ export declare global {
         uninstall: string;
         startInstall: string;
         startUninstall: string;
+        enabled: string;
+        disabled: string;
       };
       info: {
         cancel: string;

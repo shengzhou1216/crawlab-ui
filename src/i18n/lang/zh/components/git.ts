@@ -6,6 +6,7 @@ const git: LComponentsGit = {
     username: '用户名',
     password: '密码',
     privateKey: '私钥',
+    autoPull: '自动拉取',
   },
   common: {
     currentBranch: '当前分支',

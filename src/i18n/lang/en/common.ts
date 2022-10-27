@@ -57,6 +57,8 @@ const common: LCommon = {
       uninstall: 'Uninstalled successfully',
       startInstall: 'Started installation successfully',
       startUninstall: 'Started uninstallation successfully',
+      enabled: 'Enabled successfully',
+      disabled: 'Disabled successfully',
     },
     info: {
       cancel: 'Attempt to cancel',

@@ -49,6 +49,12 @@
           </template>
         </Tag>
       </div>
+      <Switch
+        v-model="gitForm.auto_pull"
+        :active-text="t('components.git.form.autoPull')"
+        :disabled="gitForm.url === '' || gitForm.auth_type === ''"
+        @change="onAutoFillChange"
+      />
     </NavActionItem>
   </NavActionGroup>
 </template>
@@ -63,10 +69,13 @@ import Tag from '@/components/tag/Tag.vue';
 import {useStore} from 'vuex';
 import {useI18n} from 'vue-i18n';
 import useSpiderDetail from '@/views/spider/detail/useSpiderDetail';
+import Switch from '@/components/switch/Switch.vue';
+import {ElMessage} from 'element-plus';
 
 export default defineComponent({
   name: 'SpiderDetailActionsGit',
   components: {
+    Switch,
     NavActionFaIcon,
     NavActionGroup,
     NavActionItem,
@@ -119,6 +128,11 @@ export default defineComponent({
       isBranchClicked.value = false;
     };
 
+    const onAutoFillChange = async () => {
+      await store.dispatch(`git/updateById`, {id: gitForm.value._id, form: gitForm.value});
+      await ElMessage.success(t('common.message.success.save'));
+    };
+
     return {
       ...useSpiderDetail(),
       gitForm,
@@ -129,6 +143,7 @@ export default defineComponent({
       onBranchClick,
       onBranchCancel,
       onBranchCheckout,
+      onAutoFillChange,
       t,
     };
   },

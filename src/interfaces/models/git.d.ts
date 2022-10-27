@@ -41,5 +41,6 @@ export declare global {
     username?: string;
     password?: string;
     current_branch?: string;
+    auto_pull?: boolean;
   }
 }

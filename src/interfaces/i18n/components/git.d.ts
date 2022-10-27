@@ -6,6 +6,7 @@ interface LComponentsGit {
     username: string;
     password: string;
     privateKey: string;
+    autoPull: string;
   };
   common: {
     currentBranch: string;

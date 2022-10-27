@@ -57,6 +57,8 @@ const common: LCommon = {
       uninstall: '卸载成功',
       startInstall: '开始安装',
       startUninstall: '开始卸载',
+      enabled: '已启用',
+      disabled: '已禁用',
     },
     info: {
       cancel: '尝试取消',
