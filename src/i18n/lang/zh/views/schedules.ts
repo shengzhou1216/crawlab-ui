@@ -14,6 +14,11 @@ const schedules: LViewsSchedules = {
     new: {
       label: '新建定时任务',
       tooltip: '添加一个新定时任务',
+    },
+    filter: {
+      search: {
+        placeholder: '搜索定时任务',
+      }
     }
   }
 };

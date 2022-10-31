@@ -94,6 +94,7 @@ const common: LCommon = {
   mode: {
     default: '默认',
     other: '其他',
+    all: '全部',
   },
   placeholder: {
     empty: '空',

@@ -1,5 +1,5 @@
 <template>
-  <ListLayout
+  <ClListLayout
     class="spider-list"
     :action-functions="actionFunctions"
     :nav-actions="navActions"
@@ -7,6 +7,8 @@
     :table-columns="tableColumns"
     :table-data="tableData"
     :table-total="tableTotal"
+    :table-filter="tableListFilter"
+    :table-sort="tableListSort"
     :table-actions-prefix="tableActionsPrefix"
     :no-actions="noActions"
     :embedded="embedded"
@@ -18,13 +20,13 @@
       <UploadSpiderFilesDialog/>
       <!-- ./Dialogs -->
     </template>
-  </ListLayout>
+  </ClListLayout>
 </template>
 
 <script lang="ts">
 import {defineComponent} from 'vue';
 import CreateSpiderDialog from '@/components/spider/CreateEditSpiderDialog.vue';
-import ListLayout from '@/layouts/content/list/ListLayout.vue';
+import ClListLayout from '@/layouts/content/list/ListLayout.vue';
 import useSpiderList from '@/views/spider/list/spiderList';
 import RunSpiderDialog from '@/components/spider/RunSpiderDialog.vue';
 import UploadSpiderFilesDialog from '@/components/spider/UploadSpiderFilesDialog.vue';
@@ -44,7 +46,7 @@ export default defineComponent({
   components: {
     UploadSpiderFilesDialog,
     RunSpiderDialog,
-    ListLayout,
+    ClListLayout,
     CreateSpiderDialog,
   },
   setup() {
@@ -54,6 +56,8 @@ export default defineComponent({
       tableData,
       tableTotal,
       tablePagination,
+      tableListFilter,
+      tableListSort,
       actionFunctions,
       tableActionsPrefix,
       activeDialogKey,
@@ -65,6 +69,8 @@ export default defineComponent({
       tableData,
       tableTotal,
       tablePagination,
+      tableListFilter,
+      tableListSort,
       actionFunctions,
       tableActionsPrefix,
       activeDialogKey,

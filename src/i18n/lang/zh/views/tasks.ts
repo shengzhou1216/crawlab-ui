@@ -22,6 +22,11 @@ const tasks: LViewsTasks = {
     new: {
       label: '新建任务',
       tooltip: '创建一个新任务',
+    },
+    filter: {
+      search: {
+        placeholder: '搜索任务',
+      }
     }
   }
 };

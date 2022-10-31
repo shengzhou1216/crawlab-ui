@@ -10,6 +10,11 @@ const users: LViewsUsers = {
     new: {
       label: 'New User',
       tooltip: 'Create a new user',
+    },
+    filter: {
+      search: {
+        placeholder: 'Search users',
+      }
     }
   }
 };

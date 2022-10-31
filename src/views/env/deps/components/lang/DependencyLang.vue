@@ -1,5 +1,5 @@
 <template>
-  <ListLayout
+  <ClListLayout
     v-loading="loading"
     class="dependency-list"
     :table-columns="tableColumns"
@@ -107,7 +107,7 @@
         />
       </Dialog>
     </template>
-  </ListLayout>
+  </ClListLayout>
 </template>
 
 <script lang="ts">
@@ -117,7 +117,7 @@ import {Search} from '@element-plus/icons';
 import {useStore} from 'vuex';
 import {translate} from '@/utils';
 import useRequest from '@/services/request';
-import ListLayout from '@/layouts/content/list/ListLayout.vue';
+import ClListLayout from '@/layouts/content/list/ListLayout.vue';
 import FaIconButton from '@/components/button/FaIconButton.vue';
 import Button from '@/components/button/Button.vue';
 import LabelButton from '@/components/button/LabelButton.vue';
@@ -156,7 +156,7 @@ interface DependencyLangProps {
 export default defineComponent({
   name: 'DependencyLang',
   components: {
-    ListLayout,
+    ClListLayout,
     LabelButton,
     FaIconButton,
     Button,

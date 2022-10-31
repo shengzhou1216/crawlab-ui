@@ -22,6 +22,11 @@ const tasks: LViewsTasks = {
     new: {
       label: 'New Task',
       tooltip: 'Create a new task',
+    },
+    filter: {
+      search: {
+        placeholder: 'Search tasks',
+      }
     }
   }
 };

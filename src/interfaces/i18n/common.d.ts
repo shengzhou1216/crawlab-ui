@@ -4,6 +4,11 @@ export declare global {
       label: string;
       tooltip: string;
     };
+    filter: {
+      search: {
+        placeholder: string;
+      };
+    };
   }
 
   interface LCommon {
@@ -102,6 +107,7 @@ export declare global {
     mode: {
       default: string;
       other: string;
+      all: string;
     };
     placeholder: {
       empty: string;

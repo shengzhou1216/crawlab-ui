@@ -15,6 +15,20 @@ const spiders: LViewsSpiders = {
     new: {
       label: 'New Spider',
       tooltip: 'Create a new spider'
+    },
+    filter: {
+      search: {
+        placeholder: 'Search spiders'
+      }
+    }
+  },
+  navActionsExtra: {
+    filter: {
+      select: {
+        project: {
+          label: 'Project'
+        }
+      }
     }
   }
 };

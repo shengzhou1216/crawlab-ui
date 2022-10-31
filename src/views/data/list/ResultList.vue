@@ -1,5 +1,5 @@
 <template>
-  <ListLayout
+  <ClListLayout
     :action-functions="actionFunctions"
     :no-actions="noActions"
     :table-pagination="tablePagination"
@@ -12,19 +12,19 @@
   >
     <template #extra>
     </template>
-  </ListLayout>
+  </ClListLayout>
 </template>
 
 <script lang="ts">
 import {computed, defineComponent, PropType, watch} from 'vue';
-import ListLayout from '@/layouts/content/list/ListLayout.vue';
+import ClListLayout from '@/layouts/content/list/ListLayout.vue';
 import {useStore} from 'vuex';
 import {TABLE_ACTION_CUSTOMIZE_COLUMNS} from '@/constants';
 
 export default defineComponent({
   name: 'ResultList',
   components: {
-    ListLayout,
+    ClListLayout,
   },
   props: {
     id: {

@@ -5,25 +5,43 @@
       <NavActions v-if="!noActions" ref="navActions" class="nav-actions">
         <NavActionGroup
           v-for="(grp, i) in navActions"
-          :key="i"
+          :key="grp.name || i"
         >
           <NavActionItem
-            v-for="(btn, j) in grp.children"
-            :key="j"
+            v-for="(item, j) in grp.children"
+            :key="`${grp.name}-${item.id || j}`"
           >
-            <NavActionButton
-              v-auth="ACTION_ADD"
-              :id="btn.id"
-              :class-name="btn.className"
-              :button-type="btn.buttonType"
-              :disabled="btn.disabled"
-              :icon="btn.icon"
-              :label="btn.label"
-              :size="btn.size"
-              :tooltip="btn.tooltip"
-              :type="btn.type"
-              @click="btn.onClick"
-            />
+            <template v-if="item.action === ACTION_FILTER_SEARCH">
+              <FilterInput
+                :placeholder="item.placeholder"
+                clearable
+                @change="(value) => item?.onChange(value)"
+              />
+            </template>
+            <template v-else-if="item.action === ACTION_FILTER_SELECT">
+              <FilterSelect
+                :label="item.label"
+                :placeholder="item.placeholder"
+                :options="item.options"
+                :options-remote="item.optionsRemote"
+                @change="(value) => item?.onChange(value)"
+              />
+            </template>
+            <template v-else>
+              <NavActionButton
+                v-auth="ACTION_ADD"
+                :id="item.id"
+                :class-name="item.className"
+                :button-type="item.buttonType"
+                :disabled="item.disabled"
+                :icon="item.icon"
+                :label="item.label"
+                :size="item.size"
+                :tooltip="item.tooltip"
+                :type="item.type"
+                @click="item.onClick"
+              />
+            </template>
           </NavActionItem>
         </NavActionGroup>
         <slot name="nav-actions-extra"></slot>
@@ -94,14 +112,17 @@ import NavActionItem from '@/components/nav/NavActionItem.vue';
 import Table from '@/components/table/Table.vue';
 import NavActionButton from '@/components/nav/NavActionButton.vue';
 import NavActions from '@/components/nav/NavActions.vue';
-import {emptyObjectFunc} from '@/utils/func';
+import FilterSelect from '@/components/filter/FilterSelect.vue';
+import {emptyArrayFunc, emptyObjectFunc} from '@/utils/func';
 import {getMd5} from '@/utils/hash';
-import {ACTION_ADD} from '@/constants/action';
-import {useRoute} from 'vue-router';
+import {ACTION_ADD, ACTION_FILTER_SEARCH, ACTION_FILTER_SELECT} from '@/constants/action';
+import FilterInput from '@/components/filter/FilterInput.vue';
 
 export default defineComponent({
   name: 'ListLayout',
   components: {
+    FilterInput,
+    FilterSelect,
     NavActions,
     NavActionGroup,
     NavActionItem,
@@ -140,6 +161,14 @@ export default defineComponent({
         };
       }
     },
+    tableListFilter: {
+      type: Array as PropType<FilterConditionData[]>,
+      default: emptyArrayFunc,
+    },
+    tableListSort: {
+      type: Array as PropType<SortData[]>,
+      default: emptyArrayFunc,
+    },
     tableActionsPrefix: {
       type: Array as PropType<ListActionButton[]>,
       default: () => {
@@ -152,6 +181,7 @@ export default defineComponent({
         return [];
       }
     },
+    tableFilter: {},
     actionFunctions: {
       type: Object as PropType<ListLayoutActionFunctions>,
       default: emptyObjectFunc,
@@ -259,6 +289,8 @@ export default defineComponent({
       onDelete,
       getNavActionButtonDisabled,
       ACTION_ADD,
+      ACTION_FILTER_SEARCH,
+      ACTION_FILTER_SELECT,
     };
   },
 });
@@ -271,6 +303,14 @@ export default defineComponent({
   .nav-actions {
     background-color: $containerWhiteBg;
     border-bottom: none;
+
+    .nav-action-group {
+      .nav-action-item {
+        &:not(:last-child) {
+          margin-right: 10px;
+        }
+      }
+    }
   }
 
   .content {

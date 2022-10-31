@@ -7,11 +7,19 @@ import useList from '@/layouts/content/list/list';
 import NavLink from '@/components/nav/NavLink.vue';
 import Time from '@/components/time/Time.vue';
 import SpiderStat from '@/components/spider/SpiderStat.vue';
-import {setupListComponent} from '@/utils/list';
+import {onListFilterChangeByKey, setupListComponent} from '@/utils/list';
 import useProject from '@/components/project/project';
 import {translate} from '@/utils/i18n';
 import {sendEvent} from '@/admin/umeng';
-import {ACTION_ADD, ACTION_DELETE, ACTION_RUN, ACTION_UPLOAD, ACTION_VIEW} from '@/constants';
+import {
+  ACTION_ADD,
+  ACTION_DELETE,
+  ACTION_FILTER,
+  ACTION_FILTER_SEARCH, ACTION_FILTER_SELECT,
+  ACTION_RUN,
+  ACTION_UPLOAD,
+  ACTION_VIEW, FILTER_OP_CONTAINS, FILTER_OP_EQUAL
+} from '@/constants';
 
 const useSpiderList = () => {
   // i18n
@@ -35,6 +43,14 @@ const useSpiderList = () => {
     deleteByIdConfirm,
   } = actionFunctions;
 
+  const {
+    allListSelectOptions: allProjectListSelectOptions,
+  } = useProject(store);
+  // const allProjectList = computed<Project[]>(() => store.state.project.allList);
+
+  // all project dict
+  const allProjectDict = computed<Map<string, Project>>(() => store.getters['project/allDict']);
+
   // nav actions
   const navActions = computed<ListActionGroup[]>(() => [
     {
@@ -57,16 +73,31 @@ const useSpiderList = () => {
           },
         }
       ]
+    },
+    {
+      action: ACTION_FILTER,
+      name: 'filter',
+      children: [
+        {
+          action: ACTION_FILTER_SEARCH,
+          id: 'filter-search',
+          className: 'search',
+          placeholder: t('views.spiders.navActions.filter.search.placeholder'),
+          onChange: onListFilterChangeByKey(store, ns, 'name', FILTER_OP_CONTAINS),
+        },
+        {
+          action: ACTION_FILTER_SELECT,
+          id: 'filter-select-project',
+          className: 'filter-select-project',
+          label: t('views.spiders.navActionsExtra.filter.select.project.label'),
+          optionsRemote: {
+            colName: 'projects',
+          },
+          onChange: onListFilterChangeByKey(store, ns, 'project_id', FILTER_OP_EQUAL),
+        },
+      ]
     }
   ]);
-
-  const {
-    allListSelectOptions: allProjectListSelectOptions,
-  } = useProject(store);
-  // const allProjectList = computed<Project[]>(() => store.state.project.allList);
-
-  // all project dict
-  const allProjectDict = computed<Map<string, Project>>(() => store.getters['project/allDict']);
 
   // table columns
   const tableColumns = computed<TableColumns<Spider>>(() => [

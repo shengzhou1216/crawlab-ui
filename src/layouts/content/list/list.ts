@@ -53,6 +53,8 @@ const useList = <T = any>(ns: ListStoreNamespace, store: Store<RootStoreState>, 
   const tableData = computed<TableData<T>>(() => state.tableData as TableData<T>);
   const tableTotal = computed<number>(() => state.tableTotal);
   const tablePagination = computed<TablePagination>(() => state.tablePagination);
+  const tableListFilter = computed<FilterConditionData[]>(() => state.tableListFilter);
+  const tableListSort = computed<SortData[]>(() => state.tableListSort);
 
   // action functions
   const actionFunctions = readonly<ListLayoutActionFunctions>({
@@ -151,6 +153,8 @@ const useList = <T = any>(ns: ListStoreNamespace, store: Store<RootStoreState>, 
     tableData,
     tableTotal,
     tablePagination,
+    tableListFilter,
+    tableListSort,
     actionFunctions,
     activeDialogKey,
   };

@@ -15,6 +15,20 @@ const spiders: LViewsSpiders = {
     new: {
       label: '新建爬虫',
       tooltip: '添加一个新爬虫'
+    },
+    filter: {
+      search: {
+        placeholder: '搜索爬虫'
+      }
+    }
+  },
+  navActionsExtra: {
+    filter: {
+      select: {
+        project: {
+          label: '项目'
+        }
+      }
     }
   }
 };

@@ -11,6 +11,11 @@ const projects: LViewProjects = {
     new: {
       label: 'New Project',
       tooltip: 'Create a new project'
+    },
+    filter: {
+      search: {
+        placeholder: 'Search projects'
+      }
     }
   }
 };

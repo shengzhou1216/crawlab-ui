@@ -9,6 +9,11 @@ const tokens: LViewsTokens = {
     new: {
       label: 'New Token',
       tooltip: 'Create a new token',
+    },
+    filter: {
+      search: {
+        placeholder: 'Search tokens',
+      }
     }
   },
   messageBox: {

@@ -17,6 +17,11 @@ const nodes: LViewsNodes = {
     new: {
       label: '新建节点',
       tooltip: '添加一个新节点'
+    },
+    filter: {
+      search: {
+        placeholder: '搜索节点'
+      }
     }
   },
   notice: {

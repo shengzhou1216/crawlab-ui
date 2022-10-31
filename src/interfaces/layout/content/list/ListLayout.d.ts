@@ -9,6 +9,8 @@ declare global {
     tablePagination: TablePagination;
     tableActionsPrefix: ListActionButton[];
     tableActionsSuffix: ListActionButton[];
+    tableListFilter: FilterConditionData[];
+    tableListSort: SortData[];
     actionFunctions: ListLayoutActionFunctions;
     noActions: boolean;
     selectableFunction: TableSelectableFunction;
@@ -25,6 +27,8 @@ declare global {
     tableData: Ref<TableData<T>>;
     tableTotal: Ref<number>;
     tablePagination: Ref<TablePagination>;
+    tableListFilter: Ref<FilterConditionData[]>;
+    tableListSort: Ref<SortData[]>;
     actionFunctions: ListLayoutActionFunctions;
     activeDialogKey: ComputedRef<DialogKey | undefined>;
   }
@@ -36,21 +40,31 @@ declare global {
 
   interface ListActionGroup {
     name?: string;
-    children?: ListActionButton[];
+    children?: (ListActionButton | ListActionFilter)[];
   }
 
-  interface ListActionButton {
-    buttonType: ButtonType;
+  interface ListAction {
+    id?: string;
     label?: string;
-    tooltip?: string;
+    action?: GenericAction;
+    className?: string;
     size?: BasicSize;
+  }
+
+  interface ListActionButton extends ListAction {
+    buttonType?: ButtonType;
+    tooltip?: string;
     icon?: Icon;
     type?: BasicType;
     disabled?: boolean | ListActionButtonDisabledFunc;
     onClick?: () => void;
-    className?: string;
-    id?: string;
-    action?: GenericAction;
+  }
+
+  interface ListActionFilter extends ListAction {
+    placeholder?: string;
+    options?: SelectOption[];
+    optionsRemote?: FilterSelectOptionsRemote;
+    onChange?: (value: any) => void;
   }
 
   interface ListLayoutActionFunctions {

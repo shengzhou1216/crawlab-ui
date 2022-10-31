@@ -12,6 +12,11 @@ const plugins: LViewsPlugins = {
       label: '新建插件',
       tooltip: '添加一个新插件',
     },
+    filter: {
+      search: {
+        placeholder: '搜索插件',
+      }
+    },
     install: {
       label: '安装插件',
       tooltip: '安装一个新插件',

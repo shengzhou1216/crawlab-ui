@@ -1,5 +1,5 @@
 <template>
-  <ListLayout
+  <ClListLayout
     class="schedule-list"
     :action-functions="actionFunctions"
     :nav-actions="navActions"
@@ -15,19 +15,19 @@
       <CreateEditScheduleDialog/>
       <!-- ./Dialogs -->
     </template>
-  </ListLayout>
+  </ClListLayout>
 </template>
 
 <script lang="ts">
 import {defineComponent} from 'vue';
-import ListLayout from '@/layouts/content/list/ListLayout.vue';
+import ClListLayout from '@/layouts/content/list/ListLayout.vue';
 import useScheduleList from './scheduleList';
 import CreateEditScheduleDialog from '@/components/schedule/CreateEditScheduleDialog.vue';
 
 export default defineComponent({
   name: 'ScheduleList',
   components: {
-    ListLayout,
+    ClListLayout,
     CreateEditScheduleDialog,
   },
   props: {

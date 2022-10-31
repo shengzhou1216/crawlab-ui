@@ -1,5 +1,5 @@
 <template>
-  <ListLayout
+  <ClListLayout
     class="user-list"
     :action-functions="actionFunctions"
     :nav-actions="navActions"
@@ -16,19 +16,19 @@
       <CreateEditUserDialog/>
       <!-- ./Dialogs -->
     </template>
-  </ListLayout>
+  </ClListLayout>
 </template>
 
 <script lang="ts">
 import {defineComponent} from 'vue';
-import ListLayout from '@/layouts/content/list/ListLayout.vue';
+import ClListLayout from '@/layouts/content/list/ListLayout.vue';
 import useUserList from './userList';
 import CreateEditUserDialog from '@/components/user/CreateEditUserDialog.vue';
 
 export default defineComponent({
   name: 'UserList',
   components: {
-    ListLayout,
+    ClListLayout,
     CreateEditUserDialog,
   },
   props: {

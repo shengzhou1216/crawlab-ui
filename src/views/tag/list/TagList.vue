@@ -1,5 +1,5 @@
 <template>
-  <ListLayout
+  <ClListLayout
     class="tag-list"
     :action-functions="actionFunctions"
     :nav-actions="navActions"
@@ -13,19 +13,19 @@
       <CreateTagDialog/>
       <!-- ./Dialogs -->
     </template>
-  </ListLayout>
+  </ClListLayout>
 </template>
 
 <script lang="ts">
 import {defineComponent} from 'vue';
 import CreateTagDialog from '@/components/tag/CreateEditTagDialog.vue';
-import ListLayout from '@/layouts/content/list/ListLayout.vue';
+import ClListLayout from '@/layouts/content/list/ListLayout.vue';
 import useTagList from '@/views/tag/list/tagList';
 
 export default defineComponent({
   name: 'TagList',
   components: {
-    ListLayout,
+    ClListLayout,
     CreateTagDialog,
   },
   setup() {

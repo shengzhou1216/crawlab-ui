@@ -17,6 +17,11 @@ const nodes: LViewsNodes = {
     new: {
       label: 'New Node',
       tooltip: 'Create a new node'
+    },
+    filter: {
+      search: {
+        placeholder: 'Search nodes'
+      }
     }
   },
   notice: {

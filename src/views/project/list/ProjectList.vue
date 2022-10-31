@@ -1,5 +1,5 @@
 <template>
-  <ListLayout
+  <ClListLayout
     class="project-list"
     :action-functions="actionFunctions"
     :nav-actions="navActions"
@@ -13,19 +13,19 @@
       <CreateEditProjectDialog/>
       <!-- ./Dialogs -->
     </template>
-  </ListLayout>
+  </ClListLayout>
 </template>
 
 <script lang="ts">
 import {defineComponent} from 'vue';
-import ListLayout from '@/layouts/content/list/ListLayout.vue';
+import ClListLayout from '@/layouts/content/list/ListLayout.vue';
 import useProjectList from './projectList';
 import CreateEditProjectDialog from '@/components/project/CreateEditProjectDialog.vue';
 
 export default defineComponent({
   name: 'ProjectList',
   components: {
-    ListLayout,
+    ClListLayout,
     CreateEditProjectDialog,
   },
   setup() {

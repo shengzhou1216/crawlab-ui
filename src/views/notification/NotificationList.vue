@@ -1,5 +1,5 @@
 <template>
-  <ListLayout
+  <ClListLayout
     :table-columns="tableColumns"
     :table-data="tableData"
     :table-total="tableTotal"
@@ -19,7 +19,7 @@
         />
       </CreateEditDialog>
     </template>
-  </ListLayout>
+  </ClListLayout>
 </template>
 
 <script lang="ts">
@@ -28,7 +28,7 @@ import {useRouter} from 'vue-router';
 import {translate} from '@/utils';
 import useRequest from '@/services/request';
 import NotificationForm from '@/views/notification/NotificationForm.vue';
-import ListLayout from '@/layouts/content/list/ListLayout.vue';
+import ClListLayout from '@/layouts/content/list/ListLayout.vue';
 import CreateEditDialog from '@/components/dialog/CreateEditDialog.vue';
 import NavLink from '@/components/nav/NavLink.vue';
 import Switch from '@/components/switch/Switch.vue';
@@ -52,7 +52,7 @@ const getDefaultForm = () => {
 export default defineComponent({
   name: 'NotificationList',
   components: {
-    ListLayout,
+    ClListLayout,
     CreateEditDialog,
     NotificationForm,
   },

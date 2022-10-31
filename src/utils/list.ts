@@ -1,6 +1,11 @@
 import {onBeforeMount, Ref} from 'vue';
 import {Store} from 'vuex';
 import {setupAutoUpdate} from '@/utils/auto';
+import {translate} from '@/utils/i18n';
+import {cloneArray} from '@/utils/object';
+import {FILTER_OP_EQUAL} from '@/constants';
+
+const t = translate;
 
 export const getDefaultUseListOptions = <T = any>(navActions: Ref<ListActionGroup[]>, tableColumns: Ref<TableColumns<T>>): UseListOptions<T> => {
   return {
@@ -25,4 +30,23 @@ export const setupListComponent = (ns: ListStoreNamespace, store: Store<RootStor
   setupAutoUpdate(async () => {
     await store.dispatch(`${ns}/getList`);
   });
+};
+
+export const prependAllToSelectOptions = (options: SelectOption[]): SelectOption[] => {
+  const _options = cloneArray(options);
+  return cloneArray([
+    {label: t('common.mode.all'), value: undefined},
+    ..._options,
+  ]);
+};
+
+export const onListFilterChangeByKey = (store: Store<RootStoreState>, ns: ListStoreNamespace, key: string, op?: string) => {
+  if (!op) op = FILTER_OP_EQUAL;
+  return async (value: string) => {
+    store.commit(`${ns}/setTableListFilterByKey`, {
+      key,
+      conditions: value ? [{key, op, value}] : [],
+    });
+    await store.dispatch(`${ns}/getList`);
+  };
 };

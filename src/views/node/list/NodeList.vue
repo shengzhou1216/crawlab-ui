@@ -1,5 +1,5 @@
 <template>
-  <ListLayout
+  <ClListLayout
     class="node-list"
     :action-functions="actionFunctions"
     :nav-actions="navActions"
@@ -14,19 +14,19 @@
       <CreateEditNodeDialog/>
       <!-- ./Dialogs -->
     </template>
-  </ListLayout>
+  </ClListLayout>
 </template>
 
 <script lang="ts">
 import {defineComponent} from 'vue';
-import ListLayout from '@/layouts/content/list/ListLayout.vue';
+import ClListLayout from '@/layouts/content/list/ListLayout.vue';
 import useNodeList from '@/views/node/list/nodeList';
 import CreateEditNodeDialog from '@/components/node/CreateEditNodeDialog.vue';
 
 export default defineComponent({
   name: 'NodeList',
   components: {
-    ListLayout,
+    ClListLayout,
     CreateEditNodeDialog,
   },
   setup() {

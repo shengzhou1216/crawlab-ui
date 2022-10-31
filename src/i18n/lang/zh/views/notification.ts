@@ -4,6 +4,11 @@ const notification: LViewsNotification = {
       label: '新建通知',
       tooltip: '创建一个新的通知',
     },
+    filter: {
+      search: {
+        placeholder: '搜索通知',
+      }
+    }
   },
   settings: {
     form: {

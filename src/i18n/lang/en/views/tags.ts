@@ -11,6 +11,11 @@ const tags: LViewsTags = {
     new: {
       label: 'New Tag',
       tooltip: 'Create a new tag',
+    },
+    filter: {
+      search: {
+        placeholder: 'Search tags',
+      }
     }
   },
 };

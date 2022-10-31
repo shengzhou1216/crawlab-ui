@@ -14,6 +14,11 @@ const schedules: LViewsSchedules = {
     new: {
       label: 'New Schedule',
       tooltip: 'Create a new schedule',
+    },
+    filter: {
+      search: {
+        placeholder: 'Search schedules',
+      }
     }
   }
 };

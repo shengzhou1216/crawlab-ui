@@ -1,5 +1,5 @@
 <template>
-  <ListLayout
+  <ClListLayout
     :table-columns="tableColumns"
     :table-data="tableData"
     :table-total="tableTotal"
@@ -21,7 +21,7 @@
         />
       </Dialog>
     </template>
-  </ListLayout>
+  </ClListLayout>
 </template>
 
 <script lang="ts">
@@ -31,7 +31,7 @@ import {ElMessage} from 'element-plus';
 import NavLink from '@/components/nav/NavLink.vue';
 import useRequest from '@/services/request';
 import {translate} from '@/utils';
-import ListLayout from '@/layouts/content/list/ListLayout.vue';
+import ClListLayout from '@/layouts/content/list/ListLayout.vue';
 import Dialog from '@/components/dialog/Dialog.vue';
 
 const endpoint = '/env/deps/settings';
@@ -45,7 +45,7 @@ const {
 export default defineComponent({
   name: 'DependencySettings',
   components: {
-    ListLayout,
+    ClListLayout,
     Dialog,
     DependencySettingForm,
   },

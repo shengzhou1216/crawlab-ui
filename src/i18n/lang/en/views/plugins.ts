@@ -12,6 +12,11 @@ const plugins: LViewsPlugins = {
       label: 'New Plugin',
       tooltip: 'Create a new plugin',
     },
+    filter: {
+      search: {
+        placeholder: 'Search plugins',
+      }
+    },
     install: {
       label: 'Install Plugin',
       tooltip: 'Install a new plugin',

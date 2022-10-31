@@ -94,6 +94,7 @@ const common: LCommon = {
   mode: {
     default: 'Default',
     other: 'Other',
+    all: 'All',
   },
   placeholder: {
     empty: 'Empty',

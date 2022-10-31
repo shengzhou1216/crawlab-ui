@@ -12,4 +12,13 @@ interface LViewsSpiders {
     };
   };
   navActions: LNavActions;
+  navActionsExtra: {
+    filter: {
+      select: {
+        project: {
+          label: string;
+        };
+      };
+    };
+  };
 }

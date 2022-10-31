@@ -15,3 +15,6 @@ export const ACTION_STOP = 'stop';
 export const ACTION_SAVE = 'save';
 export const ACTION_BACK = 'back';
 export const ACTION_ENABLE = 'enable';
+export const ACTION_FILTER = 'filter';
+export const ACTION_FILTER_SEARCH = 'filter-search';
+export const ACTION_FILTER_SELECT = 'filter-select';

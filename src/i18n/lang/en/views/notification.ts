@@ -4,6 +4,11 @@ const notification: LViewsNotification = {
       label: 'New Notification',
       tooltip: 'Create a new notification',
     },
+    filter: {
+      search: {
+        placeholder: 'Search notifications',
+      }
+    }
   },
   settings: {
     form: {

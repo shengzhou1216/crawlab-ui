@@ -12020,6 +12020,11 @@ vue-clipboard3@^1.0.1:
   dependencies:
     clipboard "^2.0.6"
 
+vue-debounce@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.npmmirror.com/vue-debounce/-/vue-debounce-4.0.0.tgz#3f584dabc08a841a0182ab68d19f77f70a416fcc"
+  integrity sha512-+BrcKfLpyDpUJ58ZrAvI35irRCgYHFpnF3NJZwwaz8/kkKmEq6TWPXBIhLh2HQAsUZNwo52K/vQyiEFsJ/1RYA==
+
 vue-demi@*:
   version "0.13.11"
   resolved "https://registry.npmmirror.com/vue-demi/-/vue-demi-0.13.11.tgz#7d90369bdae8974d87b1973564ad390182410d99"
