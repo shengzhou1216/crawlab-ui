@@ -16,6 +16,20 @@ const users: LViewsUsers = {
         placeholder: 'Search users',
       }
     }
+  },
+  navActionsExtra: {
+    filter: {
+      select: {
+        role: {
+          label: 'Role',
+        }
+      },
+      search: {
+        email: {
+          placeholder: 'Search email',
+        }
+      }
+    }
   }
 };
 

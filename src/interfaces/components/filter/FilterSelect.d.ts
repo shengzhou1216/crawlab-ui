@@ -8,6 +8,7 @@ export declare global {
   interface FilterSelectProps {
     label?: string;
     placeholder?: string;
+    filterable?: boolean;
     options?: SelectOption[];
     optionsRemote?: FilterSelectOptionsRemote;
   }

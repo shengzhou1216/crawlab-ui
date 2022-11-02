@@ -19,4 +19,30 @@ interface LViewsTasks {
     };
   };
   navActions: LNavActions;
+  navActionsExtra: {
+    filter: {
+      select: {
+        node: {
+          label: string;
+        };
+        spider: {
+          label: string;
+        };
+        schedule: {
+          label: string;
+        };
+        priority: {
+          label: string;
+        };
+        status: {
+          label: string;
+        };
+      };
+      search: {
+        cmd: {
+          placeholder: string;
+        };
+      };
+    };
+  };
 }

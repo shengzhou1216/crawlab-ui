@@ -16,6 +16,20 @@ const users: LViewsUsers = {
         placeholder: '搜索用户',
       }
     }
+  },
+  navActionsExtra: {
+    filter: {
+      select: {
+        role: {
+          label: '角色',
+        }
+      },
+      search: {
+        email: {
+          placeholder: '搜索邮箱',
+        }
+      }
+    }
   }
 };
 

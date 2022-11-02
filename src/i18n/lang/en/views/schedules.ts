@@ -20,6 +20,26 @@ const schedules: LViewsSchedules = {
         placeholder: 'Search schedules',
       }
     }
+  },
+  navActionsExtra: {
+    filter: {
+      select: {
+        spider: {
+          label: 'Spider',
+        },
+        mode: {
+          label: 'Mode',
+        },
+        enabled: {
+          label: 'Enabled',
+        }
+      },
+      search: {
+        cron: {
+          placeholder: 'Search cron expression',
+        }
+      }
+    }
   }
 };
 

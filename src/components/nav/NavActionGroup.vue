@@ -20,21 +20,26 @@ export default defineComponent({
 @import "../../styles/variables.scss";
 
 .nav-action-group {
-  height: auto;
+  height: fit-content;
   display: flex;
-  align-items: center;
+  align-items: start;
   box-sizing: border-box;
+  flex-wrap: wrap;
+  position: relative;
 
   & + .nav-action-group {
     //padding-left: 10px;
     margin-left: 10px;
+  }
 
-    .border {
-      margin-left: -10px;
-      margin-right: 10px;
-      border-left: 1px solid $navActionsGroupBorderColor;
-      height: calc(100% - 20px);
-    }
+  .border {
+    position: absolute;
+    left: 0;
+    top: 10px;
+    margin-left: -10px;
+    margin-right: 10px;
+    border-left: 1px solid $navActionsGroupBorderColor;
+    height: calc(100% - 20px);
   }
 }
 </style>

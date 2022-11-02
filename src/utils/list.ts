@@ -45,7 +45,7 @@ export const onListFilterChangeByKey = (store: Store<RootStoreState>, ns: ListSt
   return async (value: string) => {
     store.commit(`${ns}/setTableListFilterByKey`, {
       key,
-      conditions: value ? [{key, op, value}] : [],
+      conditions: value !== undefined ? [{key, op, value}] : [],
     });
     await store.dispatch(`${ns}/getList`);
   };

@@ -14,7 +14,6 @@
             <template v-if="item.action === ACTION_FILTER_SEARCH">
               <FilterInput
                 :placeholder="item.placeholder"
-                clearable
                 @change="(value) => item?.onChange(value)"
               />
             </template>

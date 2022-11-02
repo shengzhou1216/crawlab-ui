@@ -28,6 +28,32 @@ const tasks: LViewsTasks = {
         placeholder: 'Search tasks',
       }
     }
+  },
+  navActionsExtra: {
+    filter: {
+      select: {
+        node: {
+          label: 'Node',
+        },
+        spider: {
+          label: 'Spider',
+        },
+        schedule: {
+          label: 'Schedule',
+        },
+        priority: {
+          label: 'Priority',
+        },
+        status: {
+          label: 'Status',
+        }
+      },
+      search: {
+        cmd: {
+          placeholder: 'Search Execute Command',
+        }
+      }
+    },
   }
 };
 

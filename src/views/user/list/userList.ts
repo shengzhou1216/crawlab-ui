@@ -8,7 +8,16 @@ import UserRole from '@/components/user/UserRole.vue';
 import {ROLE_ADMIN, ROLE_NORMAL, USERNAME_ADMIN} from '@/constants/user';
 import {translate} from '@/utils/i18n';
 import {sendEvent} from '@/admin/umeng';
-import {ACTION_ADD, ACTION_DELETE, ACTION_VIEW} from '@/constants';
+import {
+  ACTION_ADD,
+  ACTION_DELETE,
+  ACTION_FILTER,
+  ACTION_FILTER_SEARCH, ACTION_FILTER_SELECT,
+  ACTION_VIEW,
+  FILTER_OP_CONTAINS, FILTER_OP_EQUAL
+} from '@/constants';
+import {onListFilterChangeByKey} from '@/utils';
+import useUser from '@/components/user/user';
 
 // i18n
 const t = translate;
@@ -26,6 +35,10 @@ const useUserList = () => {
   const {
     actionFunctions,
   } = useList<User>(ns, store);
+
+  const {
+    rolesOptions,
+  } = useUser(store);
 
   // action functions
   const {
@@ -52,6 +65,34 @@ const useUserList = () => {
             sendEvent('click_user_list_new');
           }
         }
+      ]
+    },
+    {
+      action: ACTION_FILTER,
+      name: 'filter',
+      children: [
+        {
+          action: ACTION_FILTER_SEARCH,
+          id: 'filter-search',
+          className: 'search',
+          placeholder: t('views.users.navActions.filter.search.placeholder'),
+          onChange: onListFilterChangeByKey(store, ns, 'name', FILTER_OP_CONTAINS),
+        },
+        {
+          action: ACTION_FILTER_SEARCH,
+          id: 'filter-search-email',
+          className: 'search-email',
+          placeholder: t('views.users.navActionsExtra.filter.search.email.placeholder'),
+          onChange: onListFilterChangeByKey(store, ns, 'email', FILTER_OP_CONTAINS),
+        },
+        {
+          action: ACTION_FILTER_SELECT,
+          id: 'filter-select-priority',
+          className: 'filter-select-priority',
+          label: t('views.users.navActionsExtra.filter.select.role.label'),
+          options: rolesOptions,
+          onChange: onListFilterChangeByKey(store, ns, 'role', FILTER_OP_EQUAL),
+        },
       ]
     }
   ]);
@@ -88,10 +129,7 @@ const useUserList = () => {
       value: (row: User) => h(UserRole, {role: row.role} as UserRoleProps),
       hasFilter: true,
       allowFilterItems: true,
-      filterItems: [
-        {label: t('components.user.role.admin'), value: ROLE_ADMIN},
-        {label: t('components.user.role.normal'), value: ROLE_NORMAL},
-      ],
+      filterItems: rolesOptions,
     },
     {
       key: TABLE_COLUMN_NAME_ACTIONS,

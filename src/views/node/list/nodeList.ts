@@ -1,6 +1,6 @@
 import useList from '@/layouts/content/list/list';
 import {useStore} from 'vuex';
-import {getDefaultUseListOptions, setupListComponent} from '@/utils/list';
+import {getDefaultUseListOptions, onListFilterChangeByKey, setupListComponent} from '@/utils/list';
 import {computed, h} from 'vue';
 import NodeType from '@/components/node/NodeType.vue';
 import {
@@ -24,7 +24,15 @@ import {
 } from '@/constants/node';
 import {translate} from '@/utils/i18n';
 import {sendEvent} from '@/admin/umeng';
-import {ACTION_ADD, ACTION_DELETE, ACTION_ENABLE, ACTION_VIEW} from '@/constants';
+import {
+  ACTION_ADD,
+  ACTION_DELETE,
+  ACTION_ENABLE,
+  ACTION_FILTER,
+  ACTION_FILTER_SEARCH, ACTION_FILTER_SELECT,
+  ACTION_VIEW,
+  FILTER_OP_CONTAINS, FILTER_OP_EQUAL
+} from '@/constants';
 import {isAllowedAction} from '@/utils';
 
 type Node = CNode;
@@ -91,6 +99,54 @@ const useNodeList = () => {
             sendEvent('click_node_list_new');
           }
         }
+      ]
+    },
+    {
+      action: ACTION_FILTER,
+      name: 'filter',
+      children: [
+        {
+          action: ACTION_FILTER_SEARCH,
+          id: 'filter-search',
+          className: 'search',
+          placeholder: t('views.nodes.navActions.filter.search.placeholder'),
+          onChange: onListFilterChangeByKey(store, ns, 'name', FILTER_OP_CONTAINS),
+        },
+        {
+          action: ACTION_FILTER_SELECT,
+          id: 'filter-select-type',
+          className: 'filter-select-type',
+          label: t('views.nodes.navActionsExtra.filter.select.type.label'),
+          options: [
+            {label: t('components.node.nodeType.label.master'), value: true},
+            {label: t('components.node.nodeType.label.worker'), value: false},
+          ],
+          onChange: onListFilterChangeByKey(store, ns, 'is_master', FILTER_OP_EQUAL),
+        },
+        {
+          action: ACTION_FILTER_SELECT,
+          id: 'filter-select-status',
+          className: 'filter-select-status',
+          label: t('views.nodes.navActionsExtra.filter.select.status.label'),
+          options: [
+            {label: t('components.node.nodeStatus.label.unregistered'), value: NODE_STATUS_UNREGISTERED},
+            {label: t('components.node.nodeStatus.label.registered'), value: NODE_STATUS_REGISTERED},
+            {label: t('components.node.nodeStatus.label.online'), value: NODE_STATUS_ONLINE},
+            {label: t('components.node.nodeStatus.label.offline'), value: NODE_STATUS_OFFLINE},
+          ],
+          onChange: onListFilterChangeByKey(store, ns, 'status', FILTER_OP_EQUAL),
+        },
+        {
+          action: ACTION_FILTER_SELECT,
+          id: 'filter-select-enabled',
+          className: 'filter-select-enabled',
+          label: t('views.nodes.navActionsExtra.filter.select.enabled.label'),
+          options: [
+            {label: t('common.control.enabled'), value: true},
+            {label: t('common.control.disabled'), value: false},
+          ],
+          onChange: onListFilterChangeByKey(store, ns, 'enabled', FILTER_OP_EQUAL),
+        },
       ]
     }
   ]);

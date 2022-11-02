@@ -11,8 +11,8 @@ import TaskPriority from '@/components/task/TaskPriority.vue';
 import NodeType from '@/components/node/NodeType.vue';
 import Time from '@/components/time/Time.vue';
 import Duration from '@/components/time/Duration.vue';
-import {setupListComponent} from '@/utils/list';
-import {isCancellable} from '@/utils/task';
+import {onListFilterChangeByKey, setupListComponent} from '@/utils/list';
+import {getStatusOptions, isCancellable} from '@/utils/task';
 import TaskResults from '@/components/task/TaskResults.vue';
 import useNode from '@/components/node/node';
 import useSpider from '@/components/spider/spider';
@@ -28,7 +28,15 @@ import {translate} from '@/utils/i18n';
 import {sendEvent} from '@/admin/umeng';
 import useSchedule from '@/components/schedule/schedule';
 import TaskCommand from '@/components/task/TaskCommand.vue';
-import {ACTION_ADD, ACTION_CANCEL, ACTION_DELETE, ACTION_RESTART, ACTION_VIEW, ACTION_VIEW_LOGS} from '@/constants';
+import {
+  ACTION_ADD,
+  ACTION_CANCEL,
+  ACTION_DELETE,
+  ACTION_FILTER, ACTION_FILTER_SEARCH, ACTION_FILTER_SELECT,
+  ACTION_RESTART,
+  ACTION_VIEW,
+  ACTION_VIEW_LOGS, FILTER_OP_CONTAINS, FILTER_OP_EQUAL
+} from '@/constants';
 
 const {
   post,
@@ -50,6 +58,10 @@ const useTaskList = () => {
   const {
     actionFunctions,
   } = useList<Task>(ns, store);
+
+  const {
+    priorityOptions,
+  } = useTask(store);
 
   // action functions
   const {
@@ -84,7 +96,73 @@ const useTaskList = () => {
 
             sendEvent('click_task_list_new');
           }
-        }
+        },
+      ]
+    },
+    {
+      action: ACTION_FILTER,
+      name: 'filter',
+      children: [
+        {
+          action: ACTION_FILTER_SEARCH,
+          id: 'filter-search',
+          className: 'search',
+          placeholder: t('views.tasks.navActions.filter.search.placeholder'),
+          onChange: onListFilterChangeByKey(store, ns, 'name', FILTER_OP_CONTAINS),
+        },
+        {
+          action: ACTION_FILTER_SELECT,
+          id: 'filter-select-node',
+          className: 'filter-select-node',
+          label: t('views.tasks.navActionsExtra.filter.select.node.label'),
+          optionsRemote: {
+            colName: 'nodes',
+          },
+          onChange: onListFilterChangeByKey(store, ns, 'node_id', FILTER_OP_EQUAL),
+        },
+        {
+          action: ACTION_FILTER_SELECT,
+          id: 'filter-select-spider',
+          className: 'filter-select-spider',
+          label: t('views.tasks.navActionsExtra.filter.select.spider.label'),
+          optionsRemote: {
+            colName: 'spiders',
+          },
+          onChange: onListFilterChangeByKey(store, ns, 'spider_id', FILTER_OP_EQUAL),
+        },
+        {
+          action: ACTION_FILTER_SELECT,
+          id: 'filter-select-schedule',
+          className: 'filter-select-schedule',
+          label: t('views.tasks.navActionsExtra.filter.select.schedule.label'),
+          optionsRemote: {
+            colName: 'schedules',
+          },
+          onChange: onListFilterChangeByKey(store, ns, 'schedule_id', FILTER_OP_EQUAL),
+        },
+        {
+          action: ACTION_FILTER_SELECT,
+          id: 'filter-select-priority',
+          className: 'filter-select-priority',
+          label: t('views.tasks.navActionsExtra.filter.select.priority.label'),
+          options: priorityOptions,
+          onChange: onListFilterChangeByKey(store, ns, 'priority', FILTER_OP_EQUAL),
+        },
+        {
+          action: ACTION_FILTER_SEARCH,
+          id: 'filter-search-cmd',
+          className: 'search-cmd',
+          placeholder: t('views.tasks.navActionsExtra.filter.search.cmd.placeholder'),
+          onChange: onListFilterChangeByKey(store, ns, 'cmd', FILTER_OP_CONTAINS),
+        },
+        {
+          action: ACTION_FILTER_SELECT,
+          id: 'filter-select-status',
+          className: 'filter-select-status',
+          label: t('views.tasks.navActionsExtra.filter.select.status.label'),
+          options: getStatusOptions(),
+          onChange: onListFilterChangeByKey(store, ns, 'status', FILTER_OP_EQUAL),
+        },
       ]
     }
   ]);
@@ -100,10 +178,6 @@ const useTaskList = () => {
   const {
     allListSelectOptions: allScheduleListSelectOptions,
   } = useSchedule(store);
-
-  const {
-    priorityOptions,
-  } = useTask(store);
 
   // table columns
   const tableColumns = computed<TableColumns<Task>>(() => [
@@ -203,13 +277,7 @@ const useTaskList = () => {
       },
       hasFilter: true,
       allowFilterItems: true,
-      filterItems: [
-        {label: t('components.task.status.label.pending'), value: TASK_STATUS_PENDING},
-        {label: t('components.task.status.label.running'), value: TASK_STATUS_RUNNING},
-        {label: t('components.task.status.label.finished'), value: TASK_STATUS_FINISHED},
-        {label: t('components.task.status.label.error'), value: TASK_STATUS_ERROR},
-        {label: t('components.task.status.label.cancelled'), value: TASK_STATUS_CANCELLED},
-      ],
+      filterItems: getStatusOptions(),
     },
     {
       key: 'stat_create_ts',

@@ -11,4 +11,24 @@ interface LViewsSchedules {
     };
   };
   navActions: LNavActions;
+  navActionsExtra: {
+    filter: {
+      select: {
+        spider: {
+          label: string;
+        };
+        mode: {
+          label: string;
+        };
+        enabled: {
+          label: string;
+        };
+      };
+      search: {
+        cron: {
+          placeholder: string;
+        };
+      };
+    };
+  };
 }

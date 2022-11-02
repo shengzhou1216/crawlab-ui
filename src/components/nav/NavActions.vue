@@ -1,9 +1,9 @@
 <template>
   <div
-      ref="navActions"
-      :class="classes"
-      :style="style"
-      class="nav-actions"
+    ref="navActions"
+    :class="classes"
+    :style="style"
+    class="nav-actions"
   >
     <slot></slot>
   </div>
@@ -33,7 +33,7 @@ export default defineComponent({
 
     const style = computed(() => {
       return {
-        height: height.value,
+        // height: height.value,
         minHeight: height.value,
       };
     });
@@ -86,10 +86,11 @@ export default defineComponent({
   padding: 0 10px;
   min-height: 50px;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   height: fit-content;
   border-bottom: 1px solid $infoBorderColor;
   transition: all $navActionsCollapseTransitionDuration;
+  overflow-x: auto;
   overflow-y: hidden;
   box-sizing: border-box;
 

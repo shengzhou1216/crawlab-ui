@@ -6,7 +6,16 @@ import {ElMessage, ElMessageBox} from 'element-plus';
 import useClipboard from 'vue-clipboard3';
 import {translate} from '@/utils/i18n';
 import {sendEvent} from '@/admin/umeng';
-import {ACTION_ADD, ACTION_COPY, ACTION_DELETE, ACTION_VIEW} from '@/constants';
+import {
+  ACTION_ADD,
+  ACTION_COPY,
+  ACTION_DELETE,
+  ACTION_FILTER,
+  ACTION_FILTER_SEARCH,
+  ACTION_VIEW,
+  FILTER_OP_CONTAINS
+} from '@/constants';
+import {onListFilterChangeByKey} from '@/utils';
 
 // i18n
 const t = translate;
@@ -60,6 +69,19 @@ const useTokenList = () => {
             await store.dispatch(`${ns}/getList`);
           },
         }
+      ]
+    },
+    {
+      action: ACTION_FILTER,
+      name: 'filter',
+      children: [
+        {
+          action: ACTION_FILTER_SEARCH,
+          id: 'filter-search',
+          className: 'search',
+          placeholder: t('views.tokens.navActions.filter.search.placeholder'),
+          onChange: onListFilterChangeByKey(store, ns, 'name', FILTER_OP_CONTAINS),
+        },
       ]
     }
   ]);

@@ -24,6 +24,21 @@ const nodes: LViewsNodes = {
       }
     }
   },
+  navActionsExtra: {
+    filter: {
+      select: {
+        type: {
+          label: '节点类别'
+        },
+        status: {
+          label: '状态'
+        },
+        enabled: {
+          label: '是否启用'
+        },
+      }
+    }
+  },
   notice: {
     create: {
       title: '创建节点',

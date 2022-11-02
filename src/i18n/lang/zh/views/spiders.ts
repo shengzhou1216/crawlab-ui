@@ -26,7 +26,7 @@ const spiders: LViewsSpiders = {
     filter: {
       select: {
         project: {
-          label: '项目'
+          label: '项目',
         }
       }
     }

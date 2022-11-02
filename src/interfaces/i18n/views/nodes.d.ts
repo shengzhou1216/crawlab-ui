@@ -14,6 +14,21 @@ interface LViewsNodes {
     };
   };
   navActions: LNavActions;
+  navActionsExtra: {
+    filter: {
+      select: {
+        type: {
+          label: string;
+        };
+        status: {
+          label: string;
+        };
+        enabled: {
+          label: string;
+        };
+      };
+    };
+  };
   notice: {
     create: {
       title: string;

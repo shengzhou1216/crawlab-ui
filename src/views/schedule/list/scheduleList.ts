@@ -5,7 +5,7 @@ import {ElMessage} from 'element-plus';
 import useList from '@/layouts/content/list/list';
 import NavLink from '@/components/nav/NavLink.vue';
 import {useRouter} from 'vue-router';
-import {setupListComponent} from '@/utils/list';
+import {onListFilterChangeByKey, setupListComponent} from '@/utils/list';
 import TaskMode from '@/components/task/TaskMode.vue';
 import ScheduleCron from '@/components/schedule/ScheduleCron.vue';
 import Switch from '@/components/switch/Switch.vue';
@@ -13,7 +13,21 @@ import useSpider from '@/components/spider/spider';
 import useTask from '@/components/task/task';
 import {translate} from '@/utils/i18n';
 import {sendEvent} from '@/admin/umeng';
-import {ACTION_ADD, ACTION_DELETE, ACTION_ENABLE, ACTION_VIEW} from '@/constants';
+import {
+  ACTION_ADD,
+  ACTION_DELETE,
+  ACTION_ENABLE,
+  ACTION_FILTER,
+  ACTION_FILTER_SEARCH,
+  ACTION_FILTER_SELECT,
+  ACTION_VIEW,
+  FILTER_OP_CONTAINS,
+  FILTER_OP_EQUAL,
+  TASK_MODE_ALL_NODES,
+  TASK_MODE_RANDOM,
+  TASK_MODE_SELECTED_NODE_TAGS,
+  TASK_MODE_SELECTED_NODES
+} from '@/constants';
 import {isAllowedAction} from '@/utils';
 
 // i18n
@@ -69,6 +83,60 @@ const useScheduleList = () => {
             sendEvent('click_schedule_list_new');
           }
         }
+      ]
+    },
+    {
+      action: ACTION_FILTER,
+      name: 'filter',
+      children: [
+        {
+          action: ACTION_FILTER_SEARCH,
+          id: 'filter-search',
+          className: 'search',
+          placeholder: t('views.schedules.navActions.filter.search.placeholder'),
+          onChange: onListFilterChangeByKey(store, ns, 'name', FILTER_OP_CONTAINS),
+        },
+        {
+          action: ACTION_FILTER_SELECT,
+          id: 'filter-select-spider',
+          className: 'filter-select-spider',
+          label: t('views.schedules.navActionsExtra.filter.select.spider.label'),
+          optionsRemote: {
+            colName: 'spiders',
+          },
+          onChange: onListFilterChangeByKey(store, ns, 'spider_id', FILTER_OP_EQUAL),
+        },
+        {
+          action: ACTION_FILTER_SELECT,
+          id: 'filter-select-mode',
+          className: 'filter-select-mode',
+          label: t('views.schedules.navActionsExtra.filter.select.mode.label'),
+          options: [
+            {label: t('components.task.mode.label.randomNode'), value: TASK_MODE_RANDOM},
+            {label: t('components.task.mode.label.allNodes'), value: TASK_MODE_ALL_NODES},
+            {label: t('components.task.mode.label.selectedNodes'), value: TASK_MODE_SELECTED_NODES},
+            {label: t('components.task.mode.label.selectedTags'), value: TASK_MODE_SELECTED_NODE_TAGS},
+          ],
+          onChange: onListFilterChangeByKey(store, ns, 'mode', FILTER_OP_EQUAL),
+        },
+        {
+          action: ACTION_FILTER_SEARCH,
+          id: 'filter-search-cron',
+          className: 'search-cron',
+          placeholder: t('views.schedules.navActionsExtra.filter.search.cron.placeholder'),
+          onChange: onListFilterChangeByKey(store, ns, 'cron', FILTER_OP_CONTAINS),
+        },
+        {
+          action: ACTION_FILTER_SELECT,
+          id: 'filter-select-enabled',
+          className: 'filter-select-enabled',
+          label: t('views.schedules.navActionsExtra.filter.select.enabled.label'),
+          options: [
+            {label: t('common.control.enabled'), value: true},
+            {label: t('common.control.disabled'), value: false},
+          ],
+          onChange: onListFilterChangeByKey(store, ns, 'enabled', FILTER_OP_EQUAL),
+        },
       ]
     }
   ]);

@@ -4,11 +4,18 @@ import {useStore} from 'vuex';
 import useList from '@/layouts/content/list/list';
 import NavLink from '@/components/nav/NavLink.vue';
 import {useRouter} from 'vue-router';
-import TagList from '@/components/tag/TagList.vue';
 import {TAB_NAME_SPIDERS} from '@/constants/tab';
 import {translate} from '@/utils/i18n';
 import {sendEvent} from '@/admin/umeng';
-import {ACTION_ADD, ACTION_DELETE, ACTION_VIEW} from '@/constants';
+import {
+  ACTION_ADD,
+  ACTION_DELETE,
+  ACTION_FILTER,
+  ACTION_FILTER_SEARCH,
+  ACTION_VIEW,
+  FILTER_OP_CONTAINS
+} from '@/constants';
+import {onListFilterChangeByKey} from '@/utils';
 
 const useProjectList = () => {
   // router
@@ -51,7 +58,20 @@ const useProjectList = () => {
           }
         }
       ]
-    }
+    },
+    {
+      action: ACTION_FILTER,
+      name: 'filter',
+      children: [
+        {
+          action: ACTION_FILTER_SEARCH,
+          id: 'filter-search',
+          className: 'search',
+          placeholder: t('views.projects.navActions.filter.search.placeholder'),
+          onChange: onListFilterChangeByKey(store, ns, 'name', FILTER_OP_CONTAINS),
+        },
+      ]
+    },
   ]);
 
   // table columns

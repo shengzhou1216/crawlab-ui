@@ -106,6 +106,11 @@ const useUser = (store: Store<RootStoreState>) => {
     await ElMessage.success(t('common.message.success.save'));
   };
 
+  const rolesOptions: SelectOption[] = [
+    {label: t('components.user.role.admin'), value: ROLE_ADMIN},
+    {label: t('components.user.role.normal'), value: ROLE_NORMAL},
+  ];
+
   return {
     ...useForm('user', store, useUserService(store), formComponentData),
     modeOptions,
@@ -113,6 +118,7 @@ const useUser = (store: Store<RootStoreState>) => {
     formRules,
     allUserSelectOptions,
     onChangePasswordFunc,
+    rolesOptions,
   };
 };
 

@@ -32,8 +32,9 @@ export default defineComponent({
 
 .nav-action-item {
   margin: 10px 0;
-  height: auto;
+  height: fit-content;
   display: flex;
+  flex: 0 0 auto;
   align-items: center;
   color: $navActionsItemColor;
 

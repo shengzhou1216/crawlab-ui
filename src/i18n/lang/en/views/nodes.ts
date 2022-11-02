@@ -24,6 +24,21 @@ const nodes: LViewsNodes = {
       }
     }
   },
+  navActionsExtra: {
+    filter: {
+      select: {
+        type: {
+          label: 'Node Type'
+        },
+        status: {
+          label: 'Status'
+        },
+        enabled: {
+          label: 'Enabled'
+        },
+      }
+    }
+  },
   notice: {
     create: {
       title: 'Create Node',

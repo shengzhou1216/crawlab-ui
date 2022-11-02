@@ -4,8 +4,10 @@
       {{ label }}
     </label>
     <el-select
+      class="content"
       v-model="internalModelValue"
       :placeholder="placeholder"
+      :filterable="filterable"
       clearable
       @clear="onClear"
       @change="onChange"
@@ -38,6 +40,10 @@ export default defineComponent({
     placeholder: {
       type: String,
     },
+    filterable: {
+      type: Boolean,
+      default: true,
+    },
     options: {
       type: Array as PropType<SelectOption[]>,
     },
@@ -58,10 +64,12 @@ export default defineComponent({
     });
 
     const onChange = (value: any) => {
+      if (value === '') return;
       emit('change', value);
     };
 
     const onClear = () => {
+      internalModelValue.value = undefined;
       emit('change', undefined);
     };
 
@@ -90,4 +98,16 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.filter-select {
+  display: flex;
+  align-items: center;
+  flex: 1 0 auto;
+
+  .label {
+  }
+
+  .content {
+    flex: 1 0 180px;
+  }
+}
 </style>

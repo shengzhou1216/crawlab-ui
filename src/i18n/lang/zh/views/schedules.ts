@@ -20,6 +20,26 @@ const schedules: LViewsSchedules = {
         placeholder: '搜索定时任务',
       }
     }
+  },
+  navActionsExtra: {
+    filter: {
+      select: {
+        spider: {
+          label: '爬虫',
+        },
+        mode: {
+          label: '模式',
+        },
+        enabled: {
+          label: '是否启用',
+        }
+      },
+      search: {
+        cron: {
+          placeholder: '搜索 Cron 表达式',
+        }
+      }
+    }
   }
 };
 

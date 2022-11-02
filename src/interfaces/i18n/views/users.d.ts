@@ -7,4 +7,18 @@ interface LViewsUsers {
     };
   };
   navActions: LNavActions;
+  navActionsExtra: {
+    filter: {
+      select: {
+        role: {
+          label: string;
+        };
+      };
+      search: {
+        email: {
+          placeholder: string;
+        };
+      };
+    };
+  };
 }

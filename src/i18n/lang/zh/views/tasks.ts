@@ -28,6 +28,32 @@ const tasks: LViewsTasks = {
         placeholder: '搜索任务',
       }
     }
+  },
+  navActionsExtra: {
+    filter: {
+      select: {
+        node: {
+          label: '节点',
+        },
+        spider: {
+          label: '爬虫',
+        },
+        schedule: {
+          label: '定时任务',
+        },
+        priority: {
+          label: '优先级',
+        },
+        status: {
+          label: '状态',
+        }
+      },
+      search: {
+        cmd: {
+          placeholder: '搜索执行命令',
+        }
+      }
+    },
   }
 };
 
