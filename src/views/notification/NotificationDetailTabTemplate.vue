@@ -14,7 +14,6 @@
 import {defineComponent, onMounted, onBeforeUnmount, ref} from 'vue';
 import {translate} from '@/utils';
 import 'simplemde/dist/simplemde.min.js';
-import 'simplemde/dist/simplemde.min.css';
 
 const t = translate;
 
