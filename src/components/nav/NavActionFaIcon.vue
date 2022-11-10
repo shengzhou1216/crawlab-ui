@@ -29,5 +29,8 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+.nav-action-fa-icon {
+  height: 32px;
+}
 </style>
