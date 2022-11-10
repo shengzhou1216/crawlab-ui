@@ -5,7 +5,7 @@ import useList from '@/layouts/content/list/list';
 import NavLink from '@/components/nav/NavLink.vue';
 import {useRouter} from 'vue-router';
 import UserRole from '@/components/user/UserRole.vue';
-import {ROLE_ADMIN, ROLE_NORMAL, USERNAME_ADMIN} from '@/constants/user';
+import {USERNAME_ADMIN} from '@/constants/user';
 import {translate} from '@/utils/i18n';
 import {sendEvent} from '@/admin/umeng';
 import {
