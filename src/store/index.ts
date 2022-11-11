@@ -13,6 +13,7 @@ import user from '@/store/modules/user';
 import token from '@/store/modules/token';
 import plugin from '@/store/modules/plugin';
 import git from '@/store/modules/git';
+import notification from '@/store/modules/notification';
 
 let _store: Store<RootStoreState>;
 
@@ -33,6 +34,7 @@ export const createStore = (): Store<RootStoreState> => {
       token,
       plugin,
       git,
+      notification,
     },
   });
 };

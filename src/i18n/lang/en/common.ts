@@ -82,6 +82,8 @@ const common: LCommon = {
     settings: 'Settings',
     logs: 'Logs',
     dependencies: 'Dependencies',
+    triggers: 'Triggers',
+    template: 'Template',
   },
   status: {
     unassigned: 'Unassigned',

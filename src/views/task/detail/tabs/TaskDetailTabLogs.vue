@@ -24,7 +24,6 @@ import {getCodemirrorEditor, initTheme} from '@/utils/codemirror';
 import {useStore} from 'vuex';
 
 // codemirror css
-import 'codemirror/lib/codemirror.css';
 import useTaskDetail from '@/views/task/detail/taskDetail';
 
 export default defineComponent({

@@ -95,6 +95,8 @@ export declare global {
       settings: string;
       logs: string;
       dependencies: string;
+      triggers: string;
+      template: string;
     };
     status: {
       unassigned: string;

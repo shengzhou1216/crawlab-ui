@@ -16,6 +16,7 @@ export declare global {
     token: TokenStoreState;
     plugin: PluginStoreState;
     git: GitStoreState;
+    notification: NotificationStoreState;
   }
 
   type StoreGetter<S, T, R = RootStoreState> = (state: S, getters: GetterTree<S, R>, rootState: R, rootGetters: any) => T;
@@ -139,7 +140,8 @@ export declare global {
     | 'user'
     | 'token'
     | 'plugin'
-    | 'git';
+    | 'git'
+    | 'notification';
   type ListStoreNamespace =
     'node'
     | 'project'
@@ -151,7 +153,8 @@ export declare global {
     | 'user'
     | 'token'
     | 'plugin'
-    | 'git';
+    | 'git'
+    | 'notification';
 
   interface StoreContext<T, R = RootStoreState> {
     namespace: StoreNamespace;

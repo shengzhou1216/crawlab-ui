@@ -82,6 +82,8 @@ const common: LCommon = {
     settings: '设置',
     logs: '日志',
     dependencies: '依赖',
+    triggers: '触发',
+    template: '模板',
   },
   status: {
     unassigned: '未指定',

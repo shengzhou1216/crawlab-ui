@@ -27,7 +27,7 @@
 import {defineComponent} from 'vue';
 import CreateSpiderDialog from '@/components/spider/CreateEditSpiderDialog.vue';
 import ClListLayout from '@/layouts/content/list/ListLayout.vue';
-import useSpiderList from '@/views/spider/list/spiderList';
+import useSpiderList from '@/views/spider/list/useSpiderList';
 import RunSpiderDialog from '@/components/spider/RunSpiderDialog.vue';
 import UploadSpiderFilesDialog from '@/components/spider/UploadSpiderFilesDialog.vue';
 

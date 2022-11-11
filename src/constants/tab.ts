@@ -8,3 +8,5 @@ export const TAB_NAME_SPIDERS = 'spiders';
 export const TAB_NAME_DATA = 'data';
 export const TAB_NAME_SCHEDULES = 'schedules';
 export const TAB_NAME_DEPENDENCIES = 'dependencies';
+export const TAB_NAME_TRIGGERS = 'triggers';
+export const TAB_NAME_TEMPLATE = 'template';

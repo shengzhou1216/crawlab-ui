@@ -1,6 +1,6 @@
 <template>
   <ClListLayout
-    class="project-list"
+    class="notification-list"
     :action-functions="actionFunctions"
     :nav-actions="navActions"
     :table-pagination="tablePagination"
@@ -10,7 +10,7 @@
   >
     <template #extra>
       <!-- Dialogs (handled by store) -->
-      <CreateEditProjectDialog/>
+      <CreateEditNotificationDialog/>
       <!-- ./Dialogs -->
     </template>
   </ClListLayout>
@@ -19,14 +19,14 @@
 <script lang="ts">
 import {defineComponent} from 'vue';
 import ClListLayout from '@/layouts/content/list/ListLayout.vue';
-import useProjectList from './useProjectList';
-import CreateEditProjectDialog from '@/components/project/CreateEditProjectDialog.vue';
+import CreateEditNotificationDialog from '@/components/notification/CreateEditNotificationDialog.vue';
+import useNotificationList from '@/views/notification/list/useNotificationList';
 
 export default defineComponent({
-  name: 'ProjectList',
+  name: 'NotificationList',
   components: {
     ClListLayout,
-    CreateEditProjectDialog,
+    CreateEditNotificationDialog,
   },
   setup() {
     const {
@@ -35,8 +35,11 @@ export default defineComponent({
       tableData,
       tableTotal,
       tablePagination,
+      tableListFilter,
+      tableListSort,
       actionFunctions,
-    } = useProjectList();
+      activeDialogKey,
+    } = useNotificationList();
 
     return {
       navActions,
@@ -44,12 +47,15 @@ export default defineComponent({
       tableData,
       tableTotal,
       tablePagination,
+      tableListFilter,
+      tableListSort,
       actionFunctions,
+      activeDialogKey,
     };
   },
 });
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 
 </style>

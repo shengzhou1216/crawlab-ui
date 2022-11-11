@@ -6,32 +6,32 @@
       :placeholder="t('views.notification.settings.form.title')"
       @input="onTitleChange"
     />
-    <textarea :value="form.template" class="simple-mde" ref="simpleMDERef"/>
+    <div class="simple-mde">
+      <textarea :value="form.template" ref="simpleMDERef"/>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import {defineComponent, onMounted, onBeforeUnmount, ref} from 'vue';
+import {defineComponent, onMounted, onBeforeUnmount, ref, watch} from 'vue';
 import {translate} from '@/utils';
 import 'simplemde/dist/simplemde.min.js';
+import {useStore} from 'vuex';
+import useNotification from '@/components/notification/notification';
+import useNotificationDetail from '@/views/notification/detail/useNotificationDetail';
 
 const t = translate;
 
 export default defineComponent({
   name: 'NotificationDetailTabTemplate',
-  props: {
-    form: {
-      type: Object,
-      default: () => {
-        return {};
-      },
-    },
-  },
-  emits: [
-    'template-change',
-    'title-change',
-  ],
-  setup(props, {emit}) {
+  setup() {
+    // store
+    const ns = 'notification';
+    const store = useStore();
+    const {
+      form,
+    } = useNotification(store);
+
     const simpleMDERef = ref();
 
     const simpleMDE = ref();
@@ -45,10 +45,10 @@ export default defineComponent({
         placeholder: t('views.notification.settings.form.templateContent'),
       });
       simpleMDE.value.codemirror.on('change', () => {
-        emit('template-change', simpleMDE.value.value());
+        store.commit(`${ns}/setTemplateContent`, simpleMDE.value.value());
       });
 
-      const {title} = props.form;
+      const {title} = form.value;
       internalTitle.value = title;
 
       const codeMirrorEl = document.querySelector('.CodeMirror');
@@ -61,11 +61,23 @@ export default defineComponent({
       simpleMDE.value = null;
     });
 
-    const onTitleChange = (value: string) => {
-      emit('title-change', value);
+    watch(() => form.value.template, (template) => {
+      if (simpleMDE.value) {
+        simpleMDE.value.value(template);
+      }
+    });
+
+    watch(() => form.value.title, (title) => {
+      internalTitle.value = title;
+    });
+
+    const onTitleChange = (title: string) => {
+      store.commit(`${ns}/setTemplateTitle`, title);
     };
 
     return {
+      ...useNotificationDetail(),
+      form,
       simpleMDERef,
       internalTitle,
       onTitleChange,

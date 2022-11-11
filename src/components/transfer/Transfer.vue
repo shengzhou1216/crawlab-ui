@@ -1,19 +1,19 @@
 <template>
   <div class="transfer">
     <TransferPanel
-        :checked="leftChecked"
-        :data="leftData"
-        :title="titles[0]"
-        class="transfer-panel-left"
-        @check="onLeftCheck"
-        @drag="onLeftDrag"
+      :checked="leftChecked"
+      :data="leftData"
+      :title="titles[0]"
+      class="transfer-panel-left"
+      @check="onLeftCheck"
+      @drag="onLeftDrag"
     />
     <div class="actions">
       <Button
-          :disabled="leftDisabled"
-          :tooltip="leftTooltip || t('components.transfer.moveToLeft')"
-          size="large"
-          @click="onLeftMove"
+        :disabled="leftDisabled"
+        :tooltip="leftTooltip || t('components.transfer.moveToLeft')"
+        size="large"
+        @click="onLeftMove"
       >
         <div class="btn-content">
           <font-awesome-icon :icon="['fa', 'angle-left']" style="margin-right: 5px"/>
@@ -21,10 +21,10 @@
         </div>
       </Button>
       <Button
-          :disabled="rightDisabled"
-          :tooltip="rightTooltip || t('components.transfer.moveToLeft')"
-          size="large"
-          @click="onRightMove"
+        :disabled="rightDisabled"
+        :tooltip="rightTooltip || t('components.transfer.moveToLeft')"
+        size="large"
+        @click="onRightMove"
       >
         <div class="btn-content">
           {{ buttonTexts[1] }}
@@ -33,12 +33,12 @@
       </Button>
     </div>
     <TransferPanel
-        :checked="rightChecked"
-        :data="rightData"
-        :title="titles[1]"
-        class="transfer-panel-right"
-        @check="onRightCheck"
-        @drag="onRightDrag"
+      :checked="rightChecked"
+      :data="rightData"
+      :title="titles[1]"
+      class="transfer-panel-right"
+      @check="onRightCheck"
+      @drag="onRightDrag"
     />
   </div>
 </template>

@@ -136,9 +136,6 @@ import {getCodemirrorEditor, getCodeMirrorTemplate, initTheme} from '@/utils/cod
 import variables from '@/styles/variables.scss';
 import {FILE_ROOT} from '@/constants/file';
 
-// codemirror css
-import 'codemirror/lib/codemirror.css';
-
 // codemirror mode
 import 'codemirror/mode/meta';
 

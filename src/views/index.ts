@@ -16,7 +16,7 @@ import ProjectDetail from './project/detail/ProjectDetail.vue';
 import ProjectDetailTabOverview from './project/detail/tabs/ProjectDetailTabOverview.vue';
 import ProjectDetailTabSpiders from './project/detail/tabs/ProjectDetailTabSpiders.vue';
 import ProjectList from './project/list/ProjectList.vue';
-import projectList from './project/list/projectList';
+import projectList from './project/list/useProjectList';
 import ScheduleDetail from './schedule/detail/ScheduleDetail.vue';
 import scheduleDetail from './schedule/detail/scheduleDetail';
 import ScheduleDetailTabOverview from './schedule/detail/tabs/ScheduleDetailTabOverview.vue';
@@ -41,7 +41,7 @@ import SpiderDetailTabGitLogs from './spider/detail/tabs/git/SpiderDetailTabGitL
 import SpiderDetailTabGitReferences from './spider/detail/tabs/git/SpiderDetailTabGitReferences.vue';
 import SpiderDetailTabGitRemote from './spider/detail/tabs/git/SpiderDetailTabGitRemote.vue';
 import SpiderList from './spider/list/SpiderList.vue';
-import spiderList from './spider/list/spiderList';
+import useSpiderList from './spider/list/useSpiderList';
 import TagDetail from './tag/detail/TagDetail.vue';
 import TagDetailTabOverview from './tag/detail/tabs/TagDetailTabOverview.vue';
 import TagList from './tag/list/TagList.vue';
@@ -107,7 +107,7 @@ export {
   SpiderDetailTabGitReferences as ClSpiderDetailTabGitReferences,
   SpiderDetailTabGitRemote as ClSpiderDetailTabGitRemote,
   SpiderList as ClSpiderList,
-  spiderList as spiderList,
+  useSpiderList as useSpiderList,
   TagDetail as ClTagDetail,
   TagDetailTabOverview as ClTagDetailTabOverview,
   TagList as ClTagList,
