@@ -22,7 +22,8 @@ export default defineComponent({
 .nav-action-group {
   height: fit-content;
   display: flex;
-  align-items: start;
+  // fix: (86:3) start value has mixed support, consider using flex-start instead
+  align-items: flex-start;
   box-sizing: border-box;
   flex-wrap: wrap;
   position: relative;
